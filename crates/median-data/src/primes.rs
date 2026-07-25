@@ -92,7 +92,12 @@ mod tests {
             "Pistols",
             false,
         ));
-        graph.insert(item("/Weapons/Tenno/Pistol/LexPrime", "Lex Prime", "Pistols", true));
+        graph.insert(item(
+            "/Weapons/Tenno/Pistol/LexPrime",
+            "Lex Prime",
+            "Pistols",
+            true,
+        ));
         assert_eq!(link(&mut graph), 1);
 
         let out = graph.from("/Weapons/Tenno/Pistol/HeavyPistol");

@@ -56,7 +56,11 @@ pub fn check(graph: &Graph, anchors: &Anchors) -> Vec<Finding> {
 
 fn check_item(graph: &Graph, want: &Item, out: &mut Vec<Finding>) {
     let Some(Node::Item(got)) = graph.get(&want.path) else {
-        out.push(fail(&want.path, "anchored item is not in the catalog", want.note.as_deref()));
+        out.push(fail(
+            &want.path,
+            "anchored item is not in the catalog",
+            want.note.as_deref(),
+        ));
         return;
     };
 

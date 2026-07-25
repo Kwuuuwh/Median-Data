@@ -23,9 +23,8 @@ impl Projection for Search {
 
     fn db(&self, tx: &Transaction<'_>, ctx: &Context<'_>) -> Result<Option<Summary>> {
         tx.execute_batch(SETUP)?;
-        let mut insert = tx.prepare(
-            "INSERT INTO search (unique_name, name_en, name_ru) VALUES (?1, ?2, ?3)",
-        )?;
+        let mut insert =
+            tx.prepare("INSERT INTO search (unique_name, name_en, name_ru) VALUES (?1, ?2, ?3)")?;
 
         let mut rows = 0;
         for item in ctx.graph.items() {

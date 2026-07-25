@@ -258,7 +258,10 @@ mod tests {
             quantity("Squad Health Restore (Large) x 100"),
             (Some(100), "Squad Health Restore (Large)")
         );
-        assert_eq!(quantity("Dark Split-Sword (Dual Swords)"), (None, "Dark Split-Sword (Dual Swords)"));
+        assert_eq!(
+            quantity("Dark Split-Sword (Dual Swords)"),
+            (None, "Dark Split-Sword (Dual Swords)")
+        );
     }
 
     #[test]
@@ -267,7 +270,10 @@ mod tests {
             quantity("10 x Ki'Teer Fireworks"),
             (Some(10), "Ki'Teer Fireworks")
         );
-        assert_eq!(quantity("3 Day Affinity Booster"), (None, "3 Day Affinity Booster"));
+        assert_eq!(
+            quantity("3 Day Affinity Booster"),
+            (None, "3 Day Affinity Booster")
+        );
     }
 
     #[test]

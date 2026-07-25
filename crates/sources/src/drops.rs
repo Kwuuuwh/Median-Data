@@ -68,8 +68,12 @@ fn layout(section: &str) -> Option<Layout> {
         "missionRewards" | "keyRewards" | "transientRewards" | "sortieRewards" => Layout::Place,
         "cetusRewards" | "solarisRewards" | "deimosRewards" | "zarimanRewards"
         | "entratiLabRewards" | "hexRewards" => Layout::Bounty,
-        "modByAvatar" | "blueprintByAvatar" | "resourceByAvatar" | "sigilByAvatar"
-        | "additionalItemByAvatar" | "relicByAvatar" => Layout::ByAvatar,
+        "modByAvatar"
+        | "blueprintByAvatar"
+        | "resourceByAvatar"
+        | "sigilByAvatar"
+        | "additionalItemByAvatar"
+        | "relicByAvatar" => Layout::ByAvatar,
         "modByDrop" | "blueprintByDrop" | "resourceByDrop" => Layout::ByDrop,
         _ => return None,
     })

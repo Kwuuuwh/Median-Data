@@ -110,7 +110,10 @@ mod tests {
     #[test]
     fn a_recipe_key_is_named_after_what_it_builds() {
         let de = vec![item("/Powersuits/VoltPrime", "Volt Prime")];
-        let recipes = vec![recipe("/Recipes/VoltPrimeBlueprint", "/Powersuits/VoltPrime")];
+        let recipes = vec![recipe(
+            "/Recipes/VoltPrimeBlueprint",
+            "/Powersuits/VoltPrime",
+        )];
         let paths = Paths::build(&de, &recipes);
         assert_eq!(
             paths.one("Volt Prime Blueprint"),

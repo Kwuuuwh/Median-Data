@@ -81,7 +81,8 @@ fn stores_of(
             [only] => only.name.clone(),
             _ => page.clone(),
         };
-        let currencies: BTreeSet<&str> = group.iter().filter_map(|s| s.currency.as_deref()).collect();
+        let currencies: BTreeSet<&str> =
+            group.iter().filter_map(|s| s.currency.as_deref()).collect();
         if graph.insert(Node::Vendor(Vendor {
             key: key.clone(),
             name: name.clone(),

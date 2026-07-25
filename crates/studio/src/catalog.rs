@@ -250,9 +250,7 @@ fn keeps(snap: &Snapshot, filter: &Filter, item: &Item) -> bool {
     if !filter.kind.is_empty() && item.kind.value.as_str() != filter.kind {
         return false;
     }
-    if !filter.class.is_empty()
-        && snap.taxonomy.class_slug(&item.kind.value) != filter.class
-    {
+    if !filter.class.is_empty() && snap.taxonomy.class_slug(&item.kind.value) != filter.class {
         return false;
     }
     match filter.only.as_str() {
@@ -270,7 +268,12 @@ fn keeps(snap: &Snapshot, filter: &Filter, item: &Item) -> bool {
 
 /// What the filter box searches: both names and the path.
 fn text(item: &Item) -> String {
-    let ru = item.names.ru.as_ref().map(|r| r.value.as_str()).unwrap_or("");
+    let ru = item
+        .names
+        .ru
+        .as_ref()
+        .map(|r| r.value.as_str())
+        .unwrap_or("");
     format!("{} {} {}", item.names.en.value, ru, item.unique_name)
 }
 

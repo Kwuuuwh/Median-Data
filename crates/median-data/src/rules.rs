@@ -139,7 +139,6 @@ mod tests {
         assert!(!built.contains("/M/AlloyPlate"));
     }
 
-
     #[test]
     fn relic_grade_maps_to_refinement() {
         let gold = relic("/Lotus/Types/Game/Projections/T2VoidProjectionNGold").unwrap();
@@ -153,5 +152,4 @@ mod tests {
         let plain = relic("/Lotus/Types/Game/Projections/Oddity").unwrap();
         assert_eq!(plain.refinement, "intact");
     }
-
 }

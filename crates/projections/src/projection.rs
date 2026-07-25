@@ -17,6 +17,8 @@ pub struct Context<'a> {
     pub scope: &'a Scope,
     pub report: &'a Report,
     pub conflicts: &'a [Conflict],
+    /// What this build is: its version, its schema, and which pinned snapshots it came from.
+    pub meta: &'a [(String, String)],
     /// Directory the file artifacts go to.
     pub out: &'a Path,
     /// Pinned icon bytes, when a run has fetched them.

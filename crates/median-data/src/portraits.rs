@@ -6,7 +6,9 @@ use sources::wiki::{self, File};
 /// Endings the wiki gives a subject's own picture. Anything else on the page belongs to
 /// something else — a floof, a token, a mod card — so a name that does not end this way is
 /// left alone rather than guessed at.
-const ENDINGS: [&str; 8] = ["", "1sh", "portrait", "icon", "sigil", "logo", "flag", "promo"];
+const ENDINGS: [&str; 8] = [
+    "", "1sh", "portrait", "icon", "sigil", "logo", "flag", "promo",
+];
 
 /// The picture chosen for one vendor.
 pub struct Portrait {
@@ -66,7 +68,11 @@ fn pick(page: &str, files: &[File]) -> Option<File> {
     let subject = fold(page);
     let mut best: Option<(usize, &File)> = None;
     for file in files {
-        let stem = fold(file.name.rsplit_once('.').map_or(file.name.as_str(), |(s, _)| s));
+        let stem = fold(
+            file.name
+                .rsplit_once('.')
+                .map_or(file.name.as_str(), |(s, _)| s),
+        );
         let Some(tail) = stem.strip_prefix(&subject) else {
             continue;
         };
@@ -110,7 +116,10 @@ mod tests {
     #[test]
     fn an_emblem_answers_when_there_is_no_portrait() {
         let files = [file("CephalonSudaSigil.png"), file("CephalonSudaFlag.png")];
-        assert_eq!(pick("Cephalon Suda", &files).unwrap().name, "CephalonSudaSigil.png");
+        assert_eq!(
+            pick("Cephalon Suda", &files).unwrap().name,
+            "CephalonSudaSigil.png"
+        );
     }
 
     #[test]
@@ -122,6 +131,9 @@ mod tests {
     #[test]
     fn spacing_and_punctuation_do_not_hide_a_match() {
         let files = [file("Fisher Hai-Luk 1SH.png")];
-        assert_eq!(pick("Fisher Hai-Luk", &files).unwrap().name, "Fisher Hai-Luk 1SH.png");
+        assert_eq!(
+            pick("Fisher Hai-Luk", &files).unwrap().name,
+            "Fisher Hai-Luk 1SH.png"
+        );
     }
 }

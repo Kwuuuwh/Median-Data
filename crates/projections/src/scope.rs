@@ -95,11 +95,8 @@ pub fn apply(graph: &Graph, policy: &Policy) -> Scope {
                     .path_contains
                     .iter()
                     .any(|p| item.unique_name.contains(p))
-                || rule.name_equals.iter().any(|n| *n == item.names.en.value)
-                || rule
-                    .category_equals
-                    .iter()
-                    .any(|c| *c == item.category.value)
+                || rule.name_equals.contains(&item.names.en.value)
+                || rule.category_equals.contains(&item.category.value)
         });
         match hit {
             Some(rule) => {

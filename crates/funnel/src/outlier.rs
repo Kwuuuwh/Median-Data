@@ -17,9 +17,17 @@ const MIN_GROUP: usize = 8;
 /// Flag values unlike their siblings, across every measured series.
 pub fn check(graph: &Graph) -> Vec<Finding> {
     let mut out = Vec::new();
-    out.extend(judge(&relic_rewards(graph), "relic-reward-count", "rewards"));
+    out.extend(judge(
+        &relic_rewards(graph),
+        "relic-reward-count",
+        "rewards",
+    ));
     out.extend(judge(&set_sizes(graph), "set-size", "parts"));
-    out.extend(judge(&ingredients(graph), "ingredient-count", "ingredients"));
+    out.extend(judge(
+        &ingredients(graph),
+        "ingredient-count",
+        "ingredients",
+    ));
     out.extend(judge(&ducats(graph), "ducat-value", "ducats"));
     out
 }
@@ -139,7 +147,7 @@ fn ducats(graph: &Graph) -> Vec<Sample> {
 }
 
 fn count(edges: Vec<&graph::Edge>, want: impl Fn(&graph::Edge) -> bool) -> f64 {
-    edges.into_iter().filter(|e| want(e)) .count() as f64
+    edges.into_iter().filter(|e| want(e)).count() as f64
 }
 
 #[cfg(test)]

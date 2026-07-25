@@ -71,7 +71,13 @@ pub fn render(graph: &Graph, id: &str) -> Markup {
         return html! {};
     }
 
-    let block = |n: usize| if n == 0 { 0.0 } else { n as f64 * H + (n - 1) as f64 * GY };
+    let block = |n: usize| {
+        if n == 0 {
+            0.0
+        } else {
+            n as f64 * H + (n - 1) as f64 * GY
+        }
+    };
     let max_block = block(left.len()).max(H).max(block(right.len()));
     let mid = PAD + max_block / 2.0;
     let total_h = max_block + 2.0 * PAD;
@@ -107,17 +113,21 @@ pub fn render(graph: &Graph, id: &str) -> Markup {
          {paths}</svg>"
     );
 
-    crate::page::card("Граф связей", None, html! {
-        .scroll {
-            .gwrap style=(format!("position:relative;width:{total_w:.0}px;height:{total_h:.0}px")) {
-                (PreEscaped(svg))
-                @for (i, n) in left.iter().enumerate() { (draw(n, left_x, cy(left.len(), i))) }
-                (centre(graph, id, center_x, mid))
-                @for (j, n) in right.iter().enumerate() { (draw(n, right_x, cy(right.len(), j))) }
+    crate::page::card(
+        "Граф связей",
+        None,
+        html! {
+            .scroll {
+                .gwrap style=(format!("position:relative;width:{total_w:.0}px;height:{total_h:.0}px")) {
+                    (PreEscaped(svg))
+                    @for (i, n) in left.iter().enumerate() { (draw(n, left_x, cy(left.len(), i))) }
+                    (centre(graph, id, center_x, mid))
+                    @for (j, n) in right.iter().enumerate() { (draw(n, right_x, cy(right.len(), j))) }
+                }
             }
-        }
-        p.note { "Открытый предмет выделен. Любой узел кликабелен — переход к нему." }
-    })
+            p.note { "Открытый предмет выделен. Любой узел кликабелен — переход к нему." }
+        },
+    )
 }
 
 /// Record a neighbour once, skipping the opened item itself and anything already listed.
@@ -204,7 +214,10 @@ fn produces<'a>(graph: &'a Graph, recipe: &str) -> Option<&'a str> {
 
 /// A node's Russian display name, falling back to English, then the last path segment.
 fn disp<'a>(graph: &'a Graph, id: &'a str) -> &'a str {
-    let ru = |n: &'a graph::Names| n.ru.as_ref().map_or(n.en.value.as_str(), |r| r.value.as_str());
+    let ru = |n: &'a graph::Names| {
+        n.ru.as_ref()
+            .map_or(n.en.value.as_str(), |r| r.value.as_str())
+    };
     match graph.get(id) {
         Some(Node::Item(i)) => ru(&i.names),
         Some(Node::Set(s)) => ru(&s.names),

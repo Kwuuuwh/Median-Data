@@ -165,7 +165,12 @@ fn labs(snap: &Snapshot) -> Vec<Row> {
     snap.graph
         .nodes()
         .filter_map(|n| match n {
-            Node::Lab(l) => Some(Row::new(&l.key, &l.name, l.name_ru.as_deref(), l.faction.clone())),
+            Node::Lab(l) => Some(Row::new(
+                &l.key,
+                &l.name,
+                l.name_ru.as_deref(),
+                l.faction.clone(),
+            )),
             _ => None,
         })
         .collect()
@@ -223,9 +228,19 @@ fn bounties(snap: &Snapshot, target: &str) -> Vec<Row> {
 fn kinds(snap: &Snapshot) -> Vec<Row> {
     let mut out = Vec::new();
     for class in snap.taxonomy.classes() {
-        out.push(Row::new(&class.slug, &class.en, Some(&class.ru), "класс".into()));
+        out.push(Row::new(
+            &class.slug,
+            &class.en,
+            Some(&class.ru),
+            "класс".into(),
+        ));
         for leaf in &class.kind {
-            out.push(Row::new(&leaf.slug, &leaf.en, Some(&leaf.ru), class.ru.clone()));
+            out.push(Row::new(
+                &leaf.slug,
+                &leaf.en,
+                Some(&leaf.ru),
+                class.ru.clone(),
+            ));
         }
     }
     out

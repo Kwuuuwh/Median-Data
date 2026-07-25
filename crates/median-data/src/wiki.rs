@@ -280,7 +280,12 @@ fn read_rows(list: &Table, rotation: Option<&str>) -> Vec<Row> {
             let name = row.items.first()?.str()?;
             Some(Row {
                 name: name.to_string(),
-                kind: row.items.get(1).and_then(|v| v.str()).unwrap_or_default().to_string(),
+                kind: row
+                    .items
+                    .get(1)
+                    .and_then(|v| v.str())
+                    .unwrap_or_default()
+                    .to_string(),
                 chance: row.items.get(2).and_then(|v| v.num()).unwrap_or(0.0),
                 rotation: rotation.map(str::to_string),
             })

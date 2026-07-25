@@ -195,8 +195,18 @@ mod tests {
     #[test]
     fn a_cost_walks_down_to_what_nothing_makes() {
         let mut g = Graph::new();
-        recipe(&mut g, "/bp/frame", "/frame", &[("/chassis", 1), ("/cell", 3)]);
-        recipe(&mut g, "/bp/chassis", "/chassis", &[("/cell", 2), ("/plate", 5)]);
+        recipe(
+            &mut g,
+            "/bp/frame",
+            "/frame",
+            &[("/chassis", 1), ("/cell", 3)],
+        );
+        recipe(
+            &mut g,
+            "/bp/chassis",
+            "/chassis",
+            &[("/cell", 2), ("/plate", 5)],
+        );
         let cost = rollup(&g, "/frame");
         // 3 cells directly plus 2 inside the chassis
         assert_eq!(cost.get("/cell"), Some(&5));
@@ -230,7 +240,11 @@ mod tests {
         });
         let cost = rollup(&g, "/frame");
         assert_eq!(cost.get("/cell"), Some(&2));
-        assert_eq!(cost.get("/spores"), None, "a farmed resource is a base material");
+        assert_eq!(
+            cost.get("/spores"),
+            None,
+            "a farmed resource is a base material"
+        );
     }
 
     #[test]

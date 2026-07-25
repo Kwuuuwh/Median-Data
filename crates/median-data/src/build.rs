@@ -7,7 +7,18 @@ use vault::{BlobId, Snapshot, Vault};
 
 use crate::assemble::{self, Built, Input};
 use crate::curation::Curation;
-use crate::{bounties, extract, regions, spec, taxonomy, wiki};
+use crate::{bounties, extract, regions, spec, taxonomy, version, wiki};
+
+/// Sources whose pinned snapshot the catalog records, so a build can name what it read.
+const SOURCES: [&str; 7] = [
+    spec::DE,
+    spec::WFM,
+    spec::DROPS,
+    spec::WIKI,
+    spec::ICONS,
+    spec::WFM_ICONS,
+    spec::PORTRAITS,
+];
 
 /// Where the build's own artifacts live, beside the catalog.
 const REPORT: &str = "catalog.report.json";
@@ -108,7 +119,7 @@ pub fn run(vault: &Vault, out: &Path) -> Result<()> {
         );
     }
 
-    project(vault, out, &built, &report)?;
+    project(vault, out, &built, &report, &state)?;
     std::fs::write(STATE, serde_json::to_vec_pretty(&state)?)?;
     Ok(())
 }
@@ -199,9 +210,10 @@ pub fn judge(vault: &Vault, built: &Built, curated: &Curation) -> Result<(Report
     let previous = std::fs::read(STATE)
         .ok()
         .and_then(|raw| serde_json::from_slice::<State>(&raw).ok());
+    let was = previous.as_ref().and_then(|s| s.version.clone());
     let _ = vault;
 
-    Ok(funnel::run(
+    let (report, mut state) = funnel::run(
         &built.graph,
         funnel::Input {
             totals: Totals {
@@ -243,21 +255,43 @@ pub fn judge(vault: &Vault, built: &Built, curated: &Curation) -> Result<(Report
                 .collect(),
             previous,
         },
-    ))
+    );
+    state.version = Some(version::next(
+        projections::SCHEMA,
+        was.as_deref(),
+        report.diff.as_ref(),
+    ));
+    Ok((report, state))
+}
+
+/// What this build is, for the `meta` table: the version it carries and the pinned snapshot
+/// every source came from, so a catalog can always say what it was made of.
+fn stamps(vault: &Vault, state: &State) -> Vec<(String, String)> {
+    let mut out = vec![(
+        "version".to_string(),
+        state.version.clone().unwrap_or_default(),
+    )];
+    if let Ok(de) = vault.latest(spec::DE) {
+        out.push(("fetched_ms".to_string(), de.created_ms.to_string()));
+    }
+    for source in SOURCES {
+        if let Ok(snap) = vault.latest(source) {
+            out.push((format!("source.{source}"), snap.id.clone()));
+        }
+    }
+    out
 }
 
 /// Render every artifact from the assembled graph.
-fn project(vault: &Vault, out: &Path, built: &Built, report: &Report) -> Result<()> {
+fn project(vault: &Vault, out: &Path, built: &Built, report: &Report, state: &State) -> Result<()> {
     let textures = vault
         .latest(spec::DE)
         .and_then(|snap| blob(vault, &snap, spec::TEXTURES))
         .and_then(|raw| extract::de_textures(&raw))
         .unwrap_or_default();
     let cards = crate::icons::cards(&built.graph, &built.wfm, &textures);
-    let pinned = crate::icons::Pinned::open(
-        vault,
-        crate::icons::pictures(vault, &cards, &textures),
-    );
+    let pinned =
+        crate::icons::Pinned::open(vault, crate::icons::pictures(vault, &cards, &textures));
 
     let policy = projections::load(Path::new(crate::SCOPE))?;
     let scope = projections::apply(&built.graph, &policy);
@@ -281,6 +315,7 @@ fn project(vault: &Vault, out: &Path, built: &Built, report: &Report) -> Result<
             scope: &scope,
             report,
             conflicts: &built.conflicts,
+            meta: &stamps(vault, state),
             out: out_dir.unwrap_or_else(|| Path::new(".")),
             icons: pinned.as_ref().map(|p| p as &dyn projections::IconSource),
         },

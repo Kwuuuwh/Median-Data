@@ -36,11 +36,9 @@ pub fn run(graph: &Graph, input: Input<'_>) -> (Report, State) {
     all.extend(coverage::check(graph, &input.gaps));
     all.extend(anchor::check(graph, input.anchors));
 
-    let (accepted, findings): (Vec<_>, Vec<_>) = all.into_iter().partition(|f| {
-        input
-            .accepted
-            .contains(&(f.rule.clone(), f.entity.clone()))
-    });
+    let (accepted, findings): (Vec<_>, Vec<_>) = all
+        .into_iter()
+        .partition(|f| input.accepted.contains(&(f.rule.clone(), f.entity.clone())));
 
     let state = diff::snapshot(graph, &findings);
     let changed = input.previous.map(|before| diff::compare(&before, &state));

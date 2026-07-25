@@ -24,8 +24,7 @@ fn all() -> Vec<Box<dyn Projection>> {
 
 const PRAGMA: &str = "\
 PRAGMA page_size=4096;
-PRAGMA journal_mode=OFF;
-PRAGMA user_version=3;";
+PRAGMA journal_mode=OFF;";
 
 /// Render every projection from one graph. The database is built fresh so a build never
 /// inherits anything from the last one.
@@ -35,6 +34,7 @@ pub fn run(db_path: &Path, ctx: &Context<'_>) -> Result<Vec<Summary>> {
     }
     let mut conn = Connection::open(db_path)?;
     conn.execute_batch(PRAGMA)?;
+    conn.execute_batch(&format!("PRAGMA user_version={};", crate::SCHEMA))?;
 
     let mut summaries = Vec::new();
     let projections = all();

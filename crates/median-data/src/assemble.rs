@@ -109,14 +109,17 @@ pub fn assemble(
     let economy = rules::void_economy(&input.rewards, &input.recipes);
 
     let mut conflicts = Vec::new();
+    let facts = merge::Facts {
+        built: &built,
+        economy: &economy,
+        taxonomy: &taxonomy,
+    };
     let items = merge::items(
         input.de,
         &input.ru,
         &bridge,
         curated,
-        &built,
-        &economy,
-        &taxonomy,
+        &facts,
         &mut conflicts,
     );
 
@@ -130,13 +133,15 @@ pub fn assemble(
         }
         graph.insert(Node::Item(item));
     }
+    let named = craft::Named {
+        en: &names,
+        ru: &ru_names,
+    };
     for item in craft::blueprints(
         &input.recipes,
         &bridge,
-        &names,
-        &ru_names,
-        &economy,
-        &taxonomy,
+        &named,
+        &facts,
         curated,
         &mut conflicts,
     ) {
@@ -178,7 +183,10 @@ pub fn assemble(
         crate::curation::VENDOR,
         &vendors.unresolved,
     ));
-    orphans.extend(crate::orphans::rows(crate::curation::DOJO, &dojo.unresolved));
+    orphans.extend(crate::orphans::rows(
+        crate::curation::DOJO,
+        &dojo.unresolved,
+    ));
 
     Built {
         conflicts,

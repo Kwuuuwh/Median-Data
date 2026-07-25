@@ -195,8 +195,11 @@ pub type Pictures = BTreeMap<String, BTreeMap<String, (String, Source)>>;
 
 /// Resolve every shipped item to the picture the vault holds for it, per language. The
 /// market's card wins where there is one, because DE only offered artwork there.
-pub fn pictures(vault: &Vault, cards: &BTreeMap<String, BTreeMap<String, String>>,
-                textures: &BTreeMap<String, String>) -> Pictures {
+pub fn pictures(
+    vault: &Vault,
+    cards: &BTreeMap<String, BTreeMap<String, String>>,
+    textures: &BTreeMap<String, String>,
+) -> Pictures {
     let de = pinned(vault, spec::ICONS);
     let assets = pinned(vault, spec::WFM_ICONS);
     let mut out: Pictures = BTreeMap::new();
@@ -225,7 +228,10 @@ pub fn pictures(vault: &Vault, cards: &BTreeMap<String, BTreeMap<String, String>
         }
         let slot = out.entry(item.clone()).or_default();
         for lang in graph::LANGS {
-            let blob = held.get(lang).copied().or_else(|| held.values().next().copied());
+            let blob = held
+                .get(lang)
+                .copied()
+                .or_else(|| held.values().next().copied());
             if let Some(blob) = blob {
                 slot.insert((*lang).to_string(), (blob.clone(), Source::Wfm));
             }

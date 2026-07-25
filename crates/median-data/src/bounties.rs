@@ -134,7 +134,9 @@ ru = "Гули"
     #[test]
     fn fills_settlement_giver_and_russian_label() {
         let s = settlements();
-        let b = s.read("cetusRewards", "Level 15 - 25 Ghoul Bounty").unwrap();
+        let b = s
+            .read("cetusRewards", "Level 15 - 25 Ghoul Bounty")
+            .unwrap();
         assert_eq!(b.settlement, "Cetus");
         assert_eq!(b.giver.as_deref(), Some("Konzu"));
         assert_eq!((b.min_level, b.max_level), (15, 25));

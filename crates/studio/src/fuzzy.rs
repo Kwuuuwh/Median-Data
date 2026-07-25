@@ -151,7 +151,11 @@ pub fn diff(name: &str, query: &str) -> Markup {
             marked.push(ch);
         } else {
             // Spacing belongs to whichever run it sits in.
-            if marked.is_empty() { out.push(ch) } else { marked.push(ch) }
+            if marked.is_empty() {
+                out.push(ch)
+            } else {
+                marked.push(ch)
+            }
         }
     }
     if !marked.is_empty() {
@@ -203,7 +207,10 @@ mod tests {
 
     #[test]
     fn an_exact_name_scores_full() {
-        assert_eq!(score(&fold("Quick Thinking"), &fold("quick  thinking")), 100);
+        assert_eq!(
+            score(&fold("Quick Thinking"), &fold("quick  thinking")),
+            100
+        );
     }
 
     #[test]

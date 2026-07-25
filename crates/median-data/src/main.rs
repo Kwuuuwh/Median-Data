@@ -16,8 +16,8 @@ mod extract;
 mod fetch;
 mod icons;
 mod imprints;
-mod labs;
 mod inspect;
+mod labs;
 mod merge;
 mod names;
 mod normalize;
@@ -34,6 +34,7 @@ mod spec;
 mod taxonomy;
 mod unmatched;
 mod vendors;
+mod version;
 mod wiki;
 mod witness;
 

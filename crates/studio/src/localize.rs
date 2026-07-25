@@ -52,7 +52,14 @@ pub fn render(snap: &Snapshot, filter: &Filter, q: &Query) -> Markup {
     let done = filter.done();
     let mut rows = terms::rows(snap, what);
     rows.retain(|r| r.ru.is_some() == done);
-    rows.retain(|r| q.matches(&format!("{} {} {}", r.en, r.ru.clone().unwrap_or_default(), r.key)));
+    rows.retain(|r| {
+        q.matches(&format!(
+            "{} {} {}",
+            r.en,
+            r.ru.clone().unwrap_or_default(),
+            r.key
+        ))
+    });
     let page = q.page(rows);
     let hidden = filter.hidden();
 

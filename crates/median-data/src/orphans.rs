@@ -54,9 +54,9 @@ mod tests {
     #[test]
     fn the_heaviest_orphan_comes_first() {
         let mut missing = Missing::new();
-        note(&mut missing, "Once", || String::new());
-        note(&mut missing, "Twice", || String::new());
-        note(&mut missing, "Twice", || String::new());
+        note(&mut missing, "Once", String::new);
+        note(&mut missing, "Twice", String::new);
+        note(&mut missing, "Twice", String::new);
         let rows = rows("drops", &missing);
         assert_eq!(rows[0].name, "Twice");
         assert_eq!(rows[0].source, "drops");

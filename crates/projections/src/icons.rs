@@ -103,7 +103,12 @@ impl Projection for Icons {
                 continue;
             }
             linked += 1;
-            if ids.values().collect::<std::collections::BTreeSet<_>>().len() > 1 {
+            if ids
+                .values()
+                .collect::<std::collections::BTreeSet<_>>()
+                .len()
+                > 1
+            {
                 split += 1;
             }
         }
@@ -114,7 +119,9 @@ impl Projection for Icons {
             tx.prepare("INSERT INTO vendor_icons (vendor, image_id) VALUES (?1, ?2)")?;
         let mut vendors = 0;
         for node in ctx.graph.nodes() {
-            let graph::Node::Vendor(v) = node else { continue };
+            let graph::Node::Vendor(v) = node else {
+                continue;
+            };
             let Some(bytes) = source.bytes(&node.id(), "ru") else {
                 continue;
             };
@@ -191,4 +198,3 @@ fn convert(bytes: &[u8]) -> Result<Vec<u8>> {
         .context("encode webp")?;
     Ok(out)
 }
-

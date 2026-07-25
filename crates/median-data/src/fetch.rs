@@ -34,7 +34,10 @@ fn fetch_wiki(vault: &Vault, now_ms: i64) -> Result<()> {
         fetched.push((logical, blob, bytes.len() as u64));
     }
 
-    let joined: Vec<String> = fetched.iter().map(|(_, blob, _)| blob.to_string()).collect();
+    let joined: Vec<String> = fetched
+        .iter()
+        .map(|(_, blob, _)| blob.to_string())
+        .collect();
     let id = format!(
         "wiki-{}",
         &blake3::hash(joined.join(".").as_bytes()).to_hex()[..16]

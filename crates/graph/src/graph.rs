@@ -33,7 +33,10 @@ impl Graph {
     /// Add a directed edge and index it on both endpoints.
     pub fn link(&mut self, edge: Edge) {
         let idx = self.edges.len();
-        self.outgoing.entry(edge.from.clone()).or_default().push(idx);
+        self.outgoing
+            .entry(edge.from.clone())
+            .or_default()
+            .push(idx);
         self.incoming.entry(edge.to.clone()).or_default().push(idx);
         self.edges.push(edge);
     }

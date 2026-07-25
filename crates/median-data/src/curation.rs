@@ -342,7 +342,10 @@ mod tests {
         let mut c = Curation::default();
         c.set_term("place", "Earth/Mariana", "Земля/Мариана");
         let terms = c.terms();
-        assert_eq!(terms.get("place", "Earth/Mariana").unwrap(), "Земля/Мариана");
+        assert_eq!(
+            terms.get("place", "Earth/Mariana").unwrap(),
+            "Земля/Мариана"
+        );
         assert_eq!(terms.get("region", "Earth/Mariana"), None);
     }
 

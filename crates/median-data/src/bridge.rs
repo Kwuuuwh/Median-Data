@@ -49,7 +49,10 @@ impl<'a> Bridge<'a> {
 
         // A set or an imprint is a market item distinct from the DE entity its gameRef names,
         // so it never overwrites that entity; each gets its own node instead.
-        for w in items.iter().filter(|w| !w.has_tag("set") && !w.has_tag("imprint")) {
+        for w in items
+            .iter()
+            .filter(|w| !w.has_tag("set") && !w.has_tag("imprint"))
+        {
             let Some((path, how)) = resolve(w, paths, curated) else {
                 continue;
             };
@@ -157,7 +160,10 @@ mod tests {
         let catalog = [
             de("/Lotus/Powersuits/Volt/VoltPrime", "Volt Prime"),
             de("/R/VoltPrimeBlueprint", "Volt Prime Blueprint"),
-            de("/R/VoltPrimeChassisBlueprint", "Volt Prime Chassis Blueprint"),
+            de(
+                "/R/VoltPrimeChassisBlueprint",
+                "Volt Prime Chassis Blueprint",
+            ),
             de("/R/BratonPrimeBarrel", "Braton Prime Barrel"),
         ];
         let paths = Paths::build(&catalog, &[]);

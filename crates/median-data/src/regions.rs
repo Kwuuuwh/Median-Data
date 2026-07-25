@@ -129,7 +129,6 @@ impl Labels {
             .find(|c| c.planet == planet)
             .and_then(|c| c.planet_ru.clone())
     }
-
 }
 
 /// A label with whatever Russian was written for it in Studio. The English name is the key,
@@ -191,7 +190,10 @@ pub fn link(
     let mut regions = 0;
     for r in de {
         let translated = ru.get(&r.node);
-        let (railjack, hidden) = flags.get(r.node.as_str()).copied().unwrap_or((false, false));
+        let (railjack, hidden) = flags
+            .get(r.node.as_str())
+            .copied()
+            .unwrap_or((false, false));
         let region = Region {
             node: r.node.clone(),
             name: r.name.clone(),
@@ -278,9 +280,7 @@ pub fn link(
     let printed: Vec<(String, Printed)> = graph
         .nodes()
         .filter_map(|node| match node {
-            Node::Place(p) if p.kind == PlaceKind::Node => {
-                parse(&p.name).map(|it| (node.id(), it))
-            }
+            Node::Place(p) if p.kind == PlaceKind::Node => parse(&p.name).map(|it| (node.id(), it)),
             _ => None,
         })
         .collect();
@@ -391,9 +391,7 @@ pub fn witness(de: &[DeRegion], chart: &crate::wiki::Chart, labels: &Labels) -> 
     let used: BTreeSet<i64> = de.iter().map(|r| r.mission).collect();
     for index in used {
         match (labels.mission(index).en, chart.mission_names.get(&index)) {
-            (Some(ours), Some(theirs))
-                if theirs.iter().any(|t| t.eq_ignore_ascii_case(&ours)) =>
-            {
+            (Some(ours), Some(theirs)) if theirs.iter().any(|t| t.eq_ignore_ascii_case(&ours)) => {
                 out.agreed += 1
             }
             (Some(_), Some(theirs))
@@ -417,8 +415,15 @@ pub fn witness(de: &[DeRegion], chart: &crate::wiki::Chart, labels: &Labels) -> 
         chart.nodes.iter().map(|w| (w.key.as_str(), w)).collect();
     let mut factions: BTreeMap<i64, BTreeMap<&str, usize>> = BTreeMap::new();
     for r in de {
-        if let Some(name) = by_key.get(r.node.as_str()).and_then(|w| w.faction.as_deref()) {
-            *factions.entry(r.faction).or_default().entry(name).or_default() += 1;
+        if let Some(name) = by_key
+            .get(r.node.as_str())
+            .and_then(|w| w.faction.as_deref())
+        {
+            *factions
+                .entry(r.faction)
+                .or_default()
+                .entry(name)
+                .or_default() += 1;
         }
     }
     for (index, names) in factions {
@@ -483,8 +488,10 @@ mod tests {
     #[test]
     fn reads_planet_node_and_mission() {
         let p = parse("Saturn/Anthe (Rescue)").unwrap();
-        assert_eq!((p.planet.as_str(), p.node.as_str(), p.mission.as_str()),
-                   ("Saturn", "Anthe", "Rescue"));
+        assert_eq!(
+            (p.planet.as_str(), p.node.as_str(), p.mission.as_str()),
+            ("Saturn", "Anthe", "Rescue")
+        );
     }
 
     #[test]
@@ -492,7 +499,10 @@ mod tests {
         let p = parse("Event: Uranus/Miranda (Defense)").unwrap();
         assert_eq!(p.node, "Miranda");
         let p = parse("Ceres/Exta (Assassination) Extra").unwrap();
-        assert_eq!((p.node.as_str(), p.mission.as_str()), ("Exta", "Assassination"));
+        assert_eq!(
+            (p.node.as_str(), p.mission.as_str()),
+            ("Exta", "Assassination")
+        );
     }
 
     #[test]

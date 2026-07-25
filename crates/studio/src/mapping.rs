@@ -117,11 +117,7 @@ pub fn row(snap: &Snapshot, names: &Names, u: &Unresolved) -> Markup {
 /// The box for looking the item up by hand, which answers as it is typed.
 fn search(source: &str, key: &str, name: &str) -> Markup {
     let target = format!("#cand-{}", key_id(source, key));
-    let url = format!(
-        "/suggest?source={}&key={}",
-        encode(source),
-        encode(key)
-    );
+    let url = format!("/suggest?source={}&key={}", encode(source), encode(key));
     html! {
         .curate-row {
             input type="search" name="q" value=(name) placeholder="искать предмет…"
@@ -132,13 +128,7 @@ fn search(source: &str, key: &str, name: &str) -> Markup {
 }
 
 /// The items a printed name might mean, best first.
-pub fn candidates(
-    snap: &Snapshot,
-    names: &Names,
-    source: &str,
-    key: &str,
-    query: &str,
-) -> Markup {
+pub fn candidates(snap: &Snapshot, names: &Names, source: &str, key: &str, query: &str) -> Markup {
     let hits = names.best(query, OPTIONS);
     html! {
         @if hits.is_empty() {

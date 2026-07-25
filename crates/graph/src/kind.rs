@@ -122,7 +122,8 @@ impl Taxonomy {
 
     /// The class slug a kind belongs to.
     pub fn class_slug(&self, kind: &Kind) -> &str {
-        self.class_of(kind).map_or(Kind::UNKNOWN, |c| c.slug.as_str())
+        self.class_of(kind)
+            .map_or(Kind::UNKNOWN, |c| c.slug.as_str())
     }
 
     /// Write the Russian label of a class or a kind by hand. Unknown slugs are ignored: the

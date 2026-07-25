@@ -111,7 +111,10 @@ fn assignment_after(src: &str, keyword: &str) -> Option<usize> {
         if !before_ok || from >= bytes.len() || is_word(bytes[from]) {
             continue;
         }
-        let mut p = Parser { src: bytes, at: from };
+        let mut p = Parser {
+            src: bytes,
+            at: from,
+        };
         p.space();
         if p.peek() == Some(b'{') {
             return Some(p.at);
@@ -132,7 +135,10 @@ fn assignment(src: &str, name: &str) -> Option<usize> {
             continue;
         }
         // The name may be written plain, quoted, or as a bracketed key: `D`, `"D"`, `["D"]`.
-        let mut p = Parser { src: bytes, at: from };
+        let mut p = Parser {
+            src: bytes,
+            at: from,
+        };
         if p.peek() == Some(b'"') || p.peek() == Some(b'\'') {
             p.at += 1;
         }
@@ -220,7 +226,7 @@ impl<'a> Parser<'a> {
             b"true" => Ok(Value::Bool(true)),
             b"false" => Ok(Value::Bool(false)),
             b"nil" => Ok(Value::Nil),
-            other if other.is_empty() => bail!("unexpected character at byte {}", self.at),
+            b"" => bail!("unexpected character at byte {}", self.at),
             other => bail!(
                 "'{}' at byte {from} is code, not data",
                 String::from_utf8_lossy(other)
@@ -446,7 +452,8 @@ return Data
 
     #[test]
     fn reads_escapes_and_long_strings() {
-        let src = r#"local D = { Note = "*[[Plains]], [[Earth]]\n*talk to [[Konzu]]", Raw = [[as is]] }"#;
+        let src =
+            r#"local D = { Note = "*[[Plains]], [[Earth]]\n*talk to [[Konzu]]", Raw = [[as is]] }"#;
         let t = table_of(src, "D").unwrap();
         assert!(t.str("Note").unwrap().contains('\n'));
         assert_eq!(t.str("Raw"), Some("as is"));

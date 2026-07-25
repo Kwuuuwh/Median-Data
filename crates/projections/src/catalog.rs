@@ -10,7 +10,17 @@ use crate::projection::{Context, Projection, Summary};
 /// silently, it is only marked.
 pub struct Catalog;
 
+/// The shape of this database. It moves only when a table or a column does, and an
+/// application reads it to decide whether it can open the file at all — so it lives here,
+/// beside the schema it describes, and is written both as `PRAGMA user_version` and as a row
+/// of `meta`.
+pub const SCHEMA: u32 = 4;
+
 pub const SETUP: &str = "\
+CREATE TABLE meta (
+  key   TEXT PRIMARY KEY,
+  value TEXT NOT NULL
+) WITHOUT ROWID;
 CREATE TABLE items (
   unique_name TEXT PRIMARY KEY,
   name_en     TEXT NOT NULL,
@@ -241,7 +251,9 @@ impl Projection for Catalog {
     }
 
     fn db(&self, tx: &Transaction<'_>, ctx: &Context<'_>) -> Result<Option<Summary>> {
+        // What this file is, written first so a reader can decide whether to read the rest.
         tx.execute_batch(SETUP)?;
+        stamp(tx, ctx)?;
         reference(tx)?;
         tree(tx, ctx)?;
         let items = nodes(tx, ctx)?;
@@ -255,6 +267,16 @@ impl Projection for Catalog {
     }
 }
 
+/// Say what this build is: its schema, its version, and the pinned snapshots behind it.
+fn stamp(tx: &Transaction<'_>, ctx: &Context<'_>) -> Result<()> {
+    let mut insert = tx.prepare("INSERT INTO meta (key, value) VALUES (?1, ?2)")?;
+    insert.execute(("schema", SCHEMA.to_string()))?;
+    for (key, value) in ctx.meta {
+        insert.execute((key, value))?;
+    }
+    Ok(())
+}
+
 fn reference(tx: &Transaction<'_>) -> Result<()> {
     let mut chances =
         tx.prepare("INSERT INTO relic_chances (rarity, refinement, chance) VALUES (?1, ?2, ?3)")?;
@@ -266,15 +288,20 @@ fn reference(tx: &Transaction<'_>) -> Result<()> {
 
 /// The taxonomy itself, so the app groups items without hardcoding the tree.
 fn tree(tx: &Transaction<'_>, ctx: &Context<'_>) -> Result<()> {
-    let mut classes = tx
-        .prepare(
+    let mut classes = tx.prepare(
         "INSERT INTO classes (slug, name_en, name_ru, sourced, ord) VALUES (?1, ?2, ?3, ?4, ?5)",
     )?;
     let mut kinds = tx.prepare(
         "INSERT INTO kinds (slug, class, name_en, name_ru, ord) VALUES (?1, ?2, ?3, ?4, ?5)",
     )?;
     for (ci, class) in ctx.taxonomy.classes().iter().enumerate() {
-        classes.execute((&class.slug, &class.en, &class.ru, class.sourced as i64, ci as i64))?;
+        classes.execute((
+            &class.slug,
+            &class.en,
+            &class.ru,
+            class.sourced as i64,
+            ci as i64,
+        ))?;
         for (li, leaf) in class.kind.iter().enumerate() {
             kinds.execute((&leaf.slug, &class.slug, &leaf.en, &leaf.ru, li as i64))?;
         }
@@ -290,7 +317,8 @@ fn nodes(tx: &Transaction<'_>, ctx: &Context<'_>) -> Result<usize> {
           in_scope) \
          VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11)",
     )?;
-    let mut dropped = tx.prepare("INSERT INTO out_of_scope (unique_name, reason) VALUES (?1, ?2)")?;
+    let mut dropped =
+        tx.prepare("INSERT INTO out_of_scope (unique_name, reason) VALUES (?1, ?2)")?;
     let mut prov = tx.prepare(
         "INSERT INTO provenance (unique_name, prop, status, winner, sources) \
          VALUES (?1, ?2, ?3, ?4, ?5)",
@@ -304,13 +332,11 @@ fn nodes(tx: &Transaction<'_>, ctx: &Context<'_>) -> Result<usize> {
     )?;
     let mut relics =
         tx.prepare("INSERT INTO relics (unique_name, base, refinement) VALUES (?1, ?2, ?3)")?;
-    let mut imprints = tx.prepare(
-        "INSERT INTO imprints (slug, name_en, name_ru, animal) VALUES (?1, ?2, ?3, ?4)",
-    )?;
+    let mut imprints = tx
+        .prepare("INSERT INTO imprints (slug, name_en, name_ru, animal) VALUES (?1, ?2, ?3, ?4)")?;
     let mut places =
         tx.prepare("INSERT INTO places (name, name_ru, kind, region) VALUES (?1, ?2, ?3, ?4)")?;
-    let mut vendors =
-        tx.prepare(
+    let mut vendors = tx.prepare(
         "INSERT INTO vendors (key, name, name_ru, currency, kind, rotates) \
          VALUES (?1, ?2, ?3, ?4, ?5, ?6)",
     )?;
@@ -461,9 +487,11 @@ fn edges(tx: &Transaction<'_>, graph: &Graph) -> Result<()> {
     let mut requires = tx.prepare(
         "INSERT OR IGNORE INTO recipe_requires (blueprint, item, count) VALUES (?1, ?2, ?3)",
     )?;
-    let mut rewards = tx
-        .prepare("INSERT OR IGNORE INTO relic_rewards (relic, reward, rarity) VALUES (?1, ?2, ?3)")?;
-    let mut members = tx.prepare("INSERT OR IGNORE INTO set_members (slug, item) VALUES (?1, ?2)")?;
+    let mut rewards = tx.prepare(
+        "INSERT OR IGNORE INTO relic_rewards (relic, reward, rarity) VALUES (?1, ?2, ?3)",
+    )?;
+    let mut members =
+        tx.prepare("INSERT OR IGNORE INTO set_members (slug, item) VALUES (?1, ?2)")?;
     let mut primes =
         tx.prepare("INSERT OR IGNORE INTO item_primes (plain, prime) VALUES (?1, ?2)")?;
     let mut drops = tx.prepare(

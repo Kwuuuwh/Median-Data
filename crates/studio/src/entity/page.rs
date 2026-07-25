@@ -231,8 +231,13 @@ fn rest(graph: &Graph, id: &str) -> Markup {
     let covered = |rel: &Rel| {
         matches!(
             rel,
-            Rel::Produces | Rel::Requires { .. } | Rel::Rewards { .. } | Rel::Drops(_)
-                | Rel::Member | Rel::Primed | Rel::Sells(_)
+            Rel::Produces
+                | Rel::Requires { .. }
+                | Rel::Rewards { .. }
+                | Rel::Drops(_)
+                | Rel::Member
+                | Rel::Primed
+                | Rel::Sells(_)
         )
     };
     let out: Vec<(&str, &Rel)> = graph

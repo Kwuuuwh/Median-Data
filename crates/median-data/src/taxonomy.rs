@@ -215,7 +215,11 @@ reason = "mod type"
 mod_type = ["AURA"]
 "#,
         );
-        let mut f = facts("/Lotus/Upgrades/Mods/Randomized/X", "ExportUpgrades", "ExportUpgrades");
+        let mut f = facts(
+            "/Lotus/Upgrades/Mods/Randomized/X",
+            "ExportUpgrades",
+            "ExportUpgrades",
+        );
         f.mod_type = Some("AURA");
         assert_eq!(p.classify(&f).as_str(), "riven");
     }
@@ -242,7 +246,10 @@ mod_type = ["AURA"]
     #[test]
     fn an_unmatched_item_is_unknown_not_a_guess() {
         let p = policy("");
-        assert!(p.classify(&facts("/X", "ExportResources", "ExportResources")).is_unknown());
+        assert!(
+            p.classify(&facts("/X", "ExportResources", "ExportResources"))
+                .is_unknown()
+        );
     }
 
     #[test]

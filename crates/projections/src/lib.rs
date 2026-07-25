@@ -7,6 +7,7 @@ mod projection;
 mod scope;
 mod search;
 
+pub use catalog::SCHEMA;
 pub use engine::run;
 pub use icons::Source as IconSource;
 pub use projection::{Context, Projection, Summary};

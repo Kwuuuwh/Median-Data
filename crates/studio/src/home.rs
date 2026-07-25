@@ -250,7 +250,10 @@ fn russian(snap: &Snapshot) -> Markup {
         .get(words::source_full(Source::Curated))
         .copied()
         .unwrap_or(0);
-    let derived = by.get(words::source_full(Source::Rule)).copied().unwrap_or(0);
+    let derived = by
+        .get(words::source_full(Source::Rule))
+        .copied()
+        .unwrap_or(0);
     let (places, no_place_ru) = terms::tally(snap, "place");
     html! {
         .stats {

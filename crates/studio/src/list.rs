@@ -9,7 +9,7 @@ const DEFAULT: usize = 50;
 
 /// Where a list starts, how long it is, and what it was filtered by. Every screen reads the
 /// same query so the controls behave the same everywhere.
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Default, Deserialize)]
 pub struct Query {
     /// Free text the rows are filtered by.
     #[serde(default)]
@@ -18,16 +18,6 @@ pub struct Query {
     pub at: usize,
     #[serde(default)]
     pub limit: Option<usize>,
-}
-
-impl Default for Query {
-    fn default() -> Self {
-        Self {
-            q: String::new(),
-            at: 0,
-            limit: None,
-        }
-    }
 }
 
 impl Query {
@@ -174,8 +164,10 @@ mod tests {
 
     #[test]
     fn the_filter_is_case_blind_and_matches_anywhere() {
-        let mut query = Query::default();
-        query.q = "prime".into();
+        let query = Query {
+            q: "prime".into(),
+            ..Query::default()
+        };
         assert!(query.matches("Volt Prime Chassis"));
         assert!(!query.matches("Volt Chassis"));
         assert!(Query::default().matches("anything"));

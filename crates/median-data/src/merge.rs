@@ -15,6 +15,14 @@ use crate::taxonomy::{self, Policy};
 const NAMES: &[Source] = &[Source::Curated, Source::De, Source::Wfm];
 const DERIVED: &[Source] = &[Source::Curated, Source::Rule, Source::Wfm];
 
+/// What every item is judged against besides its own DE record: which things a recipe builds,
+/// which live in the void economy, and the tree that classifies them.
+pub struct Facts<'a> {
+    pub built: &'a BTreeSet<String>,
+    pub economy: &'a BTreeSet<String>,
+    pub taxonomy: &'a Policy,
+}
+
 /// Build item nodes from DE facts, WFM evidence, curated decisions and rules, collecting
 /// conflicts.
 pub fn items(
@@ -22,9 +30,7 @@ pub fn items(
     ru: &BTreeMap<String, String>,
     bridge: &Bridge<'_>,
     curated: &Curation,
-    built: &BTreeSet<String>,
-    economy: &BTreeSet<String>,
-    taxonomy: &Policy,
+    facts: &Facts<'_>,
     conflicts: &mut Vec<Conflict>,
 ) -> Vec<Item> {
     let mut unique: BTreeMap<String, DeItem> = BTreeMap::new();
@@ -49,16 +55,7 @@ pub fn items(
                 kind: picks.get(&(path, "kind")).copied(),
             };
             let wfm = bridge.get(&it.unique_name);
-            one(
-                &it,
-                ru.get(&it.unique_name),
-                wfm,
-                &hand,
-                built,
-                economy,
-                taxonomy,
-                conflicts,
-            )
+            one(&it, ru.get(&it.unique_name), wfm, &hand, facts, conflicts)
         })
         .collect()
 }
@@ -78,9 +75,7 @@ fn one(
     de_ru: Option<&String>,
     wfm: Option<&WfmItem>,
     hand: &Hand<'_>,
-    built: &BTreeSet<String>,
-    economy: &BTreeSet<String>,
-    taxonomy: &Policy,
+    facts: &Facts<'_>,
     conflicts: &mut Vec<Conflict>,
 ) -> Item {
     let wfm_en = wfm.and_then(|w| w.en_name.as_deref());
@@ -91,10 +86,10 @@ fn one(
         wfm.and_then(|w| w.ru_name.as_deref()),
     );
 
-    let rule_prime = rules::prime(&de.name, &de.unique_name, economy);
+    let rule_prime = rules::prime(&de.name, &de.unique_name, facts.economy);
     let wfm_prime = wfm.map(|w| w.has_tag("prime"));
     let prime = flags(hand.prime, Some(rule_prime), wfm_prime).expect("rule claim present");
-    let tradable = tradability(&de.unique_name, wfm, hand.tradable, built);
+    let tradable = tradability(&de.unique_name, wfm, hand.tradable, facts.built);
 
     if unsettled(&en, hand.en.is_some()) {
         conflicts.push(Conflict::new(
@@ -122,10 +117,7 @@ fn one(
         conflicts.push(Conflict::new(
             &de.unique_name,
             "prime",
-            claims(&[
-                (Source::Rule, Some(rule_prime)),
-                (Source::Wfm, wfm_prime),
-            ]),
+            claims(&[(Source::Rule, Some(rule_prime)), (Source::Wfm, wfm_prime)]),
             prime.value.to_string(),
         ));
     }
@@ -137,7 +129,10 @@ fn one(
             &de.unique_name,
             "tradable",
             claims(&[
-                (Source::Rule, built.contains(&de.unique_name).then_some(false)),
+                (
+                    Source::Rule,
+                    facts.built.contains(&de.unique_name).then_some(false),
+                ),
                 (Source::Wfm, wfm.map(|_| true)),
             ]),
             t.value.to_string(),
@@ -148,7 +143,7 @@ fn one(
         unique_name: de.unique_name.clone(),
         names: Names { en, ru },
         category: single(Source::De, de.category.clone()),
-        kind: kind(de, hand.kind, taxonomy, conflicts),
+        kind: kind(de, hand.kind, facts.taxonomy, conflicts),
         slug: wfm.map(|w| single(Source::Wfm, w.slug.clone())),
         tradable,
         prime,
@@ -219,11 +214,7 @@ fn tradability(
     )
 }
 
-fn flags(
-    curated: Option<bool>,
-    rule: Option<bool>,
-    wfm: Option<bool>,
-) -> Option<Resolved<bool>> {
+fn flags(curated: Option<bool>, rule: Option<bool>, wfm: Option<bool>) -> Option<Resolved<bool>> {
     let mut all = Vec::new();
     for (source, value) in [
         (Source::Curated, curated),
@@ -316,7 +307,12 @@ mod tests {
     #[test]
     fn a_parenthetical_tag_is_kept_as_the_fuller_name() {
         // the tag (Veiled) is information DE omits, so the market's name wins, no conflict
-        let r = name(None, Some("Rifle Riven Mod"), Some("Rifle Riven Mod (Veiled)")).unwrap();
+        let r = name(
+            None,
+            Some("Rifle Riven Mod"),
+            Some("Rifle Riven Mod (Veiled)"),
+        )
+        .unwrap();
         assert_eq!(r.status, Status::Confirmed);
         assert_eq!(r.value, "Rifle Riven Mod (Veiled)");
     }

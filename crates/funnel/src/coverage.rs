@@ -49,7 +49,10 @@ pub fn check(graph: &Graph, gaps: &Gaps) -> Vec<Finding> {
                 Layer::Coverage,
                 "kind-unresolved",
                 &item.unique_name,
-                format!("no taxonomy rule matched, DE files it as {}", item.category.value),
+                format!(
+                    "no taxonomy rule matched, DE files it as {}",
+                    item.category.value
+                ),
             ));
         }
         if item.names.ru.is_none() {

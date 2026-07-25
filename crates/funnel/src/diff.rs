@@ -8,6 +8,9 @@ use crate::finding::Finding;
 /// What one build held, kept so the next build can say what moved.
 #[derive(Debug, Default, Serialize, Deserialize)]
 pub struct State {
+    /// The version this build was stamped with, so the next one can carry on from it.
+    #[serde(default)]
+    pub version: Option<String>,
     pub items: Vec<String>,
     pub sets: Vec<String>,
     pub findings: BTreeMap<String, usize>,
@@ -41,6 +44,7 @@ pub fn snapshot(graph: &Graph, findings: &[Finding]) -> State {
         *counts.entry(f.rule.clone()).or_default() += 1;
     }
     State {
+        version: None,
         items: graph.items().map(|i| i.unique_name.clone()).collect(),
         sets: graph
             .nodes()
@@ -59,7 +63,11 @@ pub fn compare(previous: &State, current: &State) -> Diff {
     let (sets_added, sets_removed) = split(&previous.sets, &current.sets);
 
     let mut findings_delta = BTreeMap::new();
-    let rules: BTreeSet<&String> = previous.findings.keys().chain(current.findings.keys()).collect();
+    let rules: BTreeSet<&String> = previous
+        .findings
+        .keys()
+        .chain(current.findings.keys())
+        .collect();
     for rule in rules {
         let before = *previous.findings.get(rule).unwrap_or(&0) as i64;
         let after = *current.findings.get(rule).unwrap_or(&0) as i64;
@@ -92,6 +100,7 @@ mod tests {
 
     fn state(items: &[&str], findings: &[(&str, usize)]) -> State {
         State {
+            version: None,
             items: items.iter().map(|s| s.to_string()).collect(),
             sets: Vec::new(),
             findings: findings

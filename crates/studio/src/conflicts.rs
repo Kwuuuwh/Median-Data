@@ -14,9 +14,7 @@ pub fn render(snap: &Snapshot, prop: Option<&str>, settled: Option<&str>, q: &Qu
     let by_prop = tally(snap);
     let grouped: Vec<(&str, Vec<&Conflict>)> = group(snap, prop)
         .into_iter()
-        .filter(|(path, found)| {
-            q.matches(path) || found.iter().any(|c| q.matches(&c.chosen))
-        })
+        .filter(|(path, found)| q.matches(path) || found.iter().any(|c| q.matches(&c.chosen)))
         .collect();
     let hidden: Vec<(&str, &str)> = prop.map(|p| vec![("prop", p)]).unwrap_or_default();
     let page = q.page(grouped);

@@ -43,12 +43,18 @@ mod tests {
     #[test]
     fn strips_a_leading_marker() {
         assert_eq!(name("<ARCHWING> Odonata"), "Odonata");
-        assert_eq!(name("<SHARD_RED_SIMPLE> Crimson Archon Shard"), "Crimson Archon Shard");
+        assert_eq!(
+            name("<SHARD_RED_SIMPLE> Crimson Archon Shard"),
+            "Crimson Archon Shard"
+        );
     }
 
     #[test]
     fn trims_trailing_control_characters() {
-        assert_eq!(name("Solstice Square Stage Scene\r\n"), "Solstice Square Stage Scene");
+        assert_eq!(
+            name("Solstice Square Stage Scene\r\n"),
+            "Solstice Square Stage Scene"
+        );
     }
 
     #[test]

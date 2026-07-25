@@ -79,7 +79,10 @@ fn read(raw: &[u8]) -> Result<Vec<File>> {
         if page.get("missing").is_some() {
             continue;
         }
-        let title = page.get("title").and_then(|t| t.as_str()).unwrap_or_default();
+        let title = page
+            .get("title")
+            .and_then(|t| t.as_str())
+            .unwrap_or_default();
         let info = page.pointer("/imageinfo/0");
         let Some(url) = info.and_then(|i| i.get("url")).and_then(|u| u.as_str()) else {
             continue;
@@ -87,8 +90,14 @@ fn read(raw: &[u8]) -> Result<Vec<File>> {
         out.push(File {
             name: title.trim_start_matches("File:").to_string(),
             url: url.to_string(),
-            width: info.and_then(|i| i.get("width")).and_then(|w| w.as_u64()).unwrap_or(0) as u32,
-            height: info.and_then(|i| i.get("height")).and_then(|h| h.as_u64()).unwrap_or(0) as u32,
+            width: info
+                .and_then(|i| i.get("width"))
+                .and_then(|w| w.as_u64())
+                .unwrap_or(0) as u32,
+            height: info
+                .and_then(|i| i.get("height"))
+                .and_then(|h| h.as_u64())
+                .unwrap_or(0) as u32,
         });
     }
     out.sort_by(|a, b| a.name.cmp(&b.name));

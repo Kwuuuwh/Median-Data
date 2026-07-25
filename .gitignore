@@ -15,5 +15,9 @@ catalog.state.json
 catalog.changes.md
 /pack
 
+# Release output
+/dist
+
 # Other
 temp.md
+*.log
