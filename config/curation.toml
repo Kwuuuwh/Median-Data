@@ -1,0 +1,343 @@
+# Decisions made by hand in Studio. These outrank every derived
+# value, and the build reads them on every run.
+
+[[name]]
+item = "/Lotus/Types/Game/FishBait/Infested/InfestedFishBaitBBlueprint"
+ru = "Обработанные Останки Фэза"
+
+[[name]]
+item = "/Lotus/Types/Game/FishBait/Infested/OrokinFishBaitBBlueprint"
+ru = "Обработанные останки Воум"
+
+[[name]]
+item = "/Lotus/Types/Items/Fish/Eidolon/Boosters/AnglerVisionBlueprint"
+ru = "Светящийся Краситель"
+
+[[name]]
+item = "/Lotus/Types/Items/Fish/Eidolon/Boosters/SoftTouchBlueprint"
+ru = "Фарома"
+
+[[pick]]
+item = "/Lotus/Powersuits/AntiMatter/MolecularPrimeAugmentCard"
+prop = "prime"
+value = "false"
+
+[[pick]]
+item = "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetParts/ZanukaPetPartTailB"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Game/FishBait/Infested/InfestedFishBaitBBlueprint"
+prop = "tradable"
+value = "false"
+
+[[pick]]
+item = "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/NecromechPartChassisItem"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/NecromechPartEngineItem"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/NecromechPartSystemsItem"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/NecromechPartWeaponPodItem"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/ThanomechPartChassisItem"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/ThanomechPartEngineItem"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/ThanomechPartSystemsItem"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/ThanomechPartWeaponPodItem"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/ThanotechArchGunBarrelItem"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/ThanotechArchGunReceiverItem"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/ThanotechArchGunStockItem"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/ThanotechGrenadeLauncherBarrelItem"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/ThanotechGrenadeLauncherReceiverItem"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/ThanotechGrenadeLauncherStockItem"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Items/MiscItems/InfestedAladCoordinate"
+prop = "name_ru"
+value = "Муталист-навигационная координата"
+
+[[pick]]
+item = "/Lotus/Types/Keys/MummyQuest/MummyQuestKeyChain"
+prop = "tradable"
+value = "true"
+
+[[term]]
+kind = "activity"
+key = "Cambion Drift Bounty"
+ru = "Заказы Камбионского Дрейфа"
+
+[[term]]
+kind = "activity"
+key = "Cetus Bounty"
+ru = "Заказы Цетуса"
+
+[[term]]
+kind = "activity"
+key = "Entrati Lab Bounty"
+ru = "Заказы Лабораторий Альбрехта"
+
+[[term]]
+kind = "activity"
+key = "First Completion"
+ru = "Первое прохождение"
+
+[[term]]
+kind = "activity"
+key = "Orb Vallis Bounty"
+ru = "Заказы Долины Сфер"
+
+[[term]]
+kind = "activity"
+key = "Zariman Bounty"
+ru = "Заказы Заримана"
+
+[[term]]
+kind = "lab"
+key = "Bash"
+ru = "Бесшабашная Лаборатория Детей Труб"
+
+[[term]]
+kind = "lab"
+key = "Corpus"
+ru = "Энергетическая Лаборатория"
+
+[[term]]
+kind = "lab"
+key = "Grineer"
+ru = "Химическая Лаборатория"
+
+[[term]]
+kind = "lab"
+key = "Hollow"
+ru = "Крипта Дагас"
+
+[[term]]
+kind = "lab"
+key = "Infested"
+ru = "Биологическая Лаборатория"
+
+[[term]]
+kind = "lab"
+key = "Orokin"
+ru = "Лаборатория Орокин"
+
+[[term]]
+kind = "lab"
+key = "Railjack"
+ru = "Сухой Док"
+
+[[term]]
+kind = "lab"
+key = "Tenno"
+ru = "Лаборатория Тэнно"
+
+[[term]]
+kind = "mission"
+key = "Alchemy"
+ru = "Алхимия"
+
+[[term]]
+kind = "mission"
+key = "Ascension"
+ru = "Вознесение"
+
+[[term]]
+kind = "mission"
+key = "Conclave"
+ru = "Конклав"
+
+[[term]]
+kind = "mission"
+key = "Free Flight"
+ru = "Свободный полёт"
+
+[[term]]
+kind = "mission"
+key = "Free Roam"
+ru = "Свободное Перемещение"
+
+[[term]]
+kind = "mission"
+key = "Hub"
+ru = "Хаб"
+
+[[term]]
+kind = "mission"
+key = "Netracells"
+ru = "Ячейки нетры"
+
+[[term]]
+kind = "mission"
+key = "Open World"
+ru = "Открытый мир"
+
+[[term]]
+kind = "mission"
+key = "Orphix"
+ru = "Орфикс"
+
+[[term]]
+kind = "mission"
+key = "Relay"
+ru = "Реле"
+
+[[term]]
+kind = "mission"
+key = "Sanctuary Onslaught"
+ru = "Резня в святилище"
+
+[[term]]
+kind = "mission"
+key = "Skirmish"
+ru = "Стычка"
+
+[[term]]
+kind = "mission"
+key = "Skirmish + Assassinate"
+ru = "Стычка + Убийство"
+
+[[term]]
+kind = "mission"
+key = "Solar Rail Junction"
+ru = "Узловая станция"
+
+[[term]]
+kind = "mission"
+key = "The Descendia"
+ru = "Спуск"
+
+[[term]]
+kind = "mission"
+key = "Volatile"
+ru = "Нестабильность"
+
+[[term]]
+kind = "vendor"
+key = "acrithis"
+ru = "Акритис"
+
+[[term]]
+kind = "vendor"
+key = "amir"
+ru = "Амир Беккет"
+
+[[term]]
+kind = "vendor"
+key = "aoi"
+ru = "Аои Морохоши"
+
+[[term]]
+kind = "vendor"
+key = "arbiters-of-hexis"
+ru = "Арбитры Гексиса"
+
+[[term]]
+kind = "vendor"
+key = "arbitration-honors"
+ru = "Награды Арбитража"
+
+[[term]]
+kind = "vendor"
+key = "archimedean-supplies"
+ru = "Архимедиан Йонта"
+
+[[term]]
+kind = "vendor"
+key = "archimedean-yonta"
+ru = "Архимедиан Йонта"
+
+[[term]]
+kind = "vendor"
+key = "bird-3"
+ru = "Птица-3"
+
+[[term]]
+kind = "vendor"
+key = "cavalero"
+ru = "Кавальеро"
+
+[[term]]
+kind = "vendor"
+key = "cephalon-simaris"
+ru = "Цефалон Симэрис"
+
+[[term]]
+kind = "vendor"
+key = "cephalon-suda"
+ru = "Цефалон Суда"
+
+[[term]]
+kind = "vendor"
+key = "conclave"
+ru = "Конклав"
+
+[[term]]
+kind = "vendor"
+key = "daughter"
+ru = "Дочь"
+
+[[term]]
+kind = "vendor"
+key = "dog-days"
+ru = "Знойные дни"
+
+[[term]]
+kind = "vendor"
+key = "eleanor"
+ru = "Элеонора Найтингейл"
+
+[[term]]
+kind = "vendor"
+key = "ergo-glast"
+ru = "Эрго Гласт"

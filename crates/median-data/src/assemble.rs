@@ -1,0 +1,227 @@
+use std::collections::BTreeMap;
+
+use consensus::Conflict;
+use funnel::{Gaps, RelicClaim};
+use graph::{Graph, Node, Taxonomy};
+use sources::drops::{Drop, RelicRow};
+use sources::wfm::WfmItem;
+
+use crate::bridge::Bridge;
+use crate::curation::Curation;
+use crate::extract::{DeItem, DeRecipe, DeRegion, DeReward};
+use crate::names::{self, Index};
+use crate::paths::Paths;
+use crate::regions::{self, Labels, Linked};
+use crate::taxonomy::Policy;
+use crate::{craft, drops, imprints, merge, primes, relic, rules, sets};
+
+/// What one build produced besides the graph itself.
+pub struct Built {
+    pub graph: Graph,
+    /// The tree that classified this graph's items.
+    pub taxonomy: Taxonomy,
+    pub conflicts: Vec<Conflict>,
+    pub gaps: Gaps,
+    /// Drop-table relic rewards resolved to catalog paths, to check DE against.
+    pub relic_witness: Vec<RelicClaim>,
+    pub places: usize,
+    /// What tying the star chart to the drop tables produced.
+    pub star_chart: Linked,
+    /// What the wiki says about our reference labels.
+    pub witness: regions::Witness,
+    /// Nodes the wiki names but gives no key, so nothing can be joined to them.
+    pub keyless: Vec<String>,
+    /// What the wiki says about the mission drop tables.
+    pub drop_witness: crate::witness::Drops,
+    /// What tying vendor offerings to the catalog produced.
+    pub vendors: crate::vendors::Linked,
+    /// What tying dojo research to the catalog produced.
+    pub dojo: crate::labs::Linked,
+    /// Every printed name no catalog item answers to, from each source that prints names.
+    pub orphans: Vec<studio::Unresolved>,
+    /// Drop rows naming an amount rather than an item.
+    pub amounts: usize,
+    /// Drop rows whose printed name matches several items.
+    pub ambiguous: usize,
+    /// The market listings this build read, kept for the curation queue.
+    pub wfm: Vec<WfmItem>,
+    /// Listing slug -> the catalog path it was tied to.
+    pub matched: BTreeMap<String, String>,
+    /// How many listings each kind of match accounts for.
+    pub matching: BTreeMap<&'static str, usize>,
+    /// Ordinary items linked to their prime counterpart.
+    pub primed: usize,
+    /// Market imprints modelled as their own node.
+    pub imprinted: usize,
+    /// Relic refinement steps linked.
+    pub refined: usize,
+}
+
+/// Raw inputs of one build.
+pub struct Input {
+    pub de: Vec<DeItem>,
+    pub ru: BTreeMap<String, String>,
+    pub recipes: Vec<DeRecipe>,
+    pub rewards: Vec<DeReward>,
+    pub regions: Vec<DeRegion>,
+    /// The same nodes from the Russian manifest, keyed by DE's node key.
+    pub regions_ru: BTreeMap<String, DeRegion>,
+    /// The star chart as the wiki describes it, for what DE leaves out and to check the rest.
+    pub chart: crate::wiki::Chart,
+    /// The wiki's own mission reward tables, keyed by the alias the star chart names them by.
+    pub wiki_tables: BTreeMap<String, Vec<crate::wiki::Row>>,
+    /// Everything Baro has ever brought.
+    pub baro: Vec<crate::wiki::Offered>,
+    /// The dojo labs and their research.
+    pub dojo: crate::wiki::Dojo,
+    /// Every vendor the wiki lists by stock.
+    pub stores: Vec<crate::wiki::Store>,
+    pub wfm: Vec<WfmItem>,
+    pub drops: Vec<Drop>,
+    pub relic_rows: Vec<RelicRow>,
+}
+
+/// Merge every source into the knowledge graph, honouring curated decisions.
+pub fn assemble(
+    input: Input,
+    mut taxonomy: Policy,
+    labels: &Labels,
+    settlements: &crate::bounties::Settlements,
+    curated: &Curation,
+) -> Built {
+    let links = curated.market_links();
+    let terms = curated.terms();
+    for (kind, key, ru) in curated.term.iter().map(|t| (&t.kind, &t.key, &t.ru)) {
+        if kind == "class" || kind == "kind" {
+            taxonomy.tree.relabel(key, ru);
+        }
+    }
+    let paths = Paths::build(&input.de, &input.recipes);
+    let bridge = Bridge::new(&input.wfm, &paths, &links);
+    let matched = bridge
+        .matched()
+        .iter()
+        .map(|(slug, (path, _))| (slug.to_string(), path.clone()))
+        .collect();
+    let matching = bridge.tally();
+
+    let built = rules::built(&input.recipes);
+    let economy = rules::void_economy(&input.rewards, &input.recipes);
+
+    let mut conflicts = Vec::new();
+    let items = merge::items(
+        input.de,
+        &input.ru,
+        &bridge,
+        curated,
+        &built,
+        &economy,
+        &taxonomy,
+        &mut conflicts,
+    );
+
+    let mut graph = Graph::new();
+    let mut names = BTreeMap::new();
+    let mut ru_names = BTreeMap::new();
+    for item in items {
+        names.insert(item.unique_name.clone(), item.names.en.value.clone());
+        if let Some(ru) = &item.names.ru {
+            ru_names.insert(item.unique_name.clone(), ru.value.clone());
+        }
+        graph.insert(Node::Item(item));
+    }
+    for item in craft::blueprints(
+        &input.recipes,
+        &bridge,
+        &names,
+        &ru_names,
+        &economy,
+        &taxonomy,
+        curated,
+        &mut conflicts,
+    ) {
+        graph.insert(Node::Item(item));
+    }
+
+    // Every item is in the graph by now and nothing after this adds one, so the reverse
+    // name index is built once and read by everything that resolves a printed name.
+    let index = Index::build(&graph, &curated.named());
+
+    let dangling_craft = craft::link(&mut graph, &input.recipes);
+    let unresolved_rewards = relic::link(&mut graph, &input.rewards);
+    let refined = relic::refine(&mut graph);
+    sets::link(&mut graph, &bridge);
+    let imprinted = imprints::link(&mut graph, &input.wfm);
+    let primed = primes::link(&mut graph);
+
+    let before = graph.len();
+    let missed = drops::link(&mut graph, &input.drops, settlements, &index, &terms);
+    let places = graph.len() - before;
+    let wiki_witness = regions::witness(&input.regions, &input.chart, labels);
+    let star_chart = regions::link(
+        &mut graph,
+        &input.regions,
+        &input.regions_ru,
+        &input.chart.nodes,
+        labels,
+        &terms,
+    );
+
+    let vendors = crate::vendors::link(&mut graph, &input.stores, &input.baro, &index, &terms);
+    let dojo = crate::labs::link(&mut graph, &input.dojo, &index, &terms);
+    let relic_witness = witness(&index, &input.relic_rows);
+    let drop_witness =
+        crate::witness::drops(&graph, &input.chart.nodes, &input.wiki_tables, &index);
+
+    let mut orphans = crate::orphans::rows(crate::curation::DROPS, &missed.unknown);
+    orphans.extend(crate::orphans::rows(
+        crate::curation::VENDOR,
+        &vendors.unresolved,
+    ));
+    orphans.extend(crate::orphans::rows(crate::curation::DOJO, &dojo.unresolved));
+
+    Built {
+        conflicts,
+        gaps: Gaps {
+            unresolved_rewards: unresolved_rewards.into_iter().collect(),
+            dangling_craft: dangling_craft.into_iter().collect(),
+            unknown_drop_items: missed.unknown.keys().cloned().collect(),
+        },
+        orphans,
+        relic_witness,
+        places,
+        star_chart,
+        witness: wiki_witness,
+        keyless: input.chart.keyless,
+        drop_witness,
+        vendors,
+        dojo,
+        amounts: missed.not_an_item,
+        ambiguous: missed.ambiguous,
+        wfm: input.wfm,
+        matched,
+        matching,
+        primed,
+        imprinted,
+        refined,
+        graph,
+        taxonomy: taxonomy.tree,
+    }
+}
+
+/// Resolve printed drop-table relic rows to catalog paths. Rows naming something the
+/// catalog lacks are dropped: coverage already reports those.
+fn witness(index: &Index, rows: &[RelicRow]) -> Vec<RelicClaim> {
+    rows.iter()
+        .filter_map(|row| {
+            let relic = index.relic(&row.relic, &row.refinement)?;
+            let (_, printed) = names::quantity(&row.reward);
+            let reward = index.get(printed)?;
+            Some(RelicClaim {
+                relic: relic.to_string(),
+                reward: reward.to_string(),
+                chance: row.chance,
+            })
+        })
+        .collect()
+}

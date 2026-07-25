@@ -1,0 +1,21 @@
+# What the product ships. Everything is in scope unless a rule here excludes it, so a
+# mechanic DE adds shows up on its own instead of quietly going missing.
+#
+# The catalog carries everything that exists for a player — cosmetics, decorations, glyphs,
+# capture scenes included. What is left out is only what does NOT exist for a player: DE's
+# own duplicates and placeholder records.
+#
+# Excluded items still land in the catalog, marked `in_scope = 0` with their reason in
+# `out_of_scope`. The search index and the icon pack skip them. Dropping a rule brings its
+# items straight back — nothing here destroys data.
+#
+# `except_tradable` keeps anything the market prices: median is a market tool first, and a
+# traded item is product-relevant whatever else it is.
+
+[[exclude]]
+reason = "training copy answering to a real mod's name"
+tier_duplicates = true
+
+[[exclude]]
+reason = "DE placeholder: a pet body-type record, not an item a player owns"
+name_equals = ["Helmet Or Syandana"]

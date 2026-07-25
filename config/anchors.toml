@@ -1,0 +1,50 @@
+# Facts checked by hand. A broken anchor means something systemic moved.
+
+# --- the prime economy, end to end ---
+
+[[set]]
+slug = "volt_prime_set"
+parts = 4
+built = "/Lotus/Powersuits/Volt/VoltPrime"
+
+[[item]]
+path = "/Lotus/Powersuits/Volt/VoltPrime"
+name_en = "Volt Prime"
+prime = true
+tradable = false
+note = "an assembled warframe is never traded, only its parts"
+
+[[item]]
+path = "/Lotus/Types/Recipes/WarframeRecipes/VoltPrimeChassisBlueprint"
+name_en = "Volt Prime Chassis Blueprint"
+prime = true
+tradable = true
+ducats = 45
+
+[[item]]
+path = "/Lotus/Types/Recipes/WarframeRecipes/VoltPrimeChassisComponent"
+prime = true
+tradable = false
+note = "the built component is untradable; the game trades its blueprint"
+
+# --- items whose name says Prime but the void economy does not ---
+
+[[item]]
+path = "/Lotus/Types/Items/ShipDecos/VoltPrimeBobbleHead"
+prime = false
+note = "a decoration depicting a prime is not part of the prime line"
+
+[[item]]
+path = "/Lotus/Weapons/Grineer/LongGuns/GrnOrokinRifle/GrnOrokinRifleWeapon"
+name_en = "Gotva Prime"
+prime = false
+tradable = true
+note = "promotional prime: handed out whole, no relics and no recipe, and the market does not tag it prime"
+
+# --- what the void economy hands out that is not a prime ---
+
+[[item]]
+path = "/Lotus/Types/Recipes/Components/FormaBlueprint"
+name_en = "Forma Blueprint"
+prime = false
+note = "relics award Forma, so relic rewards alone cannot mean prime"

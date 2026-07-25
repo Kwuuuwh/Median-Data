@@ -1,0 +1,47 @@
+[workspace]
+resolver = "3"
+members = [
+  "crates/consensus",
+  "crates/funnel",
+  "crates/graph",
+  "crates/median-data",
+  "crates/projections",
+  "crates/sources",
+  "crates/studio",
+  "crates/vault",
+]
+
+[workspace.package]
+edition = "2024"
+version = "0.1.0"
+license = "MIT"
+rust-version = "1.85.0"
+
+[workspace.dependencies]
+# --- internal ---
+vault = { path = "crates/vault" }
+sources = { path = "crates/sources" }
+graph = { path = "crates/graph" }
+consensus = { path = "crates/consensus" }
+funnel = { path = "crates/funnel" }
+projections = { path = "crates/projections" }
+studio = { path = "crates/studio" }
+
+anyhow = "1"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+toml = "1"
+blake3 = "1"
+ureq = "3"
+lzma-rs = "0.3"
+scraper = "0.27"
+axum = "0.8"
+maud = { version = "0.27", features = ["axum"] }
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net"] }
+image = { version = "0.25", default-features = false, features = ["png", "jpeg", "webp"] }
+strsim = "0.11"
+rusqlite = { version = "0.40", features = ["bundled"] }
+
+[profile.release]
+strip = true
+lto = "thin"

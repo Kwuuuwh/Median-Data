@@ -1,0 +1,23 @@
+[package]
+name = "median-data"
+edition.workspace = true
+version.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+vault.workspace = true
+sources.workspace = true
+consensus.workspace = true
+graph.workspace = true
+funnel.workspace = true
+projections.workspace = true
+studio.workspace = true
+tokio.workspace = true
+toml.workspace = true
+serde.workspace = true
+anyhow.workspace = true
+serde_json.workspace = true
+blake3.workspace = true
+image.workspace = true
+ureq.workspace = true

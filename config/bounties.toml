@@ -1,0 +1,77 @@
+# Who hands out a bounty and where. The drop tables print a bounty as a level range plus a
+# label (`Level 5 - 15 Cetus Bounty`) and file it under a section id per settlement; neither
+# the settlement's proper name nor its giver is anywhere in the data, so both live here.
+#
+# Which bounty a giver is offering right now rotates, so nothing here says that — only who to
+# talk to and what the level range of the printed table is.
+#
+# Keyed by the drop-table section id. English names are the in-game ones; the givers were
+# curated in the previous project and every one of them is confirmed by the wiki's own
+# `LocationNote` ("talk to [[Konzu]]").
+
+[settlements.cetusRewards]
+name_en = "Cetus"
+name_ru = "Цетус"
+giver_en = "Konzu"
+giver_ru = "Конзу"
+
+[settlements.solarisRewards]
+name_en = "Orb Vallis"
+name_ru = "Долина Сфер"
+giver_en = "Eudico"
+giver_ru = "Юдико"
+
+[settlements.deimosRewards]
+name_en = "Cambion Drift"
+name_ru = "Дрейф Камбиона"
+giver_en = "Mother"
+giver_ru = "Мать"
+
+[settlements.zarimanRewards]
+name_en = "Zariman"
+name_ru = "Зариман"
+giver_en = "Quinn"
+giver_ru = "Куинн"
+
+# The previous project left this giver open; the wiki names it.
+[settlements.entratiLabRewards]
+name_en = "Sanctum Anatomica"
+name_ru = "Санктум Анатомика"
+giver_en = "Fibonacci"
+giver_ru = "Фибоначчи"
+
+# The wiki names no giver here either — its note says only that the Hex quest unlocks access.
+[settlements.hexRewards]
+name_en = "Höllvania"
+name_ru = "Хёльвания"
+
+# Russian for the special bounties, matched on the label the drop tables print after the
+# level range. Anything not listed keeps the printed label.
+
+[[activity]]
+label = "PROFIT-TAKER - PHASE 1"
+ru = "Профит-Тейкер — Фаза 1"
+
+[[activity]]
+label = "PROFIT-TAKER - PHASE 2"
+ru = "Профит-Тейкер — Фаза 2"
+
+[[activity]]
+label = "PROFIT-TAKER - PHASE 4"
+ru = "Профит-Тейкер — Фаза 4"
+
+[[activity]]
+label = "Ghoul Bounty"
+ru = "Гули"
+
+[[activity]]
+label = "Plague Star"
+ru = "Чумная звезда"
+
+[[activity]]
+label = "Isolation Vault"
+ru = "Изоляционное хранилище"
+
+[[activity]]
+label = "Arcana Isolation Vault"
+ru = "Изоляционное хранилище: Аркана"

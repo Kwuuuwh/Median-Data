@@ -1,0 +1,343 @@
+# Names for the numbers DE puts on a star-chart node. `ExportRegions` gives `missionIndex`,
+# `factionIndex` and `nodeType` as bare integers and never says what they mean, so the labels
+# live here. An index with no entry stays a number: the funnel reports it instead of guessing.
+#
+# The labels themselves were curated by hand in the previous project. Where the real data
+# also confirms one, the check is written above its block: the drop tables print a node as
+# `Planet/Node (Mission type)`, and the funnel re-reads that on every build.
+#
+# Russian is data, not authority — it is curated like any other translation.
+
+# --- mission types -------------------------------------------------------------------------
+# Names and Russian wording come from the previous project, where they were curated by
+# hand. 26 of them are also confirmed by the drop tables, which print each node as
+# `Planet/Node (Mission type)`; the funnel re-checks those on every build.
+
+[[mission]]
+index = 0
+en = "Assassination"
+ru = "Убийство"
+
+[[mission]]
+index = 1
+en = "Exterminate"
+ru = "Зачистка"
+
+[[mission]]
+index = 2
+en = "Survival"
+ru = "Выживание"
+
+[[mission]]
+index = 3
+en = "Rescue"
+ru = "Спасение"
+
+[[mission]]
+index = 4
+en = "Sabotage"
+ru = "Саботаж"
+
+[[mission]]
+index = 15
+en = "Sabotage"
+ru = "Саботаж"
+
+[[mission]]
+index = 5
+en = "Capture"
+ru = "Захват"
+
+[[mission]]
+index = 7
+en = "Spy"
+ru = "Шпионаж"
+
+[[mission]]
+index = 8
+en = "Defense"
+ru = "Оборона"
+
+[[mission]]
+index = 9
+en = "Mobile Defense"
+ru = "Мобильная оборона"
+
+[[mission]]
+index = 13
+en = "Interception"
+ru = "Перехват"
+
+[[mission]]
+index = 14
+en = "Hijack"
+ru = "Угон"
+
+[[mission]]
+index = 17
+en = "Excavation"
+ru = "Раскопки"
+
+[[mission]]
+index = 21
+en = "Infested Salvage"
+ru = "Сбор"
+
+[[mission]]
+index = 22
+en = "Arena"
+ru = "Арена"
+
+[[mission]]
+index = 24
+en = "Pursuit"
+ru = "Преследование"
+
+[[mission]]
+index = 25
+en = "Rush"
+ru = "Налёт"
+
+[[mission]]
+index = 26
+en = "Assault"
+ru = "Штурм"
+
+[[mission]]
+index = 27
+en = "Defection"
+ru = "Перебежчики"
+
+[[mission]]
+index = 28
+en = "Open World"
+ru = "Свободное Перемещение"
+
+[[mission]]
+index = 31
+en = "The Circuit"
+ru = "Цепь"
+
+[[mission]]
+index = 33
+en = "Disruption"
+ru = "Сбой"
+
+[[mission]]
+index = 34
+en = "Void Flood"
+ru = "Потоп бездны"
+
+[[mission]]
+index = 35
+en = "Void Cascade"
+ru = "Каскад бездны"
+
+[[mission]]
+index = 36
+en = "Void Armageddon"
+ru = "Армагеддон бездны"
+
+[[mission]]
+index = 38
+en = "Alchemy"
+ru = "Алхимия"
+
+[[mission]]
+index = 40
+en = "Legacyte Harvest"
+ru = "Легацитная жатва"
+
+[[mission]]
+index = 41
+en = "Shrine Defense"
+ru = "Оборона в святилище"
+
+[[mission]]
+index = 42
+en = "Faceoff"
+ru = "Конфронтация"
+
+# index 43: DE names nothing. Its four nodes are the Dark Refractory descents, and both the
+# wiki and the drop tables call the thing "The Descendia".
+
+[[mission]]
+index = 43
+en = "The Descendia"
+
+[[mission]]
+index = 44
+en = "The Perita Rebellion"
+ru = "Перитское восстание"
+
+[[mission]]
+index = 45
+en = "Follie's Hunt"
+ru = "Охота фолли"
+
+# --- factions ------------------------------------------------------------------------------
+# Started from the previous project, then checked against the wiki node by node. Indices 0, 1
+# and 2 came out the same three ways: the previous project, which planets hold them, and the
+# wiki. Index 2 has a fourth witness — all 26 Dark Sector nodes carry it.
+#
+# `wiki = "..."` records a disagreement looked at and kept, so the check stays quiet until the
+# wiki changes its mind.
+
+[[faction]]
+index = 0
+en = "Grineer"
+ru = "Гринир"
+
+[[faction]]
+index = 1
+en = "Corpus"
+ru = "Корпус"
+
+[[faction]]
+index = 2
+en = "Infested"
+ru = "Заражённые"
+
+# Index 3 holds the Void, Lua and the Dark Refractory. The enemies there are the Corrupted;
+# Orokin built the place but is not who you fight. Derived here from the planets, and the wiki
+# says Corrupted on 21 of these nodes.
+
+[[faction]]
+index = 3
+en = "Corrupted"
+ru = "Искажённые"
+
+# Index 10 is only the two Duviri nodes. The wiki calls their enemy The Murmur, which is not
+# what Duviri fields; its own faction table lists Duviri as a faction, so that is the label
+# until something better names it.
+
+[[faction]]
+index = 10
+en = "Duviri"
+ru = "Дувири"
+wiki = "The Murmur"
+
+# Index 5 is one node: The Ropalolyst. The wiki calls its enemy Corpus because the level is
+# full of Corpus, but the node's own faction is Sentient — that is the boss and the point of
+# the mission. Kept against the wiki on purpose.
+
+[[faction]]
+index = 5
+en = "Sentient"
+ru = "Владеющие Разумом"
+wiki = "Corpus"
+
+# Index 11 is one node: Vesper Relay. A relay is Tenno-held, which is what the wiki says.
+
+[[faction]]
+index = 11
+en = "Tenno"
+ru = "Тенно"
+
+[[faction]]
+index = 7
+en = "The Murmur"
+ru = "Шёпот"
+
+[[faction]]
+index = 8
+en = "Scaldra"
+ru = "Скальдра"
+
+[[faction]]
+index = 9
+en = "Techrot"
+ru = "Техрот"
+
+# --- node types ----------------------------------------------------------------------------
+# Index 4 is exactly the 26 Dark Sector nodes; everything else is an ordinary node.
+
+[[node_type]]
+index = 0
+en = "Mission node"
+ru = "Узел миссии"
+
+[[node_type]]
+index = 4
+en = "Dark Sector"
+ru = "Тёмный сектор"
+
+# --- the star chart DE does not export -----------------------------------------------------
+# Railjack nodes are absent from `ExportRegions` entirely, so these were curated by hand in
+# the previous project. The drop tables print them under the base planet ("Saturn/Kasio's
+# Rest"), so they are matched by node name alone — no name here collides with a node DE does
+# export.
+
+[[chart]]
+planet = "Earth Proxima"
+planet_ru = "Проксима Земли"
+node = [
+  { ref = "CrewBattleNode502", en = "Sover Strait", ru = "Ущелье Совера" },
+  { ref = "CrewBattleNode509", en = "Iota Temple", ru = "Храм Йоты" },
+  { ref = "CrewBattleNode518", en = "Ogal Cluster", ru = "Кластер Огал" },
+  { ref = "CrewBattleNode519", en = "Korm's Belt", ru = "Пояс Корма" },
+  { ref = "CrewBattleNode522", en = "Bendar Cluster", ru = "Кластер Бендар" },
+]
+
+[[chart]]
+planet = "Venus Proxima"
+planet_ru = "Проксима Венеры"
+node = [
+  { ref = "CrewBattleNode503", en = "Bifrost Echo", ru = "Эхо Бифроста" },
+  { ref = "CrewBattleNode511", en = "Beacon Shield Ring", ru = "Защитное Кольцо Маяка" },
+  { ref = "CrewBattleNode512", en = "Orvin-Haarc", ru = "Орвин-Хаарк" },
+  { ref = "CrewBattleNode513", en = "Vesper Strait", ru = "Ущелье Vesper" },
+  { ref = "CrewBattleNode514", en = "Falling Glory", ru = "Падающие Величие" },
+  { ref = "CrewBattleNode515", en = "Luckless Expanse", ru = "Невезучий Простор" },
+]
+
+[[chart]]
+planet = "Saturn Proxima"
+planet_ru = "Проксима Сатурна"
+node = [
+  { ref = "CrewBattleNode501", en = "Mordo Cluster", ru = "Кластер Мордо" },
+  { ref = "CrewBattleNode530", en = "Kasio's Rest", ru = "Перевал Казио" },
+  { ref = "CrewBattleNode533", en = "Nodo Gap", ru = "Разрыв Нодо" },
+  { ref = "CrewBattleNode534", en = "Lupal Pass", ru = "Перевал Люпэл" },
+  { ref = "CrewBattleNode535", en = "Vand Cluster", ru = "Кластер Ванд" },
+]
+
+[[chart]]
+planet = "Neptune Proxima"
+planet_ru = "Проксима Нептуна"
+node = [
+  { ref = "CrewBattleNode504", en = "Arva Vector", ru = "Вектор Арвы" },
+  { ref = "CrewBattleNode516", en = "Nu-gua Mines", ru = "Рудники Ню-Гуа" },
+  { ref = "CrewBattleNode521", en = "Enkidu Ice Drifts", ru = "Ледяной Затор Энкиду" },
+  { ref = "CrewBattleNode523", en = "Mammon's Prospect", ru = "Проспект Маммона" },
+  { ref = "CrewBattleNode524", en = "Sovereign Grasp", ru = "Суверенная Хватка" },
+  { ref = "CrewBattleNode525", en = "Brom Cluster", ru = "Кластер Брома" },
+]
+
+[[chart]]
+planet = "Pluto Proxima"
+planet_ru = "Проксима Плутона"
+node = [
+  { ref = "CrewBattleNode526", en = "Khufu Envoy", ru = "Посланник Хуфу" },
+  { ref = "CrewBattleNode527", en = "Seven Sirens", ru = "Семь Сирен" },
+  { ref = "CrewBattleNode528", en = "Obol Crossing", ru = "Переезд Обол" },
+  { ref = "CrewBattleNode529", en = "Profit Margin", ru = "Предел Прибыли" },
+  { ref = "CrewBattleNode531", en = "Fenton's Field", ru = "Поле Фентона" },
+  { ref = "CrewBattleNode536", en = "Peregrine Axis", ru = "Ось Сапсана" },
+]
+
+[[chart]]
+planet = "Veil Proxima"
+planet_ru = "Проксима Вуали"
+node = [
+  { ref = "CrewBattleNode538", en = "Calabash", ru = "Калабаш" },
+  { ref = "CrewBattleNode539", en = "Numina", ru = "Нумина" },
+  { ref = "CrewBattleNode540", en = "Arc Silver", ru = "Серебряная Дуга" },
+  { ref = "CrewBattleNode541", en = "Erato", ru = "Эрато" },
+  { ref = "CrewBattleNode542", en = "Lu-yan", ru = "Лу-Янь" },
+  { ref = "CrewBattleNode543", en = "Sabmir Cloud", ru = "Облако Сабмира" },
+  { ref = "CrewBattleNode550", en = "Nsu Grid", ru = "Локус НСУ" },
+  { ref = "CrewBattleNode553", en = "Flexa", ru = "Флекса" },
+  { ref = "CrewBattleNode554", en = "H-2 Cloud", ru = "Облако H-2" },
+  { ref = "CrewBattleNode555", en = "R-9 Cloud", ru = "Облако R-9" },
+]

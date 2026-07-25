@@ -1,0 +1,19 @@
+# Rust
+/target
+
+# Data vault
+/.data_vault
+
+# Build artifacts
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+catalog.manifest.json*
+*.metrics.json
+catalog.report.json
+catalog.state.json
+catalog.changes.md
+/pack
+
+# Other
+temp.md

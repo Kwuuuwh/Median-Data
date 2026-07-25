@@ -1,0 +1,886 @@
+# How the catalog is grouped. Two axes only: a class (top level) and a kind (leaf).
+#
+# `[[class]]` declares the tree. Every kind slug is unique across classes, so a kind names
+# its class on its own. Russian labels are data, not authority — they are curated like any
+# other translation.
+#
+# `[[rule]]` derives an item's kind. Rules are ordered, first match wins, and each one says
+# which DE fact it reads. A rule matches when every matcher it lists matches; within one
+# matcher any listed value counts. Matchers:
+#
+#   array         the manifest array the object came from (`ExportAvionics`)
+#   category      `productCategory`, or the manifest name when DE gives none
+#   parent        `parentName`, exact
+#   parent_starts `parentName`, prefix
+#   path_contains substring of `uniqueName`
+#   mod_type      `type`, which only mods carry (`STANCE`, `AURA`)
+#
+# An item no rule matches lands in `unknown`, which the funnel reports.
+
+[[class]]
+slug = "warframe"
+en = "Warframes"
+ru = "Варфреймы"
+kind = [
+  { slug = "warframe", en = "Warframe", ru = "Варфрейм" },
+  { slug = "archwing", en = "Archwing", ru = "Арчвинг" },
+  { slug = "necramech", en = "Necramech", ru = "Некрамех" },
+]
+
+[[class]]
+slug = "primary"
+en = "Primary weapons"
+ru = "Основное оружие"
+kind = [{ slug = "primary", en = "Primary", ru = "Основное оружие" }]
+
+[[class]]
+slug = "secondary"
+en = "Secondary weapons"
+ru = "Вторичное оружие"
+kind = [{ slug = "secondary", en = "Secondary", ru = "Вторичное оружие" }]
+
+[[class]]
+slug = "melee"
+en = "Melee weapons"
+ru = "Оружие ближнего боя"
+kind = [{ slug = "melee", en = "Melee", ru = "Ближний бой" }]
+
+[[class]]
+slug = "archwing-weapon"
+en = "Archwing weapons"
+ru = "Оружие арчвинга"
+kind = [
+  { slug = "arch-gun", en = "Arch-gun", ru = "Арч-пушка" },
+  { slug = "arch-melee", en = "Arch-melee", ru = "Арч-клинок" },
+]
+
+[[class]]
+slug = "exalted"
+en = "Exalted"
+ru = "Величественное"
+kind = [
+  { slug = "exalted-weapon", en = "Exalted weapon", ru = "Величественное оружие" },
+]
+
+[[class]]
+slug = "companion"
+en = "Companions"
+ru = "Компаньоны"
+kind = [
+  { slug = "sentinel", en = "Sentinel", ru = "Страж" },
+  { slug = "kubrow", en = "Kubrow", ru = "Кубрау" },
+  { slug = "kavat", en = "Kavat", ru = "Кават" },
+  { slug = "predasite", en = "Predasite", ru = "Придазит" },
+  { slug = "vulpaphyla", en = "Vulpaphyla", ru = "Вульпафила" },
+  { slug = "moa", en = "Moa", ru = "МОА" },
+  { slug = "hound", en = "Hound", ru = "Гончая" },
+]
+
+[[class]]
+slug = "companion-weapon"
+en = "Companion weapons"
+ru = "Оружие компаньонов"
+kind = [{ slug = "companion-weapon", en = "Companion weapon", ru = "Оружие компаньона" }]
+
+[[class]]
+slug = "modular"
+en = "Modular parts"
+ru = "Модульные части"
+kind = [
+  { slug = "zaw-part", en = "Zaw part", ru = "Часть зо" },
+  { slug = "kitgun-part", en = "Kitgun part", ru = "Часть китгана" },
+  { slug = "amp-part", en = "Amp part", ru = "Часть усилителя" },
+  { slug = "kdrive-part", en = "K-Drive part", ru = "Часть K-драйва" },
+  { slug = "moa-part", en = "Moa part", ru = "Часть МОА" },
+  { slug = "hound-part", en = "Hound part", ru = "Часть гончей" },
+]
+
+[[class]]
+slug = "railjack"
+en = "Railjack"
+ru = "Рейлджек"
+kind = [
+  { slug = "railjack-weapon", en = "Railjack armament", ru = "Вооружение рейлджека" },
+  { slug = "railjack-part", en = "Railjack component", ru = "Компонент рейлджека" },
+]
+
+[[class]]
+slug = "mod"
+en = "Mods"
+ru = "Моды"
+kind = [
+  { slug = "warframe-mod", en = "Warframe mod", ru = "Мод варфрейма" },
+  { slug = "aura", en = "Aura", ru = "Аура" },
+  { slug = "stance", en = "Stance", ru = "Стойка" },
+  { slug = "primary-mod", en = "Primary mod", ru = "Мод основного оружия" },
+  { slug = "secondary-mod", en = "Secondary mod", ru = "Мод вторичного оружия" },
+  { slug = "melee-mod", en = "Melee mod", ru = "Мод ближнего боя" },
+  { slug = "companion-mod", en = "Companion mod", ru = "Мод компаньона" },
+  { slug = "archwing-mod", en = "Archwing mod", ru = "Мод арчвинга" },
+  { slug = "arch-gun-mod", en = "Arch-gun mod", ru = "Мод арч-пушки" },
+  { slug = "arch-melee-mod", en = "Arch-melee mod", ru = "Мод арч-клинка" },
+  { slug = "necramech-mod", en = "Necramech mod", ru = "Мод некрамеха" },
+  { slug = "kdrive-mod", en = "K-Drive mod", ru = "Мод K-драйва" },
+  { slug = "railjack-mod", en = "Railjack mod", ru = "Мод рейлджека" },
+  { slug = "parazon-mod", en = "Parazon mod", ru = "Мод паразона" },
+  { slug = "riven", en = "Riven mod", ru = "Мод разлома" },
+  { slug = "tektolyst-artifact", en = "Tektolyst artifact", ru = "Артефакт тектолиста" },
+  { slug = "transmute-core", en = "Transmute core", ru = "Ядро трансмутации" },
+  { slug = "focus-way", en = "Focus way", ru = "Путь фокуса" },
+  { slug = "mod", en = "Mod", ru = "Мод" },
+]
+
+[[class]]
+slug = "arcane"
+en = "Arcanes"
+ru = "Мистификаторы"
+kind = [{ slug = "arcane", en = "Arcane", ru = "Мистификатор" }]
+
+[[class]]
+slug = "relic"
+en = "Relics"
+ru = "Реликвии"
+kind = [{ slug = "relic", en = "Relic", ru = "Реликвия" }]
+
+[[class]]
+slug = "blueprint"
+en = "Blueprints"
+ru = "Чертежи"
+kind = [{ slug = "blueprint", en = "Blueprint", ru = "Чертеж" }]
+
+[[class]]
+slug = "component"
+en = "Components"
+ru = "Компоненты"
+kind = [
+  { slug = "warframe-component", en = "Warframe component", ru = "Компонент варфрейма" },
+  { slug = "archwing-component", en = "Archwing component", ru = "Компонент арчвинга" },
+  { slug = "ship-component", en = "Ship component", ru = "Компонент корабля" },
+  { slug = "pet-component", en = "Pet component", ru = "Компонент питомца" },
+]
+
+[[class]]
+slug = "resource"
+en = "Resources"
+ru = "Ресурсы"
+kind = [
+  { slug = "resource", en = "Resource", ru = "Ресурс" },
+  { slug = "gem", en = "Gem", ru = "Самоцвет" },
+  { slug = "plant", en = "Plant", ru = "Растение" },
+  { slug = "fish", en = "Fish", ru = "Рыба" },
+  { slug = "conservation-prey", en = "Conservation prey", ru = "Раненое животное" },
+  { slug = "fish-part", en = "Fish part", ru = "Часть рыбы" },
+  { slug = "archon-shard", en = "Archon shard", ru = "Осколок архонта" },
+  { slug = "eidolon-shard", en = "Eidolon shard", ru = "Осколок эйдолона" },
+  { slug = "focus-lens", en = "Focus lens", ru = "Линза фокуса" },
+  { slug = "incarnon-adapter", en = "Incarnon adapter", ru = "Адаптер инкарнон" },
+  { slug = "forma", en = "Forma", ru = "Форма" },
+  { slug = "dog-tag", en = "Dog tag", ru = "Жетон" },
+  { slug = "lich-token", en = "Lich token", ru = "Жетон лича" },
+  { slug = "helminth-secretion", en = "Helminth secretion", ru = "Секреция гельминта" },
+  { slug = "ayatan", en = "Ayatan treasure", ru = "Сокровище Аятан" },
+  { slug = "research-sample", en = "Research sample", ru = "Образец исследования" },
+  { slug = "misc-resource", en = "Misc resource", ru = "Прочий ресурс" },
+]
+
+[[class]]
+slug = "gear"
+en = "Gear"
+ru = "Снаряжение"
+kind = [
+  { slug = "gear", en = "Gear", ru = "Снаряжение" },
+  { slug = "restorative", en = "Restorative", ru = "Восстановитель" },
+  { slug = "fish-bait", en = "Fish bait", ru = "Приманка для рыбы" },
+  { slug = "conservation-gear", en = "Conservation gear", ru = "Снаряжение для охоты" },
+  { slug = "fishing-spear", en = "Fishing spear", ru = "Рыболовное копьё" },
+  { slug = "spectre", en = "Spectre", ru = "Спектр" },
+  { slug = "air-support", en = "Air support", ru = "Поддержка с воздуха" },
+]
+
+[[class]]
+slug = "key"
+en = "Keys"
+ru = "Ключи"
+kind = [
+  { slug = "quest-key", en = "Quest key", ru = "Ключ задания" },
+  { slug = "key", en = "Key", ru = "Ключ" },
+]
+
+# Bought, gifted, earned in ways the game never publishes — and the product does not need to
+# explain any of it, so their sources are not tracked and not counted as gaps.
+[[class]]
+slug = "cosmetic"
+en = "Appearance"
+ru = "Внешний вид"
+sourced = false
+kind = [
+  { slug = "skin", en = "Skin", ru = "Скин" },
+  { slug = "sigil", en = "Sigil", ru = "Сигил" },
+  { slug = "syandana", en = "Syandana", ru = "Сандана" },
+  { slug = "armor", en = "Armor piece", ru = "Присоединяемые украшения" },
+  { slug = "operator-cosmetic", en = "Operator appearance", ru = "Внешность оператора" },
+  { slug = "ephemera", en = "Ephemera", ru = "Эфемера" },
+  { slug = "glyph", en = "Glyph", ru = "Глиф" },
+  { slug = "emote", en = "Emote", ru = "Эмоция" },
+  { slug = "title", en = "Title", ru = "Титул" },
+  { slug = "palette", en = "Colour palette", ru = "Палитра" },
+  { slug = "pet-appearance", en = "Pet appearance", ru = "Внешность питомца" },
+  { slug = "liset-skin", en = "Landing craft skin", ru = "Облик десантного корабля" },
+  { slug = "ui-theme", en = "Interface theme", ru = "Тема интерфейса" },
+  { slug = "ship-deco", en = "Orbiter decoration", ru = "Украшение орбитера" },
+  { slug = "captura", en = "Captura scene", ru = "Сцена Captura" },
+  { slug = "shawzin-song", en = "Shawzin song", ru = "Мелодия шазина" },
+  { slug = "note-pack", en = "Note pack", ru = "Набор нот" },
+  { slug = "diorama", en = "Diorama", ru = "Диорама" },
+  { slug = "wallpaper", en = "Wallpaper", ru = "Обои" },
+]
+
+[[class]]
+slug = "ship"
+en = "Orbiter"
+ru = "Орбитер"
+kind = [
+  { slug = "ship-segment", en = "Ship segment", ru = "Сегмент корабля" },
+  { slug = "orbiter", en = "Orbiter", ru = "Орбитер" },
+  { slug = "navigation", en = "Navigation feature", ru = "Звёздная карта" },
+]
+
+[[class]]
+slug = "misc"
+en = "Miscellaneous"
+ru = "Прочее"
+kind = [
+  { slug = "lore", en = "Lore fragment", ru = "Фрагмент лора" },
+  { slug = "simulacrum", en = "Simulacrum", ru = "Симулякрум" },
+  { slug = "misc", en = "Miscellaneous", ru = "Прочее" },
+]
+
+[[class]]
+slug = "unknown"
+en = "Unclassified"
+ru = "Не определено"
+kind = [{ slug = "unknown", en = "Unclassified", ru = "Не определено" }]
+
+# --- blueprints ----------------------------------------------------------------------------
+# First, so a blueprint is never taken for the thing it builds: its path is the item's path
+# with a suffix, and several path rules below would match it.
+
+[[rule]]
+kind = "blueprint"
+reason = "a recipe key the manifests never declare"
+category = ["Blueprint"]
+
+# --- weapons ------------------------------------------------------------------------------
+# `productCategory` is the inventory slot, so it holds modular parts and exalted weapons
+# beside ordinary guns. Those come out by path first.
+
+[[rule]]
+kind = "exalted-weapon"
+reason = "a weapon under a warframe's own folder is summoned by an ability"
+array = ["ExportWeapons"]
+path_contains = ["/Lotus/Powersuits/"]
+
+[[rule]]
+kind = "exalted-weapon"
+reason = "a weapon DE files as a special item is summoned, not owned"
+array = ["ExportWeapons"]
+category = ["SpecialItems"]
+
+[[rule]]
+kind = "zaw-part"
+reason = "Ostron melee parts are Zaw components, filed under Pistols"
+path_contains = ["/Weapons/Ostron/Melee/"]
+
+[[rule]]
+kind = "kitgun-part"
+reason = "Solaris United secondary parts are Kitgun components"
+path_contains = ["/Weapons/SolarisUnited/Secondary/"]
+
+[[rule]]
+kind = "amp-part"
+reason = "operator amp components"
+path_contains = ["/Weapons/Sentients/OperatorAmplifiers/", "/Weapons/Operator/"]
+category = ["Pistols", "OperatorAmps"]
+
+[[rule]]
+kind = "kdrive-part"
+reason = "hoverboard parts are filed under Pistols"
+path_contains = ["/Types/Vehicles/Hoverboard/"]
+
+[[rule]]
+kind = "conservation-prey"
+reason = "the wounded animal carried to the Necralisk, also filed under Pistols"
+path_contains = ["/Types/Items/Deimos/WoundedInfested"]
+
+# A Moa or a Hound has no entity of its own: DE only ships the parts, and the head is what
+# names the model ("МОА: Пара", "Гончая: Дорма"). DE calls the Hound line ZanukaPets.
+
+[[rule]]
+kind = "moa"
+reason = "path: the head names the Moa model"
+path_contains = ["/MoaPets/MoaPetParts/MoaPetHead"]
+
+[[rule]]
+kind = "hound"
+reason = "path: the head names the Hound model"
+path_contains = ["/ZanukaPets/ZanukaPetParts/ZanukaPetPartHead"]
+
+[[rule]]
+kind = "moa-part"
+reason = "path: core, gyro and bracket, filed under Pistols"
+path_contains = ["/MoaPets/MoaPetParts/"]
+
+[[rule]]
+kind = "hound-part"
+reason = "path: core, bracket and stabilizer, filed under Pistols"
+path_contains = ["/ZanukaPets/ZanukaPetParts/"]
+
+[[rule]]
+kind = "pet-component"
+reason = "path: antigens and mutagens breed an infested pet, they are not weapons"
+path_contains = ["/CreaturePets/CreaturePetParts/"]
+
+[[rule]]
+kind = "companion-weapon"
+reason = "productCategory: one slot for every robotic companion, so no split by carrier"
+category = ["SentinelWeapons"]
+
+[[rule]]
+kind = "primary"
+reason = "productCategory"
+category = ["LongGuns"]
+
+[[rule]]
+kind = "secondary"
+reason = "productCategory"
+category = ["Pistols"]
+
+[[rule]]
+kind = "melee"
+reason = "productCategory"
+category = ["Melee"]
+
+[[rule]]
+kind = "arch-gun"
+reason = "productCategory"
+category = ["SpaceGuns"]
+
+[[rule]]
+kind = "arch-melee"
+reason = "productCategory"
+category = ["SpaceMelee"]
+
+[[rule]]
+kind = "railjack-weapon"
+reason = "productCategory"
+category = ["CrewShipWeapons"]
+
+# --- warframes and companions -------------------------------------------------------------
+# Every pet is `KubrowPets`; the species is in the path. Khora's Venari is `SpecialItems`.
+
+[[rule]]
+kind = "vulpaphyla"
+reason = "path: an infested Catbrow is a Vulpaphyla"
+path_contains = ["InfestedCatbrowPet"]
+array = ["ExportSentinels"]
+
+[[rule]]
+kind = "predasite"
+reason = "path: a predator Kubrow is a Predasite"
+path_contains = ["PredatorKubrowPet"]
+array = ["ExportSentinels"]
+
+[[rule]]
+kind = "kavat"
+reason = "path: Catbrow is DE's name for a Kavat, and Khora's Venari is one too"
+path_contains = ["/CatbrowPet/", "/Kavat/"]
+array = ["ExportSentinels"]
+
+[[rule]]
+kind = "kubrow"
+reason = "path"
+path_contains = ["/KubrowPet/"]
+array = ["ExportSentinels"]
+
+[[rule]]
+kind = "sentinel"
+reason = "productCategory"
+category = ["Sentinels"]
+
+[[rule]]
+kind = "archwing"
+reason = "productCategory"
+category = ["SpaceSuits"]
+
+[[rule]]
+kind = "necramech"
+reason = "productCategory"
+category = ["MechSuits"]
+
+[[rule]]
+kind = "warframe"
+reason = "productCategory"
+category = ["Suits"]
+array = ["ExportWarframes"]
+
+[[rule]]
+kind = "warframe"
+reason = "a suit DE files as a special item is still a warframe"
+category = ["SpecialItems"]
+array = ["ExportWarframes"]
+
+# --- mods ---------------------------------------------------------------------------------
+# `type` covers 1580 of 1597 mods. Rivens, Necramech, K-Drive and transmute cores print
+# `---` or nothing, and Avionics and Focus ways sit in their own manifest arrays.
+
+[[rule]]
+kind = "railjack-mod"
+reason = "manifest array"
+array = ["ExportAvionics"]
+
+[[rule]]
+kind = "focus-way"
+reason = "manifest array"
+array = ["ExportFocusUpgrades"]
+
+[[rule]]
+kind = "riven"
+reason = "path: randomized mods are rivens"
+path_contains = ["/Upgrades/Mods/Randomized/"]
+
+[[rule]]
+kind = "necramech-mod"
+reason = "path"
+path_contains = ["/Upgrades/Mods/Necromech/"]
+
+[[rule]]
+kind = "kdrive-mod"
+reason = "path: hoverboard mods"
+path_contains = ["/Upgrades/Mods/Hoverboard/"]
+
+[[rule]]
+kind = "transmute-core"
+reason = "path"
+path_contains = ["/Upgrades/Mods/TransmuteCores/"]
+
+[[rule]]
+kind = "tektolyst-artifact"
+reason = "path: DE files the Tektolyst artifacts as antiques"
+path_contains = ["/Upgrades/Mods/Antiques/"]
+
+[[rule]]
+kind = "railjack-mod"
+reason = "crew ship weapon mods carry no type"
+path_contains = ["/Weapons/CrewShip/"]
+array = ["ExportUpgrades"]
+
+[[rule]]
+kind = "companion-mod"
+reason = "pet precepts carry no type"
+path_contains = ["/Types/Friendly/Pets/", "/Upgrades/Mods/Sentinel/"]
+array = ["ExportUpgrades"]
+
+[[rule]]
+kind = "primary-mod"
+reason = "the ammo mutation mods carry no type"
+path_contains = ["/Upgrades/Mods/Rifle/", "/Upgrades/Mods/Shotgun/"]
+array = ["ExportUpgrades"]
+
+[[rule]]
+kind = "warframe-mod"
+reason = "mod type"
+mod_type = ["WARFRAME"]
+
+[[rule]]
+kind = "aura"
+reason = "mod type"
+mod_type = ["AURA"]
+
+[[rule]]
+kind = "stance"
+reason = "mod type"
+mod_type = ["STANCE"]
+
+[[rule]]
+kind = "parazon-mod"
+reason = "mod type"
+mod_type = ["PARAZON"]
+
+[[rule]]
+kind = "primary-mod"
+reason = "mod type"
+mod_type = ["PRIMARY", "RIFLE", "SHOTGUN"]
+
+[[rule]]
+kind = "secondary-mod"
+reason = "mod type"
+mod_type = ["SECONDARY", "PISTOL"]
+
+[[rule]]
+kind = "melee-mod"
+reason = "mod type"
+mod_type = ["MELEE"]
+
+[[rule]]
+kind = "companion-mod"
+reason = "mod type: sentinel, kavat and kubrow precepts"
+mod_type = ["SENTINEL", "KAVAT", "KUBROW", "COMPANION"]
+
+[[rule]]
+kind = "archwing-mod"
+reason = "mod type"
+mod_type = ["ARCHWING"]
+
+[[rule]]
+kind = "arch-gun-mod"
+reason = "mod type"
+mod_type = ["ARCH-GUN"]
+
+[[rule]]
+kind = "arch-melee-mod"
+reason = "mod type"
+mod_type = ["ARCH-MELEE"]
+
+[[rule]]
+kind = "mod"
+reason = "in the mod manifest with no type we can read"
+array = ["ExportUpgrades"]
+
+# --- relics, arcanes, blueprints -----------------------------------------------------------
+
+[[rule]]
+kind = "relic"
+reason = "path: DE calls relics projections"
+path_contains = ["/Types/Game/Projections/"]
+
+[[rule]]
+kind = "arcane"
+reason = "path: DE files arcanes as cosmetic enhancers"
+path_contains = ["/Upgrades/CosmeticEnhancers/"]
+
+# --- resources and components --------------------------------------------------------------
+# `parentName` is DE's own prototype pointer, and it splits the resource manifest.
+
+[[rule]]
+kind = "railjack-part"
+reason = "parentName"
+parent_starts = [
+  "/Lotus/Types/Items/RailjackMiscItems/",
+  "/Lotus/Types/Items/ShipFeatureItems/Railjack/",
+]
+
+[[rule]]
+kind = "warframe-component"
+reason = "parentName"
+parent = ["/Lotus/Types/Items/MiscItems/WarframeComponentItem"]
+
+[[rule]]
+kind = "archwing-component"
+reason = "parentName"
+parent = ["/Lotus/Types/Items/MiscItems/ArchwingComponentItem"]
+
+[[rule]]
+kind = "ship-component"
+reason = "parentName"
+parent = ["/Lotus/Types/Items/MiscItems/ShipComponentItem"]
+
+[[rule]]
+kind = "gem"
+reason = "parentName"
+parent_starts = ["/Lotus/Types/Items/Gems/"]
+
+[[rule]]
+kind = "fish-part"
+reason = "parentName"
+parent = ["/Lotus/Types/Items/Fish/FishPartItem"]
+
+[[rule]]
+kind = "fish"
+reason = "parentName: the prototype encodes biome and rarity"
+parent_starts = ["/Lotus/Types/Items/Fish/"]
+
+[[rule]]
+kind = "plant"
+reason = "parentName"
+parent_starts = ["/Lotus/Types/Items/Plants/"]
+
+[[rule]]
+kind = "archon-shard"
+reason = "parentName"
+parent_starts = ["/Lotus/Types/Gameplay/NarmerSorties/ArchonCrystal"]
+
+[[rule]]
+kind = "eidolon-shard"
+reason = "parentName"
+parent_starts = ["/Lotus/Types/Gameplay/Eidolon/Resources/SentientShards/"]
+
+[[rule]]
+kind = "focus-lens"
+reason = "parentName"
+parent_starts = ["/Lotus/Types/Items/MiscItems/FocusLens"]
+
+[[rule]]
+kind = "incarnon-adapter"
+reason = "parentName"
+parent_starts = ["/Lotus/Types/Items/MiscItems/IncarnonAdapters/"]
+
+[[rule]]
+kind = "forma"
+reason = "parentName"
+parent = ["/Lotus/Types/Items/MiscItems/Forma"]
+
+[[rule]]
+kind = "dog-tag"
+reason = "parentName"
+parent_starts = [
+  "/Lotus/Types/Items/SyndicateDogTags/",
+  "/Lotus/Types/Gameplay/1999Wf/Resources/HexSyndicateDogTag",
+  "/Lotus/Types/Gameplay/EntratiLab/Resources/EntratiLabDogTag",
+  "/Lotus/Types/Gameplay/Zariman/Resources/ZarimanDogTag",
+]
+
+[[rule]]
+kind = "lich-token"
+reason = "parentName"
+parent_starts = ["/Lotus/Types/Game/Nemesis/"]
+
+[[rule]]
+kind = "helminth-secretion"
+reason = "parentName"
+parent_starts = ["/Lotus/Types/Items/InfestedFoundry/"]
+
+[[rule]]
+kind = "ayatan"
+reason = "parentName: fusion treasures are Ayatan sculptures and stars"
+parent_starts = ["/Lotus/Types/Items/FusionTreasure"]
+
+[[rule]]
+kind = "research-sample"
+reason = "parentName"
+parent_starts = ["/Lotus/Types/Items/Research/"]
+
+[[rule]]
+kind = "lore"
+reason = "parentName"
+parent_starts = [
+  "/Lotus/Types/PickUps/LoreCards/",
+  "/Lotus/Types/Items/Deimos/EntratiFragmentBase",
+  "/Lotus/Types/Items/MushroomJournal/",
+]
+
+[[rule]]
+kind = "resource"
+reason = "parentName"
+parent = [
+  "/Lotus/Types/Items/MiscItems/ResourceItem",
+  "/Lotus/Types/Gameplay/Duviri/Resource/DuviriBaseResourceItem",
+  "/Lotus/Types/Gameplay/Zariman/Resources/VoidWraithItem",
+  "/Lotus/Types/Gameplay/JadeShadows/Resources/AscensionResourceItem",
+]
+
+# --- ship, orbiter, captura ----------------------------------------------------------------
+
+[[rule]]
+kind = "ship-segment"
+reason = "parentName"
+parent_starts = ["/Lotus/Types/Items/ShipFeatureItems/"]
+
+[[rule]]
+kind = "navigation"
+reason = "parentName"
+parent = ["/Lotus/Types/Items/NavigationFeatureItem"]
+
+[[rule]]
+kind = "orbiter"
+reason = "parentName"
+parent = ["/Lotus/Types/Items/ShipItem", "/Lotus/Types/Game/CrewShip/CrewShip"]
+
+[[rule]]
+kind = "shawzin-song"
+reason = "parentName"
+parent = [
+  "/Lotus/Types/Game/SongItem",
+  "/Lotus/Types/Items/ShipDecos/LotusShawzinPlayableBase",
+]
+
+[[rule]]
+kind = "captura"
+reason = "parentName: photobooth tiles are capture scenes"
+parent_starts = [
+  "/Lotus/Types/Items/MiscItems/Photobooth",
+  "/Lotus/Types/Game/PhotoboothTileItem",
+  "/Lotus/Types/Items/DangerRoom/",
+  "/Lotus/Types/Game/DangerRoomTileItem",
+]
+
+[[rule]]
+kind = "simulacrum"
+reason = "parentName"
+parent_starts = ["/Lotus/Types/Game/SpectreArmyItem"]
+
+[[rule]]
+kind = "ship-deco"
+reason = "parentName"
+parent_starts = ["/Lotus/Types/Items/ShipDeco"]
+
+# --- gear ----------------------------------------------------------------------------------
+
+[[rule]]
+kind = "fish-bait"
+reason = "parentName"
+parent_starts = ["/Lotus/Types/Game/FishBait/"]
+
+[[rule]]
+kind = "fishing-spear"
+reason = "parentName"
+parent_starts = ["/Lotus/Types/Restoratives/Consumable/BaseSpearFishing"]
+
+[[rule]]
+kind = "conservation-gear"
+reason = "parentName"
+parent_starts = ["/Lotus/Types/Restoratives/Conservation/"]
+
+[[rule]]
+kind = "spectre"
+reason = "parentName"
+parent_starts = [
+  "/Lotus/Types/Game/SummonNpcItem",
+  "/Lotus/Types/Restoratives/Consumable/SpectreBase",
+]
+
+[[rule]]
+kind = "air-support"
+reason = "parentName"
+parent_starts = ["/Lotus/Types/Restoratives/LisetBase"]
+
+[[rule]]
+kind = "restorative"
+reason = "parentName"
+parent_starts = [
+  "/Lotus/Types/Game/Restorative",
+  "/Lotus/Types/Restoratives/Consumable/",
+  "/Lotus/Types/Restoratives/Upgraded/",
+]
+
+[[rule]]
+kind = "gear"
+reason = "manifest"
+array = ["ExportGear"]
+
+# --- keys ----------------------------------------------------------------------------------
+
+[[rule]]
+kind = "quest-key"
+reason = "path"
+path_contains = ["Quest"]
+array = ["ExportKeys"]
+
+[[rule]]
+kind = "key"
+reason = "manifest"
+array = ["ExportKeys"]
+
+# --- appearance ----------------------------------------------------------------------------
+# ExportCustoms and ExportFlavour carry no productCategory and no parentName, so the path
+# folder is the only fact there is.
+
+[[rule]]
+kind = "sigil"
+reason = "path"
+path_contains = ["/Upgrades/Skins/Sigils/", "/Upgrades/Skins/Clan/"]
+
+[[rule]]
+kind = "syandana"
+reason = "path: DE calls syandanas scarves"
+path_contains = ["/Upgrades/Skins/Scarves/"]
+
+[[rule]]
+kind = "armor"
+reason = "path"
+path_contains = ["/Upgrades/Skins/Armor/"]
+
+[[rule]]
+kind = "operator-cosmetic"
+reason = "path"
+path_contains = ["/Upgrades/Skins/Operator/"]
+
+[[rule]]
+kind = "ephemera"
+reason = "path"
+path_contains = ["/Upgrades/Skins/Effects/"]
+
+[[rule]]
+kind = "liset-skin"
+reason = "path"
+path_contains = ["/Upgrades/Skins/Liset/"]
+
+[[rule]]
+kind = "pet-appearance"
+reason = "path: pet fur patterns, colours and body types"
+path_contains = ["/Types/Game/KubrowPet/", "/Types/Game/CatbrowPet/"]
+array = ["ExportFlavour", "ExportCustoms"]
+
+[[rule]]
+kind = "glyph"
+reason = "path"
+path_contains = ["/Types/StoreItems/AvatarImages/"]
+
+[[rule]]
+kind = "title"
+reason = "path"
+path_contains = ["/Types/Items/Titles/"]
+
+[[rule]]
+kind = "emote"
+reason = "path"
+path_contains = ["/Types/Items/Emotes/", "/Types/Game/PoseSets/"]
+
+[[rule]]
+kind = "palette"
+reason = "path"
+path_contains = ["/Types/StoreItems/SuitCustomizations/"]
+
+[[rule]]
+kind = "ui-theme"
+reason = "path"
+path_contains = [
+  "/Interface/Graphics/CustomUI/",
+  "/Types/Items/VideoWallSoundscapes/",
+]
+
+[[rule]]
+kind = "note-pack"
+reason = "path"
+path_contains = ["/Types/Game/NotePacks/"]
+
+[[rule]]
+kind = "diorama"
+reason = "path"
+path_contains = ["/Types/Game/ActionFigureDioramas/"]
+
+[[rule]]
+kind = "wallpaper"
+reason = "path"
+path_contains = ["/Types/Game/QuartersWallpapers/"]
+
+[[rule]]
+kind = "skin"
+reason = "manifest: everything left in the appearance manifest is a skin"
+array = ["ExportCustoms"]
+
+[[rule]]
+kind = "glyph"
+reason = "manifest: everything left in the flavour manifest is a picture or a badge"
+array = ["ExportFlavour"]
+
+# --- fallback ------------------------------------------------------------------------------
+
+[[rule]]
+kind = "misc-resource"
+reason = "parentName: DE's own junk drawer"
+parent = ["/Lotus/Types/Items/MiscItems/MiscItemBase"]
+
+[[rule]]
+kind = "misc"
+reason = "manifest"
+array = ["ExportResources", "ExportDrones"]
