@@ -7,7 +7,7 @@ use vault::{BlobId, Snapshot, Vault};
 
 use crate::assemble::{self, Built, Input};
 use crate::curation::Curation;
-use crate::{bounties, extract, regions, spec, taxonomy, version, wiki};
+use crate::{bounties, curation, extract, regions, spec, taxonomy, version, wiki};
 
 /// Sources whose pinned snapshot the catalog records, so a build can name what it read.
 const SOURCES: [&str; 7] = [
@@ -105,6 +105,10 @@ pub fn run(vault: &Vault, out: &Path) -> Result<()> {
     eprintln!(
         "relics   {} refinement steps linked — only the intact relic drops",
         built.refined
+    );
+    eprintln!(
+        "operator {} cosmetics linked to the Drifter's copy of them",
+        built.fitted
     );
     std::fs::write(REPORT, serde_json::to_vec_pretty(&report)?)?;
 
@@ -248,10 +252,19 @@ pub fn judge(vault: &Vault, built: &Built, curated: &Curation) -> Result<(Report
                 })
                 .collect(),
             anchors: &anchors,
+            // A drop-table name declared to be no item at all answers the same question the
+            // coverage check asks, so the verdict counts as accepting its finding.
             accepted: curated
                 .accepted()
                 .into_iter()
                 .map(|(rule, entity)| (rule.to_string(), entity.to_string()))
+                .chain(
+                    curated
+                        .dismissed()
+                        .into_iter()
+                        .filter(|(source, _)| *source == curation::DROPS)
+                        .map(|(_, key)| (funnel::DROP_NOT_IN_CATALOG.to_string(), key.to_string())),
+                )
                 .collect(),
             previous,
         },
@@ -299,7 +312,7 @@ fn project(vault: &Vault, out: &Path, built: &Built, report: &Report, state: &St
         .and_then(|snap| blob(vault, &snap, spec::TEXTURES))
         .and_then(|raw| extract::de_textures(&raw))
         .unwrap_or_default();
-    let cards = crate::icons::cards(&built.graph, &built.wfm, &textures);
+    let cards = crate::icons::cards(&built.graph, &built.taxonomy, &built.wfm, &textures);
     let pinned =
         crate::icons::Pinned::open(vault, crate::icons::pictures(vault, &cards, &textures));
 

@@ -182,21 +182,28 @@ ru = "Охота фолли"
 #
 # `wiki = "..."` records a disagreement looked at and kept, so the check stays quiet until the
 # wiki changes its mind.
+#
+# `icon = "..."` names the item whose picture the game draws as this faction's emblem. A
+# faction is not an entity of its own, so it has no texture; DE ships the emblems as player
+# glyphs. An index with no entry simply shows no emblem.
 
 [[faction]]
 index = 0
 en = "Grineer"
 ru = "Гринир"
+icon = "/Lotus/Types/StoreItems/AvatarImages/Factions/GlyphFactionGrineer"
 
 [[faction]]
 index = 1
 en = "Corpus"
 ru = "Корпус"
+icon = "/Lotus/Types/StoreItems/AvatarImages/Factions/GlyphFactionCorpus"
 
 [[faction]]
 index = 2
 en = "Infested"
 ru = "Заражённые"
+icon = "/Lotus/Types/StoreItems/AvatarImages/Factions/GlyphFactionInfested"
 
 # Index 3 holds the Void, Lua and the Dark Refractory. The enemies there are the Corrupted;
 # Orokin built the place but is not who you fight. Derived here from the planets, and the wiki
@@ -206,6 +213,7 @@ ru = "Заражённые"
 index = 3
 en = "Corrupted"
 ru = "Искажённые"
+icon = "/Lotus/Types/StoreItems/AvatarImages/Factions/GlyphFactionOrokin"
 
 # Index 10 is only the two Duviri nodes. The wiki calls their enemy The Murmur, which is not
 # what Duviri fields; its own faction table lists Duviri as a faction, so that is the label
@@ -226,6 +234,8 @@ index = 5
 en = "Sentient"
 ru = "Владеющие Разумом"
 wiki = "Corpus"
+# DE ships no Sentient glyph; the emblem is the icon of this Helminth item.
+icon = "/Lotus/Types/Items/InfestedFoundry/HelminthAppetiteCooldownReducer"
 
 # Index 11 is one node: Vesper Relay. A relay is Tenno-held, which is what the wiki says.
 
@@ -233,21 +243,25 @@ wiki = "Corpus"
 index = 11
 en = "Tenno"
 ru = "Тенно"
+icon = "/Lotus/Types/StoreItems/AvatarImages/AvatarImageDefault"
 
 [[faction]]
 index = 7
 en = "The Murmur"
 ru = "Шёпот"
+icon = "/Lotus/Types/StoreItems/AvatarImages/Factions/GlyphFactionMurmur"
 
 [[faction]]
 index = 8
 en = "Scaldra"
 ru = "Скальдра"
+icon = "/Lotus/Types/StoreItems/AvatarImages/Factions/GlyphFactionScaldra"
 
 [[faction]]
 index = 9
 en = "Techrot"
 ru = "Техрот"
+icon = "/Lotus/Types/StoreItems/AvatarImages/Factions/GlyphFactionTechrot"
 
 # --- node types ----------------------------------------------------------------------------
 # Index 4 is exactly the 26 Dark Sector nodes; everything else is an ordinary node.

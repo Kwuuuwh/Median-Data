@@ -33,6 +33,8 @@ pub struct Node {
     pub railjack: bool,
     /// Not shown on the star chart: onslaught, free flight, event-only nodes.
     pub hidden: bool,
+    /// The map the node is played on.
+    pub tileset: Option<String>,
     /// Keys into the drop-table module: the node's own reward table, its caches, and the
     /// extra table the drop tables print under a `… Extra` heading.
     pub alias: Option<String>,
@@ -333,6 +335,7 @@ pub fn chart(raw: &[u8]) -> Result<Chart> {
                 max_level: t.int("MaxLevel").unwrap_or(0),
                 railjack: t.bool("IsRailjack").unwrap_or(false),
                 hidden: t.bool("IsHidden").unwrap_or(false),
+                tileset: text(t, "Tileset").as_deref().map(tileset),
                 alias: text(t, "DropTableAlias"),
                 cache_alias: text(t, "CacheDropTableAlias"),
                 extra_alias: text(t, "ExtraDropTableAlias"),
@@ -352,6 +355,14 @@ fn text(t: &Table, key: &str) -> Option<String> {
     t.str(key).filter(|v| !v.is_empty()).map(str::to_string)
 }
 
+/// The tileset a node is played on, as a name rather than a wiki link: the field sometimes
+/// points at a section (`Tile Sets#Conclave Maps`) or carries a page disambiguator
+/// (`Zariman (Tileset)`).
+fn tileset(printed: &str) -> String {
+    let name = printed.rsplit('#').next().unwrap_or(printed);
+    name.strip_suffix(" (Tileset)").unwrap_or(name).to_string()
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -365,7 +376,8 @@ mod tests {
         \t},\n\
         \t[\"MissionModifiers\"] = { [\"Void Storm\"] = { Name = \"Void Storm\" } },\n\
         \x20\t[\"MissionDetails\"] = {\n\
-        \t\t{ Name = \"Apollodorus\", Planet = \"Mercury\", Type = \"Survival\", Tileset = \"\", \
+        \t\t{ Name = \"Apollodorus\", Planet = \"Mercury\", Type = \"Survival\", \
+             Tileset = \"Grineer Galleon\", \
              Enemy = \"Infested\", MinLevel = 6, MaxLevel = 11, InternalName = \"SolNode94\", \
              PreviousNodes = { \"Boethius\" }, IsTracked = true },\n\
         \t\t{ Name = \"Sover Strait\", Planet = \"Earth Proxima\", Type = \"Skirmish\", \
@@ -408,6 +420,7 @@ mod tests {
         assert_eq!(sol.mission.as_deref(), Some("Survival"));
         assert_eq!(sol.faction.as_deref(), Some("Infested"));
         assert_eq!((sol.min_level, sol.max_level), (6, 11));
+        assert_eq!(sol.tileset.as_deref(), Some("Grineer Galleon"));
         assert!(!sol.railjack && !sol.hidden);
 
         let rail = &c.nodes[1];
@@ -421,6 +434,14 @@ mod tests {
         let c = chart(SRC.as_bytes()).unwrap();
         let onslaught = &c.nodes[2];
         assert_eq!(onslaught.faction, None);
+        assert_eq!(onslaught.tileset, None);
         assert!(onslaught.hidden);
+    }
+
+    #[test]
+    fn a_tileset_written_as_a_link_reads_as_a_name() {
+        assert_eq!(tileset("Grineer Galleon"), "Grineer Galleon");
+        assert_eq!(tileset("Tile Sets#Conclave Maps"), "Conclave Maps");
+        assert_eq!(tileset("Zariman (Tileset)"), "Zariman");
     }
 }

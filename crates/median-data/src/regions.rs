@@ -23,13 +23,15 @@ pub struct Labels {
 
 /// One index and what it is called. `wiki` records a disagreement we looked at and kept: the
 /// wiki calls the index that, we call it something else on purpose, and the check stays quiet
-/// until the wiki changes its mind.
+/// until the wiki changes its mind. `icon` names the item whose picture the game uses as the
+/// emblem, since factions are not entities of their own.
 #[derive(Debug, Deserialize)]
 struct Named {
     index: i64,
     en: String,
     ru: Option<String>,
     wiki: Option<String>,
+    icon: Option<String>,
 }
 
 /// Russian names for the star chart, grouped by the planet the nodes sit in. DE translates
@@ -59,6 +61,7 @@ impl Labels {
             Some(n) => Label {
                 en: Some(n.en.clone()),
                 ru: n.ru.clone(),
+                icon: n.icon.clone(),
             },
             None => Label::default(),
         }
@@ -94,14 +97,13 @@ impl Labels {
     }
 
     /// A label for a type the wiki names but DE gives no index for (`Skirmish`). The Russian
-    /// side comes from the table when it happens to hold that name.
+    /// side and the emblem come from the table when it happens to hold that name.
     fn named(list: &[Named], en: &str) -> Label {
+        let known = list.iter().find(|n| n.en.eq_ignore_ascii_case(en));
         Label {
             en: Some(en.to_string()),
-            ru: list
-                .iter()
-                .find(|n| n.en.eq_ignore_ascii_case(en))
-                .and_then(|n| n.ru.clone()),
+            ru: known.and_then(|n| n.ru.clone()),
+            icon: known.and_then(|n| n.icon.clone()),
         }
     }
 
@@ -128,6 +130,22 @@ impl Labels {
             .iter()
             .find(|c| c.planet == planet)
             .and_then(|c| c.planet_ru.clone())
+    }
+}
+
+/// The map a node is played on, with whatever Russian was written for it. The wiki names
+/// tilesets in English only, so Russian can only be hand-written.
+fn tileset(name: Option<&str>, terms: &crate::curation::Terms) -> Label {
+    match name {
+        Some(name) => with_term(
+            Label {
+                en: Some(name.to_string()),
+                ..Label::default()
+            },
+            "tileset",
+            terms,
+        ),
+        None => Label::default(),
     }
 }
 
@@ -182,18 +200,13 @@ pub fn link(
 ) -> Linked {
     let mut by_name: BTreeMap<(String, String), String> = BTreeMap::new();
     let mut by_node_name: BTreeMap<String, String> = BTreeMap::new();
-    // DE has no field for either flag, so both always come from the wiki.
-    let flags: BTreeMap<&str, (bool, bool)> = wiki
-        .iter()
-        .map(|w| (w.key.as_str(), (w.railjack, w.hidden)))
-        .collect();
+    // DE exports neither flag nor the tileset, so all three always come from the wiki.
+    let described: BTreeMap<&str, &crate::wiki::Node> =
+        wiki.iter().map(|w| (w.key.as_str(), w)).collect();
     let mut regions = 0;
     for r in de {
         let translated = ru.get(&r.node);
-        let (railjack, hidden) = flags
-            .get(r.node.as_str())
-            .copied()
-            .unwrap_or((false, false));
+        let known = described.get(r.node.as_str());
         let region = Region {
             node: r.node.clone(),
             name: r.name.clone(),
@@ -217,9 +230,10 @@ pub fn link(
             mastery: r.mastery,
             min_level: r.min_level,
             max_level: r.max_level,
+            tileset: tileset(known.and_then(|w| w.tileset.as_deref()), terms),
             origin: Source::De,
-            railjack,
-            hidden,
+            railjack: known.is_some_and(|w| w.railjack),
+            hidden: known.is_some_and(|w| w.hidden),
         };
         by_name.insert(
             (r.planet.to_lowercase(), r.name.to_lowercase()),
@@ -267,6 +281,7 @@ pub fn link(
             mastery: 0,
             min_level: w.min_level,
             max_level: w.max_level,
+            tileset: tileset(w.tileset.as_deref(), terms),
             origin: Source::Wiki,
             railjack: w.railjack,
             hidden: w.hidden,

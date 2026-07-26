@@ -44,12 +44,12 @@ jobs:
           key: vault-${{ github.run_id }}
           restore-keys: vault-
 
-      # What the last release was made of. Its state file continues the version chain and its
-      # picture index is what the delta pack is computed against.
+      # What the last release was made of: its state file continues the version chain, and its
+      # manifest says which schema was published.
       - name: Fetch the last release
         run: |
           mkdir -p prev
-          gh release download --pattern manifest.json --pattern pack.index \
+          gh release download --pattern manifest.json \
             --pattern catalog.state.json --dir prev || true
           if [ -f prev/catalog.state.json ]; then cp prev/catalog.state.json .; fi
 

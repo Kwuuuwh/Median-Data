@@ -2,29 +2,48 @@ use std::collections::BTreeMap;
 use std::fs;
 use std::path::Path;
 
-use anyhow::{Context as _, Result};
-use image::ExtendedColorType;
-use image::codecs::webp::WebPEncoder;
+use anyhow::{Context as _, Result, anyhow};
 use image::imageops::FilterType;
 use rusqlite::Transaction;
 
 use crate::projection::{Context, Projection, Summary};
 
-/// Raw icon bytes for an item in one language, however the build pinned them.
-pub trait Source {
-    fn bytes(&self, unique_name: &str, lang: &str) -> Option<Vec<u8>>;
+/// How much of a picture has to survive. A market asset is the item as the game draws it —
+/// a mod card holds its name and stats, an arcane sits in its holder — and stops being
+/// readable at icon size; a game texture is a symbol, and a list draws it small.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum Detail {
+    Icon,
+    Full,
 }
 
-/// Icons for what the product ships, re-encoded to one size and format. Items sharing
-/// artwork share a file: the name is the content hash, so the pack dedupes itself. A mod
-/// carries its name and stats in the picture, so it gets one per language; everything else
-/// resolves to the same file in both.
+impl Detail {
+    /// The longest edge a picture of this kind is kept at.
+    fn edge(self) -> u32 {
+        match self {
+            Detail::Icon => 128,
+            Detail::Full => 320,
+        }
+    }
+}
+
+/// Raw icon bytes for an item in one language, however the build pinned them, and how much
+/// of the picture the catalog has to keep.
+pub trait Source {
+    fn picture(&self, unique_name: &str, lang: &str) -> Option<(Vec<u8>, Detail)>;
+}
+
+/// Icons for what the product ships, re-encoded to one format. Items sharing artwork share
+/// a file: the name is the content hash, so the pack dedupes itself. A mod carries its name
+/// and stats in the picture, so it gets one per language; everything else resolves to the
+/// same file in both.
 pub struct Icons;
 
-/// Pictures are fitted inside this edge; sources arrive at assorted sizes, and a mod card
-/// is taller than it is wide.
-const EDGE: u32 = 128;
 const DIR: &str = "pack";
+
+/// WebP quality. Measured against the lossless encoding this replaced: a third of the
+/// weight with no difference visible on a mod card's text at three times its size.
+const QUALITY: f32 = 90.0;
 
 const SETUP: &str = "\
 CREATE TABLE item_icons (
@@ -68,7 +87,7 @@ impl Projection for Icons {
             }
             let mut ids = BTreeMap::new();
             for lang in graph::LANGS {
-                let Some(bytes) = source.bytes(&item.unique_name, lang) else {
+                let Some((bytes, detail)) = source.picture(&item.unique_name, lang) else {
                     continue;
                 };
                 // The pack file is named after the SOURCE hash, so an already-encoded image
@@ -80,7 +99,7 @@ impl Projection for Icons {
                         let id = key[..16].to_string();
                         let path = dir.join(format!("{id}.webp"));
                         if !path.exists() {
-                            match convert(&bytes) {
+                            match convert(&bytes, detail) {
                                 Ok(webp) => {
                                     fs::write(&path, &webp)?;
                                     written += 1;
@@ -122,7 +141,7 @@ impl Projection for Icons {
             let graph::Node::Vendor(v) = node else {
                 continue;
             };
-            let Some(bytes) = source.bytes(&node.id(), "ru") else {
+            let Some((bytes, detail)) = source.picture(&node.id(), "ru") else {
                 continue;
             };
             let key = blake3::hash(&bytes).to_hex().to_string();
@@ -132,7 +151,7 @@ impl Projection for Icons {
                     let id = key[..16].to_string();
                     let path = dir.join(format!("{id}.webp"));
                     if !path.exists() {
-                        match convert(&bytes) {
+                        match convert(&bytes, detail) {
                             Ok(webp) => {
                                 fs::write(&path, &webp)?;
                                 written += 1;
@@ -183,18 +202,16 @@ fn sweep(dir: &Path, keep: &BTreeMap<String, String>) -> Result<usize> {
     Ok(removed)
 }
 
-/// Decode whatever DE served and re-encode it as lossless WebP at a fixed size.
-fn convert(bytes: &[u8]) -> Result<Vec<u8>> {
+/// Decode whatever the source served and re-encode it as WebP, fitted inside the edge its
+/// detail asks for.
+fn convert(bytes: &[u8], detail: Detail) -> Result<Vec<u8>> {
     let image = image::load_from_memory(bytes).context("decode")?;
-    let fitted = image.resize(EDGE, EDGE, FilterType::Lanczos3).to_rgba8();
-    let mut out = Vec::new();
-    WebPEncoder::new_lossless(&mut out)
-        .encode(
-            fitted.as_raw(),
-            fitted.width(),
-            fitted.height(),
-            ExtendedColorType::Rgba8,
-        )
-        .context("encode webp")?;
-    Ok(out)
+    // Never enlarge. The market serves some assets smaller than the edge, and stretching
+    // one buys no detail it does not have while costing bytes.
+    let edge = detail.edge().min(image.width().max(image.height()));
+    let fitted = image.resize(edge, edge, FilterType::Lanczos3).to_rgba8();
+    let encoded = webp::Encoder::from_rgba(fitted.as_raw(), fitted.width(), fitted.height())
+        .encode_simple(false, QUALITY)
+        .map_err(|e| anyhow!("encode webp: {e:?}"))?;
+    Ok(encoded.to_vec())
 }

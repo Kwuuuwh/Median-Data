@@ -75,7 +75,7 @@ pub fn render(snap: &Snapshot) -> Markup {
                     @for (layer, rules) in by_layer(snap) {
                         (card(
                             words::layer(layer),
-                            Some(html! { span.card-n { (total(&rules)) } }),
+                            Some(html! { span.card-n { (number(total(&rules) as i64)) } }),
                             html! { .scroll { table {
                                 thead { tr {
                                     th { "Проверка" } th { "Штук" } th { "Примеры" }
@@ -86,13 +86,13 @@ pub fn render(snap: &Snapshot) -> Markup {
                                             td { a href={ "/anomalies?rule=" (crate::page::encode(rule)) } {
                                                      (words::rule(rule)) }
                                                  br; span.path { (rule) } }
-                                            td.num { (hits.len()) }
+                                            td.num { (number(hits.len() as i64)) }
                                             td.dim {
                                                 @for entity in hits.iter().take(SHOWN) {
                                                     (link(entity, short(entity))) " "
                                                 }
                                                 @if hits.len() > SHOWN {
-                                                    span.path { "и ещё " (hits.len() - SHOWN) }
+                                                    span.path { "и ещё " (number((hits.len() - SHOWN) as i64)) }
                                                 }
                                             }
                                         }
@@ -121,7 +121,7 @@ pub fn render(snap: &Snapshot) -> Markup {
                 @if !snap.iconless.is_empty() {
                     h2 { "Без картинки" }
                     (card("Источник не отдаёт изображение", Some(html! {
-                        span.card-n.hot { (snap.iconless.len()) }
+                        span.card-n.hot { (number(snap.iconless.len() as i64)) }
                     }), html! {
                         ul.rows {
                             @for path in snap.iconless.iter().take(10) {
@@ -203,7 +203,7 @@ fn categories(snap: &Snapshot) -> Markup {
     };
     html! {
         (card("Классы и подкатегории", Some(html! {
-            span.card-n { (snap.taxonomy.classes().len()) }
+            span.card-n { (number(snap.taxonomy.classes().len() as i64)) }
         }), html! {
             .scroll { table {
                 thead { tr { th { "Класс" } th { "Штук" } th { "Подкатегории" } } }
@@ -313,7 +313,7 @@ fn moved(title: &str, paths: &[String]) -> Markup {
     const LIST: usize = 25;
     html! {
         @if !paths.is_empty() {
-            (card(title, Some(html! { span.card-n { (paths.len()) } }), html! {
+            (card(title, Some(html! { span.card-n { (number(paths.len() as i64)) } }), html! {
                 ul.rows {
                     @for path in paths.iter().take(LIST) {
                         li.row { (link(path, short(path))) " " span.path { (path) } }

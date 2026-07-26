@@ -82,6 +82,8 @@ pub async fn run(addr: &str, store: Box<dyn Store>) -> Result<()> {
         .route("/suggest", get(act::suggest))
         .route("/map", post(act::map))
         .route("/unmap", post(act::unmap))
+        .route("/dismiss", post(act::dismiss))
+        .route("/undismiss", post(act::undismiss))
         .route("/name", post(act::name))
         .route("/term", post(act::term))
         .route("/pick", post(act::pick))

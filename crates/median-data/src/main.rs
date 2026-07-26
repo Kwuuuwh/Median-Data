@@ -11,6 +11,7 @@ mod bridge;
 mod build;
 mod craft;
 mod curation;
+mod drifters;
 mod drops;
 mod extract;
 mod fetch;

@@ -3,7 +3,8 @@ use std::path::Path;
 
 use anyhow::Result;
 use consensus::Source;
-use graph::Graph;
+use graph::{Graph, Taxonomy};
+use projections::Detail;
 use sources::wfm::WfmItem;
 use vault::{BlobId, Entry, Snapshot, Vault};
 
@@ -13,6 +14,10 @@ use crate::{build, spec};
 /// without the frame, the name or the stats. The market renders the whole card, per
 /// language, so anything DE answers from here is better taken from there.
 const ARTWORK: &str = "/Cards/Images/";
+
+/// The other class DE illustrates poorly: its texture is the arcane's glyph on its own,
+/// while the game — and the market — draw it seated in its holder.
+const ARCANE: &str = "arcane";
 
 /// Logical name of the entry saying which vendor each pinned picture belongs to.
 const INDEX: &str = "index";
@@ -37,7 +42,7 @@ pub fn run(vault: &Vault, scope_path: &Path, now_ms: i64) -> Result<()> {
         sources::de::fetch_texture(agent, location)
     })?;
 
-    let cards = cards(&built.graph, &built.wfm, &textures);
+    let cards = cards(&built.graph, &built.taxonomy, &built.wfm, &textures);
     let wanted: BTreeSet<&str> = cards
         .iter()
         .filter(|(path, _)| shipped.contains(*path))
@@ -163,20 +168,22 @@ fn pin(
     Ok(())
 }
 
-/// Market card assets per language, for the items whose DE texture is artwork rather than
-/// an icon. Items DE illustrates properly keep their DE icon.
+/// Market assets per language, for the items DE illustrates poorly: a mod, whose texture
+/// is bare artwork rather than the card, and an arcane, whose texture is the glyph without
+/// its holder. Everything else keeps its DE icon.
 pub fn cards(
     graph: &Graph,
+    taxonomy: &Taxonomy,
     wfm: &[WfmItem],
     textures: &BTreeMap<String, String>,
 ) -> BTreeMap<String, BTreeMap<String, String>> {
     let by_slug: BTreeMap<&str, &WfmItem> = wfm.iter().map(|w| (w.slug.as_str(), w)).collect();
     let mut out = BTreeMap::new();
     for item in graph.items() {
-        if !textures
+        let artwork = textures
             .get(&item.unique_name)
-            .is_some_and(|loc| loc.contains(ARTWORK))
-        {
+            .is_some_and(|loc| loc.contains(ARTWORK));
+        if !artwork && taxonomy.class_slug(&item.kind.value) != ARCANE {
             continue;
         }
         let Some(slug) = &item.slug else { continue };
@@ -251,18 +258,19 @@ impl<'a> Pinned<'a> {
     pub fn open(vault: &'a Vault, pictures: Pictures) -> Option<Self> {
         (!pictures.is_empty()).then_some(Self { vault, pictures })
     }
-
-    /// The picture's bytes and its source.
-    pub fn picture(&self, unique_name: &str, lang: &str) -> Option<(Vec<u8>, Source)> {
-        let (blob, from) = self.pictures.get(unique_name)?.get(lang)?;
-        let bytes = self.vault.get(&BlobId::from_hex(blob.clone())).ok()?;
-        Some((bytes, *from))
-    }
 }
 
 impl projections::IconSource for Pinned<'_> {
-    fn bytes(&self, unique_name: &str, lang: &str) -> Option<Vec<u8>> {
-        self.picture(unique_name, lang).map(|(bytes, _)| bytes)
+    fn picture(&self, unique_name: &str, lang: &str) -> Option<(Vec<u8>, Detail)> {
+        let (blob, from) = self.pictures.get(unique_name)?.get(lang)?;
+        let bytes = self.vault.get(&BlobId::from_hex(blob.clone())).ok()?;
+        // DE serves a symbol; the market serves the item as the game draws it, and that is
+        // the picture the catalog has to keep whole.
+        let detail = match from {
+            Source::Wfm => Detail::Full,
+            _ => Detail::Icon,
+        };
+        Some((bytes, detail))
     }
 }
 

@@ -8,7 +8,7 @@ use crate::state::Snapshot;
 /// Everything the catalog ships that carries a name, and therefore needs a Russian one. Items
 /// are named by `[[name]]`, everything else by `[[term]]`, because only an item has a path of
 /// its own to key a name by.
-pub const TARGETS: [&str; 13] = [
+pub const TARGETS: [&str; 14] = [
     "item",
     "place",
     "region",
@@ -18,6 +18,7 @@ pub const TARGETS: [&str; 13] = [
     "mission",
     "faction",
     "node_type",
+    "tileset",
     "settlement",
     "giver",
     "activity",
@@ -58,7 +59,7 @@ pub fn rows(snap: &Snapshot, target: &str) -> Vec<Row> {
         "planet" => planets(snap),
         "vendor" => vendors(snap),
         "lab" => labs(snap),
-        "mission" | "faction" | "node_type" => labels(snap, target),
+        "mission" | "faction" | "node_type" | "tileset" => labels(snap, target),
         "settlement" | "giver" | "activity" => bounties(snap, target),
         "kind" => kinds(snap),
         _ => Vec::new(),
@@ -185,6 +186,7 @@ fn labels(snap: &Snapshot, target: &str) -> Vec<Row> {
         let label = match target {
             "mission" => &r.mission_label,
             "faction" => &r.faction_label,
+            "tileset" => &r.tileset,
             _ => &r.type_label,
         };
         let Some(en) = label.en.as_deref() else {
@@ -197,7 +199,10 @@ fn labels(snap: &Snapshot, target: &str) -> Vec<Row> {
         }
     }
     seen.into_iter()
-        .map(|(en, (ru, count))| Row::new(en, en, ru, format!("{count} узлов")))
+        .map(|(en, (ru, count))| {
+            let word = crate::words::plural(count, "узел", "узла", "узлов");
+            Row::new(en, en, ru, format!("{count} {word}"))
+        })
         .collect()
 }
 

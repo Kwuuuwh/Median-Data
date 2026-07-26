@@ -137,7 +137,7 @@ pub fn row(snap: &Snapshot, item: &Item) -> Markup {
                     span.tag.bad { "неизвестно" }
                 } @else {
                     @for (what, count) in &sources {
-                        span.tag { (what) " " span.num { (count) } } " "
+                        span.tag { (what) " " span.num { (number(*count as i64)) } } " "
                     }
                 }
             }

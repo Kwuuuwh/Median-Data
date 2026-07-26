@@ -243,6 +243,32 @@ td.num { font-family: var(--mono); text-align: right; white-space: nowrap; }
 td.dim { color: var(--muted); }
 .scroll { overflow-x: auto; }
 
+/* A value in Russian with the source's own wording under it. */
+.bi { display: inline-flex; flex-direction: column; line-height: 1.25; min-width: 0; }
+.bi-en { font-size: 10.5px; color: var(--faint); }
+a:hover .bi-ru { color: var(--accent); }
+thead th .col-en { display: block; margin-top: 1px; font-size: 9px; font-weight: 400;
+                   letter-spacing: .4px; text-transform: none; color: var(--line-2); }
+
+/* Who holds a star-chart node, with the emblem the game draws for them. */
+.target { display: inline-flex; align-items: center; gap: 8px; }
+.target-icon { width: 24px; height: 24px; flex: 0 0 auto; object-fit: contain; }
+
+/* ---------- folded lists ---------- */
+/* Every row stays in the page; the toggle only hides the tail, so find-in-page still works. */
+
+.fold:has(> details:not([open])) .folded { display: none; }
+.fold > details { margin-top: 9px; }
+.fold > details > summary {
+  display: inline-flex; align-items: center; gap: 6px; width: fit-content; cursor: pointer;
+  list-style: none; font-size: 12px; padding: 4px 12px; border-radius: 7px;
+  color: var(--accent); background: var(--accent-soft); border: 1px solid var(--accent-dim);
+}
+.fold > details > summary::-webkit-details-marker { display: none; }
+.fold > details > summary:hover { border-color: var(--accent); }
+.fold > details[open] > summary .fold-more { display: none; }
+.fold > details:not([open]) > summary .fold-less { display: none; }
+
 .iref { display: inline-flex; align-items: center; gap: 9px; }
 .iref-icon { width: 36px; height: 36px; flex-shrink: 0; border-radius: 6px;
              background: var(--surface-2); border: 1px solid var(--line); object-fit: contain; }
@@ -311,11 +337,13 @@ button.plain:hover { background: var(--line); color: var(--ink); }
 form.inline { display: inline-flex; gap: 6px; align-items: center; margin: 0; }
 .curate-row { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
 .curate-row > .dim { min-width: 110px; }
-input[type=text] {
+input[type=text], input[type=search] {
   font: inherit; font-size: 12.5px; padding: 5px 10px; border-radius: 7px;
   background: var(--bg); border: 1px solid var(--line-2); color: var(--ink); min-width: 190px;
 }
-input[type=text]:focus { outline: none; border-color: var(--accent-dim); }
+input[type=text]::placeholder, input[type=search]::placeholder { color: var(--faint); }
+input[type=text]:focus, input[type=search]:focus { outline: none; border-color: var(--accent-dim); }
+.curate-row input[type=search] { flex: 1; min-width: 220px; }
 
 /* ---------- queue rows ---------- */
 
@@ -325,6 +353,12 @@ input[type=text]:focus { outline: none; border-color: var(--accent-dim); }
 .row:hover { border-color: var(--line-2); }
 .row-h { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
 .row-t { font-weight: 600; font-size: 13.5px; }
+/* What a row is about, told apart from the thing it is about by size and case. */
+.eyebrow { font-size: 10.5px; font-weight: 600; text-transform: uppercase;
+           letter-spacing: 1.1px; color: var(--muted); }
+.subject .iref-icon { width: 44px; height: 56px; }
+.subject .iref-ru { font-size: 14.5px; }
+.subject .row-t { font-size: 14.5px; }
 .opts { display: flex; flex-direction: column; gap: 5px; margin-top: 9px;
         padding-top: 9px; border-top: 1px solid var(--line); }
 .opt { display: flex; align-items: center; gap: 10px; justify-content: space-between; }
@@ -332,6 +366,11 @@ input[type=text]:focus { outline: none; border-color: var(--accent-dim); }
 .score { font-family: var(--mono); font-size: 10.5px; color: var(--muted);
          border: 1px solid var(--line); border-radius: 20px; padding: 0 8px; }
 .score.sure { color: var(--accent); border-color: var(--accent-dim); }
+/* The other verdict: the name belongs to nothing the catalog can hold. Sits apart from the
+   candidates so it is not read as one of them. */
+.curate-row.verdict { margin: 9px 0 0; padding-top: 9px; border-top: 1px solid var(--line); }
+.curate-row.verdict form.inline { flex: 1; }
+.curate-row.verdict input[type=text] { flex: 1; min-width: 220px; }
 
 /* ---------- conflict cards ---------- */
 
@@ -367,6 +406,10 @@ input[type=text]:focus { outline: none; border-color: var(--accent-dim); }
 .col-h { display: flex; align-items: center; gap: 6px; font-size: 11px; }
 .col-v { font-size: 13.5px; overflow-wrap: anywhere; }
 .diff { color: var(--warn); background: var(--warn-soft); border-radius: 3px; padding: 0 2px; }
+/* On a candidate's name whole words get marked, so the mark has to be quiet enough to read
+   through. */
+.iref-en .diff { background: none; padding: 0; text-decoration: underline dotted;
+                 text-underline-offset: 2px; }
 .col input[type=text] { min-width: 0; width: 100%; }
 @media (max-width: 700px) { .cmp { grid-auto-flow: row; } }
 

@@ -22,6 +22,14 @@ pub struct KeyForm {
 }
 
 #[derive(Deserialize)]
+pub struct DismissForm {
+    source: String,
+    key: String,
+    #[serde(default)]
+    note: String,
+}
+
+#[derive(Deserialize)]
 pub struct NameForm {
     item: String,
     #[serde(default)]
@@ -102,6 +110,29 @@ pub async fn unmap(State(studio): State<Shared>, Form(form): Form<KeyForm>) -> R
         return failed("не удалось снять связь", e);
     }
     studio.patch(|snap| patch::unmapped(snap, &form.source, &form.key));
+    Redirect::to("/mapping").into_response()
+}
+
+pub async fn dismiss(
+    State(studio): State<Shared>,
+    headers: HeaderMap,
+    Form(form): Form<DismissForm>,
+) -> Response {
+    if let Err(e) = studio.store.dismiss(&form.source, &form.key, &form.note) {
+        return failed("не удалось записать решение", e);
+    }
+    studio.patch(|snap| patch::dismissed(snap, &form.source, &form.key, &form.note));
+    if htmx(&headers) {
+        return mapping::dropped(&form.source, &form.key, &form.note).into_response();
+    }
+    Redirect::to("/mapping").into_response()
+}
+
+pub async fn undismiss(State(studio): State<Shared>, Form(form): Form<KeyForm>) -> Response {
+    if let Err(e) = studio.store.undismiss(&form.source, &form.key) {
+        return failed("не удалось вернуть имя в очередь", e);
+    }
+    studio.patch(|snap| patch::undismissed(snap, &form.source, &form.key));
     Redirect::to("/mapping").into_response()
 }
 

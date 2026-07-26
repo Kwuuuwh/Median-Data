@@ -84,7 +84,7 @@ fn item(side: &Side, name: &str, href: &str, label: &str, count: Option<usize>) 
             a href=(href) class=@if side.active == name { "on" } @else { "" } {
                 span { (label) }
                 @if let Some(n) = count {
-                    span.badge.hot[n > 0] { (n) }
+                    span.badge.hot[n > 0] { (number(n as i64)) }
                 }
             }
         }
@@ -154,6 +154,34 @@ pub fn named(graph: &graph::Graph, id: &str) -> Markup {
     }
 }
 
+/// A link to a node, its Russian name over the English one. Places and star-chart nodes have
+/// no artwork of their own, so this is `named` without the picture.
+pub fn plain(graph: &graph::Graph, id: &str) -> Markup {
+    let (ru, en) = match names(graph, id) {
+        (primary, Some(en)) => (Some(primary), en),
+        (en, None) => (None, en),
+    };
+    html! {
+        a href={ "/entity?q=" (encode(id)) } { (dual(ru, en)) }
+    }
+}
+
+/// A value in Russian with the English original under it, dimmed. With no Russian the English
+/// stands alone rather than being doubled.
+pub fn dual(ru: Option<&str>, en: &str) -> Markup {
+    html! {
+        span.bi {
+            span.bi-ru { (ru.unwrap_or(en)) }
+            @if ru.is_some() { span.bi-en { (en) } }
+        }
+    }
+}
+
+/// A column heading in Russian, with the source's own wording under it.
+pub fn col(ru: &str, en: &str) -> Markup {
+    html! { th { (ru) span.col-en { (en) } } }
+}
+
 /// The Russian name over the English one, or the English name alone when there is no Russian.
 pub fn names<'a>(graph: &'a graph::Graph, id: &'a str) -> (&'a str, Option<&'a str>) {
     match graph.get(id) {
@@ -195,6 +223,17 @@ pub fn encode(value: &str) -> String {
 /// A percentage with two decimals.
 pub fn pct(chance: f64) -> String {
     format!("{:.2}%", chance * 100.0)
+}
+
+/// A quantity that is not whole: kept to as many decimals as it takes to stay a number rather
+/// than a row of zeroes.
+pub fn amount(value: f64) -> String {
+    match value {
+        v if v >= 100.0 => number(v.round() as i64),
+        v if v >= 1.0 => format!("{v:.2}"),
+        v if v >= 0.01 => format!("{v:.3}"),
+        v => format!("{v:.4}"),
+    }
 }
 
 /// Group digits for readability: 15000 -> "15 000".

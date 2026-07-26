@@ -2,6 +2,10 @@ use graph::{Graph, Node, Rel};
 
 use crate::finding::{Finding, Layer};
 
+/// The check that fires on a drop-table name no item answers to. Named because a decision
+/// that such a name is not an item at all has to silence exactly this check.
+pub const DROP_NOT_IN_CATALOG: &str = "drop-not-in-catalog";
+
 /// What the sources named while the graph was being built but nothing could be attached to.
 /// These never reach the graph, so the funnel has to be told about them.
 #[derive(Default)]
@@ -37,7 +41,7 @@ pub fn check(graph: &Graph, gaps: &Gaps) -> Vec<Finding> {
     for name in &gaps.unknown_drop_items {
         out.push(Finding::new(
             Layer::Coverage,
-            "drop-not-in-catalog",
+            DROP_NOT_IN_CATALOG,
             name,
             "dropped somewhere but matches no item".to_string(),
         ));

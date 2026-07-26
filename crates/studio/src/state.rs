@@ -40,11 +40,18 @@ pub struct Decided {
     pub picks: Vec<(String, String, String)>,
     /// What kind of thing was named, its key, and the Russian word written for it.
     pub terms: Vec<(String, String, String)>,
+    /// Source, the name it prints, and what that name really is — for names no item can
+    /// answer to.
+    pub dismissed: Vec<(String, String, String)>,
 }
 
 impl Decided {
     pub fn len(&self) -> usize {
-        self.links.len() + self.names.len() + self.picks.len() + self.terms.len()
+        self.links.len()
+            + self.names.len()
+            + self.picks.len()
+            + self.terms.len()
+            + self.dismissed.len()
     }
 
     pub fn is_empty(&self) -> bool {
@@ -95,6 +102,10 @@ pub trait Store: Send + Sync {
     fn map(&self, source: &str, key: &str, item: &str) -> Result<()>;
     /// Forget a mapping, letting the build derive it again.
     fn unmap(&self, source: &str, key: &str) -> Result<()>;
+    /// Record that a printed name names no item at all, with what it really is.
+    fn dismiss(&self, source: &str, key: &str, note: &str) -> Result<()>;
+    /// Ask about a printed name again.
+    fn undismiss(&self, source: &str, key: &str) -> Result<()>;
     /// Write a Russian name by hand. An empty name clears it.
     fn name(&self, item: &str, ru: &str) -> Result<()>;
     /// Keep one source's value for a property a person judged.

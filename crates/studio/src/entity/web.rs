@@ -49,6 +49,7 @@ pub fn render(graph: &Graph, id: &str) -> Markup {
                 }
             }
             Rel::Primed => push(&mut right, graph, id, &e.from, "базовая"),
+            Rel::Fits => push(&mut left, graph, id, &e.from, "оператор"),
             Rel::Member | Rel::Represents => push(&mut right, graph, id, &e.from, "сет"),
             Rel::At => push(&mut left, graph, id, &e.from, "таблица наград"),
             Rel::Sells(_) => push(&mut left, graph, id, &e.from, "продаёт"),
@@ -59,6 +60,7 @@ pub fn render(graph: &Graph, id: &str) -> Markup {
     for e in graph.from(id) {
         match e.rel {
             Rel::Primed => push(&mut right, graph, id, &e.to, "прайм"),
+            Rel::Fits => push(&mut right, graph, id, &e.to, "скиталец"),
             Rel::At => push(&mut right, graph, id, &e.to, "узел"),
             Rel::Refines => push(&mut right, graph, id, &e.to, "улучшается в"),
             _ => {}

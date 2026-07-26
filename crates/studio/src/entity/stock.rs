@@ -1,7 +1,8 @@
 use graph::{Graph, Offer, Rel};
 use maud::{Markup, html};
 
-use crate::page::{card, named, number};
+use crate::fold::Fold;
+use crate::page::{card, col, named, number};
 use crate::words;
 
 /// What a vendor hands over. An edge means the item has been on offer, never that it is in
@@ -16,27 +17,35 @@ pub fn sold_by(graph: &Graph, id: &str) -> Markup {
         })
         .collect();
 
-    html! {
-        @if !offers.is_empty() {
-            (card("Ассортимент", Some(html! { span.card-n { (offers.len()) } }), html! {
-                .scroll { table {
-                    thead { tr {
-                        th { "Предмет" } th { "Цена" } th { "Прилавок" } th { "Условия" }
-                    } }
-                    tbody {
-                        @for (item, offer) in &offers {
-                            tr {
-                                td { (named(graph, item)) }
-                                td { (price(offer)) }
-                                td.dim { (offer.store.as_deref().unwrap_or("—")) }
-                                td.dim { (terms(offer)) }
-                            }
+    if offers.is_empty() {
+        return html! {};
+    }
+    let fold = Fold::new(offers.len());
+
+    card(
+        "Ассортимент",
+        Some(html! { span.card-n { (number(offers.len() as i64)) } }),
+        fold.wrap(html! {
+            .scroll { table {
+                thead { tr {
+                    (col("Предмет", "item"))
+                    (col("Цена", "price"))
+                    (col("Прилавок", "store"))
+                    (col("Условия", "terms"))
+                } }
+                tbody {
+                    @for (at, (item, offer)) in offers.iter().enumerate() {
+                        tr.folded[fold.hides(at)] {
+                            td { (named(graph, item)) }
+                            td { (price(offer)) }
+                            td.dim { (offer.store.as_deref().unwrap_or("—")) }
+                            td.dim { (terms(offer)) }
                         }
                     }
-                } }
-            }))
-        }
-    }
+                }
+            } }
+        }),
+    )
 }
 
 /// Where an item can be bought, for its own page.
@@ -50,32 +59,40 @@ pub fn sold_at(graph: &Graph, id: &str) -> Markup {
         })
         .collect();
 
-    html! {
-        @if !offers.is_empty() {
-            (card("Где купить", Some(html! { span.card-n { (offers.len()) } }), html! {
-                .scroll { table {
-                    thead { tr {
-                        th { "Торговец" } th { "Цена" } th { "Прилавок" } th { "Условия" }
-                    } }
-                    tbody {
-                        @for (vendor, offer) in &offers {
-                            tr {
-                                td {
-                                    (named(graph, vendor))
-                                    @if let Some(graph::Node::Vendor(v)) = graph.get(vendor) {
-                                        br; span.path { (words::vendor(v.kind.as_deref())) }
-                                    }
+    if offers.is_empty() {
+        return html! {};
+    }
+    let fold = Fold::new(offers.len());
+
+    card(
+        "Где купить",
+        Some(html! { span.card-n { (number(offers.len() as i64)) } }),
+        fold.wrap(html! {
+            .scroll { table {
+                thead { tr {
+                    (col("Торговец", "vendor"))
+                    (col("Цена", "price"))
+                    (col("Прилавок", "store"))
+                    (col("Условия", "terms"))
+                } }
+                tbody {
+                    @for (at, (vendor, offer)) in offers.iter().enumerate() {
+                        tr.folded[fold.hides(at)] {
+                            td {
+                                (named(graph, vendor))
+                                @if let Some(graph::Node::Vendor(v)) = graph.get(vendor) {
+                                    br; span.path { (words::vendor(v.kind.as_deref())) }
                                 }
-                                td { (price(offer)) }
-                                td.dim { (offer.store.as_deref().unwrap_or("—")) }
-                                td.dim { (terms(offer)) }
                             }
+                            td { (price(offer)) }
+                            td.dim { (offer.store.as_deref().unwrap_or("—")) }
+                            td.dim { (terms(offer)) }
                         }
                     }
-                } }
-            }))
-        }
-    }
+                }
+            } }
+        }),
+    )
 }
 
 /// What it costs, in whatever the counter takes.
@@ -91,7 +108,7 @@ fn price(offer: &Offer) -> Markup {
         @if let Some(credits) = offer.credits {
             span.dim { " + " (number(credits)) " кредитов" }
         }
-        @if offer.count > 1 { span.tag { "×" (offer.count) } }
+        @if offer.count > 1 { span.tag { "×" (number(offer.count)) } }
     }
 }
 
@@ -104,6 +121,11 @@ fn terms(offer: &Offer) -> Markup {
         }
         @if offer.always { span.tag.trade { "всегда" } " " }
         @if offer.gone { span.tag.bad { "больше не привозит" } " " }
-        @if offer.times > 0 { span.dim { "привозил " (offer.times) " раз" } }
+        @if offer.times > 0 {
+            span.dim {
+                "привозил " (number(offer.times as i64)) " "
+                (words::plural(offer.times, "раз", "раза", "раз"))
+            }
+        }
     }
 }

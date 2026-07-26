@@ -13,7 +13,7 @@ use crate::names::{self, Index};
 use crate::paths::Paths;
 use crate::regions::{self, Labels, Linked};
 use crate::taxonomy::Policy;
-use crate::{craft, drops, imprints, merge, primes, relic, rules, sets};
+use crate::{craft, drifters, drops, imprints, merge, primes, relic, rules, sets};
 
 /// What one build produced besides the graph itself.
 pub struct Built {
@@ -51,6 +51,8 @@ pub struct Built {
     pub matching: BTreeMap<&'static str, usize>,
     /// Ordinary items linked to their prime counterpart.
     pub primed: usize,
+    /// Operator cosmetics linked to the Drifter's copy of them.
+    pub fitted: usize,
     /// Market imprints modelled as their own node.
     pub imprinted: usize,
     /// Relic refinement steps linked.
@@ -158,6 +160,7 @@ pub fn assemble(
     sets::link(&mut graph, &bridge);
     let imprinted = imprints::link(&mut graph, &input.wfm);
     let primed = primes::link(&mut graph);
+    let fitted = drifters::link(&mut graph);
 
     let before = graph.len();
     let missed = drops::link(&mut graph, &input.drops, settlements, &index, &terms);
@@ -210,6 +213,7 @@ pub fn assemble(
         matched,
         matching,
         primed,
+        fitted,
         imprinted,
         refined,
         graph,

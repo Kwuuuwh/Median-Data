@@ -25,6 +25,8 @@ pub struct Curation {
     pub term: Vec<Term>,
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub accept: Vec<Accept>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub dismiss: Vec<Dismiss>,
 }
 
 /// A name one source uses tied to the catalog item it means, where the source's own
@@ -72,6 +74,17 @@ pub struct Term {
 pub struct Accept {
     pub rule: String,
     pub entity: String,
+    #[serde(default)]
+    pub note: String,
+}
+
+/// A printed name that names nothing the catalog can hold: a mission-mechanic pickup a player
+/// never owns, a bundle, a counter. There is no item to tie it to and there never will be, so
+/// it stops being asked about; the note says what it actually is.
+#[derive(Debug, Clone, Deserialize, Serialize)]
+pub struct Dismiss {
+    pub source: String,
+    pub key: String,
     #[serde(default)]
     pub note: String,
 }
@@ -208,6 +221,31 @@ impl Curation {
         self.accept.retain(|a| a.rule != rule || a.entity != entity);
     }
 
+    /// Printed names declared to name no item, keyed by source and name.
+    pub fn dismissed(&self) -> BTreeSet<(&str, &str)> {
+        self.dismiss
+            .iter()
+            .map(|d| (d.source.as_str(), d.key.as_str()))
+            .collect()
+    }
+
+    /// Declare that a printed name names no item, with what it actually is.
+    pub fn set_dismiss(&mut self, source: &str, key: &str, note: &str) {
+        self.clear_dismiss(source, key);
+        self.dismiss.push(Dismiss {
+            source: source.to_string(),
+            key: key.to_string(),
+            note: note.trim().to_string(),
+        });
+        self.dismiss
+            .sort_by(|a, b| (&a.source, &a.key).cmp(&(&b.source, &b.key)));
+    }
+
+    /// Ask about a printed name again.
+    pub fn clear_dismiss(&mut self, source: &str, key: &str) {
+        self.dismiss.retain(|d| d.source != source || d.key != key);
+    }
+
     /// Every decision on record, for review and undo.
     pub fn decided(&self) -> studio::Decided {
         studio::Decided {
@@ -230,6 +268,11 @@ impl Curation {
                 .term
                 .iter()
                 .map(|t| (t.kind.clone(), t.key.clone(), t.ru.clone()))
+                .collect(),
+            dismissed: self
+                .dismiss
+                .iter()
+                .map(|d| (d.source.clone(), d.key.clone(), d.note.clone()))
                 .collect(),
         }
     }
@@ -347,6 +390,16 @@ mod tests {
             "Земля/Мариана"
         );
         assert_eq!(terms.get("region", "Earth/Mariana"), None);
+    }
+
+    #[test]
+    fn a_dismissed_name_carries_what_it_really_is() {
+        let mut c = Curation::default();
+        c.set_dismiss(DROPS, "Powercell", "механика раскопок");
+        assert!(c.dismissed().contains(&(DROPS, "Powercell")));
+        assert!(!c.dismissed().contains(&(VENDOR, "Powercell")));
+        c.clear_dismiss(DROPS, "Powercell");
+        assert!(c.dismiss.is_empty());
     }
 
     #[test]

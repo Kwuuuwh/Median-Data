@@ -3,15 +3,18 @@ use serde::Deserialize;
 
 use crate::fuzzy::{self, Names};
 use crate::list::{self, Query};
-use crate::page::{Side, bar, encode, named, number, shell, slug};
+use crate::page::{self, Side, bar, encode, named, number, shell, slug};
 use crate::state::{Snapshot, Unresolved};
 use crate::words;
 
 /// How many candidates a row offers before the rest is noise.
 const OPTIONS: usize = 5;
 
+/// The drop tables, whose names the coverage check also reports.
+pub const DROPS: &str = "drops";
+
 /// The sources that print names, in the order the screen lists them.
-const SOURCES: [&str; 4] = ["market", "drops", "vendor", "dojo"];
+const SOURCES: [&str; 4] = ["market", DROPS, "vendor", "dojo"];
 
 /// Which source's orphans the screen is showing.
 #[derive(Debug, Default, Clone, Deserialize)]
@@ -86,6 +89,7 @@ pub fn render(snap: &Snapshot, names: &Names, filter: &Filter, q: &Query) -> Mar
 
                 h2 id="done" { "Уже связано" }
                 (decided(snap))
+                (refused(snap))
             }
         },
     )
@@ -100,7 +104,10 @@ pub fn row(snap: &Snapshot, names: &Names, u: &Unresolved) -> Markup {
                 span.row-t { (u.name) }
                 span {
                     @if u.count > 1 {
-                        span.tag { (u.count) " " (words::plural(u.count, "строка", "строки", "строк")) }
+                        span.tag {
+                            (number(u.count as i64)) " "
+                            (words::plural(u.count, "строка", "строки", "строк"))
+                        }
                         " "
                     }
                     span.tag.kind { (words::origin(&u.source)) }
@@ -110,6 +117,7 @@ pub fn row(snap: &Snapshot, names: &Names, u: &Unresolved) -> Markup {
             @if !u.hint.is_empty() { p.note { (u.hint) } }
             (search(&u.source, &u.key, &u.name))
             div id={ "cand-" (id) } { (candidates(snap, names, &u.source, &u.key, &u.name)) }
+            (not_an_item(&u.source, &u.key))
         }
     }
 }
@@ -127,6 +135,22 @@ fn search(source: &str, key: &str, name: &str) -> Markup {
     }
 }
 
+/// The other verdict a name can get: it names nothing the catalog can hold — a pickup a
+/// player never owns, a bundle, a counter — so there is no item to look for.
+fn not_an_item(source: &str, key: &str) -> Markup {
+    html! {
+        .curate-row.verdict {
+            form.inline hx-post="/dismiss" hx-target={ "#" (key_id(source, key)) }
+                 hx-swap="outerHTML" action="/dismiss" method="post" {
+                input type="hidden" name="source" value=(source);
+                input type="hidden" name="key" value=(key);
+                input type="text" name="note" placeholder="чем это на самом деле является";
+                button.plain type="submit" { "Это не предмет" }
+            }
+        }
+    }
+}
+
 /// The items a printed name might mean, best first.
 pub fn candidates(snap: &Snapshot, names: &Names, source: &str, key: &str, query: &str) -> Markup {
     let hits = names.best(query, OPTIONS);
@@ -139,8 +163,8 @@ pub fn candidates(snap: &Snapshot, names: &Names, source: &str, key: &str, query
                     .opt {
                         .grow {
                             span.score.sure[hit.score == 100] { (hit.score) "%" }
-                            " " (named(&snap.graph, &hit.path))
-                            .path { (fuzzy::diff(&hit.name, query)) " · " (hit.path) }
+                            " " (marked(snap, hit, query))
+                            .path { (hit.path) }
                         }
                         form.inline hx-post="/map" hx-target={ "#" (key_id(source, key)) }
                              hx-swap="outerHTML" action="/map" method="post" {
@@ -150,6 +174,52 @@ pub fn candidates(snap: &Snapshot, names: &Names, source: &str, key: &str, query
                             button type="submit" { "Связать" }
                         }
                     }
+                }
+            }
+        }
+    }
+}
+
+/// The row after a name is declared to be no item: what it really is, and the way back.
+pub fn dropped(source: &str, key: &str, note: &str) -> Markup {
+    html! {
+        li.row.done id=(key_id(source, key)) {
+            .row-h {
+                span.row-t { (key) }
+                span {
+                    span.tag { "не предмет" } " "
+                    span.tag.kind { (words::origin(source)) }
+                }
+            }
+            .opt {
+                .grow {
+                    p.note { @if note.is_empty() { "без пояснения" } @else { (note) } }
+                }
+                form.inline action="/undismiss" method="post" {
+                    input type="hidden" name="source" value=(source);
+                    input type="hidden" name="key" value=(key);
+                    button.plain type="submit" { "Вернуть" }
+                }
+            }
+        }
+    }
+}
+
+/// A candidate as its picture, its Russian name and its English one. The marking goes on the
+/// English name: that is what the sources print and what the query was scored against.
+fn marked(snap: &Snapshot, hit: &fuzzy::Hit, query: &str) -> Markup {
+    let (primary, secondary) = page::names(&snap.graph, &hit.path);
+    let href = format!("/entity?q={}", encode(&hit.path));
+    html! {
+        a.iref href=(href) {
+            img.iref-icon src={ "/icon?q=" (encode(&hit.path)) "&lang=ru" } alt="" loading="lazy";
+            span.iref-text {
+                @match secondary {
+                    Some(en) => {
+                        span.iref-ru { (primary) }
+                        span.iref-en { (fuzzy::diff(en, query)) }
+                    }
+                    None => span.iref-ru { (fuzzy::diff(primary, query)) },
                 }
             }
         }
@@ -172,6 +242,45 @@ pub fn settled(snap: &Snapshot, source: &str, key: &str, item: &str) -> Markup {
                     button.plain type="submit" { "Снять" }
                 }
             }
+        }
+    }
+}
+
+/// Names declared to be no item at all, each with the way back.
+fn refused(snap: &Snapshot) -> Markup {
+    let rows = &snap.decided.dismissed;
+    html! {
+        @if !rows.is_empty() {
+            h2 id="nothing" { "Не предметы" }
+            p.why {
+                (number(rows.len() as i64)) " "
+                (words::plural(rows.len(), "имя названо", "имени названы", "имён названы"))
+                " тем, чего каталог не держит. Проверки о них больше не спрашивают, но "
+                "по-прежнему их находят."
+            }
+            .scroll { table {
+                thead { tr {
+                    th { "Источник" } th { "Имя" } th { "Что это на самом деле" } th {}
+                } }
+                tbody {
+                    @for (source, key, note) in rows {
+                        tr {
+                            td { (words::origin(source)) }
+                            td { code { (key) } }
+                            td.dim {
+                                @if note.is_empty() { "без пояснения" } @else { (note) }
+                            }
+                            td.num {
+                                form.inline action="/undismiss" method="post" {
+                                    input type="hidden" name="source" value=(source);
+                                    input type="hidden" name="key" value=(key);
+                                    button.plain type="submit" { "Вернуть" }
+                                }
+                            }
+                        }
+                    }
+                }
+            } }
         }
     }
 }

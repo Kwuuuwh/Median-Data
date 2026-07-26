@@ -4,7 +4,7 @@ use consensus::{Conflict, Resolved, Source, Status};
 use graph::Item;
 use maud::{Markup, html};
 
-use crate::page::{card, prov};
+use crate::page::{card, number, prov};
 use crate::words;
 
 /// The columns, in the order a person reads them.
@@ -17,7 +17,7 @@ pub fn render(item: &Item, conflicts: &[&Conflict]) -> Markup {
     card(
         "Что говорят источники",
         Some(html! { span.card-n.hot[!conflicts.is_empty()] {
-            (conflicts.len()) " расхожд."
+            (number(conflicts.len() as i64)) " расхожд."
         } }),
         html! {
             .scroll {

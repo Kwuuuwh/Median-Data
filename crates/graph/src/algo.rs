@@ -47,7 +47,7 @@ pub fn handed_over(graph: &Graph, item: &str) -> bool {
 }
 
 /// Whether anything in the graph leads to an item at all: a recipe, a relic, a drop, a set,
-/// a vendor, or refining the step below it.
+/// a vendor, refining the step below it, or owning the piece the other body wears.
 pub fn obtainable(graph: &Graph, item: &str) -> bool {
     graph.into(item).iter().any(|e| {
         matches!(
@@ -59,6 +59,7 @@ pub fn obtainable(graph: &Graph, item: &str) -> bool {
                 | Rel::Sells(_)
                 | Rel::Refines
                 | Rel::Researched(_)
+                | Rel::Fits
         )
     })
 }
@@ -236,6 +237,7 @@ mod tests {
                 rotation: None,
                 stage: None,
                 table_chance: None,
+                count: None,
             }),
         });
         let cost = rollup(&g, "/frame");

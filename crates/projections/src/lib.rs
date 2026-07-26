@@ -9,6 +9,6 @@ mod search;
 
 pub use catalog::SCHEMA;
 pub use engine::run;
-pub use icons::Source as IconSource;
+pub use icons::{Detail, Source as IconSource};
 pub use projection::{Context, Projection, Summary};
 pub use scope::{Policy, Scope, apply, kept, load};

@@ -91,7 +91,10 @@ impl Index {
         }
     }
 
-    /// Resolve a printed name, trying it as-is then without a trailing `Blueprint`.
+    /// Resolve a printed name, trying it as-is, then without a trailing `Blueprint`, then
+    /// without a stack size printed inside it. Both fallbacks run only once the name itself
+    /// has answered to nothing, so a name that legitimately reads that way — the `Lith X1`
+    /// relic series — is never taken apart.
     pub fn get(&self, printed: &str) -> Option<&str> {
         if let Some(path) = self.curated.get(&normalize(printed)) {
             return Some(path);
@@ -106,8 +109,14 @@ impl Index {
         if let Some(path) = self.by_name.get(&key) {
             return Some(path);
         }
-        let trimmed = key.strip_suffix(" blueprint")?;
-        self.by_name.get(trimmed).map(String::as_str)
+        if let Some(path) = key
+            .strip_suffix(" blueprint")
+            .and_then(|trimmed| self.by_name.get(trimmed))
+        {
+            return Some(path);
+        }
+        let stripped = without_stack(&key)?;
+        self.by_name.get(&stripped).map(String::as_str)
     }
 
     /// Resolve a relic named separately from its refinement.
@@ -153,6 +162,32 @@ pub fn quantity(printed: &str) -> (Option<i64>, &str) {
         Ok(count) => (Some(count), rest.trim()),
         Err(_) => (None, printed),
     }
+}
+
+/// A normalized name with a stack size taken out of the middle of it. The gem vendors write
+/// what a blueprint yields inside its name — `Adramal Alloy X20 Blueprint`, `Heart Nyth x3
+/// Blueprint`, `Vapor Specter X 10 Blueprint` — where the catalog names the blueprint alone.
+/// A size at either end is `quantity`'s job; only the middle is read here.
+fn without_stack(key: &str) -> Option<String> {
+    let words: Vec<&str> = key.split(' ').collect();
+    for at in 1..words.len().saturating_sub(1) {
+        let taken = match words[at].strip_prefix('x') {
+            Some(digits) if is_count(digits) => 1,
+            _ if words[at] == "x" && is_count(words[at + 1]) && at + 2 < words.len() => 2,
+            _ => continue,
+        };
+        let kept: Vec<&str> = words[..at]
+            .iter()
+            .chain(&words[at + taken..])
+            .copied()
+            .collect();
+        return Some(kept.join(" "));
+    }
+    None
+}
+
+fn is_count(word: &str) -> bool {
+    !word.is_empty() && word.replace(',', "").parse::<i64>().is_ok()
 }
 
 /// Split a relic printed with its refinement, as in `Lith Q3 Relic (Radiant)`.
@@ -238,6 +273,48 @@ mod tests {
         let graph = catalog(&[("/A/Sunder", "Sunder")]);
         let curated = BTreeMap::from([("Legendary Core", "/Gone")]);
         assert_eq!(Index::build(&graph, &curated).get("Legendary Core"), None);
+    }
+
+    #[test]
+    fn a_stack_size_inside_the_name_resolves_to_the_blueprint() {
+        let graph = catalog(&[
+            ("/Prospecting/AlloyBlueprint", "Adramal Alloy Blueprint"),
+            ("/Prospecting/SpecterBlueprint", "Vapor Specter Blueprint"),
+        ]);
+        let index = Index::build(&graph, &BTreeMap::new());
+        assert_eq!(
+            index.get("Adramal Alloy X20 Blueprint"),
+            Some("/Prospecting/AlloyBlueprint")
+        );
+        assert_eq!(
+            index.get("Vapor Specter X 10 Blueprint"),
+            Some("/Prospecting/SpecterBlueprint")
+        );
+    }
+
+    #[test]
+    fn a_name_that_reads_like_a_stack_size_keeps_it() {
+        let graph = catalog(&[
+            ("/Projections/LithX1", "Lith X1 Relic"),
+            ("/Projections/LithRelic", "Lith Relic"),
+        ]);
+        let index = Index::build(&graph, &BTreeMap::new());
+        assert_eq!(index.get("Lith X1 Relic"), Some("/Projections/LithX1"));
+    }
+
+    #[test]
+    fn a_stack_size_is_only_read_out_of_the_middle() {
+        assert_eq!(
+            without_stack("adramal alloy x20 blueprint"),
+            Some("adramal alloy blueprint".to_string())
+        );
+        assert_eq!(
+            without_stack("vapor specter x 10 blueprint"),
+            Some("vapor specter blueprint".to_string())
+        );
+        assert_eq!(without_stack("cipher x 100"), None);
+        assert_eq!(without_stack("100x oxium"), None);
+        assert_eq!(without_stack("orokin cell"), None);
     }
 
     #[test]

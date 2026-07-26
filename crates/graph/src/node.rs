@@ -125,6 +125,9 @@ pub struct Place {
 pub struct Label {
     pub en: Option<String>,
     pub ru: Option<String>,
+    /// Item whose picture the game uses as this label's emblem, where the reference table
+    /// names one.
+    pub icon: Option<String>,
 }
 
 /// A node of the star chart, as DE describes it. Mission type, faction and node type are
@@ -149,6 +152,9 @@ pub struct Region {
     pub mastery: i64,
     pub min_level: i64,
     pub max_level: i64,
+    /// The map the node is played on. DE exports no such field; the wiki names one per node,
+    /// in English only.
+    pub tileset: Label,
     /// Who says this node exists. DE does not export Railjack at all, so those come from the
     /// wiki.
     pub origin: Source,

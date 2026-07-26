@@ -59,18 +59,16 @@ struct Pack {
     part: Part,
     /// How many pictures the pack holds.
     count: usize,
-    /// The same pack minus everything the named release already shipped. Pictures are named
-    /// by their content, so a client that has that release needs only this.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    delta: Option<Delta>,
 }
 
-#[derive(Serialize)]
-struct Delta {
-    from: String,
-    #[serde(flatten)]
-    part: Part,
-    count: usize,
+/// One picture in the pack: where its bytes sit inside the archive and what they hash to.
+/// A client diffs this against what it holds and asks the release for exactly the byte
+/// ranges it lacks, so how far behind it is costs nothing but the pictures that changed.
+struct Entry {
+    id: String,
+    offset: u64,
+    len: u64,
+    blake3: String,
 }
 
 /// Package what the last build produced. Nothing is fetched, nothing is rebuilt and nothing is
@@ -119,20 +117,7 @@ pub fn run(
     fs::create_dir_all(&dist)?;
     let db_part = gzip(db, &dist.join(DB))?;
     let ids = pack_ids(pack)?;
-    let pack_part = tar(pack, &dist.join(PACK), &ids)?;
-
-    let delta = match previous.map(shipped).transpose()?.flatten() {
-        Some((from, had)) => {
-            let fresh: BTreeSet<String> = ids.difference(&had).cloned().collect();
-            let name = format!("pack-{from}.tar");
-            Some(Delta {
-                part: tar(pack, &dist.join(&name), &fresh)?,
-                count: fresh.len(),
-                from,
-            })
-        }
-        None => None,
-    };
+    let (pack_part, entries) = tar(pack, &dist.join(PACK), &ids)?;
 
     let manifest = Manifest {
         schema,
@@ -144,11 +129,10 @@ pub fn run(
         pack: Pack {
             part: pack_part,
             count: ids.len(),
-            delta,
         },
     };
     fs::write(dist.join(MANIFEST), serde_json::to_vec_pretty(&manifest)?)?;
-    fs::write(dist.join(INDEX), index(&ids))?;
+    fs::write(dist.join(INDEX), index(&entries))?;
     fs::copy("catalog.state.json", dist.join("catalog.state.json"))?;
 
     eprintln!(
@@ -158,15 +142,6 @@ pub fn run(
         manifest.pack.count,
         mb(manifest.pack.part.size)
     );
-    match &manifest.pack.delta {
-        Some(d) => eprintln!(
-            "release  delta from {} — {} pictures ({} MB)",
-            d.from,
-            d.count,
-            mb(d.part.size)
-        ),
-        None => eprintln!("release  no previous release given, no delta written"),
-    }
     eprintln!("release  files are in {DIST}/, upload them yourself");
     Ok(())
 }
@@ -179,24 +154,6 @@ fn released(dir: &Path) -> Result<Option<String>> {
     }
     let state: State = serde_json::from_slice(&fs::read(path)?)?;
     Ok(state.version)
-}
-
-/// The pictures a previous release shipped, by the index published with it.
-fn shipped(dir: &Path) -> Result<Option<(String, BTreeSet<String>)>> {
-    let index = dir.join(INDEX);
-    let Some(version) = released(dir)? else {
-        return Ok(None);
-    };
-    if !index.exists() {
-        return Ok(None);
-    }
-    let ids = fs::read_to_string(index)?
-        .lines()
-        .map(str::trim)
-        .filter(|l| !l.is_empty())
-        .map(str::to_string)
-        .collect();
-    Ok(Some((version, ids)))
 }
 
 /// Every picture in the pack, by file name. Names are content hashes, so the set alone says
@@ -214,11 +171,12 @@ fn pack_ids(pack: &Path) -> Result<BTreeSet<String>> {
     Ok(out)
 }
 
-fn index(ids: &BTreeSet<String>) -> String {
-    let mut out = String::with_capacity(ids.len() * 17);
-    for id in ids {
-        out.push_str(id);
-        out.push('\n');
+/// One line per picture: name, where it starts in the archive, how long it is, and the
+/// short hash of those bytes.
+fn index(entries: &[Entry]) -> String {
+    let mut out = String::with_capacity(entries.len() * 48);
+    for e in entries {
+        out.push_str(&format!("{} {} {} {}\n", e.id, e.offset, e.len, e.blake3));
     }
     out
 }
@@ -233,8 +191,11 @@ fn gzip(from: &Path, to: &Path) -> Result<Part> {
     Ok(part(to, &packed, Some(raw.len() as u64)))
 }
 
-/// Archive the named pictures, in name order so the same set always produces the same file.
-fn tar(pack: &Path, to: &Path, ids: &BTreeSet<String>) -> Result<Part> {
+/// Archive the named pictures, in name order so the same set always produces the same file,
+/// and read back where each one landed. The positions come from the archive itself rather
+/// than from arithmetic over the format, so the index cannot drift from the file it
+/// describes.
+fn tar(pack: &Path, to: &Path, ids: &BTreeSet<String>) -> Result<(Part, Vec<Entry>)> {
     let file = BufWriter::new(File::create(to)?);
     let mut archive = tar::Builder::new(file);
     archive.mode(tar::HeaderMode::Deterministic);
@@ -243,8 +204,32 @@ fn tar(pack: &Path, to: &Path, ids: &BTreeSet<String>) -> Result<Part> {
         archive.append_path_with_name(pack.join(&name), &name)?;
     }
     archive.into_inner()?.flush()?;
+
     let bytes = fs::read(to)?;
-    Ok(part(to, &bytes, None))
+    let mut entries = Vec::with_capacity(ids.len());
+    for entry in tar::Archive::new(bytes.as_slice()).entries()? {
+        let entry = entry?;
+        let path = entry.path()?.into_owned();
+        let Some(id) = path.file_stem().and_then(|s| s.to_str()) else {
+            continue;
+        };
+        let offset = entry.raw_file_position();
+        let len = entry.size();
+        let at = offset as usize;
+        entries.push(Entry {
+            id: id.to_string(),
+            offset,
+            len,
+            blake3: short(&bytes[at..at + len as usize]),
+        });
+    }
+    Ok((part(to, &bytes, None), entries))
+}
+
+/// How much of a picture's hash the index carries. Enough to catch a corrupt or stale file
+/// without spending a megabyte of index on it.
+fn short(bytes: &[u8]) -> String {
+    BlobId::of(bytes).to_string()[..16].to_string()
 }
 
 fn part(path: &Path, bytes: &[u8], unpacked: Option<u64>) -> Part {

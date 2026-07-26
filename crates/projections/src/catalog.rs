@@ -14,7 +14,7 @@ pub struct Catalog;
 /// application reads it to decide whether it can open the file at all — so it lives here,
 /// beside the schema it describes, and is written both as `PRAGMA user_version` and as a row
 /// of `meta`.
-pub const SCHEMA: u32 = 4;
+pub const SCHEMA: u32 = 5;
 
 pub const SETUP: &str = "\
 CREATE TABLE meta (
@@ -89,6 +89,11 @@ CREATE TABLE sets (
   name_ru TEXT,
   ducats  INTEGER,
   built   TEXT
+) WITHOUT ROWID;
+CREATE TABLE item_drifters (
+  operator TEXT NOT NULL,
+  drifter  TEXT NOT NULL,
+  PRIMARY KEY (operator, drifter)
 ) WITHOUT ROWID;
 CREATE TABLE item_primes (
   plain TEXT NOT NULL,
@@ -179,12 +184,15 @@ CREATE TABLE regions (
   faction      INTEGER NOT NULL,
   faction_en   TEXT,
   faction_ru   TEXT,
+  faction_icon TEXT,
   node_type    INTEGER NOT NULL,
   node_type_en TEXT,
   node_type_ru TEXT,
   mastery      INTEGER NOT NULL,
   min_level    INTEGER NOT NULL,
   max_level    INTEGER NOT NULL,
+  tileset      TEXT,
+  tileset_ru   TEXT,
   origin       TEXT NOT NULL,
   railjack     INTEGER NOT NULL,
   hidden       INTEGER NOT NULL
@@ -196,7 +204,8 @@ CREATE TABLE item_drops (
   stage        TEXT,
   rarity       TEXT NOT NULL,
   chance       REAL NOT NULL,
-  table_chance REAL
+  table_chance REAL,
+  count        INTEGER
 );
 CREATE TABLE provenance (
   unique_name TEXT NOT NULL,
@@ -349,10 +358,11 @@ fn nodes(tx: &Transaction<'_>, ctx: &Context<'_>) -> Result<usize> {
     )?;
     let mut regions = tx.prepare(
         "INSERT INTO regions (node, name, name_ru, planet, planet_ru, mission, mission_en, \
-         mission_ru, faction, faction_en, faction_ru, node_type, node_type_en, node_type_ru, \
-         mastery, min_level, max_level, origin, railjack, hidden) \
+         mission_ru, faction, faction_en, faction_ru, faction_icon, node_type, node_type_en, \
+         node_type_ru, mastery, min_level, max_level, tileset, tileset_ru, origin, railjack, \
+         hidden) \
          VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15, ?16, ?17, \
-         ?18, ?19, ?20)",
+         ?18, ?19, ?20, ?21, ?22, ?23)",
     )?;
 
     let mut count = 0;
@@ -455,12 +465,15 @@ fn nodes(tx: &Transaction<'_>, ctx: &Context<'_>) -> Result<usize> {
                     r.faction,
                     r.faction_label.en.as_deref(),
                     r.faction_label.ru.as_deref(),
+                    r.faction_label.icon.as_deref(),
                     r.node_type,
                     r.type_label.en.as_deref(),
                     r.type_label.ru.as_deref(),
                     r.mastery,
                     r.min_level,
                     r.max_level,
+                    r.tileset.en.as_deref(),
+                    r.tileset.ru.as_deref(),
                     r.origin.as_str(),
                     r.railjack as i64,
                     r.hidden as i64,
@@ -494,9 +507,12 @@ fn edges(tx: &Transaction<'_>, graph: &Graph) -> Result<()> {
         tx.prepare("INSERT OR IGNORE INTO set_members (slug, item) VALUES (?1, ?2)")?;
     let mut primes =
         tx.prepare("INSERT OR IGNORE INTO item_primes (plain, prime) VALUES (?1, ?2)")?;
+    let mut drifters =
+        tx.prepare("INSERT OR IGNORE INTO item_drifters (operator, drifter) VALUES (?1, ?2)")?;
     let mut drops = tx.prepare(
-        "INSERT INTO item_drops (place, item, rotation, stage, rarity, chance, table_chance) \
-         VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7)",
+        "INSERT INTO item_drops \
+         (place, item, rotation, stage, rarity, chance, table_chance, count) \
+         VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8)",
     )?;
     let mut research = tx.prepare(
         "INSERT OR IGNORE INTO research (lab, blueprint, credits, time, affinity, prereq) \
@@ -525,6 +541,9 @@ fn edges(tx: &Transaction<'_>, graph: &Graph) -> Result<()> {
             Rel::Primed => {
                 primes.execute((&edge.from, &edge.to))?;
             }
+            Rel::Fits => {
+                drifters.execute((&edge.from, &edge.to))?;
+            }
             Rel::Drops(d) => {
                 drops.execute((
                     strip(&edge.from, "place:"),
@@ -534,6 +553,7 @@ fn edges(tx: &Transaction<'_>, graph: &Graph) -> Result<()> {
                     &d.rarity,
                     d.chance,
                     d.table_chance,
+                    d.count,
                 ))?;
             }
             Rel::Researched(r) => {

@@ -3,11 +3,12 @@ use funnel::Finding;
 use graph::{Graph, Node};
 use maud::{Markup, html};
 
-use crate::page::{Side, bar, card, encode, shell};
+use crate::fold::Fold;
+use crate::page::{Side, bar, card, encode, number, plain, shell};
 use crate::state::{Snapshot, Store};
 use crate::words;
 
-use super::{craft, drops, facts, head, stock, web};
+use super::{craft, drops, facts, head, relics, stock, web};
 
 /// How many search hits are worth listing.
 const HITS: usize = 60;
@@ -93,6 +94,7 @@ fn one(snap: &Snapshot, store: &dyn Store, node: &Node) -> Markup {
             (web::render(&snap.graph, &id))
             @if let Node::Item(item) = node { (facts::render(item, &clashes)) }
             (craft::render(&snap.graph, &id))
+            (relics::render(&snap.graph, &id))
             (drops::render(&snap.graph, &id))
             (stock::sold_by(&snap.graph, &id))
             (stock::sold_at(&snap.graph, &id))
@@ -237,6 +239,7 @@ fn rest(graph: &Graph, id: &str) -> Markup {
                 | Rel::Drops(_)
                 | Rel::Member
                 | Rel::Primed
+                | Rel::Fits
                 | Rel::Sells(_)
         )
     };
@@ -253,30 +256,35 @@ fn rest(graph: &Graph, id: &str) -> Markup {
         .map(|e| (e.from.as_str(), &e.rel))
         .collect();
 
-    html! {
-        @if !out.is_empty() || !inc.is_empty() {
-            (card("Прочие связи", None, html! {
-                .scroll { table {
-                    tbody {
-                        @for (other, rel) in &out {
-                            tr {
-                                td.dim { (words::rel(rel)) }
-                                td { a href={ "/entity?q=" (encode(other)) }
-                                       { (craft::label(graph, other)) } }
-                            }
-                        }
-                        @for (other, rel) in &inc {
-                            tr {
-                                td.dim { (words::rel_back(rel)) }
-                                td { a href={ "/entity?q=" (encode(other)) }
-                                       { (craft::label(graph, other)) } }
-                            }
+    let rows: Vec<(&str, &str)> = out
+        .iter()
+        .map(|(other, rel)| (words::rel(rel), *other))
+        .chain(
+            inc.iter()
+                .map(|(other, rel)| (words::rel_back(rel), *other)),
+        )
+        .collect();
+    if rows.is_empty() {
+        return html! {};
+    }
+    let fold = Fold::new(rows.len());
+
+    card(
+        "Прочие связи",
+        Some(html! { span.card-n { (number(rows.len() as i64)) } }),
+        fold.wrap(html! {
+            .scroll { table {
+                tbody {
+                    @for (at, (reading, other)) in rows.iter().enumerate() {
+                        tr.folded[fold.hides(at)] {
+                            td.dim { (reading) }
+                            td { (plain(graph, other)) }
                         }
                     }
-                } }
-            }))
-        }
-    }
+                }
+            } }
+        }),
+    )
 }
 
 fn page(snap: &Snapshot, title: &str, crumb: Markup, body: Markup) -> Markup {

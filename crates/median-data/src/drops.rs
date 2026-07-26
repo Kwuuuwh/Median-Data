@@ -27,7 +27,7 @@ pub fn link(
     let mut missed = Missed::default();
 
     for row in rows {
-        let (_, printed) = names::quantity(&row.item);
+        let (count, printed) = names::quantity(&row.item);
         if names::is_amount(printed) {
             missed.not_an_item += 1;
             continue;
@@ -58,6 +58,7 @@ pub fn link(
                 rotation: row.rotation.clone(),
                 stage: row.stage.clone(),
                 table_chance: row.table_chance,
+                count,
             }),
         });
     }

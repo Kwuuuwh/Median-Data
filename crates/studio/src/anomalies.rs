@@ -102,14 +102,14 @@ pub fn row(snap: &Snapshot, f: &Finding) -> Markup {
     html! {
         li.row id=(row_id(&f.rule, &f.entity)) {
             .row-h {
-                span.row-t { (words::rule(&f.rule)) }
+                span.eyebrow { (words::rule(&f.rule)) }
                 span {
                     @if f.layer == Layer::Invariant { span.tag.bad { "инвариант" } " " }
                     span.tag.kind { (words::layer(f.layer.as_str())) }
                 }
             }
             .opt {
-                .grow {
+                .grow.subject {
                     @if snap.graph.has(&f.entity) {
                         (named(&snap.graph, &f.entity))
                     } @else {
@@ -135,9 +135,10 @@ pub fn taken(rule: &str, entity: &str, note: &str) -> Markup {
     html! {
         li.row.done id=(row_id(rule, entity)) {
             .row-h {
-                span.row-t { (words::rule(rule)) }
+                span.eyebrow { (words::rule(rule)) }
                 span.tag.trade { "принято" }
             }
+            .subject { span.row-t { (short(entity)) } }
             .path { (entity) }
             .opt {
                 .grow { p.note { @if note.is_empty() { "без пояснения" } @else { (note) } } }

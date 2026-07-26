@@ -1,7 +1,8 @@
 use graph::{Graph, Node, Rel};
 use maud::{Markup, html};
 
-use crate::page::{card, encode, link, number};
+use crate::fold::Fold;
+use crate::page::{card, col, encode, named, names, number};
 use crate::words;
 
 /// How the item is made, what it goes into, and the set it belongs to.
@@ -11,7 +12,50 @@ pub fn render(graph: &Graph, id: &str) -> Markup {
         (needed_for(graph, id))
         (sets(graph, id))
         (variants(graph, id))
+        (wearers(graph, id))
     }
+}
+
+/// The two bodies one piece of the operator's wardrobe is worn by. DE models the Drifter as a
+/// separate entity under the same name, so both halves are shown together rather than reading
+/// as a duplicate.
+fn wearers(graph: &Graph, id: &str) -> Markup {
+    let drifter: Vec<&str> = graph
+        .from(id)
+        .into_iter()
+        .filter(|e| e.rel == Rel::Fits)
+        .map(|e| e.to.as_str())
+        .collect();
+    let operator: Vec<&str> = graph
+        .into(id)
+        .into_iter()
+        .filter(|e| e.rel == Rel::Fits)
+        .map(|e| e.from.as_str())
+        .collect();
+    if drifter.is_empty() && operator.is_empty() {
+        return html! {};
+    }
+
+    card(
+        "Оператор и Скиталец",
+        None,
+        html! {
+            .strip {
+                @for plain in &operator { (tile(graph, plain, None, false)) }
+                (tile(graph, id, None, true))
+                @for grown in &drifter { (tile(graph, grown, None, false)) }
+            }
+            p.note {
+                @if drifter.is_empty() {
+                    "Это версия для Скитальца. Слева — та же вещь для оператора: "
+                    "DE держит их как два предмета под одним именем, выдаются они вместе."
+                } @else {
+                    "Это версия для оператора. Справа — та же вещь для Скитальца: "
+                    "DE держит их как два предмета под одним именем, выдаются они вместе."
+                }
+            }
+        },
+    )
 }
 
 /// The recipes that produce this item, each as a strip of what goes in.
@@ -52,40 +96,43 @@ fn built_here(graph: &Graph, id: &str) -> Markup {
     }
 }
 
-/// The recipes that consume this item.
+/// The recipes that consume this item. A base material feeds hundreds of them, so the list is
+/// folded down to what fits on a screen.
 fn needed_for(graph: &Graph, id: &str) -> Markup {
-    let uses: Vec<(&str, i64)> = graph
+    let mut uses: Vec<(&str, i64)> = graph
         .into(id)
         .into_iter()
         .filter_map(|e| match e.rel {
-            Rel::Requires { count } => Some((e.from.as_str(), count)),
+            Rel::Requires { count } => Some((produces(graph, &e.from).unwrap_or(&e.from), count)),
             _ => None,
         })
         .collect();
+    if uses.is_empty() {
+        return html! {};
+    }
+    uses.sort_by(|(a, _), (b, _)| names(graph, a).0.cmp(names(graph, b).0));
+    let fold = Fold::new(uses.len());
 
-    html! {
-        @if !uses.is_empty() {
-            (card("Нужен для", Some(html! { span.card-n { (uses.len()) } }), html! {
-                .scroll { table {
-                    thead { tr { th { "Что собирают" } th { "Сколько" } } }
-                    tbody {
-                        @for (recipe, count) in &uses {
-                            @let result = produces(graph, recipe);
-                            tr {
-                                td {
-                                    @match result {
-                                        Some(item) => (link(item, label(graph, item))),
-                                        None => span.dim { (recipe) },
-                                    }
-                                }
-                                td.num { "×" (count) }
-                            }
+    card(
+        "Нужен для",
+        Some(html! { span.card-n { (number(uses.len() as i64)) } }),
+        fold.wrap(html! {
+            .scroll { table {
+                thead { tr {
+                    (col("Что собирают", "used for"))
+                    (col("Сколько", "quantity"))
+                } }
+                tbody {
+                    @for (at, (result, count)) in uses.iter().enumerate() {
+                        tr.folded[fold.hides(at)] {
+                            td { (named(graph, result)) }
+                            td.num { "×" (number(*count)) }
                         }
                     }
-                } }
-            }))
-        }
-    }
+                }
+            } }
+        }),
+    )
 }
 
 /// The trade sets this item belongs to, and everything else in them.
@@ -197,5 +244,3 @@ pub fn label<'a>(graph: &'a Graph, id: &'a str) -> &'a str {
         None => id.rsplit('/').next().unwrap_or(id),
     }
 }
-
-pub use crate::page::named;

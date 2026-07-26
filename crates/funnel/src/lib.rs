@@ -9,7 +9,7 @@ mod report;
 mod run;
 
 pub use anchor::{Anchors, load as load_anchors};
-pub use coverage::Gaps;
+pub use coverage::{DROP_NOT_IN_CATALOG, Gaps};
 pub use cross::{DropClaim, RelicClaim};
 pub use diff::{Diff, State, compare, snapshot};
 pub use finding::{Finding, Layer, blocking};

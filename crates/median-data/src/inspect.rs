@@ -59,6 +59,8 @@ impl Store for Inspector {
 
         let mut unresolved = built.orphans;
         unresolved.extend(unmatched::find(&built.wfm, &built.matched));
+        let dismissed = curated.dismissed();
+        unresolved.retain(|u| !dismissed.contains(&(u.source.as_str(), u.key.as_str())));
 
         let iconless = built
             .graph
@@ -86,6 +88,14 @@ impl Store for Inspector {
 
     fn unmap(&self, source: &str, key: &str) -> Result<()> {
         self.edit(|c| c.clear_link(source, key))
+    }
+
+    fn dismiss(&self, source: &str, key: &str, note: &str) -> Result<()> {
+        self.edit(|c| c.set_dismiss(source, key, note))
+    }
+
+    fn undismiss(&self, source: &str, key: &str) -> Result<()> {
+        self.edit(|c| c.clear_dismiss(source, key))
     }
 
     fn name(&self, item: &str, ru: &str) -> Result<()> {
@@ -121,7 +131,7 @@ fn pictures(vault: &Vault) -> Result<icons::Pictures> {
     let built = build::graph(vault)?;
     let de = vault.latest(spec::DE)?;
     let textures = extract::de_textures(&build::blob(vault, &de, spec::TEXTURES)?)?;
-    let cards = icons::cards(&built.graph, &built.wfm, &textures);
+    let cards = icons::cards(&built.graph, &built.taxonomy, &built.wfm, &textures);
     Ok(icons::pictures(vault, &cards, &textures))
 }
 

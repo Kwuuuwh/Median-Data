@@ -1,6 +1,16 @@
 # Decisions made by hand in Studio. These outrank every derived
 # value, and the build reads them on every run.
 
+[[link]]
+source = "dojo"
+key = "Archwing Launcher Segment"
+item = "/Lotus/Types/Restoratives/OpenArchwingSummon"
+
+[[link]]
+source = "vendor"
+key = "Cherub Color Palette"
+item = "/Lotus/Types/StoreItems/SuitCustomizations/ColourPickerValItemB"
+
 [[name]]
 item = "/Lotus/Types/Game/FishBait/Infested/InfestedFishBaitBBlueprint"
 ru = "Обработанные Останки Фэза"
@@ -112,6 +122,361 @@ item = "/Lotus/Types/Keys/MummyQuest/MummyQuestKeyChain"
 prop = "tradable"
 value = "true"
 
+[[pick]]
+item = "/Lotus/Types/Recipes/ArchwingRecipes/DemolitionArchwing/DemolitionArchwingChassisComponent"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Recipes/ArchwingRecipes/DemolitionArchwing/DemolitionArchwingSystemsComponent"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Recipes/ArchwingRecipes/DemolitionArchwing/DemolitionArchwingWingsComponent"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Recipes/ArchwingRecipes/SupportArchwing/SupportArchwingChassisComponent"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Recipes/ArchwingRecipes/SupportArchwing/SupportArchwingSystemsComponent"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Recipes/ArchwingRecipes/SupportArchwing/SupportArchwingWingsComponent"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Recipes/Weapons/WeaponParts/CrpArSniperBarrel"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Recipes/Weapons/WeaponParts/CrpArSniperReceiver"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Recipes/Weapons/WeaponParts/CrpArSniperStock"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Recipes/Weapons/WeaponParts/GrnGhoulSawBlade"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Recipes/Weapons/WeaponParts/GrnGhoulSawChassis"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Recipes/Weapons/WeaponParts/GrnGhoulSawEngine"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Recipes/Weapons/WeaponParts/GrnGhoulSawHandle"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Recipes/Weapons/WeaponParts/LasGooAKPlayerWeaponBarrel"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Recipes/Weapons/WeaponParts/LasGooAKPlayerWeaponReceiver"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Recipes/Weapons/WeaponParts/LasGooAKPlayerWeaponStock"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Recipes/Weapons/WeaponParts/LasGooPistolPlayerWeaponBarrel"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Recipes/Weapons/WeaponParts/LasGooPistolPlayerWeaponReceiver"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Recipes/Weapons/WeaponParts/LasGooPistolPlayerWeaponStock"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Recipes/Weapons/WeaponParts/LasGooSicklesPlayerWeaponBlade"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Recipes/Weapons/WeaponParts/LasGooSicklesPlayerWeaponHilt"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Recipes/Weapons/WeaponParts/LasSilencedPistolBarrel"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Recipes/Weapons/WeaponParts/LasSilencedPistolReceiver"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Recipes/Weapons/WeaponParts/LasSilencedPistolStock"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Recipes/Weapons/WeaponParts/LasrianNoxPlayerWeaponBarrel"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Recipes/Weapons/WeaponParts/LasrianNoxPlayerWeaponReceiver"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Recipes/Weapons/WeaponParts/LasrianNoxPlayerWeaponStock"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Recipes/Weapons/WeaponParts/TnBeltFedRifleBarrel"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Recipes/Weapons/WeaponParts/TnBeltFedRifleReceiver"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Recipes/Weapons/WeaponParts/TnBeltFedRifleStock"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/CosmeticEnhancers/Offensive/EyeInTheSky"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/CosmeticEnhancers/Utility/BulletToBattery"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/CosmeticEnhancers/Utility/EnergyEfficiencyOnHeadshot"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/Focus/AttackLensLua"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/Focus/AttackLensOstron"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/Focus/DefenseLensLua"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/Focus/DefenseLensOstron"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/Focus/PowerLensLua"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/Focus/PowerLensOstron"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/Focus/TacticLensLua"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/Focus/TacticLensOstron"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/Focus/WardLensLua"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/Focus/WardLensOstron"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/Mods/Syndicate/BurstonPrimeMod"
+prop = "prime"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/Skins/AntiMatter/AntiAltHelmet"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/Skins/Asp/AspAltHelmet"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/Skins/Asp/AspAltHelmetB"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/Skins/Decree/DecreeAltHelmet"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/Skins/Decree/DecreeAltHelmetB"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/Skins/Ember/EmberHelmetAlt"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/Skins/Ember/EmberHelmetAltB"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/Skins/Excalibur/ExcaliburHelmetAlt"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/Skins/Excalibur/ExcaliburHelmetAltB"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/Skins/Frost/FrostHelmetAlt"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/Skins/Frost/FrostHelmetAltB"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/Skins/Jade/JadeHelmetAlt"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/Skins/Jade/JadeHelmetAltB"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/Skins/Loki/LokiHelmetAlt"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/Skins/Loki/LokiHelmetAltB"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/Skins/Mag/MagHelmetAlt"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/Skins/Mag/MagHelmetAltB"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/Skins/Ninja/NinjaHelmetAlt"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/Skins/Ninja/NinjaHelmetAltB"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/Skins/Rhino/RhinoHelmetAlt"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/Skins/Rhino/RhinoHelmetAltB"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/Skins/Trapper/TrapperHelmetAlt"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/Skins/Trapper/TrapperHelmetAltB"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/Skins/Trinity/TrinityHelmetAlt"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/Skins/Trinity/TrinityHelmetAltB"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/Skins/Volt/VoltHelmetAlt"
+prop = "tradable"
+value = "true"
+
+[[pick]]
+item = "/Lotus/Upgrades/Skins/Volt/VoltHelmetAltB"
+prop = "tradable"
+value = "true"
+
 [[term]]
 kind = "activity"
 key = "Cambion Drift Bounty"
@@ -136,6 +501,11 @@ ru = "Первое прохождение"
 kind = "activity"
 key = "Orb Vallis Bounty"
 ru = "Заказы Долины Сфер"
+
+[[term]]
+kind = "activity"
+key = "WF1999 Bounty"
+ru = "Заказы Хёльвании"
 
 [[term]]
 kind = "activity"
@@ -341,3 +711,18 @@ ru = "Элеонора Найтингейл"
 kind = "vendor"
 key = "ergo-glast"
 ru = "Эрго Гласт"
+
+[[dismiss]]
+source = "dojo"
+key = "Ostron Explorer (Standing)"
+note = ""
+
+[[dismiss]]
+source = "dojo"
+key = "Ostron Gatherer (Standing)"
+note = ""
+
+[[dismiss]]
+source = "drops"
+key = "Powercell"
+note = ""

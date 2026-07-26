@@ -127,78 +127,25 @@ fn fold(name: &str) -> String {
     out.trim().to_string()
 }
 
-/// A candidate name with the letters it does not share with the query marked, so where the
-/// two differ is visible without reading both.
+/// A candidate name with the words the query does not have marked, so what the two differ by
+/// reads as words rather than as letters scattered through the name.
 pub fn diff(name: &str, query: &str) -> Markup {
-    let shared = common(&fold(name), &fold(query));
-    let mut left = shared.into_iter().peekable();
-    let mut out = String::new();
-    let mut marked = String::new();
-
-    for ch in name.chars() {
-        let folded: String = ch.to_lowercase().collect();
-        let plain = ch.is_alphanumeric();
-        if plain && left.peek() == Some(&folded) {
-            left.next();
-            if !marked.is_empty() {
-                out.push('\u{0}');
-                out.push_str(&marked);
-                out.push('\u{0}');
-                marked.clear();
-            }
-            out.push(ch);
-        } else if plain {
-            marked.push(ch);
-        } else {
-            // Spacing belongs to whichever run it sits in.
-            if marked.is_empty() {
-                out.push(ch)
-            } else {
-                marked.push(ch)
-            }
-        }
-    }
-    if !marked.is_empty() {
-        out.push('\u{0}');
-        out.push_str(&marked);
-        out.push('\u{0}');
-    }
-
+    let asked: BTreeSet<String> = query.split_whitespace().map(key).collect();
     html! {
-        @for (i, part) in out.split('\u{0}').enumerate() {
-            @if i % 2 == 1 { span.diff { (part) } } @else { (part) }
+        @for (at, word) in name.split_whitespace().enumerate() {
+            @if at > 0 { " " }
+            @if asked.contains(&key(word)) { (word) } @else { span.diff { (word) } }
         }
     }
 }
 
-/// The letters two names share in order — the longest common subsequence, over the folded
-/// spelling so case and spacing do not count as a difference.
-fn common(a: &str, b: &str) -> Vec<String> {
-    let a: Vec<char> = a.chars().filter(|c| c.is_alphanumeric()).collect();
-    let b: Vec<char> = b.chars().filter(|c| c.is_alphanumeric()).collect();
-    let mut table = vec![vec![0usize; b.len() + 1]; a.len() + 1];
-    for i in (0..a.len()).rev() {
-        for j in (0..b.len()).rev() {
-            table[i][j] = if a[i] == b[j] {
-                table[i + 1][j + 1] + 1
-            } else {
-                table[i + 1][j].max(table[i][j + 1])
-            };
-        }
-    }
-    let (mut i, mut j, mut out) = (0, 0, Vec::new());
-    while i < a.len() && j < b.len() {
-        if a[i] == b[j] {
-            out.push(a[i].to_string());
-            i += 1;
-            j += 1;
-        } else if table[i + 1][j] >= table[i][j + 1] {
-            i += 1;
-        } else {
-            j += 1;
-        }
-    }
-    out
+/// One word reduced to what two spellings of it share: case, punctuation and spacing are not
+/// a difference.
+fn key(word: &str) -> String {
+    word.chars()
+        .filter(|c| c.is_alphanumeric())
+        .flat_map(char::to_lowercase)
+        .collect()
 }
 
 #[cfg(test)]
@@ -238,5 +185,15 @@ mod tests {
     #[test]
     fn an_identical_name_marks_nothing() {
         assert_eq!(diff("Volt Prime", "volt prime").into_string(), "Volt Prime");
+        assert_eq!(
+            diff("Kahl's Garrison", "kahls garrison").into_string(),
+            "Kahl's Garrison"
+        );
+    }
+
+    #[test]
+    fn a_word_is_marked_whole_however_little_of_it_differs() {
+        let out = diff("Clashing Forest", "Crashing Forest").into_string();
+        assert_eq!(out, "<span class=\"diff\">Clashing</span> Forest");
     }
 }

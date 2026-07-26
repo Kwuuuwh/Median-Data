@@ -4,6 +4,7 @@ mod catalog;
 mod conflicts;
 mod css;
 mod entity;
+mod fold;
 mod fuzzy;
 mod home;
 mod list;

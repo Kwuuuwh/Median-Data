@@ -106,8 +106,9 @@ fn i18n_name(el: &Value, lang: &str) -> Option<String> {
         .map(str::to_string)
 }
 
-/// The picture for each language the listing carries. The thumb is preferred: it is already
-/// the size a catalog renders at, and an eighth of the full image.
+/// The picture for each language the listing carries. The full image is taken rather than
+/// the thumb: the market draws a mod's name and stats into its card, and the thumb is 128
+/// pixels on its longest edge — too small to read them.
 fn icons(el: &Value) -> BTreeMap<String, String> {
     let Some(langs) = el.get("i18n").and_then(Value::as_object) else {
         return BTreeMap::new();
@@ -116,8 +117,8 @@ fn icons(el: &Value) -> BTreeMap<String, String> {
         .iter()
         .filter_map(|(lang, body)| {
             let path = body
-                .get("thumb")
-                .or_else(|| body.get("icon"))
+                .get("icon")
+                .or_else(|| body.get("thumb"))
                 .and_then(Value::as_str)
                 .filter(|s| !s.is_empty() && *s != PLACEHOLDER)?;
             Some((lang.clone(), path.to_string()))
@@ -161,21 +162,21 @@ mod tests {
     }
 
     #[test]
-    fn a_thumb_wins_over_the_full_picture_and_falls_back_to_it() {
+    fn the_full_picture_wins_over_the_thumb_and_falls_back_to_it() {
         let raw = serde_json::to_vec(&serde_json::json!({
             "data": [
                 { "slug": "creeping_bullseye",
                   "i18n": {
                       "en": { "icon": "items/images/en/a.png",
                               "thumb": "items/images/en/thumbs/a.128x128.png" },
-                      "ru": { "icon": "items/images/ru/b.png" }
+                      "ru": { "thumb": "items/images/ru/thumbs/b.128x128.png" }
                   } }
             ]
         }))
         .unwrap();
         let it = &parse(&raw).unwrap()[0];
-        assert_eq!(it.icons["en"], "items/images/en/thumbs/a.128x128.png");
-        assert_eq!(it.icons["ru"], "items/images/ru/b.png");
+        assert_eq!(it.icons["en"], "items/images/en/a.png");
+        assert_eq!(it.icons["ru"], "items/images/ru/thumbs/b.128x128.png");
     }
 
     #[test]

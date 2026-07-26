@@ -8,6 +8,20 @@ pub struct DropInfo {
     pub stage: Option<String>,
     /// An enemy's chance to roll that table at all.
     pub table_chance: Option<f64>,
+    /// How many the row hands over, where the tables print a stack (`100X Oxium`).
+    pub count: Option<i64>,
+}
+
+impl DropInfo {
+    /// Probability of the whole roll: an enemy has to roll the table before the row inside it.
+    pub fn total(&self) -> f64 {
+        self.chance * self.table_chance.unwrap_or(1.0)
+    }
+
+    /// How many the roll hands over on average, counting the rolls that hand over nothing.
+    pub fn per_roll(&self) -> f64 {
+        self.total() * self.count.unwrap_or(1) as f64
+    }
 }
 
 /// What a vendor asks for an item, and how steadily they offer it. The cost is in the
@@ -70,6 +84,10 @@ pub enum Rel {
     Drops(DropInfo),
     /// An ordinary item -> its prime counterpart.
     Primed,
+    /// An operator's cosmetic -> the same piece worn by the Drifter. The Drifter is a
+    /// different model, so DE ships a second entity under the same display name, and the one
+    /// purchase hands over both.
+    Fits,
     /// An imprint -> the animal it breeds.
     Yields,
     /// A place -> the star-chart node it names.
@@ -93,6 +111,7 @@ impl Rel {
             Rel::Represents => "represents",
             Rel::Drops(_) => "drops",
             Rel::Primed => "primed",
+            Rel::Fits => "fits",
             Rel::Yields => "yields",
             Rel::At => "at",
             Rel::Sells(_) => "sells",

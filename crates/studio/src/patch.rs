@@ -29,6 +29,32 @@ pub fn unmapped(snap: &mut Snapshot, source: &str, key: &str) {
     touched(snap);
 }
 
+/// A printed name declared to be no item at all: it leaves the mapping list, and the check
+/// that reported it stops asking.
+pub fn dismissed(snap: &mut Snapshot, source: &str, key: &str, note: &str) {
+    snap.unresolved
+        .retain(|u| u.source != source || u.key != key);
+    let rows = &mut snap.decided.dismissed;
+    rows.retain(|(s, k, _)| s != source || k != key);
+    rows.push((source.into(), key.into(), note.trim().into()));
+    rows.sort();
+    if source == crate::mapping::DROPS {
+        accepted(snap, funnel::DROP_NOT_IN_CATALOG, key);
+    }
+    touched(snap);
+}
+
+/// A printed name asked about again.
+pub fn undismissed(snap: &mut Snapshot, source: &str, key: &str) {
+    snap.decided
+        .dismissed
+        .retain(|(s, k, _)| s != source || k != key);
+    if source == crate::mapping::DROPS {
+        unaccepted(snap, funnel::DROP_NOT_IN_CATALOG, key);
+    }
+    touched(snap);
+}
+
 /// A Russian name written for an item. An empty name takes the decision back, which leaves
 /// whatever the sources said standing until the next assembly.
 pub fn named(snap: &mut Snapshot, item: &str, ru: &str) {
