@@ -21,3 +21,5 @@ serde_json.workspace = true
 blake3.workspace = true
 image.workspace = true
 ureq.workspace = true
+flate2.workspace = true
+tar.workspace = true

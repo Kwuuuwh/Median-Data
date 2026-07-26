@@ -1,0 +1,126 @@
+name: data
+
+# Runs itself every six hours and can be started by hand from the Actions tab. Nothing is
+# fetched, built or published unless a source actually moved: `check` reads the game's export
+# index and the three small sources — a few megabytes — and says whether anything is new.
+on:
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Build and publish even if no source moved"
+        type: boolean
+        default: false
+  schedule:
+    - cron: "0 */6 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: data
+  cancel-in-progress: false
+
+jobs:
+  catalog:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Build the tool
+        run: cargo build --release -p median-data
+
+      # The pinned sources, including the pictures. Nothing depends on the cache being there:
+      # a cold run just fetches everything again.
+      - name: Restore the vault
+        id: vault
+        uses: actions/cache/restore@v4
+        with:
+          path: .data_vault
+          key: vault-${{ github.run_id }}
+          restore-keys: vault-
+
+      # What the last release was made of. Its state file continues the version chain and its
+      # picture index is what the delta pack is computed against.
+      - name: Fetch the last release
+        run: |
+          mkdir -p prev
+          gh release download --pattern manifest.json --pattern pack.index \
+            --pattern catalog.state.json --dir prev || true
+          if [ -f prev/catalog.state.json ]; then cp prev/catalog.state.json .; fi
+
+      - name: Ask whether anything moved
+        id: check
+        run: |
+          BASE=""
+          if [ -f prev/manifest.json ]; then BASE="prev/manifest.json"; fi
+          set +e
+          ./target/release/median-data check $BASE
+          case $? in
+            0) echo "moved=false" >> "$GITHUB_OUTPUT" ;;
+            2) echo "moved=true"  >> "$GITHUB_OUTPUT" ;;
+            *) exit 1 ;;
+          esac
+
+      - name: Nothing to do
+        if: steps.check.outputs.moved == 'false' && inputs.force != true
+        run: echo "No source published anything new — stopping before the expensive steps."
+
+      - name: Pin the sources
+        if: steps.check.outputs.moved == 'true' || inputs.force == true
+        run: ./target/release/median-data fetch
+
+      # `icons` reads the vault, not the database, so it runs before the build that ships it.
+      - name: Pin the pictures
+        if: steps.check.outputs.moved == 'true' || inputs.force == true
+        run: ./target/release/median-data icons
+
+      - name: Build the catalog
+        if: steps.check.outputs.moved == 'true' || inputs.force == true
+        run: ./target/release/median-data build
+
+      - name: Package the release
+        id: package
+        if: steps.check.outputs.moved == 'true' || inputs.force == true
+        run: |
+          set +e
+          ./target/release/median-data release prev
+          if [ $? -ne 0 ]; then
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+            echo "The build produced the version that is already published — nothing to release."
+            exit 0
+          fi
+          VERSION=$(jq -r .version dist/manifest.json)
+          SCHEMA=$(jq -r .schema dist/manifest.json)
+          WAS=0
+          if [ -f prev/manifest.json ]; then WAS=$(jq -r .schema prev/manifest.json); fi
+          echo "publish=true" >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          # A new schema means an application built for the old one cannot read this file, so
+          # the release waits as a draft for a person to look at it.
+          if [ "$SCHEMA" != "$WAS" ] && [ "$WAS" != "0" ]; then
+            echo "draft=--draft" >> "$GITHUB_OUTPUT"
+          else
+            echo "draft=--latest" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Publish
+        if: steps.package.outputs.publish == 'true'
+        run: |
+          NOTES=catalog.changes.md
+          if [ ! -s "$NOTES" ]; then echo "Automated build." > "$NOTES"; fi
+          gh release create "v${{ steps.package.outputs.version }}" dist/* \
+            --title "v${{ steps.package.outputs.version }}" \
+            --notes-file "$NOTES" \
+            ${{ steps.package.outputs.draft }}
+
+      - name: Keep the vault for the next run
+        if: steps.check.outputs.moved == 'true' || inputs.force == true
+        uses: actions/cache/save@v4
+        with:
+          path: .data_vault
+          key: vault-${{ github.run_id }}

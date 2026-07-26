@@ -1,9 +1,137 @@
-use anyhow::{Result, anyhow};
+use std::collections::BTreeMap;
+
+use anyhow::{Context, Result, anyhow};
 use sources::de::{self, IndexEntry};
 use sources::{drops, wfm, wiki};
 use vault::{Entry, Snapshot, Vault};
 
 use crate::spec;
+
+/// What a source's latest snapshot would be called if it were pinned right now, beside what
+/// the vault already holds. Equal ids mean the source published nothing new.
+pub struct Change {
+    pub source: &'static str,
+    pub pinned: Option<String>,
+    pub current: String,
+}
+
+impl Change {
+    pub fn moved(&self) -> bool {
+        self.pinned.as_deref() != Some(self.current.as_str())
+    }
+}
+
+/// Whether any source has something newer than the baseline, reported source by source. The
+/// baseline is the vault, or — where there is none, as in a fresh checkout — the manifest of
+/// the last release, which names the snapshot every source was at.
+pub fn changed(vault: &Vault, released: Option<&std::path::Path>) -> Result<bool> {
+    let was: BTreeMap<String, String> = match released {
+        Some(path) => {
+            let raw = std::fs::read(path).with_context(|| format!("read {}", path.display()))?;
+            let manifest: serde_json::Value = serde_json::from_slice(&raw)?;
+            manifest
+                .get("sources")
+                .and_then(|s| s.as_object())
+                .map(|map| {
+                    map.iter()
+                        .filter_map(|(k, v)| Some((k.clone(), v.as_str()?.to_string())))
+                        .collect()
+                })
+                .unwrap_or_default()
+        }
+        None => BTreeMap::new(),
+    };
+
+    let mut moved = false;
+    for mut change in check(vault)? {
+        if released.is_some() {
+            change.pinned = was.get(change.source).cloned();
+        }
+        let state = match (change.moved(), &change.pinned) {
+            (false, _) => "unchanged".to_string(),
+            (true, None) => format!("new — {}", change.current),
+            (true, Some(was)) => format!("moved — {was} -> {}", change.current),
+        };
+        eprintln!("{:<8} {state}", change.source);
+        moved |= change.moved();
+    }
+    Ok(moved)
+}
+
+/// Ask every source whether it has anything new, as cheaply as each can be asked. DE answers
+/// from its own index — a few kilobytes naming the content hash of every manifest — so a game
+/// patch is detected without downloading a single manifest. The other three are small enough
+/// to read whole.
+pub fn check(vault: &Vault) -> Result<Vec<Change>> {
+    let agent = sources::agent();
+    let mut out = Vec::new();
+
+    let mut wanted: Vec<(String, IndexEntry)> = Vec::new();
+    for lang in spec::LANGS {
+        let index = de::fetch_index(&agent, lang)?;
+        for name in manifests(lang) {
+            let entry = index
+                .iter()
+                .find(|e| e.manifest == name)
+                .ok_or_else(|| anyhow!("DE index ({lang}) missing manifest {name}"))?;
+            wanted.push((name.to_string(), entry.clone()));
+        }
+    }
+    out.push(change(vault, spec::DE, snapshot_id(&wanted)));
+
+    let items = wfm::fetch_items(&agent)?;
+    out.push(change(vault, spec::WFM, wfm_id(&vault_hash(&items))));
+
+    let tables = drops::fetch(&agent)?;
+    out.push(change(vault, spec::DROPS, drops_id(&vault_hash(&tables))));
+
+    let agent = wiki::agent();
+    let mut blobs = Vec::new();
+    for (_, module) in wiki_modules() {
+        blobs.push(vault_hash(&wiki::fetch_module(&agent, module)?));
+    }
+    out.push(change(vault, spec::WIKI, wiki_id(&blobs)));
+
+    Ok(out)
+}
+
+fn change(vault: &Vault, source: &'static str, current: String) -> Change {
+    Change {
+        source,
+        pinned: vault.latest(source).ok().map(|s| s.id),
+        current,
+    }
+}
+
+fn vault_hash(bytes: &[u8]) -> String {
+    vault::BlobId::of(bytes).to_string()
+}
+
+/// The wiki modules pinned as one snapshot, with the logical name each is stored under.
+fn wiki_modules() -> [(&'static str, &'static str); 5] {
+    [
+        (spec::WIKI_MISSIONS, wiki::MISSIONS),
+        (spec::WIKI_DROPS, wiki::DROP_TABLES),
+        (spec::WIKI_BARO, wiki::BARO),
+        (spec::WIKI_RESEARCH, wiki::RESEARCH),
+        (spec::WIKI_VENDORS, wiki::VENDORS),
+    ]
+}
+
+fn wiki_id(blobs: &[String]) -> String {
+    format!(
+        "wiki-{}",
+        &blake3::hash(blobs.join(".").as_bytes()).to_hex()[..16]
+    )
+}
+
+fn wfm_id(blob: &str) -> String {
+    format!("wfm-{}", &blob[..16])
+}
+
+fn drops_id(blob: &str) -> String {
+    format!("drops-{}", &blob[..16])
+}
 
 /// Pin the DE manifests (English and Russian), the WFM item list and the official drop
 /// tables into the vault.
@@ -20,15 +148,8 @@ pub fn run(vault: &Vault, now_ms: i64) -> Result<()> {
 /// input, so a build never depends on what the wiki says today.
 fn fetch_wiki(vault: &Vault, now_ms: i64) -> Result<()> {
     let agent = wiki::agent();
-    let wanted = [
-        (spec::WIKI_MISSIONS, wiki::MISSIONS),
-        (spec::WIKI_DROPS, wiki::DROP_TABLES),
-        (spec::WIKI_BARO, wiki::BARO),
-        (spec::WIKI_RESEARCH, wiki::RESEARCH),
-        (spec::WIKI_VENDORS, wiki::VENDORS),
-    ];
     let mut fetched = Vec::new();
-    for (logical, module) in wanted {
+    for (logical, module) in wiki_modules() {
         let bytes = wiki::fetch_module(&agent, module)?;
         let blob = vault.put(&bytes)?;
         fetched.push((logical, blob, bytes.len() as u64));
@@ -38,11 +159,7 @@ fn fetch_wiki(vault: &Vault, now_ms: i64) -> Result<()> {
         .iter()
         .map(|(_, blob, _)| blob.to_string())
         .collect();
-    let id = format!(
-        "wiki-{}",
-        &blake3::hash(joined.join(".").as_bytes()).to_hex()[..16]
-    );
-    let mut snap = Snapshot::new(id, spec::WIKI, now_ms);
+    let mut snap = Snapshot::new(wiki_id(&joined), spec::WIKI, now_ms);
     for (logical, blob, len) in fetched {
         snap.entries.push(Entry {
             logical: logical.to_string(),
@@ -104,8 +221,7 @@ fn manifests(lang: &str) -> Vec<&'static str> {
 fn fetch_wfm(vault: &Vault, agent: &ureq::Agent, now_ms: i64) -> Result<()> {
     let bytes = wfm::fetch_items(agent)?;
     let blob = vault.put(&bytes)?;
-    let id = format!("wfm-{}", &blob.to_string()[..16]);
-    let mut snap = Snapshot::new(id, spec::WFM, now_ms);
+    let mut snap = Snapshot::new(wfm_id(&blob.to_string()), spec::WFM, now_ms);
     snap.entries.push(Entry {
         logical: spec::WFM_ITEMS.to_string(),
         blob: blob.to_string(),
@@ -119,8 +235,7 @@ fn fetch_wfm(vault: &Vault, agent: &ureq::Agent, now_ms: i64) -> Result<()> {
 fn fetch_drops(vault: &Vault, agent: &ureq::Agent, now_ms: i64) -> Result<()> {
     let bytes = drops::fetch(agent)?;
     let blob = vault.put(&bytes)?;
-    let id = format!("drops-{}", &blob.to_string()[..16]);
-    let mut snap = Snapshot::new(id, spec::DROPS, now_ms);
+    let mut snap = Snapshot::new(drops_id(&blob.to_string()), spec::DROPS, now_ms);
     snap.entries.push(Entry {
         logical: spec::DROP_TABLES.to_string(),
         blob: blob.to_string(),

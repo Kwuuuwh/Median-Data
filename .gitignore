@@ -17,6 +17,7 @@ catalog.changes.md
 
 # Release output
 /dist
+/prev
 
 # Other
 temp.md

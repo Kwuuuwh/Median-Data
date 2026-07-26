@@ -1,4 +1,4 @@
-use std::path::Path;
+use std::path::{Path, PathBuf};
 use std::process::ExitCode;
 use std::time::{SystemTime, UNIX_EPOCH};
 
@@ -26,6 +26,7 @@ mod paths;
 mod portraits;
 mod primes;
 mod regions;
+mod release;
 mod relic;
 mod rules;
 mod sets;
@@ -46,11 +47,17 @@ const REGIONS: &str = "config/regions.toml";
 const BOUNTIES: &str = "config/bounties.toml";
 const ANCHORS: &str = "config/anchors.toml";
 const CURATION: &str = "config/curation.toml";
+const PACK: &str = "pack";
+const STATE: &str = "catalog.state.json";
 const STUDIO_ADDR: &str = "127.0.0.1:8787";
+
+/// `check` reports a moved source with this exit code, so a scheduled run can decide whether
+/// the expensive steps are worth running without parsing any output.
+const CHANGED: u8 = 2;
 
 fn main() -> ExitCode {
     match run() {
-        Ok(()) => ExitCode::SUCCESS,
+        Ok(code) => code,
         Err(e) => {
             eprintln!("error: {e:#}");
             ExitCode::FAILURE
@@ -58,24 +65,57 @@ fn main() -> ExitCode {
     }
 }
 
-fn run() -> Result<()> {
+fn run() -> Result<ExitCode> {
     let mut args = std::env::args().skip(1);
     match args.next().as_deref() {
-        Some("fetch") => fetch::run(&Vault::open(VAULT_DIR)?, now_ms()),
-        Some("build") => build::run(&Vault::open(VAULT_DIR)?, Path::new(OUT)),
-        Some("icons") => icons::run(&Vault::open(VAULT_DIR)?, Path::new(SCOPE), now_ms()),
-        Some("studio") => inspect::run(VAULT_DIR, STUDIO_ADDR),
+        Some("check") => {
+            let released = args.next().map(PathBuf::from);
+            let moved = fetch::changed(&Vault::open(VAULT_DIR)?, released.as_deref())?;
+            Ok(match moved {
+                true => ExitCode::from(CHANGED),
+                false => ExitCode::SUCCESS,
+            })
+        }
+        Some("fetch") => done(fetch::run(&Vault::open(VAULT_DIR)?, now_ms())),
+        Some("build") => done(build::run(&Vault::open(VAULT_DIR)?, Path::new(OUT))),
+        Some("icons") => done(icons::run(
+            &Vault::open(VAULT_DIR)?,
+            Path::new(SCOPE),
+            now_ms(),
+        )),
+        Some("release") => {
+            let previous = args.next().map(PathBuf::from);
+            let vault = Vault::open(VAULT_DIR)?;
+            done(release::run(
+                Path::new(OUT),
+                Path::new(PACK),
+                Path::new(STATE),
+                release::Stamp {
+                    schema: projections::SCHEMA,
+                    fetched_ms: vault.latest(spec::DE).map(|s| s.created_ms).unwrap_or(0),
+                    sources: build::sources(&vault).into_iter().collect(),
+                },
+                previous.as_deref(),
+            ))
+        }
+        Some("studio") => done(inspect::run(VAULT_DIR, STUDIO_ADDR)),
         Some("show") => {
             let query = args.next().unwrap_or_default();
             let built = build::graph(&Vault::open(VAULT_DIR)?)?;
             show::run(&built.graph, &query);
-            Ok(())
+            Ok(ExitCode::SUCCESS)
         }
         cmd => {
-            eprintln!("usage: median-data <fetch|icons|build|studio|show QUERY>");
+            eprintln!(
+                "usage: median-data <check [MANIFEST]|fetch|icons|build|release [PREV]|studio|show QUERY>"
+            );
             anyhow::bail!("unknown command: {}", cmd.unwrap_or("(none)"));
         }
     }
+}
+
+fn done(result: Result<()>) -> Result<ExitCode> {
+    result.map(|()| ExitCode::SUCCESS)
 }
 
 fn now_ms() -> i64 {

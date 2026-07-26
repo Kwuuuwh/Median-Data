@@ -274,12 +274,22 @@ fn stamps(vault: &Vault, state: &State) -> Vec<(String, String)> {
     if let Ok(de) = vault.latest(spec::DE) {
         out.push(("fetched_ms".to_string(), de.created_ms.to_string()));
     }
-    for source in SOURCES {
-        if let Ok(snap) = vault.latest(source) {
-            out.push((format!("source.{source}"), snap.id.clone()));
-        }
+    for (source, id) in sources(vault) {
+        out.push((format!("source.{source}"), id));
     }
     out
+}
+
+/// The pinned snapshot every source is at. Published with a release too, so the next run can
+/// ask whether anything moved without a vault to compare against.
+pub fn sources(vault: &Vault) -> Vec<(String, String)> {
+    SOURCES
+        .iter()
+        .filter_map(|source| {
+            let snap = vault.latest(source).ok()?;
+            Some(((*source).to_string(), snap.id))
+        })
+        .collect()
 }
 
 /// Render every artifact from the assembled graph.
