@@ -368,6 +368,17 @@ pub fn graph_with(vault: &Vault, curated: &Curation) -> Result<Built> {
         }
     }
 
+    // Inject Regal Aya
+    de.push(extract::DeItem {
+        unique_name: "/Lotus/Types/Items/MiscItems/PremiumSchismKey".to_string(),
+        name: "Regal Aya".to_string(),
+        category: "MiscItems".to_string(),
+        array: "ExportResources".to_string(),
+        parent: None,
+        mod_type: None,
+    });
+    ru.insert("/Lotus/Types/Items/MiscItems/PremiumSchismKey".to_string(), "Королевская Айя".to_string());
+
     let recipes = extract::de_recipes(&blob(vault, &de_snap, spec::RECIPES)?)?;
     let rewards = extract::de_rewards(&blob(vault, &de_snap, spec::RELICS)?)?;
 

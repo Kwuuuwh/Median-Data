@@ -295,16 +295,40 @@ fn page(snap: &Snapshot, title: &str, crumb: Markup, body: Markup) -> Markup {
     )
 }
 
-/// Nodes whose id or name contains the query, shortest name first.
 fn search<'a>(graph: &'a Graph, query: &str) -> Vec<&'a Node> {
     let needle = query.to_lowercase();
-    let mut hits: Vec<&Node> = graph
+    let folded_query = crate::fuzzy::fold(query);
+
+    let mut hits: Vec<(&Node, u8)> = graph
         .nodes()
-        .filter(|n| {
-            n.label().to_lowercase().contains(&needle) || n.id().to_lowercase().contains(&needle)
+        .filter_map(|n| {
+            let id = n.id().to_lowercase();
+            let label = n.label().to_lowercase();
+            let ru = n.label_ru().map(|s| s.to_lowercase());
+
+            if label.contains(&needle) || id.contains(&needle) || ru.as_ref().is_some_and(|r| r.contains(&needle)) {
+                return Some((n, 100));
+            }
+
+            let mut node_score = crate::fuzzy::score(&crate::fuzzy::fold(n.label()), &folded_query);
+            if let Some(r) = n.label_ru() {
+                node_score = node_score.max(crate::fuzzy::score(&crate::fuzzy::fold(r), &folded_query));
+            }
+            node_score = node_score.max(crate::fuzzy::score(&crate::fuzzy::fold(&n.id()), &folded_query));
+
+            if node_score > 65 {
+                Some((n, node_score))
+            } else {
+                None
+            }
         })
         .collect();
-    hits.sort_by_key(|n| (n.label().len(), n.label().to_string()));
+
+    hits.sort_by(|a, b| {
+        b.1.cmp(&a.1)
+            .then(a.0.label().len().cmp(&b.0.label().len()))
+            .then(a.0.label().cmp(b.0.label()))
+    });
     hits.truncate(HITS);
-    hits
+    hits.into_iter().map(|(n, _)| n).collect()
 }

@@ -633,6 +633,146 @@ key = "Volatile"
 ru = "Нестабильность"
 
 [[term]]
+kind = "place"
+key = "002-Er"
+ru = "002-Эр"
+
+[[term]]
+kind = "place"
+key = "Abyssal Beacon"
+ru = "Абиссальный маяк"
+
+[[term]]
+kind = "place"
+key = "Aerial Commander"
+ru = "Воздушный Командир"
+
+[[term]]
+kind = "place"
+key = "Aerolyst"
+ru = "Аэролист"
+
+[[term]]
+kind = "place"
+key = "Alad V"
+ru = "Алад V"
+
+[[term]]
+kind = "place"
+key = "Amalgam Alkonost"
+ru = "Алконост Амальгама"
+
+[[term]]
+kind = "place"
+key = "Amalgam Arca Heqet"
+ru = "Хекат Арка Амальгама"
+
+[[term]]
+kind = "place"
+key = "Amalgam Arca Kucumatz"
+ru = "Кукумац Арка Амальгама"
+
+[[term]]
+kind = "place"
+key = "Amalgam Cinder Machinist"
+ru = "Пепельный Машинист Амальгама"
+
+[[term]]
+kind = "place"
+key = "Amalgam Heqet"
+ru = "Амальгама: Хекат"
+
+[[term]]
+kind = "place"
+key = "Amalgam Kucumatz"
+ru = "Кукумац Амальгама"
+
+[[term]]
+kind = "place"
+key = "Amalgam Machinist"
+ru = "Машинист Амальгама"
+
+[[term]]
+kind = "place"
+key = "Amalgam Moa"
+ru = "МОА Амальгама"
+
+[[term]]
+kind = "place"
+key = "Amalgam Phase Moa"
+ru = "Фазовый МОА Амальгама"
+
+[[term]]
+kind = "place"
+key = "Amalgam Satyr"
+ru = "Сатир Амальгама"
+
+[[term]]
+kind = "place"
+key = "Amalgam Swarm Satyr"
+ru = "Роевик Сатир Амальгама"
+
+[[term]]
+kind = "place"
+key = "Ambulas"
+ru = "Амбулас"
+
+[[term]]
+kind = "place"
+key = "Anarch Arcus"
+ru = "Анарх Аркус"
+
+[[term]]
+kind = "place"
+key = "Anarch Capsarii"
+ru = "Анарх Капсарий"
+
+[[term]]
+kind = "place"
+key = "Anarch Gladius"
+ru = "Анарх Гладиус"
+
+[[term]]
+kind = "place"
+key = "Anarch Grineer Trapper"
+ru = "Анарх Захватчик Гринир"
+
+[[term]]
+kind = "place"
+key = "Anarch Libritor"
+ru = "Анарх Либритор"
+
+[[term]]
+kind = "place"
+key = "Anarch Tenebra"
+ru = "Анарх Капсарий"
+
+[[term]]
+kind = "region"
+key = "/Lotus/Types/Keys/SyndicateCacheHuntBaseKeyItem"
+ru = "Абиссальная Зона"
+
+[[term]]
+kind = "region"
+key = "1999Hub"
+ru = "Торговый Центр Хёльвании"
+
+[[term]]
+kind = "region"
+key = "CetusHub4"
+ru = "Цетус"
+
+[[term]]
+kind = "tileset"
+key = "Stalker's Lair"
+ru = "Логово Сталкера"
+
+[[term]]
+kind = "tileset"
+key = "Zariman"
+ru = "Зариман"
+
+[[term]]
 kind = "vendor"
 key = "acrithis"
 ru = "Акритис"

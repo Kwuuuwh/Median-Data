@@ -101,7 +101,7 @@ impl Names {
 
 /// How close two folded names are: the better of how they read letter by letter and how many
 /// whole words they share.
-fn score(a: &str, b: &str) -> u8 {
+pub fn score(a: &str, b: &str) -> u8 {
     let letters = strsim::jaro_winkler(a, b);
     let words = tokens(a);
     let theirs = tokens(b);
@@ -115,7 +115,7 @@ fn tokens(name: &str) -> BTreeSet<&str> {
 }
 
 /// Collapse case, spacing and punctuation so two spellings of one name meet.
-fn fold(name: &str) -> String {
+pub fn fold(name: &str) -> String {
     let mut out = String::with_capacity(name.len());
     for ch in name.chars() {
         if ch.is_alphanumeric() {

@@ -53,6 +53,44 @@ pub fn run(vault: &Vault, scope_path: &Path, now_ms: i64) -> Result<()> {
     })?;
 
     portraits(vault, now_ms)?;
+    custom_icons(vault, now_ms)?;
+    Ok(())
+}
+
+fn custom_icons(vault: &Vault, now_ms: i64) -> Result<()> {
+    let agent = sources::wiki::agent();
+    let files = sources::wiki::files(&agent, &[String::from("File:RegalAya.png")])?;
+    
+    let known = pinned(vault, "custom-icons");
+    let mut snap = Snapshot::new(
+        format!("custom-icons-{}", files.len()),
+        "custom-icons",
+        now_ms,
+    );
+
+    let (mut fetched, mut reused) = (0, 0);
+    for file in &files {
+        if let Some(blob) = known.get(&file.name) {
+            snap.entries.push(entry(&file.name, blob.clone(), 0));
+            reused += 1;
+            continue;
+        }
+        match sources::wiki::fetch_file(&agent, &file.url) {
+            Ok(bytes) => {
+                let blob = vault.put(&bytes)?;
+                snap.entries.push(entry(&file.name, blob.to_string(), bytes.len() as u64));
+                fetched += 1;
+            }
+            Err(e) => eprintln!("skip custom icon {}: {e:#}", file.name),
+        }
+    }
+    
+    vault.save(&snap)?;
+    eprintln!(
+        "{:<8} {} custom icons ({fetched} fetched, {reused} reused)",
+        "custom",
+        files.len()
+    );
     Ok(())
 }
 
@@ -244,6 +282,15 @@ pub fn pictures(
             }
         }
     }
+
+    let custom = pinned(vault, "custom-icons");
+    if let Some(blob) = custom.get("RegalAya.png") {
+        let langs = out.entry("/Lotus/Types/Items/MiscItems/PremiumSchismKey".to_string()).or_default();
+        for lang in graph::LANGS {
+            langs.insert((*lang).to_string(), (blob.clone(), Source::Wiki));
+        }
+    }
+
     out
 }
 
