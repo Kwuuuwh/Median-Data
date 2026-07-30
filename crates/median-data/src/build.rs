@@ -377,7 +377,10 @@ pub fn graph_with(vault: &Vault, curated: &Curation) -> Result<Built> {
         parent: None,
         mod_type: None,
     });
-    ru.insert("/Lotus/Types/Items/MiscItems/PremiumSchismKey".to_string(), "Королевская Айя".to_string());
+    ru.insert(
+        "/Lotus/Types/Items/MiscItems/PremiumSchismKey".to_string(),
+        "Королевская Айя".to_string(),
+    );
 
     let recipes = extract::de_recipes(&blob(vault, &de_snap, spec::RECIPES)?)?;
     let rewards = extract::de_rewards(&blob(vault, &de_snap, spec::RELICS)?)?;

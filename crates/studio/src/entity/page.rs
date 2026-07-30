@@ -306,15 +306,22 @@ fn search<'a>(graph: &'a Graph, query: &str) -> Vec<&'a Node> {
             let label = n.label().to_lowercase();
             let ru = n.label_ru().map(|s| s.to_lowercase());
 
-            if label.contains(&needle) || id.contains(&needle) || ru.as_ref().is_some_and(|r| r.contains(&needle)) {
+            if label.contains(&needle)
+                || id.contains(&needle)
+                || ru.as_ref().is_some_and(|r| r.contains(&needle))
+            {
                 return Some((n, 100));
             }
 
             let mut node_score = crate::fuzzy::score(&crate::fuzzy::fold(n.label()), &folded_query);
             if let Some(r) = n.label_ru() {
-                node_score = node_score.max(crate::fuzzy::score(&crate::fuzzy::fold(r), &folded_query));
+                node_score =
+                    node_score.max(crate::fuzzy::score(&crate::fuzzy::fold(r), &folded_query));
             }
-            node_score = node_score.max(crate::fuzzy::score(&crate::fuzzy::fold(&n.id()), &folded_query));
+            node_score = node_score.max(crate::fuzzy::score(
+                &crate::fuzzy::fold(&n.id()),
+                &folded_query,
+            ));
 
             if node_score > 65 {
                 Some((n, node_score))
