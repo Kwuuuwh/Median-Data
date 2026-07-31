@@ -734,6 +734,11 @@ ru = "Анарх Гладиус"
 
 [[term]]
 kind = "place"
+key = "Anarch Grineer Lancer"
+ru = "Анарх Солдат Гринир"
+
+[[term]]
+kind = "place"
 key = "Anarch Grineer Trapper"
 ru = "Анарх Захватчик Гринир"
 
@@ -746,6 +751,146 @@ ru = "Анарх Либритор"
 kind = "place"
 key = "Anarch Tenebra"
 ru = "Анарх Капсарий"
+
+[[term]]
+kind = "place"
+key = "Ancient Disruptor"
+ru = "Древний Разрушитель"
+
+[[term]]
+kind = "place"
+key = "Ancient Healer"
+ru = "Древний Целитель"
+
+[[term]]
+kind = "place"
+key = "Ancient Protector"
+ru = "Древний Защитник"
+
+[[term]]
+kind = "place"
+key = "Angst"
+ru = "Беспокойство"
+
+[[term]]
+kind = "place"
+key = "Anti Moa"
+ru = "Анти МОА"
+
+[[term]]
+kind = "place"
+key = "Arbitration Shield Drone"
+ru = "Дрон-Щитогенератор Арбитража"
+
+[[term]]
+kind = "place"
+key = "Arbitrations"
+ru = "Арбитраж"
+
+[[term]]
+kind = "place"
+key = "Archon Amar"
+ru = "Архонт Амар"
+
+[[term]]
+kind = "place"
+key = "Archon Boreal"
+ru = "Архонт Бореаль"
+
+[[term]]
+kind = "place"
+key = "Archon Nira"
+ru = "Архонт Нира"
+
+[[term]]
+kind = "place"
+key = "Armaments Director"
+ru = "Директор Отдела Вооружения"
+
+[[term]]
+kind = "place"
+key = "Armis Ulta"
+ru = "Армис Ульта"
+
+[[term]]
+kind = "place"
+key = "Artificer"
+ru = "Механик"
+
+[[term]]
+kind = "place"
+key = "Attack Drone"
+ru = "Дрон Защитник"
+
+[[term]]
+kind = "place"
+key = "Attack Mutalist"
+ru = "Штурмовой Муталист"
+
+[[term]]
+kind = "place"
+key = "Auditor"
+ru = "Аудитор"
+
+[[term]]
+kind = "place"
+key = "Aurax Actinic"
+ru = "Актиник Ауракса"
+
+[[term]]
+kind = "place"
+key = "Aurax Atloc Raknoid"
+ru = "Ракноид Ауракса: Атлок"
+
+[[term]]
+kind = "place"
+key = "Aurax Baculus"
+ru = "Бакулюс Ауракса"
+
+[[term]]
+kind = "place"
+key = "Aurax Culveri Moa"
+ru = "МОА Ауракса: Кульвери"
+
+[[term]]
+kind = "place"
+key = "Aurax Polaris Moa"
+ru = "МОА Ауракса: Полярис"
+
+[[term]]
+kind = "place"
+key = "Azoth"
+ru = "Азот"
+
+[[term]]
+kind = "place"
+key = "Bailiff"
+ru = "Бейлиф"
+
+[[term]]
+kind = "place"
+key = "Bailiff Defector"
+ru = "Отступник Бейлиф"
+
+[[term]]
+kind = "place"
+key = "Ballista"
+ru = "Баллиста"
+
+[[term]]
+kind = "place"
+key = "Baro Void-Signal"
+ru = "Маячок Бездны Баро"
+
+[[term]]
+kind = "place"
+key = "Basal Diploid"
+ru = "Базальный Диплоид"
+
+[[term]]
+kind = "place"
+key = "Basal Diploid Rex"
+ru = "Базальный Диплоид Рекс"
 
 [[term]]
 kind = "region"
