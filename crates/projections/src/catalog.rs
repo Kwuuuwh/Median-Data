@@ -4,6 +4,7 @@ use graph::{Extra, Graph, Node, Rel};
 use rusqlite::{Statement, Transaction, params};
 
 use crate::projection::{Context, Projection, Summary};
+use crate::search::FOLD;
 
 /// The relational view the desktop app reads. Everything the graph holds lands here,
 /// including what the scope policy keeps out of the other artifacts — nothing is lost
@@ -14,7 +15,7 @@ pub struct Catalog;
 /// application reads it to decide whether it can open the file at all — so it lives here,
 /// beside the schema it describes, and is written both as `PRAGMA user_version` and as a row
 /// of `meta`.
-pub const SCHEMA: u32 = 5;
+pub const SCHEMA: u32 = 6;
 
 pub const SETUP: &str = "\
 CREATE TABLE meta (
@@ -276,10 +277,12 @@ impl Projection for Catalog {
     }
 }
 
-/// Say what this build is: its schema, its version, and the pinned snapshots behind it.
+/// Say what this build is: its schema, the rule its names are folded by, its version, and
+/// the pinned snapshots behind it.
 fn stamp(tx: &Transaction<'_>, ctx: &Context<'_>) -> Result<()> {
     let mut insert = tx.prepare("INSERT INTO meta (key, value) VALUES (?1, ?2)")?;
     insert.execute(("schema", SCHEMA.to_string()))?;
+    insert.execute(("fold", FOLD))?;
     for (key, value) in ctx.meta {
         insert.execute((key, value))?;
     }
