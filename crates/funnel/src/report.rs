@@ -11,6 +11,7 @@ use crate::finding::{Finding, Layer};
 pub struct Totals {
     pub items: usize,
     pub places: usize,
+    pub enemies: usize,
     pub edges: usize,
     /// Property-level disagreements recorded while merging sources.
     pub conflicts: usize,
@@ -24,6 +25,9 @@ pub struct Report {
     /// What a person looked at and let through, so it is counted without being asked again.
     #[serde(default)]
     pub accepted: Vec<Finding>,
+    /// Findings about entities the product does not ship, dropped unread.
+    #[serde(default)]
+    pub out_of_scope: usize,
     pub diff: Option<Diff>,
 }
 
@@ -60,8 +64,8 @@ impl Report {
         let t = &self.totals;
         let _ = writeln!(
             out,
-            "catalog  {} items, {} places, {} edges, {} conflicts",
-            t.items, t.places, t.edges, t.conflicts
+            "catalog  {} items, {} places, {} enemies, {} edges, {} conflicts",
+            t.items, t.places, t.enemies, t.edges, t.conflicts
         );
 
         if !self.accepted.is_empty() {

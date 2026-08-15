@@ -146,6 +146,7 @@ fn one(
         kind: kind(de, hand.kind, facts.taxonomy, conflicts),
         slug: wfm.map(|w| single(Source::Wfm, w.slug.clone())),
         tradable,
+        vaulted: None,
         prime,
         ducats: wfm.and_then(|w| w.ducats),
         extra: rules::relic(&de.unique_name).map_or(Extra::None, Extra::Relic),

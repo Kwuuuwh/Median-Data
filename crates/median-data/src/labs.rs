@@ -43,7 +43,7 @@ pub fn link(
     for it in &dojo.research {
         let (_, printed) = names::quantity(&it.name);
         let Some(item) = index.get(printed) else {
-            orphans::note(&mut out.unresolved, printed, || it.lab.clone());
+            orphans::note(&mut out.unresolved, printed, || lab_id(&it.lab));
             continue;
         };
         let target = graph::producer(graph, item)

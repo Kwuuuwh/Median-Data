@@ -15,7 +15,7 @@ pub struct Catalog;
 /// application reads it to decide whether it can open the file at all — so it lives here,
 /// beside the schema it describes, and is written both as `PRAGMA user_version` and as a row
 /// of `meta`.
-pub const SCHEMA: u32 = 6;
+pub const SCHEMA: u32 = 9;
 
 pub const SETUP: &str = "\
 CREATE TABLE meta (
@@ -31,6 +31,7 @@ CREATE TABLE items (
   kind        TEXT NOT NULL,
   slug        TEXT,
   tradable    INTEGER,
+  vaulted     INTEGER,
   prime       INTEGER NOT NULL,
   ducats      INTEGER,
   in_scope    INTEGER NOT NULL
@@ -76,7 +77,8 @@ CREATE TABLE relic_rewards (
 CREATE TABLE relics (
   unique_name TEXT PRIMARY KEY,
   base        TEXT NOT NULL,
-  refinement  TEXT NOT NULL
+  refinement  TEXT NOT NULL,
+  vaulted_in  TEXT
 ) WITHOUT ROWID;
 CREATE TABLE relic_chances (
   rarity     TEXT NOT NULL,
@@ -89,6 +91,7 @@ CREATE TABLE sets (
   name_en TEXT NOT NULL,
   name_ru TEXT,
   ducats  INTEGER,
+  vaulted INTEGER,
   built   TEXT
 ) WITHOUT ROWID;
 CREATE TABLE item_drifters (
@@ -113,10 +116,24 @@ CREATE TABLE imprints (
   animal  TEXT NOT NULL
 ) WITHOUT ROWID;
 CREATE TABLE places (
+  name     TEXT PRIMARY KEY,
+  name_ru  TEXT,
+  kind     TEXT NOT NULL,
+  region   TEXT,
+  location TEXT,
+  node     TEXT,
+  label    TEXT,
+  extra    INTEGER,
+  event    INTEGER
+) WITHOUT ROWID;
+CREATE TABLE enemies (
+  name    TEXT PRIMARY KEY,
+  name_ru TEXT
+) WITHOUT ROWID;
+CREATE TABLE locations (
   name    TEXT PRIMARY KEY,
   name_ru TEXT,
-  kind    TEXT NOT NULL,
-  region  TEXT
+  kind    TEXT
 ) WITHOUT ROWID;
 CREATE TABLE bounty_places (
   place          TEXT PRIMARY KEY,
@@ -177,8 +194,7 @@ CREATE TABLE regions (
   node         TEXT PRIMARY KEY,
   name         TEXT NOT NULL,
   name_ru      TEXT,
-  planet       TEXT NOT NULL,
-  planet_ru    TEXT,
+  location     TEXT NOT NULL,
   mission      INTEGER NOT NULL,
   mission_en   TEXT,
   mission_ru   TEXT,
@@ -199,13 +215,22 @@ CREATE TABLE regions (
   hidden       INTEGER NOT NULL
 ) WITHOUT ROWID;
 CREATE TABLE item_drops (
-  place        TEXT NOT NULL,
+  place    TEXT NOT NULL,
+  item     TEXT NOT NULL,
+  rotation TEXT,
+  stage    TEXT,
+  rarity   TEXT NOT NULL,
+  chance   REAL NOT NULL,
+  count    INTEGER
+);
+CREATE TABLE enemy_drops (
+  enemy        TEXT NOT NULL,
   item         TEXT NOT NULL,
-  rotation     TEXT,
-  stage        TEXT,
   rarity       TEXT NOT NULL,
   chance       REAL NOT NULL,
   table_chance REAL,
+  min_level    INTEGER,
+  max_level    INTEGER,
   count        INTEGER
 );
 CREATE TABLE provenance (
@@ -244,12 +269,14 @@ CREATE INDEX idx_kinds_class ON kinds(class);
 CREATE INDEX idx_relics_base ON relics(base);
 CREATE INDEX idx_item_drops_item ON item_drops(item);
 CREATE INDEX idx_item_drops_place ON item_drops(place);
+CREATE INDEX idx_enemy_drops_item ON enemy_drops(item);
+CREATE INDEX idx_enemy_drops_enemy ON enemy_drops(enemy);
 CREATE INDEX idx_recipe_requires_item ON recipe_requires(item);
 CREATE INDEX idx_relic_rewards_reward ON relic_rewards(reward);
 CREATE INDEX idx_places_region ON places(region);
 CREATE INDEX idx_vendor_offers_item ON vendor_offers(item);
 CREATE INDEX idx_research_blueprint ON research(blueprint);
-CREATE INDEX idx_regions_planet ON regions(planet);
+CREATE INDEX idx_regions_location ON regions(location);
 CREATE INDEX idx_set_members_item ON set_members(item);
 CREATE INDEX idx_provenance_status ON provenance(status);
 CREATE INDEX idx_findings_layer ON findings(layer);
@@ -325,9 +352,9 @@ fn nodes(tx: &Transaction<'_>, ctx: &Context<'_>) -> Result<usize> {
     let graph = ctx.graph;
     let mut items = tx.prepare(
         "INSERT INTO items \
-         (unique_name, name_en, name_ru, category, class, kind, slug, tradable, prime, ducats, \
-          in_scope) \
-         VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11)",
+         (unique_name, name_en, name_ru, category, class, kind, slug, tradable, vaulted, \
+          prime, ducats, in_scope) \
+         VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12)",
     )?;
     let mut dropped =
         tx.prepare("INSERT INTO out_of_scope (unique_name, reason) VALUES (?1, ?2)")?;
@@ -336,18 +363,26 @@ fn nodes(tx: &Transaction<'_>, ctx: &Context<'_>) -> Result<usize> {
          VALUES (?1, ?2, ?3, ?4, ?5)",
     )?;
     let mut sets = tx.prepare(
-        "INSERT INTO sets (slug, name_en, name_ru, ducats, built) VALUES (?1, ?2, ?3, ?4, ?5)",
+        "INSERT INTO sets (slug, name_en, name_ru, ducats, vaulted, built) \
+         VALUES (?1, ?2, ?3, ?4, ?5, ?6)",
     )?;
     let mut recipes = tx.prepare(
         "INSERT INTO recipes (blueprint, result, build_price, build_time, consumed, rush_price) \
          VALUES (?1, ?2, ?3, ?4, ?5, ?6)",
     )?;
-    let mut relics =
-        tx.prepare("INSERT INTO relics (unique_name, base, refinement) VALUES (?1, ?2, ?3)")?;
+    let mut relics = tx.prepare(
+        "INSERT INTO relics (unique_name, base, refinement, vaulted_in) \
+                    VALUES (?1, ?2, ?3, ?4)",
+    )?;
     let mut imprints = tx
         .prepare("INSERT INTO imprints (slug, name_en, name_ru, animal) VALUES (?1, ?2, ?3, ?4)")?;
-    let mut places =
-        tx.prepare("INSERT INTO places (name, name_ru, kind, region) VALUES (?1, ?2, ?3, ?4)")?;
+    let mut places = tx.prepare(
+        "INSERT INTO places (name, name_ru, kind, region, location, node, label, \
+                    extra, event) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9)",
+    )?;
+    let mut enemies = tx.prepare("INSERT INTO enemies (name, name_ru) VALUES (?1, ?2)")?;
+    let mut locations =
+        tx.prepare("INSERT INTO locations (name, name_ru, kind) VALUES (?1, ?2, ?3)")?;
     let mut vendors = tx.prepare(
         "INSERT INTO vendors (key, name, name_ru, currency, kind, rotates) \
          VALUES (?1, ?2, ?3, ?4, ?5, ?6)",
@@ -360,12 +395,12 @@ fn nodes(tx: &Transaction<'_>, ctx: &Context<'_>) -> Result<usize> {
          VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9)",
     )?;
     let mut regions = tx.prepare(
-        "INSERT INTO regions (node, name, name_ru, planet, planet_ru, mission, mission_en, \
+        "INSERT INTO regions (node, name, name_ru, location, mission, mission_en, \
          mission_ru, faction, faction_en, faction_ru, faction_icon, node_type, node_type_en, \
          node_type_ru, mastery, min_level, max_level, tileset, tileset_ru, origin, railjack, \
          hidden) \
          VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15, ?16, ?17, \
-         ?18, ?19, ?20, ?21, ?22, ?23)",
+         ?18, ?19, ?20, ?21, ?22)",
     )?;
 
     let mut count = 0;
@@ -382,6 +417,7 @@ fn nodes(tx: &Transaction<'_>, ctx: &Context<'_>) -> Result<usize> {
                     it.kind.value.as_str(),
                     it.slug.as_ref().map(|r| r.value.clone()),
                     it.tradable.as_ref().map(|r| r.value as i64),
+                    it.vaulted.as_ref().map(|r| r.value as i64),
                     it.prime.value as i64,
                     it.ducats,
                     kept as i64,
@@ -402,8 +438,16 @@ fn nodes(tx: &Transaction<'_>, ctx: &Context<'_>) -> Result<usize> {
                 if let Some(tradable) = &it.tradable {
                     put(&mut prov, &it.unique_name, "tradable", tradable)?;
                 }
+                if let Some(vaulted) = &it.vaulted {
+                    put(&mut prov, &it.unique_name, "vaulted", vaulted)?;
+                }
                 if let Extra::Relic(r) = &it.extra {
-                    relics.execute((&it.unique_name, &r.base, &r.refinement))?;
+                    relics.execute((
+                        &it.unique_name,
+                        &r.base,
+                        &r.refinement,
+                        r.vaulted_in.as_deref(),
+                    ))?;
                 }
                 count += 1;
             }
@@ -413,6 +457,7 @@ fn nodes(tx: &Transaction<'_>, ctx: &Context<'_>) -> Result<usize> {
                     &s.names.en.value,
                     s.names.ru.as_ref().map(|r| r.value.clone()),
                     s.ducats,
+                    s.vaulted.as_ref().map(|r| r.value as i64),
                     target(graph, &node.id(), &Rel::Represents),
                 ))?;
             }
@@ -427,7 +472,17 @@ fn nodes(tx: &Transaction<'_>, ctx: &Context<'_>) -> Result<usize> {
             Node::Place(p) => {
                 let region = target(graph, &node.id(), &Rel::At)
                     .map(|id| id.trim_start_matches("region:").to_string());
-                places.execute((&p.name, p.name_ru.as_deref(), p.kind.as_str(), region))?;
+                places.execute((
+                    &p.name,
+                    p.name_ru.as_deref(),
+                    p.kind.as_str(),
+                    region,
+                    p.table.as_ref().map(|t| t.location.clone()),
+                    p.table.as_ref().map(|t| t.node.clone()),
+                    p.table.as_ref().map(|t| t.label.clone()),
+                    p.table.as_ref().map(|t| t.extra as i64),
+                    p.table.as_ref().map(|t| t.event as i64),
+                ))?;
                 if let Some(b) = &p.bounty {
                     bounties.execute((
                         &p.name,
@@ -441,6 +496,12 @@ fn nodes(tx: &Transaction<'_>, ctx: &Context<'_>) -> Result<usize> {
                         b.activity_ru.as_deref(),
                     ))?;
                 }
+            }
+            Node::Enemy(e) => {
+                enemies.execute((&e.name, e.name_ru.as_deref()))?;
+            }
+            Node::Location(l) => {
+                locations.execute((&l.name, l.name_ru.as_deref(), l.kind.as_deref()))?;
             }
             Node::Vendor(v) => {
                 vendors.execute((
@@ -460,8 +521,7 @@ fn nodes(tx: &Transaction<'_>, ctx: &Context<'_>) -> Result<usize> {
                     &r.node,
                     &r.name,
                     r.name_ru.as_deref(),
-                    &r.planet,
-                    r.planet_ru.as_deref(),
+                    &r.location,
                     r.mission,
                     r.mission_label.en.as_deref(),
                     r.mission_label.ru.as_deref(),
@@ -513,8 +573,12 @@ fn edges(tx: &Transaction<'_>, graph: &Graph) -> Result<()> {
     let mut drifters =
         tx.prepare("INSERT OR IGNORE INTO item_drifters (operator, drifter) VALUES (?1, ?2)")?;
     let mut drops = tx.prepare(
-        "INSERT INTO item_drops \
-         (place, item, rotation, stage, rarity, chance, table_chance, count) \
+        "INSERT INTO item_drops (place, item, rotation, stage, rarity, chance, count) \
+         VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7)",
+    )?;
+    let mut kills = tx.prepare(
+        "INSERT INTO enemy_drops \
+         (enemy, item, rarity, chance, table_chance, min_level, max_level, count) \
          VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8)",
     )?;
     let mut research = tx.prepare(
@@ -547,18 +611,31 @@ fn edges(tx: &Transaction<'_>, graph: &Graph) -> Result<()> {
             Rel::Fits => {
                 drifters.execute((&edge.from, &edge.to))?;
             }
-            Rel::Drops(d) => {
-                drops.execute((
-                    strip(&edge.from, "place:"),
-                    &edge.to,
-                    d.rotation.as_deref(),
-                    d.stage.as_deref(),
-                    &d.rarity,
-                    d.chance,
-                    d.table_chance,
-                    d.count,
-                ))?;
-            }
+            Rel::Drops(d) => match edge.from.strip_prefix("enemy:") {
+                Some(enemy) => {
+                    kills.execute((
+                        enemy,
+                        &edge.to,
+                        &d.rarity,
+                        d.chance,
+                        d.table_chance,
+                        d.levels.map(|l| l.min),
+                        d.levels.map(|l| l.max),
+                        d.count,
+                    ))?;
+                }
+                None => {
+                    drops.execute((
+                        strip(&edge.from, "place:"),
+                        &edge.to,
+                        d.rotation.as_deref(),
+                        d.stage.as_deref(),
+                        &d.rarity,
+                        d.chance,
+                        d.count,
+                    ))?;
+                }
+            },
             Rel::Researched(r) => {
                 research.execute((
                     strip(&edge.from, "lab:"),

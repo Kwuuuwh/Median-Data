@@ -2,7 +2,8 @@ use std::collections::BTreeMap;
 
 use studio::Unresolved;
 
-/// How often one source printed a name nothing answers to, and where it was printed.
+/// How often one source printed a name nothing answers to, and where it was printed. The
+/// sighting is a node id where the source has one, so the screen can name it in Russian.
 #[derive(Debug, Default, Clone)]
 pub struct Seen {
     pub count: usize,

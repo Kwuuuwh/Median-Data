@@ -37,6 +37,10 @@ pub struct Finding {
     /// What the finding is about: a catalog path, a set slug, a place.
     pub entity: String,
     pub detail: String,
+    /// The other entities the detail names, so a screen can show them by name instead of
+    /// leaving a path in the middle of a sentence.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub about: Vec<String>,
 }
 
 impl Finding {
@@ -46,7 +50,18 @@ impl Finding {
             rule: rule.to_string(),
             entity: entity.into(),
             detail,
+            about: Vec::new(),
         }
+    }
+
+    /// Name the entities the detail talks about.
+    pub fn about<I, S>(mut self, ids: I) -> Self
+    where
+        I: IntoIterator<Item = S>,
+        S: Into<String>,
+    {
+        self.about = ids.into_iter().map(Into::into).collect();
+        self
     }
 }
 

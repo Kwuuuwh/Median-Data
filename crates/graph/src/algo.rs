@@ -227,6 +227,7 @@ mod tests {
             name_ru: None,
             kind: PlaceKind::Node,
             bounty: None,
+            table: None,
         }));
         g.link(Edge {
             from: crate::node::place_id("Ceres/Exta"),
@@ -237,6 +238,7 @@ mod tests {
                 rotation: None,
                 stage: None,
                 table_chance: None,
+                levels: None,
                 count: None,
             }),
         });

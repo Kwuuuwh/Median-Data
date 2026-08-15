@@ -1,4 +1,5 @@
 use std::path::PathBuf;
+use std::sync::Mutex;
 
 use anyhow::Result;
 use consensus::Source;
@@ -26,6 +27,10 @@ struct Inspector {
     /// Which blob holds each item's picture per language, resolved once at startup — the
     /// vault only changes when `fetch` or `icons` runs, and neither runs from here.
     pictures: icons::Pictures,
+    /// Held for the whole read-change-write of the decisions file. Two people working at
+    /// once send their decisions at once, and without this the later write would drop the
+    /// earlier one.
+    writing: Mutex<()>,
 }
 
 impl Inspector {
@@ -36,11 +41,13 @@ impl Inspector {
             scope: PathBuf::from(crate::SCOPE),
             curation: PathBuf::from(crate::CURATION),
             pictures: pictures(&vault).unwrap_or_default(),
+            writing: Mutex::new(()),
         })
     }
 
-    /// Read the decisions, change them, write them back.
+    /// Read the decisions, change them, write them back, one writer at a time.
     fn edit(&self, change: impl FnOnce(&mut Curation)) -> Result<()> {
+        let _writing = self.writing.lock().unwrap_or_else(|e| e.into_inner());
         let mut curated = curation::load(&self.curation)?;
         change(&mut curated);
         curation::save(&self.curation, &curated)
@@ -110,6 +117,14 @@ impl Store for Inspector {
         self.edit(|c| c.set_term(kind, key, ru))
     }
 
+    fn verbatim(&self, kind: &str, key: &str, note: &str) -> Result<()> {
+        self.edit(|c| c.set_verbatim(kind, key, note))
+    }
+
+    fn unverbatim(&self, kind: &str, key: &str) -> Result<()> {
+        self.edit(|c| c.clear_verbatim(kind, key))
+    }
+
     fn accept(&self, rule: &str, entity: &str, note: &str) -> Result<()> {
         self.edit(|c| c.set_accept(rule, entity, note))
     }
@@ -132,7 +147,7 @@ fn pictures(vault: &Vault) -> Result<icons::Pictures> {
     let de = vault.latest(spec::DE)?;
     let textures = extract::de_textures(&build::blob(vault, &de, spec::TEXTURES)?)?;
     let cards = icons::cards(&built.graph, &built.taxonomy, &built.wfm, &textures);
-    Ok(icons::pictures(vault, &cards, &textures))
+    Ok(icons::pictures(vault, &built.graph, &cards, &textures))
 }
 
 /// What the picture is, as the desktop app will see it.

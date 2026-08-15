@@ -38,18 +38,20 @@ pub fn blueprints(
         let bp = r.blueprint.as_str();
         let wfm = bridge.get(&r.blueprint);
 
+        // The market lists a blueprint under the name of what it builds ("Amesha Wings"), so
+        // its spelling is only taken where the result has no name to build one from.
         let en = picks
             .get(&(bp, "name_en"))
             .map(|v| (Source::Curated, v.to_string()))
-            .or_else(|| {
-                wfm.and_then(|w| w.en_name.clone())
-                    .map(|n| (Source::Wfm, n))
-            })
             .or_else(|| {
                 names
                     .en
                     .get(&r.result)
                     .map(|result| (Source::Rule, format!("{result} Blueprint")))
+            })
+            .or_else(|| {
+                wfm.and_then(|w| w.en_name.clone())
+                    .map(|n| (Source::Wfm, n))
             });
         let Some((en_source, en)) = en else {
             continue;
@@ -60,14 +62,14 @@ pub fn blueprints(
             .or_else(|| hand.get(bp))
             .map(|v| claim(Source::Curated, v.to_string()))
             .or_else(|| {
-                wfm.and_then(|w| w.ru_name.clone())
-                    .map(|n| claim(Source::Wfm, n))
-            })
-            .or_else(|| {
                 names
                     .ru
                     .get(&r.result)
                     .map(|result| claim(Source::Rule, format!("{result} (Чертеж)")))
+            })
+            .or_else(|| {
+                wfm.and_then(|w| w.ru_name.clone())
+                    .map(|n| claim(Source::Wfm, n))
             });
 
         let prime = match picks.get(&(bp, "prime")).copied() {
@@ -96,6 +98,7 @@ pub fn blueprints(
             ),
             slug: wfm.map(|w| claim(Source::Wfm, w.slug.clone())),
             tradable,
+            vaulted: None,
             prime,
             ducats: wfm.and_then(|w| w.ducats),
             extra: Extra::None,

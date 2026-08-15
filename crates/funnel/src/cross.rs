@@ -55,12 +55,15 @@ pub fn drops(graph: &Graph, witness: &[DropClaim]) -> Vec<Finding> {
     let mut out = Vec::new();
     for pair in &ours {
         if !theirs.contains_key(pair) {
-            out.push(Finding::new(
-                Layer::Cross,
-                "drop-unwitnessed",
-                pair.0,
-                format!("{} drops here in the official tables only", pair.1),
-            ));
+            out.push(
+                Finding::new(
+                    Layer::Cross,
+                    "drop-unwitnessed",
+                    pair.0,
+                    format!("{} drops here in the official tables only", pair.1),
+                )
+                .about([pair.1]),
+            );
         }
     }
     for (pair, claim) in &theirs {
@@ -70,16 +73,19 @@ pub fn drops(graph: &Graph, witness: &[DropClaim]) -> Vec<Finding> {
                 .as_deref()
                 .map(|r| format!(" (rotation {r})"))
                 .unwrap_or_default();
-            out.push(Finding::new(
-                Layer::Cross,
-                "drop-only-on-the-wiki",
-                pair.0,
-                format!(
-                    "the wiki drops {} here at {:.2}%{rotation}, the official tables do not",
-                    pair.1,
-                    claim.chance * 100.0
-                ),
-            ));
+            out.push(
+                Finding::new(
+                    Layer::Cross,
+                    "drop-only-on-the-wiki",
+                    pair.0,
+                    format!(
+                        "the wiki drops {} here at {:.2}%{rotation}, the official tables do not",
+                        pair.1,
+                        claim.chance * 100.0
+                    ),
+                )
+                .about([pair.1]),
+            );
         }
     }
     out
@@ -104,12 +110,15 @@ pub fn relic_rewards(graph: &Graph, witness: &[RelicClaim]) -> Vec<Finding> {
     let mut out = Vec::new();
     for (pair, rarity) in &ours {
         let Some(theirs) = theirs.get(pair) else {
-            out.push(Finding::new(
-                Layer::Cross,
-                "relic-reward-unwitnessed",
-                pair.0,
-                format!("awards {} in DE only", pair.1),
-            ));
+            out.push(
+                Finding::new(
+                    Layer::Cross,
+                    "relic-reward-unwitnessed",
+                    pair.0,
+                    format!("awards {} in DE only", pair.1),
+                )
+                .about([pair.1]),
+            );
             continue;
         };
         let Some(refinement) = refinement_of(graph, pair.0) else {
@@ -119,27 +128,33 @@ pub fn relic_rewards(graph: &Graph, witness: &[RelicClaim]) -> Vec<Finding> {
             continue;
         };
         if (ours - theirs).abs() > CHANCE_TOLERANCE {
-            out.push(Finding::new(
-                Layer::Cross,
-                "relic-chance-differs",
-                pair.0,
-                format!(
-                    "{}: DE {rarity} implies {:.2}%, drop tables print {:.2}%",
-                    pair.1,
-                    ours * 100.0,
-                    theirs * 100.0
-                ),
-            ));
+            out.push(
+                Finding::new(
+                    Layer::Cross,
+                    "relic-chance-differs",
+                    pair.0,
+                    format!(
+                        "{}: DE {rarity} implies {:.2}%, drop tables print {:.2}%",
+                        pair.1,
+                        ours * 100.0,
+                        theirs * 100.0
+                    ),
+                )
+                .about([pair.1]),
+            );
         }
     }
     for pair in theirs.keys() {
         if !ours.contains_key(pair) {
-            out.push(Finding::new(
-                Layer::Cross,
-                "relic-reward-missing",
-                pair.0,
-                format!("drop tables award {}, DE does not", pair.1),
-            ));
+            out.push(
+                Finding::new(
+                    Layer::Cross,
+                    "relic-reward-missing",
+                    pair.0,
+                    format!("drop tables award {}, DE does not", pair.1),
+                )
+                .about([pair.1]),
+            );
         }
     }
     out
@@ -157,6 +172,37 @@ fn refinement_of<'a>(graph: &'a Graph, relic: &str) -> Option<&'a str> {
         },
         _ => None,
     }
+}
+
+/// Check the vault status against our own drop tables: what is in the vault is out of the
+/// game's tables by definition, so a vaulted item that still drops means one of the two is
+/// wrong.
+pub fn vault_against_drops(graph: &Graph) -> Vec<Finding> {
+    let mut out = Vec::new();
+    for item in graph.items() {
+        if !item.vaulted.as_ref().is_some_and(|v| v.value) {
+            continue;
+        }
+        let places: Vec<&str> = graph
+            .into(&item.unique_name)
+            .iter()
+            .filter(|e| matches!(e.rel, Rel::Drops(_)))
+            .map(|e| e.from.as_str())
+            .collect();
+        if places.is_empty() {
+            continue;
+        }
+        out.push(
+            Finding::new(
+                Layer::Cross,
+                "vaulted-yet-drops",
+                &item.unique_name,
+                format!("called vaulted yet drops in {} place(s)", places.len()),
+            )
+            .about(places.iter().take(4).copied()),
+        );
+    }
+    out
 }
 
 /// Compare each trade set's membership, as the market lists it, against the parts the DE
@@ -201,7 +247,7 @@ pub fn set_composition(graph: &Graph) -> Vec<Finding> {
                     missing.join(", "),
                     extra.join(", ")
                 ),
-            ));
+            ).about(missing.iter().chain(&extra).copied()));
         }
     }
     out

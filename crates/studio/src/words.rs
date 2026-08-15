@@ -70,7 +70,36 @@ pub fn source_full(source: Source) -> &'static str {
     }
 }
 
-/// What kind of source drops things here.
+/// What kind of thing a node is.
+pub fn node(node: &graph::Node) -> &'static str {
+    use graph::Node;
+    match node {
+        Node::Item(_) => "предмет",
+        Node::Recipe(_) => "рецепт",
+        Node::Set(_) => "набор",
+        Node::Imprint(_) => "отпечаток",
+        Node::Place(p) => place(p.kind),
+        Node::Enemy(_) => "враг",
+        Node::Location(_) => "локация",
+        Node::Region(_) => "узел",
+        Node::Vendor(_) => "торговец",
+        Node::Lab(_) => "лаборатория",
+    }
+}
+
+/// What a star-chart grouping is. DE files nodes under one name whether it is a planet or not.
+pub fn location(kind: &str) -> &str {
+    match kind {
+        "planet" => "планета",
+        "moon" => "спутник",
+        "proxima" => "прокси",
+        "place" => "место",
+        "mode" => "режим",
+        other => other,
+    }
+}
+
+/// What kind of place drops things.
 pub fn place(kind: PlaceKind) -> &'static str {
     match kind {
         PlaceKind::Node => "узел",
@@ -78,7 +107,6 @@ pub fn place(kind: PlaceKind) -> &'static str {
         PlaceKind::Sortie => "вылазка",
         PlaceKind::Bounty => "задание",
         PlaceKind::Transient => "временное",
-        PlaceKind::Enemy => "враг",
     }
 }
 
@@ -91,6 +119,7 @@ pub fn prop(prop: &str) -> &str {
         "kind" => "подкатегория",
         "slug" => "слаг рынка",
         "tradable" => "торгуется",
+        "vaulted" => "в хранилище",
         "prime" => "прайм",
         other => other,
     }
@@ -132,9 +161,10 @@ pub fn origin(source: &str) -> &str {
 pub fn term(kind: &str) -> &str {
     match kind {
         "item" => "предмет",
+        "enemy" => "враг",
         "place" => "место",
         "region" => "узел",
-        "planet" => "планета",
+        "location" => "локация",
         "vendor" => "торговец",
         "lab" => "лаборатория",
         "mission" => "тип миссии",
@@ -187,6 +217,7 @@ pub fn rule(rule: &str) -> &str {
         "russian-name-missing" => "нет русского имени",
         "set-composition-differs" => "состав набора расходится с рецептом",
         "set-size" => "необычный размер набора",
+        "vaulted-yet-drops" => "числится в хранилище, но падает",
         "set-without-item" => "набор без собранного предмета",
         "tradable-needs-slug" => "торгуемое без слага рынка",
         other => other,

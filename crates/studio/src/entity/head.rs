@@ -41,7 +41,16 @@ pub fn render(snap: &Snapshot, node: &Node, ru: Option<&Icon>, en: Option<&Icon>
                         }
                     }
                     Node::Place(p) => {
-                        h1 { (p.name) }
+                        @match &p.table {
+                            Some(table) => {
+                                h1 { (table.node) }
+                                p.ru { (table.location) " · " (table.label) }
+                            }
+                            None => {
+                                h1 { (p.name) }
+                                @if let Some(name) = &p.name_ru { p.ru { (name) } }
+                            }
+                        }
                         @if let Some(b) = &p.bounty {
                             p.ru {
                                 (b.activity_ru.as_deref().unwrap_or(&b.activity))
@@ -50,6 +59,10 @@ pub fn render(snap: &Snapshot, node: &Node, ru: Option<&Icon>, en: Option<&Icon>
                         }
                         .tags {
                             span.tag.kind { (words::place(p.kind)) }
+                            @if let Some(table) = &p.table {
+                                @if table.extra { span.tag { "доп. таблица" } }
+                                @if table.event { span.tag.bad { "таблица события" } }
+                            }
                             @if let Some(b) = &p.bounty {
                                 @if b.max_level > 0 {
                                     span.tag { "ур. " (b.min_level) "–" (b.max_level) }
@@ -60,6 +73,14 @@ pub fn render(snap: &Snapshot, node: &Node, ru: Option<&Icon>, en: Option<&Icon>
                                 }
                             }
                         }
+                    }
+                    Node::Enemy(e) => {
+                        h1 { (e.name) }
+                        @match &e.name_ru {
+                            Some(name) => p.ru { (name) },
+                            None => p.ru.none { "русского имени нет" },
+                        }
+                        .tags { span.tag.kind { "враг" } }
                     }
                     Node::Vendor(v) => {
                         h1 { (v.name) }
@@ -79,15 +100,28 @@ pub fn render(snap: &Snapshot, node: &Node, ru: Option<&Icon>, en: Option<&Icon>
                             span.tag { (l.faction) }
                         }
                     }
+                    Node::Location(l) => {
+                        h1 { (l.name) }
+                        @match &l.name_ru {
+                            Some(name) => p.ru { (name) },
+                            None => p.ru.none { "русского имени нет" },
+                        }
+                        .tags {
+                            @match &l.kind {
+                                Some(kind) => span.tag.kind { (words::location(kind)) },
+                                None => span.tag.bad { "тип не указан" },
+                            }
+                        }
+                    }
                     Node::Region(r) => {
+                        @let site = snap.graph.get(&graph::location_id(&r.location));
+                        @let where_ = site
+                            .and_then(|n| n.label_ru())
+                            .unwrap_or(r.location.as_str());
                         h1 { (r.name) }
                         @match &r.name_ru {
-                            Some(name) => p.ru { (name) " · "
-                                (r.planet_ru.as_deref().unwrap_or(&r.planet)) },
-                            None => p.ru.none {
-                                (r.planet_ru.as_deref().unwrap_or(&r.planet))
-                                " · русского имени узла нет"
-                            },
+                            Some(name) => p.ru { (name) " · " (where_) },
+                            None => p.ru.none { (where_) " · русского имени узла нет" },
                         }
                         .tags {
                             (enum_tag(&r.type_label, r.node_type))
@@ -146,6 +180,16 @@ fn item_head(snap: &Snapshot, item: &Item) -> Markup {
             @if let Some(slug) = &item.slug { span.tag { (slug.value) } }
             @if let Extra::Relic(r) = &item.extra {
                 span.tag { (words::refinement(&r.refinement)) }
+            }
+            @match item.vaulted.as_ref().map(|v| v.value) {
+                Some(true) => span.tag.bad {
+                    "в хранилище"
+                    @if let Extra::Relic(r) = &item.extra {
+                        @if let Some(version) = &r.vaulted_in { " с " (version) }
+                    }
+                },
+                Some(false) => span.tag.trade { "добывается" },
+                None => {}
             }
             @match held {
                 Some(reason) => span.tag.bad { "не в поставке: " (reason) },

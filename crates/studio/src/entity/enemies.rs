@@ -4,14 +4,15 @@ use maud::{Markup, html};
 use crate::fold::Fold;
 use crate::page::{amount, card, col, number, pct, plain};
 
-use super::drops::{Row, count};
+use super::drops::{EnemyRow, count, range};
 
 /// The enemies that carry the item. An enemy rolls its drop table first and the row inside it
 /// second, so the chance of actually seeing the item is the two multiplied.
-pub fn render(graph: &Graph, rows: &[Row<'_>]) -> Markup {
+pub fn render(graph: &Graph, rows: &[EnemyRow<'_>]) -> Markup {
     if rows.is_empty() {
         return html! {};
     }
+    let ranges = rows.iter().any(|r| r.drop.levels.is_some());
     let fold = Fold::new(rows.len());
 
     card(
@@ -21,6 +22,7 @@ pub fn render(graph: &Graph, rows: &[Row<'_>]) -> Markup {
             .scroll { table {
                 thead { tr {
                     (col("Враг", "enemy"))
+                    @if ranges { (col("Уровень", "level")) }
                     (col("Шанс таблицы", "drop table chance"))
                     (col("Шанс в таблице", "item chance"))
                     (col("Итоговый шанс", "chance"))
@@ -31,7 +33,8 @@ pub fn render(graph: &Graph, rows: &[Row<'_>]) -> Markup {
                 tbody {
                     @for (at, row) in rows.iter().enumerate() {
                         tr.folded[fold.hides(at)] {
-                            td { (plain(graph, row.place)) }
+                            td { (plain(graph, row.enemy)) }
+                            @if ranges { td.num { (range(row.drop.levels)) } }
                             td.num {
                                 @match row.drop.table_chance {
                                     Some(chance) => (pct(chance)),

@@ -6,12 +6,12 @@ use maud::{Markup, html};
 use crate::fold::Fold;
 use crate::page::{card, col, dual, encode, number, plain};
 
-use super::drops::Row;
+use super::drops::PlaceRow;
 
 /// The star-chart nodes worth going to, one row per node however many of its tables the item
 /// sits in. The rows arrive richest first, so a node keeps the place of its best table.
 /// Enemies are left out: nothing says where they spawn.
-pub fn render(graph: &Graph, rows: &[Row<'_>]) -> Markup {
+pub fn render(graph: &Graph, rows: &[PlaceRow<'_>]) -> Markup {
     let mut seen: BTreeSet<&str> = BTreeSet::new();
     let mut nodes: Vec<&Region> = Vec::new();
     for row in rows {
@@ -35,7 +35,7 @@ pub fn render(graph: &Graph, rows: &[Row<'_>]) -> Markup {
             .scroll { table {
                 thead { tr {
                     (col("Цель", "target"))
-                    (col("Планета", "planet"))
+                    (col("Локация", "location"))
                     (col("Узел", "name"))
                     (col("Тип", "type"))
                     (col("Уровень", "level"))
@@ -45,7 +45,7 @@ pub fn render(graph: &Graph, rows: &[Row<'_>]) -> Markup {
                     @for (at, region) in nodes.iter().enumerate() {
                         tr.folded[fold.hides(at)] {
                             td { (target(region)) }
-                            td { (dual(region.planet_ru.as_deref(), &region.planet)) }
+                            td { (plain(graph, &graph::location_id(&region.location))) }
                             td { (plain(graph, &graph::region_id(&region.node))) }
                             td { (label(&region.mission_label)) }
                             td.num { (level(region)) }

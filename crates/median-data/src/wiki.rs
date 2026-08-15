@@ -23,7 +23,7 @@ pub struct Node {
     /// `InternalName`: `SolNode94`, `CrewBattleNode502`.
     pub key: String,
     pub name: String,
-    pub planet: String,
+    pub location: String,
     /// Mission type by name; the wiki has names for types DE gives no index (`Skirmish`).
     pub mission: Option<String>,
     /// The faction that holds the node, which the wiki calls the enemy.
@@ -51,6 +51,35 @@ pub struct Row {
     /// Per cent, as the wiki prints it.
     pub chance: f64,
     pub rotation: Option<String>,
+}
+
+/// What the relic module says about one relic: the game version that put it in the vault,
+/// where it says one. A relic with no such version is still farmable.
+pub struct Vaulting {
+    /// Printed relic name, as the module keys it: `Axi A1`.
+    pub relic: String,
+    /// Game version the relic went into the vault, where the module names one.
+    pub since: Option<String>,
+}
+
+/// The vault status of every relic, from `Module:Void/data`. The module states the rule
+/// itself: a relic is vaulted when it drops in no mission, and a prime part is vaulted when
+/// every relic that awards it is.
+pub fn vaulting(raw: &[u8]) -> Result<Vec<Vaulting>> {
+    let src = String::from_utf8_lossy(raw);
+    let root = lua::table_of(&src, "RelicData").context("read Module:Void/data")?;
+    let mut out = Vec::new();
+    for (key, entry) in &root.fields {
+        let Some(table) = entry.table() else { continue };
+        if table.str("Tier").is_none() {
+            continue;
+        }
+        out.push(Vaulting {
+            relic: table.str("Name").unwrap_or(key).to_string(),
+            since: table.str("Vaulted").map(str::to_string),
+        });
+    }
+    Ok(out)
 }
 
 /// Mission reward tables from `Module:DropTables/data`, keyed by the alias the star chart
@@ -328,7 +357,7 @@ pub fn chart(raw: &[u8]) -> Result<Chart> {
             nodes.push(Node {
                 key: key.to_string(),
                 name: name.to_string(),
-                planet: t.str("Planet").unwrap_or_default().to_string(),
+                location: t.str("Planet").unwrap_or_default().to_string(),
                 mission: text(t, "Type"),
                 faction: text(t, "Enemy"),
                 min_level: t.int("MinLevel").unwrap_or(0),
@@ -416,7 +445,7 @@ mod tests {
         assert_eq!(c.nodes.len(), 3);
         let sol = &c.nodes[0];
         assert_eq!(sol.key, "SolNode94");
-        assert_eq!(sol.planet, "Mercury");
+        assert_eq!(sol.location, "Mercury");
         assert_eq!(sol.mission.as_deref(), Some("Survival"));
         assert_eq!(sol.faction.as_deref(), Some("Infested"));
         assert_eq!((sol.min_level, sol.max_level), (6, 11));
@@ -425,7 +454,7 @@ mod tests {
 
         let rail = &c.nodes[1];
         assert_eq!(rail.key, "CrewBattleNode502");
-        assert_eq!(rail.planet, "Earth Proxima");
+        assert_eq!(rail.location, "Earth Proxima");
         assert!(rail.railjack);
     }
 

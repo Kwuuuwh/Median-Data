@@ -113,7 +113,7 @@ h1 { font-size: 26px; font-weight: 750; letter-spacing: -.4px; margin: 0 0 8px; 
 h2 { font-size: 11px; text-transform: uppercase; letter-spacing: 1.6px;
      color: var(--muted); margin: 28px 0 12px; font-weight: 600; }
 p.why { color: var(--muted); font-size: 12.5px; margin: 0 0 12px; }
-p.note { color: var(--faint); font-size: 11.5px; margin: 10px 0 0; }
+p.note { color: var(--faint); font-size: 11.5px; margin: 10px 0 8px; }
 .empty { color: var(--muted); padding: 24px; background: var(--surface);
          border: 1px dashed var(--line-2); border-radius: 10px; }
 .pager { display: flex; align-items: center; justify-content: space-between; gap: 12px;

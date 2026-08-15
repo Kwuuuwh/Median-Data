@@ -8,7 +8,13 @@ use crate::page::{card, number, prov};
 use crate::words;
 
 /// The columns, in the order a person reads them.
-const SOURCES: &[Source] = &[Source::Curated, Source::De, Source::Wfm, Source::Rule];
+const SOURCES: &[Source] = &[
+    Source::Curated,
+    Source::De,
+    Source::Wiki,
+    Source::Wfm,
+    Source::Rule,
+];
 
 /// What every source says about the item, side by side, so a disagreement is visible
 /// without leaving the page.
@@ -35,6 +41,7 @@ pub fn render(item: &Item, conflicts: &[&Conflict]) -> Markup {
                         (row("category", &item.category, conflicts))
                         (row("prime", &item.prime, conflicts))
                         @if let Some(t) = &item.tradable { (row("tradable", t, conflicts)) }
+                        @if let Some(v) = &item.vaulted { (row("vaulted", v, conflicts)) }
                         @if let Some(s) = &item.slug { (row("slug", s, conflicts)) }
                     }
                 }

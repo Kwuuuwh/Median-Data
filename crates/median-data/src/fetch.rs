@@ -108,13 +108,14 @@ fn vault_hash(bytes: &[u8]) -> String {
 }
 
 /// The wiki modules pinned as one snapshot, with the logical name each is stored under.
-fn wiki_modules() -> [(&'static str, &'static str); 5] {
+fn wiki_modules() -> [(&'static str, &'static str); 6] {
     [
         (spec::WIKI_MISSIONS, wiki::MISSIONS),
         (spec::WIKI_DROPS, wiki::DROP_TABLES),
         (spec::WIKI_BARO, wiki::BARO),
         (spec::WIKI_RESEARCH, wiki::RESEARCH),
         (spec::WIKI_VENDORS, wiki::VENDORS),
+        (spec::WIKI_VOID, wiki::VOID),
     ]
 }
 
@@ -142,6 +143,18 @@ pub fn run(vault: &Vault, now_ms: i64) -> Result<()> {
     fetch_drops(vault, &agent, now_ms)?;
     fetch_wiki(vault, now_ms)?;
     Ok(())
+}
+
+/// Pin one source, for when only it moved.
+pub fn one(vault: &Vault, source: &str, now_ms: i64) -> Result<()> {
+    let agent = sources::agent();
+    match source {
+        spec::DE => fetch_de(vault, &agent, now_ms),
+        spec::WFM => fetch_wfm(vault, &agent, now_ms),
+        spec::DROPS => fetch_drops(vault, &agent, now_ms),
+        spec::WIKI => fetch_wiki(vault, now_ms),
+        other => anyhow::bail!("unknown source: {other}"),
+    }
 }
 
 /// Pin the wiki data modules we read. They are Lua source, pinned verbatim like any other

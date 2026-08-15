@@ -77,6 +77,7 @@ mod tests {
             kind: value(graph::Kind::unknown()),
             slug: None,
             tradable: None,
+            vaulted: None,
             prime: value(prime),
             ducats: None,
             extra: Extra::None,

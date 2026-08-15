@@ -3,7 +3,7 @@ use std::path::Path;
 
 use anyhow::{Context, Result};
 use consensus::Source;
-use graph::{Edge, Graph, Label, Node, PlaceKind, Region, Rel, region_id};
+use graph::{Edge, Graph, Label, Node, PlaceKind, Region, Rel, Table, region_id};
 use serde::Deserialize;
 
 use crate::extract::DeRegion;
@@ -17,6 +17,8 @@ pub struct Labels {
     faction: Vec<Named>,
     #[serde(default)]
     node_type: Vec<Named>,
+    #[serde(default)]
+    location: Vec<Site>,
     #[serde(default)]
     chart: Vec<Chart>,
 }
@@ -34,13 +36,22 @@ struct Named {
     icon: Option<String>,
 }
 
-/// Russian names for the star chart, grouped by the planet the nodes sit in. DE translates
-/// planet names but never node names, and the wiki is English only, so this is the only place
-/// a node's Russian name can come from.
+/// What one star-chart grouping is, with the Russian name DE ships none for. Every grouping
+/// the chart uses is listed: one it does not name keeps no kind, so a gap stays visible.
+#[derive(Debug, Deserialize)]
+struct Site {
+    name: String,
+    kind: String,
+    ru: Option<String>,
+}
+
+/// Russian names for the star chart, grouped by the location the nodes sit in. DE translates
+/// location names but never node names, and the wiki is English only, so this is the only
+/// place a node's Russian name can come from.
 #[derive(Debug, Deserialize)]
 struct Chart {
-    planet: String,
-    planet_ru: Option<String>,
+    #[allow(dead_code)]
+    location: String,
     #[serde(default)]
     node: Vec<Hand>,
 }
@@ -124,12 +135,18 @@ impl Labels {
             .and_then(|n| n.ru.clone())
     }
 
-    /// The Russian name written for a planet the wiki names in English.
-    fn planet_ru(&self, planet: &str) -> Option<String> {
-        self.chart
-            .iter()
-            .find(|c| c.planet == planet)
-            .and_then(|c| c.planet_ru.clone())
+    fn site(&self, name: &str) -> Option<&Site> {
+        self.location.iter().find(|s| s.name == name)
+    }
+
+    /// What a location is, where the table says.
+    fn location_kind(&self, name: &str) -> Option<String> {
+        self.site(name).map(|s| s.kind.clone())
+    }
+
+    /// The Russian name written for a location DE ships none for.
+    fn location_ru(&self, name: &str) -> Option<String> {
+        self.site(name).and_then(|s| s.ru.clone())
     }
 }
 
@@ -173,14 +190,18 @@ pub fn load(path: &Path) -> Result<Labels> {
 /// What tying the star chart to the drop tables produced.
 pub struct Linked {
     pub regions: usize,
+    /// Groupings the chart files its nodes under.
+    pub locations: usize,
+    /// Locations the reference table gives no kind, so nothing says what they are.
+    pub untyped: Vec<String>,
     /// Nodes only the wiki knows: DE exports no Railjack at all.
     pub from_wiki: usize,
     /// Drop-table places tied to a star-chart node.
     pub bridged: usize,
-    /// Places naming a planet the star chart holds and a node on it that it does not. These
+    /// Places naming a location the star chart holds and a node on it that it does not. These
     /// are real gaps.
     pub unbridged: Vec<String>,
-    /// Places printed like a node but naming no planet of the star chart: past events, the
+    /// Places printed like a node but naming no location of the star chart: past events, the
     /// Conclave playlists, the Duviri tiers, Sanctuary Onslaught. Not star-chart nodes at all.
     pub not_a_node: usize,
     /// Star-chart nodes no drop table mentions.
@@ -219,8 +240,8 @@ pub fn link(
                         .filter(|name| *name != r.name)
                 }),
             ),
-            planet: r.planet.clone(),
-            planet_ru: terms.or("planet", &r.planet, translated.map(|t| t.planet.clone())),
+            verbatim: translated.is_some_and(|t| t.name == r.name),
+            location: r.location.clone(),
             mission: r.mission,
             mission_label: with_term(labels.mission(r.mission), "mission", terms),
             faction: r.faction,
@@ -236,7 +257,7 @@ pub fn link(
             hidden: known.is_some_and(|w| w.hidden),
         };
         by_name.insert(
-            (r.planet.to_lowercase(), r.name.to_lowercase()),
+            (r.location.to_lowercase(), r.name.to_lowercase()),
             r.node.clone(),
         );
         if graph.insert(Node::Region(region)) {
@@ -245,7 +266,7 @@ pub fn link(
     }
 
     // Nodes DE does not export at all — Railjack, the hubs, the onslaught rooms. The drop
-    // tables print Railjack under the base planet ("Saturn/Kasio's Rest"), so these are also
+    // tables print Railjack under the base location ("Saturn/Kasio's Rest"), so these are also
     // matched by node name alone.
     let mut from_wiki = 0;
     for w in wiki {
@@ -256,8 +277,8 @@ pub fn link(
             node: w.key.clone(),
             name: w.name.clone(),
             name_ru: terms.or("region", &w.key, labels.node_ru(&w.key)),
-            planet: w.planet.clone(),
-            planet_ru: terms.or("planet", &w.planet, labels.planet_ru(&w.planet)),
+            verbatim: false,
+            location: w.location.clone(),
             mission: -1,
             mission_label: with_term(
                 w.mission
@@ -292,17 +313,26 @@ pub fn link(
         }
     }
 
-    let printed: Vec<(String, Printed)> = graph
+    let sites = locations(graph, de, ru, labels, terms);
+
+    let printed: Vec<(String, Table)> = graph
         .nodes()
         .filter_map(|node| match node {
-            Node::Place(p) if p.kind == PlaceKind::Node => parse(&p.name).map(|it| (node.id(), it)),
+            Node::Place(p) if p.kind == PlaceKind::Node => {
+                p.table.clone().map(|table| (node.id(), table))
+            }
             _ => None,
         })
         .collect();
 
-    let planets: BTreeSet<String> = by_name.keys().map(|(planet, _)| planet.clone()).collect();
+    let sited: BTreeSet<String> = by_name
+        .keys()
+        .map(|(location, _)| location.clone())
+        .collect();
     let mut out = Linked {
         regions,
+        locations: sites.0,
+        untyped: sites.1,
         from_wiki,
         bridged: 0,
         unbridged: Vec::new(),
@@ -313,10 +343,10 @@ pub fn link(
     let mut seen: BTreeSet<String> = BTreeSet::new();
     for (place, it) in &printed {
         let found = by_name
-            .get(&(it.planet.to_lowercase(), it.node.to_lowercase()))
+            .get(&(it.location.to_lowercase(), it.node.to_lowercase()))
             .or_else(|| by_node_name.get(&it.node.to_lowercase()));
         let Some(node) = found else {
-            if it.is_a_node() && planets.contains(&it.planet.to_lowercase()) {
+            if is_a_node(it) && sited.contains(&it.location.to_lowercase()) {
                 out.unbridged.push(place.clone());
             } else {
                 out.not_a_node += 1;
@@ -337,11 +367,73 @@ pub fn link(
             && !seen.contains(&r.node)
         {
             out.silent
-                .push(format!("{}/{} [{}]", r.planet, r.name, r.origin.as_str()));
+                .push(format!("{}/{} [{}]", r.location, r.name, r.origin.as_str()));
         }
     }
     out.mismatched = mismatches(graph, &printed, &by_name, labels);
     out
+}
+
+/// Insert a node per location the chart files its nodes under, and tie every star-chart node
+/// to the one it sits in. The Russian name comes from DE's own translation of the chart where
+/// there is one; the Proxima regions and the onslaught rooms DE does not export at all are
+/// named by the reference table. Returns how many were inserted and which have no kind.
+fn locations(
+    graph: &mut Graph,
+    de: &[DeRegion],
+    ru: &BTreeMap<String, DeRegion>,
+    labels: &Labels,
+    terms: &crate::curation::Terms,
+) -> (usize, Vec<String>) {
+    let mut translated: BTreeMap<&str, String> = BTreeMap::new();
+    for r in de {
+        if let Some(name) = ru.get(&r.node).map(|t| t.location.as_str())
+            && !name.is_empty()
+        {
+            translated.entry(r.location.as_str()).or_insert(name.into());
+        }
+    }
+
+    let mut sites: BTreeSet<String> = BTreeSet::new();
+    for node in graph.nodes() {
+        if let Node::Region(r) = node {
+            sites.insert(r.location.clone());
+        }
+    }
+
+    let mut untyped = Vec::new();
+    let mut inserted = 0;
+    let mut edges = Vec::new();
+    for name in &sites {
+        let kind = labels.location_kind(name);
+        if kind.is_none() {
+            untyped.push(name.clone());
+        }
+        let ru = translated
+            .get(name.as_str())
+            .cloned()
+            .or_else(|| labels.location_ru(name));
+        if graph.insert(Node::Location(graph::Location {
+            name: name.clone(),
+            name_ru: terms.or("location", name, ru),
+            kind,
+        })) {
+            inserted += 1;
+        }
+    }
+    for node in graph.nodes() {
+        if let Node::Region(r) = node {
+            edges.push((node.id(), graph::location_id(&r.location)));
+        }
+    }
+    for (from, to) in edges {
+        graph.link(Edge {
+            from,
+            to,
+            rel: Rel::At,
+        });
+    }
+    (inserted, untyped)
 }
 
 /// Mission names the drop tables print beside a node, checked against the label the
@@ -350,18 +442,18 @@ pub fn link(
 /// name the reference table knows counts as a claim about the mission.
 fn mismatches(
     graph: &Graph,
-    printed: &[(String, Printed)],
+    printed: &[(String, Table)],
     by_name: &BTreeMap<(String, String), String>,
     labels: &Labels,
 ) -> Vec<String> {
     let mut said: BTreeMap<&str, Vec<&str>> = BTreeMap::new();
     for (_, it) in printed {
         // A past event's table names the mission the node ran back then, not today's.
-        if !it.is_a_node() || !labels.names_mission(&it.mission) {
+        if !is_a_node(it) || !labels.names_mission(&it.label) {
             continue;
         }
-        if let Some(node) = by_name.get(&(it.planet.to_lowercase(), it.node.to_lowercase())) {
-            said.entry(node.as_str()).or_default().push(&it.mission);
+        if let Some(node) = by_name.get(&(it.location.to_lowercase(), it.node.to_lowercase())) {
+            said.entry(node.as_str()).or_default().push(&it.label);
         }
     }
 
@@ -460,40 +552,12 @@ pub fn witness(de: &[DeRegion], chart: &crate::wiki::Chart, labels: &Labels) -> 
     out
 }
 
-/// A drop-table place name split into what it says about the star chart.
-struct Printed {
-    planet: String,
-    node: String,
-    mission: String,
-    /// The table belongs to a past event, not to the live star chart.
-    event: bool,
-}
-
-impl Printed {
-    /// Whether this names a node the star chart is supposed to hold at all. Past events keep
-    /// their tables long after their nodes are gone; the Conclave playlists are printed under
-    /// a planet but are not places; and a node name carrying a colon is a label, not a node
-    /// ("Endless: Tier 1").
-    fn is_a_node(&self) -> bool {
-        !self.event && self.mission != "Conclave" && !self.node.contains(':')
-    }
-}
-
-/// Read `Planet/Node (Mission type)` as the drop tables print it. An `Event: ` prefix and a
-/// trailing ` Extra` mark the same node's other reward tables, so both are dropped.
-fn parse(printed: &str) -> Option<Printed> {
-    let event = printed.starts_with("Event:");
-    let rest = printed.strip_prefix("Event:").unwrap_or(printed).trim();
-    let rest = rest.strip_suffix("Extra").unwrap_or(rest).trim_end();
-    let close = rest.strip_suffix(')')?;
-    let (place, mission) = close.rsplit_once('(')?;
-    let (planet, node) = place.trim_end().split_once('/')?;
-    Some(Printed {
-        planet: planet.trim().to_string(),
-        node: node.trim().to_string(),
-        mission: mission.trim().to_string(),
-        event,
-    })
+/// Whether a heading names a node the star chart is supposed to hold at all. Past events keep
+/// their tables long after their nodes are gone; the Conclave playlists are printed under a
+/// location but are not places; and a node name carrying a colon is a label, not a node
+/// ("Endless: Tier 1").
+fn is_a_node(table: &Table) -> bool {
+    !table.event && table.label != "Conclave" && !table.node.contains(':')
 }
 
 #[cfg(test)]
@@ -501,46 +565,15 @@ mod tests {
     use super::*;
 
     #[test]
-    fn reads_planet_node_and_mission() {
-        let p = parse("Saturn/Anthe (Rescue)").unwrap();
-        assert_eq!(
-            (p.planet.as_str(), p.node.as_str(), p.mission.as_str()),
-            ("Saturn", "Anthe", "Rescue")
-        );
-    }
-
-    #[test]
-    fn drops_the_event_prefix_and_the_extra_suffix() {
-        let p = parse("Event: Uranus/Miranda (Defense)").unwrap();
-        assert_eq!(p.node, "Miranda");
-        let p = parse("Ceres/Exta (Assassination) Extra").unwrap();
-        assert_eq!(
-            (p.node.as_str(), p.mission.as_str()),
-            ("Exta", "Assassination")
-        );
-    }
-
-    #[test]
-    fn keeps_a_node_name_holding_its_own_brackets() {
-        let p = parse("Uranus/Scoria's Angel (Skirmish)").unwrap();
-        assert_eq!(p.node, "Scoria's Angel");
-    }
-
-    #[test]
     fn tells_a_node_from_what_only_looks_like_one() {
-        assert!(parse("Saturn/Anthe (Rescue)").unwrap().is_a_node());
+        let read = |printed: &str| crate::rules::heading(printed).map(|t| is_a_node(&t));
+        assert_eq!(read("Saturn/Anthe (Rescue)"), Some(true));
         // a past event keeps its table long after the node is gone
-        assert!(!parse("Event: Eris/Candiru (Caches)").unwrap().is_a_node());
-        // the Conclave playlists are printed under a planet but are not places
-        assert!(!parse("Saturn/Annihilation (Conclave)").unwrap().is_a_node());
+        assert_eq!(read("Event: Eris/Candiru (Caches)"), Some(false));
+        // the Conclave playlists are printed under a location but are not places
+        assert_eq!(read("Saturn/Annihilation (Conclave)"), Some(false));
         // a reward tier of the Circuit, not a node
-        assert!(!parse("Duviri/Endless: Tier 1  (Hard)").unwrap().is_a_node());
-    }
-
-    #[test]
-    fn an_enemy_name_is_not_a_star_chart_node() {
-        assert!(parse("Grineer Lancer").is_none());
-        assert!(parse("Orokin Derelict Defense").is_none());
+        assert_eq!(read("Duviri/Endless: Tier 1  (Hard)"), Some(false));
     }
 
     #[test]

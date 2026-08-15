@@ -116,6 +116,7 @@ pub fn row(snap: &Snapshot, f: &Finding) -> Markup {
                         span.row-t { (f.entity) }
                     }
                     .path { (f.entity) }
+                    (about(snap, f))
                     p.note { (f.detail) }
                 }
                 form.inline hx-post="/accept" hx-target="closest li" hx-swap="outerHTML"
@@ -124,6 +125,28 @@ pub fn row(snap: &Snapshot, f: &Finding) -> Markup {
                     input type="hidden" name="entity" value=(f.entity);
                     input type="text" name="note" placeholder="почему это не дефект";
                     button type="submit" { "Принять" }
+                }
+            }
+        }
+    }
+}
+
+/// The entities the check names besides the subject, by name rather than by path.
+fn about(snap: &Snapshot, f: &Finding) -> Markup {
+    html! {
+        @if !f.about.is_empty() {
+            .opts {
+                @for id in &f.about {
+                    .opt {
+                        .grow {
+                            @if snap.graph.has(id) {
+                                (named(&snap.graph, id))
+                            } @else {
+                                span.row-t { (id) }
+                            }
+                            .path { (id) }
+                        }
+                    }
                 }
             }
         }

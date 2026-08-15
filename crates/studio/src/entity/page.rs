@@ -21,7 +21,7 @@ pub fn render(snap: &Snapshot, store: &dyn Store, query: &str) -> Markup {
             snap,
             "Поиск",
             html! { span.cur { "Поиск" } },
-            html! { .empty { "Введите название или путь в строке слева." } },
+            html! { .empty { "Строка поиска слева: название или путь." } },
         );
     }
 
@@ -54,7 +54,7 @@ pub fn render(snap: &Snapshot, store: &dyn Store, query: &str) -> Markup {
                             @for node in many {
                                 @let id = node.id();
                                 tr {
-                                    td { a href={ "/entity?q=" (encode(&id)) } { (node.label()) } }
+                                    td { (crate::page::plain(&snap.graph, &id)) }
                                     td.path { (id) }
                                 }
                             }

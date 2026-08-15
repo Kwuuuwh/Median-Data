@@ -35,6 +35,7 @@ mod show;
 mod spec;
 mod taxonomy;
 mod unmatched;
+mod vaulting;
 mod vendors;
 mod version;
 mod wiki;
@@ -77,7 +78,13 @@ fn run() -> Result<ExitCode> {
                 false => ExitCode::SUCCESS,
             })
         }
-        Some("fetch") => done(fetch::run(&Vault::open(VAULT_DIR)?, now_ms())),
+        Some("fetch") => {
+            let vault = Vault::open(VAULT_DIR)?;
+            done(match args.next() {
+                Some(source) => fetch::one(&vault, &source, now_ms()),
+                None => fetch::run(&vault, now_ms()),
+            })
+        }
         Some("build") => done(build::run(&Vault::open(VAULT_DIR)?, Path::new(OUT))),
         Some("icons") => done(icons::run(
             &Vault::open(VAULT_DIR)?,
@@ -99,7 +106,10 @@ fn run() -> Result<ExitCode> {
                 previous.as_deref(),
             ))
         }
-        Some("studio") => done(inspect::run(VAULT_DIR, STUDIO_ADDR)),
+        Some("studio") => {
+            let addr = args.next().unwrap_or_else(|| STUDIO_ADDR.to_string());
+            done(inspect::run(VAULT_DIR, &addr))
+        }
         Some("show") => {
             let query = args.next().unwrap_or_default();
             let built = build::graph(&Vault::open(VAULT_DIR)?)?;
@@ -108,7 +118,8 @@ fn run() -> Result<ExitCode> {
         }
         cmd => {
             eprintln!(
-                "usage: median-data <check [MANIFEST]|fetch|icons|build|release [PREV]|studio|show QUERY>"
+                "usage: median-data <check [MANIFEST]|fetch [SOURCE]|icons|build|release [PREV]|\
+                 studio [ADDR]|show QUERY>"
             );
             anyhow::bail!("unknown command: {}", cmd.unwrap_or("(none)"));
         }

@@ -43,6 +43,8 @@ pub struct Decided {
     /// Source, the name it prints, and what that name really is — for names no item can
     /// answer to.
     pub dismissed: Vec<(String, String, String)>,
+    /// What kind of thing was judged to stay English, its key, and why.
+    pub verbatim: Vec<(String, String, String)>,
 }
 
 impl Decided {
@@ -52,6 +54,7 @@ impl Decided {
             + self.picks.len()
             + self.terms.len()
             + self.dismissed.len()
+            + self.verbatim.len()
     }
 
     pub fn is_empty(&self) -> bool {
@@ -112,6 +115,10 @@ pub trait Store: Send + Sync {
     fn pick(&self, item: &str, prop: &str, value: &str) -> Result<()>;
     /// Write the Russian word for something that is not an item.
     fn term(&self, kind: &str, key: &str, ru: &str) -> Result<()>;
+    /// Record that a name stays as the game writes it, with why.
+    fn verbatim(&self, kind: &str, key: &str, note: &str) -> Result<()>;
+    /// Ask for a Russian name again.
+    fn unverbatim(&self, kind: &str, key: &str) -> Result<()>;
     /// Let a finding through, with the reason it is not a defect.
     fn accept(&self, rule: &str, entity: &str, note: &str) -> Result<()>;
     /// Report a finding again.

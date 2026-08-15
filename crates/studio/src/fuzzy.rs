@@ -15,30 +15,56 @@ pub struct Hit {
     pub score: u8,
 }
 
+/// One catalog item as the search reads it: both of its names, folded.
+struct Entry {
+    path: String,
+    name: String,
+    keys: Vec<String>,
+}
+
+impl Entry {
+    fn score(&self, query: &str) -> u8 {
+        self.keys.iter().map(|k| score(query, k)).max().unwrap_or(0)
+    }
+}
+
 /// Every catalog name, indexed by word, so a query only scores the items that share a word
-/// with it instead of all eighteen thousand. Owned rather than borrowed: it outlives the
-/// request and is rebuilt with the graph.
+/// with it instead of all eighteen thousand. Both languages are indexed: a name is looked up
+/// in whichever one a person has in front of them. Owned rather than borrowed: it outlives
+/// the request and is rebuilt with the graph.
 #[derive(Default)]
 pub struct Names {
-    items: Vec<(String, String, String)>,
+    items: Vec<Entry>,
     by_word: BTreeMap<String, Vec<usize>>,
     by_name: BTreeMap<String, usize>,
 }
 
 impl Names {
     pub fn build(graph: &Graph) -> Self {
-        let mut items = Vec::new();
+        let mut items: Vec<Entry> = Vec::new();
         let mut by_word: BTreeMap<String, Vec<usize>> = BTreeMap::new();
         let mut by_name = BTreeMap::new();
         for item in graph.items() {
             let name = item.names.en.value.clone();
-            let key = fold(&name);
-            let at = items.len();
-            for word in key.split_whitespace() {
-                by_word.entry(word.to_string()).or_default().push(at);
+            let mut keys = vec![fold(&name)];
+            if let Some(ru) = &item.names.ru {
+                let key = fold(&ru.value);
+                if !keys.contains(&key) {
+                    keys.push(key);
+                }
             }
-            by_name.entry(key.clone()).or_insert(at);
-            items.push((item.unique_name.clone(), name, key));
+            let at = items.len();
+            for key in &keys {
+                for word in key.split_whitespace() {
+                    by_word.entry(word.to_string()).or_default().push(at);
+                }
+                by_name.entry(key.clone()).or_insert(at);
+            }
+            items.push(Entry {
+                path: item.unique_name.clone(),
+                name,
+                keys,
+            });
         }
         Self {
             items,
@@ -72,7 +98,7 @@ impl Names {
                 self.items
                     .iter()
                     .enumerate()
-                    .filter(|(_, (_, _, k))| k.starts_with(first))
+                    .filter(|(_, e)| e.keys.iter().any(|k| k.starts_with(first)))
                     .map(|(at, _)| at),
             );
         }
@@ -80,7 +106,7 @@ impl Names {
         let mut hits: Vec<Hit> = seen
             .into_iter()
             .filter_map(|at| {
-                let score = score(&key, &self.items[at].2);
+                let score = self.items[at].score(&key);
                 (score >= FLOOR).then(|| self.hit(at, score))
             })
             .collect();
@@ -90,10 +116,10 @@ impl Names {
     }
 
     fn hit(&self, at: usize, score: u8) -> Hit {
-        let (path, name, _) = &self.items[at];
+        let entry = &self.items[at];
         Hit {
-            path: path.clone(),
-            name: name.clone(),
+            path: entry.path.clone(),
+            name: entry.name.clone(),
             score,
         }
     }
@@ -169,6 +195,17 @@ mod tests {
     #[test]
     fn unrelated_names_fall_under_the_floor() {
         assert!(score(&fold("Orokin Cell"), &fold("Quick Thinking")) < FLOOR);
+    }
+
+    #[test]
+    fn a_russian_name_is_matched_as_well_as_the_english_one() {
+        let entry = Entry {
+            path: "/item".into(),
+            name: "Orokin Cell".into(),
+            keys: vec![fold("Orokin Cell"), fold("Ячейка Орокин")],
+        };
+        assert_eq!(entry.score(&fold("ячейка орокин")), 100);
+        assert_eq!(entry.score(&fold("orokin cell")), 100);
     }
 
     #[test]

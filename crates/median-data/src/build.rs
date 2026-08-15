@@ -33,9 +33,22 @@ pub fn run(vault: &Vault, out: &Path) -> Result<()> {
     print!("{}", report.render());
     taxonomy_tally(&built);
     eprintln!(
-        "drops    {} rows are amounts, {} names matched several items",
-        built.amounts, built.ambiguous
+        "drops    {} rows are amounts, {} names matched several items, \
+         {} rows printed twice kept once",
+        built.amounts, built.ambiguous, built.repeated
     );
+    let vaulted = &built.vaulted;
+    eprintln!(
+        "vault    {} relics stated, {} items derived ({} withdrawn — obtainable elsewhere), \
+         {} relics nothing states",
+        vaulted.relics,
+        vaulted.derived,
+        vaulted.contradicted,
+        crate::vaulting::unstated(&built.graph).len()
+    );
+    for name in vaulted.unmatched.iter().take(8) {
+        eprintln!("vault    the wiki names a relic the catalog does not hold — {name}");
+    }
     let chart = &built.star_chart;
     eprintln!(
         "chart    {} nodes from DE + {} from the wiki, {} places tied, {} not a node, \
@@ -46,6 +59,13 @@ pub fn run(vault: &Vault, out: &Path) -> Result<()> {
         chart.not_a_node,
         chart.silent.len()
     );
+    eprintln!(
+        "chart    {} locations the nodes are filed under",
+        chart.locations
+    );
+    for name in &chart.untyped {
+        eprintln!("chart    nothing says what this location is — {name}");
+    }
     for place in &chart.unbridged {
         eprintln!("chart    no such node on the star chart — {place}");
     }
@@ -216,6 +236,7 @@ pub fn judge(vault: &Vault, built: &Built, curated: &Curation) -> Result<(Report
         .and_then(|raw| serde_json::from_slice::<State>(&raw).ok());
     let was = previous.as_ref().and_then(|s| s.version.clone());
     let _ = vault;
+    let scope = projections::apply(&built.graph, &projections::load(Path::new(crate::SCOPE))?);
 
     let (report, mut state) = funnel::run(
         &built.graph,
@@ -223,6 +244,7 @@ pub fn judge(vault: &Vault, built: &Built, curated: &Curation) -> Result<(Report
             totals: Totals {
                 items: built.graph.items().count(),
                 places: built.places,
+                enemies: built.enemies,
                 edges: built.graph.edge_count(),
                 conflicts: built.conflicts.len(),
             },
@@ -230,6 +252,12 @@ pub fn judge(vault: &Vault, built: &Built, curated: &Curation) -> Result<(Report
                 unresolved_rewards: built.gaps.unresolved_rewards.clone(),
                 dangling_craft: built.gaps.dangling_craft.clone(),
                 unknown_drop_items: built.gaps.unknown_drop_items.clone(),
+                verbatim: curated
+                    .verbatim()
+                    .into_iter()
+                    .filter(|(kind, _)| *kind == "item")
+                    .map(|(_, key)| key.to_string())
+                    .collect(),
             },
             relic_witness: built
                 .relic_witness
@@ -252,6 +280,7 @@ pub fn judge(vault: &Vault, built: &Built, curated: &Curation) -> Result<(Report
                 })
                 .collect(),
             anchors: &anchors,
+            shipped: &|entity| scope.allows(entity),
             // A drop-table name declared to be no item at all answers the same question the
             // coverage check asks, so the verdict counts as accepting its finding.
             accepted: curated
@@ -313,8 +342,10 @@ fn project(vault: &Vault, out: &Path, built: &Built, report: &Report, state: &St
         .and_then(|raw| extract::de_textures(&raw))
         .unwrap_or_default();
     let cards = crate::icons::cards(&built.graph, &built.taxonomy, &built.wfm, &textures);
-    let pinned =
-        crate::icons::Pinned::open(vault, crate::icons::pictures(vault, &cards, &textures));
+    let pinned = crate::icons::Pinned::open(
+        vault,
+        crate::icons::pictures(vault, &built.graph, &cards, &textures),
+    );
 
     let policy = projections::load(Path::new(crate::SCOPE))?;
     let scope = projections::apply(&built.graph, &policy);
@@ -426,6 +457,7 @@ pub fn graph_with(vault: &Vault, curated: &Curation) -> Result<Built> {
             wfm,
             drops: tables.drops,
             relic_rows: tables.relics,
+            vaulting: wiki::vaulting(&blob(vault, &wiki_snap, spec::WIKI_VOID)?)?,
         },
         policy,
         &labels,

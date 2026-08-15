@@ -8,11 +8,12 @@ use crate::state::Snapshot;
 /// Everything the catalog ships that carries a name, and therefore needs a Russian one. Items
 /// are named by `[[name]]`, everything else by `[[term]]`, because only an item has a path of
 /// its own to key a name by.
-pub const TARGETS: [&str; 14] = [
+pub const TARGETS: [&str; 15] = [
     "item",
+    "enemy",
     "place",
     "region",
-    "planet",
+    "location",
     "vendor",
     "lab",
     "mission",
@@ -36,6 +37,8 @@ pub struct Row {
     /// What it is, so a name can be judged without opening it: the planet, the class, the
     /// vendor's currency.
     pub note: String,
+    /// Judged to stay as the game writes it, so no Russian is owed. Carries why.
+    pub verbatim: Option<String>,
 }
 
 impl Row {
@@ -46,17 +49,37 @@ impl Row {
             ru: ru.map(str::to_string),
             from: None,
             note,
+            verbatim: None,
         }
     }
 }
 
-/// Everything of one kind that needs a Russian name, in a stable order.
+/// Everything of one kind that needs a Russian name, in a stable order, each carrying the
+/// verdict that it stays English where one was written.
 pub fn rows(snap: &Snapshot, target: &str) -> Vec<Row> {
+    let mut rows = gather(snap, target);
+    for row in &mut rows {
+        // A hand decision replaces whatever the sources implied; where there is none, a
+        // verdict the build worked out itself stands.
+        if let Some((_, _, note)) = snap
+            .decided
+            .verbatim
+            .iter()
+            .find(|(kind, key, _)| kind == target && *key == row.key)
+        {
+            row.verbatim = Some(note.clone());
+        }
+    }
+    rows
+}
+
+fn gather(snap: &Snapshot, target: &str) -> Vec<Row> {
     match target {
         "item" => items(snap),
+        "enemy" => enemies(snap),
         "place" => places(snap),
         "region" => regions(snap),
-        "planet" => planets(snap),
+        "location" => locations(snap),
         "vendor" => vendors(snap),
         "lab" => labs(snap),
         "mission" | "faction" | "node_type" | "tileset" => labels(snap, target),
@@ -73,14 +96,23 @@ pub fn tally(snap: &Snapshot, target: &str) -> (usize, usize) {
     if target == "item" {
         let mut total = 0;
         let mut missing = 0;
+        let judged: usize = snap
+            .decided
+            .verbatim
+            .iter()
+            .filter(|(kind, _, _)| kind == target)
+            .count();
         for item in snap.graph.items() {
             total += 1;
             missing += usize::from(item.names.ru.is_none());
         }
-        return (total, missing);
+        return (total, missing.saturating_sub(judged));
     }
     let rows = rows(snap, target);
-    let missing = rows.iter().filter(|r| r.ru.is_none()).count();
+    let missing = rows
+        .iter()
+        .filter(|r| r.ru.is_none() && r.verbatim.is_none())
+        .count();
     (rows.len(), missing)
 }
 
@@ -93,19 +125,56 @@ fn items(snap: &Snapshot) -> Vec<Row> {
             ru: i.names.ru.as_ref().map(|r| r.value.clone()),
             from: i.names.ru.as_ref().map(|r| r.winner),
             note: snap.taxonomy.label(&i.kind.value, "ru").to_string(),
+            verbatim: None,
         })
         .collect()
 }
 
+/// The places, each shown by what it actually is. A node's reward table is printed as one
+/// string — `Ceres/Bode (Spy)` — so the node is put in the name column and the rest, which
+/// the star chart already holds as data, reads as what the row is about.
 fn places(snap: &Snapshot) -> Vec<Row> {
     snap.graph
         .nodes()
         .filter_map(|n| match n {
-            Node::Place(p) => Some(Row::new(
-                &p.name,
-                &p.name,
-                p.name_ru.as_deref(),
-                crate::words::place(p.kind).to_string(),
+            Node::Place(p) => {
+                let kind = crate::words::place(p.kind);
+                let table = p.table.as_ref();
+                let (en, note) = match &p.table {
+                    Some(table) => {
+                        let mut about = vec![table.location.clone(), table.label.clone()];
+                        if table.extra {
+                            about.push("доп. таблица".into());
+                        }
+                        if table.event {
+                            about.push("событие".into());
+                        }
+                        (table.node.clone(), about.join(" · "))
+                    }
+                    None => (p.name.clone(), kind.to_string()),
+                };
+                let mut row = Row::new(&p.name, &en, p.name_ru.as_deref(), note);
+                // A node's reward table is read as its node and its mission type, both of
+                // which are named elsewhere, so the heading itself is nothing to translate.
+                if table.is_some() {
+                    row.verbatim = Some("читается по узлу".into());
+                }
+                Some(row)
+            }
+            _ => None,
+        })
+        .collect()
+}
+
+fn enemies(snap: &Snapshot) -> Vec<Row> {
+    snap.graph
+        .nodes()
+        .filter_map(|n| match n {
+            Node::Enemy(e) => Some(Row::new(
+                &e.name,
+                &e.name,
+                e.name_ru.as_deref(),
+                String::new(),
             )),
             _ => None,
         })
@@ -116,29 +185,57 @@ fn regions(snap: &Snapshot) -> Vec<Row> {
     snap.graph
         .nodes()
         .filter_map(|n| match n {
-            Node::Region(r) => Some(Row::new(
-                &r.node,
-                &r.name,
-                r.name_ru.as_deref(),
-                r.planet_ru.clone().unwrap_or_else(|| r.planet.clone()),
-            )),
+            Node::Region(r) => {
+                let mut row = Row::new(
+                    &r.node,
+                    &r.name,
+                    r.name_ru.as_deref(),
+                    snap.graph
+                        .get(&graph::location_id(&r.location))
+                        .and_then(|n| n.label_ru())
+                        .unwrap_or(&r.location)
+                        .to_string(),
+                );
+                // DE shipped the Russian manifest and wrote the same name in it, so this is
+                // an answer, not a gap.
+                if r.verbatim {
+                    row.verbatim = Some("DE пишет так же".into());
+                }
+                Some(row)
+            }
             _ => None,
         })
         .collect()
 }
 
-fn planets(snap: &Snapshot) -> Vec<Row> {
-    let mut seen: BTreeMap<&str, Option<&str>> = BTreeMap::new();
+/// The groupings the star chart files its nodes under, with what each one is and how many
+/// nodes sit in it. A grouping the reference table gives no kind is marked as such.
+fn locations(snap: &Snapshot) -> Vec<Row> {
+    let mut nodes: BTreeMap<&str, usize> = BTreeMap::new();
     for node in snap.graph.nodes() {
         if let Node::Region(r) = node {
-            let slot = seen.entry(r.planet.as_str()).or_default();
-            if slot.is_none() {
-                *slot = r.planet_ru.as_deref();
-            }
+            *nodes.entry(r.location.as_str()).or_default() += 1;
         }
     }
-    seen.into_iter()
-        .map(|(planet, ru)| Row::new(planet, planet, ru, String::new()))
+    snap.graph
+        .nodes()
+        .filter_map(|n| match n {
+            Node::Location(l) => {
+                let count = nodes.get(l.name.as_str()).copied().unwrap_or(0);
+                let word = crate::words::plural(count, "узел", "узла", "узлов");
+                let kind = match &l.kind {
+                    Some(kind) => crate::words::location(kind),
+                    None => "тип не указан",
+                };
+                Some(Row::new(
+                    &l.name,
+                    &l.name,
+                    l.name_ru.as_deref(),
+                    format!("{kind} · {count} {word}"),
+                ))
+            }
+            _ => None,
+        })
         .collect()
 }
 
@@ -257,7 +354,9 @@ fn kinds(snap: &Snapshot) -> Vec<Row> {
 pub fn node_id(target: &str, key: &str) -> Option<String> {
     match target {
         "item" => Some(key.to_string()),
+        "enemy" => Some(graph::enemy_id(key)),
         "place" => Some(graph::place_id(key)),
+        "location" => Some(graph::location_id(key)),
         "region" => Some(graph::region_id(key)),
         "vendor" => Some(graph::vendor_id(key)),
         "lab" => Some(graph::lab_id(key)),
@@ -269,13 +368,26 @@ pub fn node_id(target: &str, key: &str) -> Option<String> {
 /// for the sidebar. The tree's own labels are declared with both languages, so they never
 /// count as missing.
 pub fn pending(snap: &Snapshot) -> usize {
-    snap.graph
+    let judged = snap.decided.verbatim.len();
+    let missing = snap
+        .graph
         .nodes()
         .filter(|n| {
             matches!(
                 n,
-                Node::Item(_) | Node::Place(_) | Node::Region(_) | Node::Vendor(_) | Node::Lab(_)
+                Node::Item(_)
+                    | Node::Enemy(_)
+                    | Node::Place(_)
+                    | Node::Location(_)
+                    | Node::Region(_)
+                    | Node::Vendor(_)
+                    | Node::Lab(_)
             ) && n.label_ru().is_none()
+            // Answered already: a node DE writes the same way in both manifests, and a
+            // reward table that reads as its node.
+            && !matches!(n, Node::Region(r) if r.verbatim)
+            && !matches!(n, Node::Place(p) if p.table.is_some())
         })
-        .count()
+        .count();
+    missing.saturating_sub(judged)
 }

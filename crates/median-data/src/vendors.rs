@@ -104,7 +104,7 @@ fn stores_of(
             for offer in &store.offers {
                 let (_, printed) = names::quantity(&offer.name);
                 let Some(item) = resolve(index, printed, &offer.kind) else {
-                    orphans::note(&mut out.unresolved, printed, || store.name.clone());
+                    orphans::note(&mut out.unresolved, printed, || from.clone());
                     continue;
                 };
                 edges.push(Edge {
@@ -171,7 +171,7 @@ fn baro(
     for it in offered {
         let (_, printed) = names::quantity(&it.name);
         let Some(item) = index.get(printed) else {
-            orphans::note(&mut out.unresolved, printed, || name.to_string());
+            orphans::note(&mut out.unresolved, printed, || from.clone());
             continue;
         };
         out.offers += 1;

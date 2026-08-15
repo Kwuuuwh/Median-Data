@@ -123,19 +123,14 @@ prop = "tradable"
 value = "true"
 
 [[pick]]
-item = "/Lotus/Types/Recipes/ArchwingRecipes/DemolitionArchwing/DemolitionArchwingChassisComponent"
+item = "/Lotus/Types/Recipes/ArchwingRecipes/SupportArchwing/SupportArchwingBlueprint"
 prop = "tradable"
-value = "true"
+value = "false"
 
 [[pick]]
-item = "/Lotus/Types/Recipes/ArchwingRecipes/DemolitionArchwing/DemolitionArchwingSystemsComponent"
+item = "/Lotus/Types/Recipes/ArchwingRecipes/SupportArchwing/SupportArchwingChassisBlueprint"
 prop = "tradable"
-value = "true"
-
-[[pick]]
-item = "/Lotus/Types/Recipes/ArchwingRecipes/DemolitionArchwing/DemolitionArchwingWingsComponent"
-prop = "tradable"
-value = "true"
+value = "false"
 
 [[pick]]
 item = "/Lotus/Types/Recipes/ArchwingRecipes/SupportArchwing/SupportArchwingChassisComponent"
@@ -143,14 +138,39 @@ prop = "tradable"
 value = "true"
 
 [[pick]]
+item = "/Lotus/Types/Recipes/ArchwingRecipes/SupportArchwing/SupportArchwingSystemsBlueprint"
+prop = "tradable"
+value = "false"
+
+[[pick]]
 item = "/Lotus/Types/Recipes/ArchwingRecipes/SupportArchwing/SupportArchwingSystemsComponent"
 prop = "tradable"
 value = "true"
 
 [[pick]]
+item = "/Lotus/Types/Recipes/ArchwingRecipes/SupportArchwing/SupportArchwingWingsBlueprint"
+prop = "tradable"
+value = "false"
+
+[[pick]]
 item = "/Lotus/Types/Recipes/ArchwingRecipes/SupportArchwing/SupportArchwingWingsComponent"
 prop = "tradable"
 value = "true"
+
+[[pick]]
+item = "/Lotus/Types/Recipes/Weapons/WeaponParts/AmbassadorBarrelBlueprint"
+prop = "tradable"
+value = "false"
+
+[[pick]]
+item = "/Lotus/Types/Recipes/Weapons/WeaponParts/AmbassadorReceiverBlueprint"
+prop = "tradable"
+value = "false"
+
+[[pick]]
+item = "/Lotus/Types/Recipes/Weapons/WeaponParts/AmbassadorStockBlueprint"
+prop = "tradable"
+value = "false"
 
 [[pick]]
 item = "/Lotus/Types/Recipes/Weapons/WeaponParts/CrpArSniperBarrel"
@@ -513,6 +533,881 @@ key = "Zariman Bounty"
 ru = "Заказы Заримана"
 
 [[term]]
+kind = "enemy"
+key = "002-Er"
+ru = "002-Эр"
+
+[[term]]
+kind = "enemy"
+key = "Aerial Commander"
+ru = "Воздушный Командир"
+
+[[term]]
+kind = "enemy"
+key = "Aerolyst"
+ru = "Аэролист"
+
+[[term]]
+kind = "enemy"
+key = "Alad V"
+ru = "Алад V"
+
+[[term]]
+kind = "enemy"
+key = "Amalgam Alkonost"
+ru = "Алконост Амальгама"
+
+[[term]]
+kind = "enemy"
+key = "Amalgam Arca Heqet"
+ru = "Хекат Арка Амальгама"
+
+[[term]]
+kind = "enemy"
+key = "Amalgam Arca Kucumatz"
+ru = "Кукумац Арка Амальгама"
+
+[[term]]
+kind = "enemy"
+key = "Amalgam Cinder Machinist"
+ru = "Пепельный Машинист Амальгама"
+
+[[term]]
+kind = "enemy"
+key = "Amalgam Heqet"
+ru = "Амальгама: Хекат"
+
+[[term]]
+kind = "enemy"
+key = "Amalgam Kucumatz"
+ru = "Кукумац Амальгама"
+
+[[term]]
+kind = "enemy"
+key = "Amalgam Machinist"
+ru = "Машинист Амальгама"
+
+[[term]]
+kind = "enemy"
+key = "Amalgam Moa"
+ru = "МОА Амальгама"
+
+[[term]]
+kind = "enemy"
+key = "Amalgam Phase Moa"
+ru = "Фазовый МОА Амальгама"
+
+[[term]]
+kind = "enemy"
+key = "Amalgam Satyr"
+ru = "Сатир Амальгама"
+
+[[term]]
+kind = "enemy"
+key = "Amalgam Swarm Satyr"
+ru = "Роевик Сатир Амальгама"
+
+[[term]]
+kind = "enemy"
+key = "Ambulas"
+ru = "Амбулас"
+
+[[term]]
+kind = "enemy"
+key = "Anarch Arcus"
+ru = "Анарх Аркус"
+
+[[term]]
+kind = "enemy"
+key = "Anarch Capsarii"
+ru = "Анарх Капсарий"
+
+[[term]]
+kind = "enemy"
+key = "Anarch Gladius"
+ru = "Анарх Гладиус"
+
+[[term]]
+kind = "enemy"
+key = "Anarch Grineer Lancer"
+ru = "Анарх Солдат Гринир"
+
+[[term]]
+kind = "enemy"
+key = "Anarch Grineer Trapper"
+ru = "Анарх Захватчик Гринир"
+
+[[term]]
+kind = "enemy"
+key = "Anarch Libritor"
+ru = "Анарх Либритор"
+
+[[term]]
+kind = "enemy"
+key = "Anarch Tenebra"
+ru = "Анарх Капсарий"
+
+[[term]]
+kind = "enemy"
+key = "Ancient Disruptor"
+ru = "Древний Разрушитель"
+
+[[term]]
+kind = "enemy"
+key = "Ancient Healer"
+ru = "Древний Целитель"
+
+[[term]]
+kind = "enemy"
+key = "Ancient Protector"
+ru = "Древний Защитник"
+
+[[term]]
+kind = "enemy"
+key = "Angst"
+ru = "Беспокойство"
+
+[[term]]
+kind = "enemy"
+key = "Anti Moa"
+ru = "Анти МОА"
+
+[[term]]
+kind = "enemy"
+key = "Arbitration Shield Drone"
+ru = "Дрон-Щитогенератор Арбитража"
+
+[[term]]
+kind = "enemy"
+key = "Armaments Director"
+ru = "Директор Отдела Вооружения"
+
+[[term]]
+kind = "enemy"
+key = "Armis Ulta"
+ru = "Армис Ульта"
+
+[[term]]
+kind = "enemy"
+key = "Artificer"
+ru = "Механик"
+
+[[term]]
+kind = "enemy"
+key = "Attack Drone"
+ru = "Дрон Защитник"
+
+[[term]]
+kind = "enemy"
+key = "Attack Mutalist"
+ru = "Штурмовой Муталист"
+
+[[term]]
+kind = "enemy"
+key = "Auditor"
+ru = "Аудитор"
+
+[[term]]
+kind = "enemy"
+key = "Aurax Actinic"
+ru = "Актиник Ауракса"
+
+[[term]]
+kind = "enemy"
+key = "Aurax Atloc Raknoid"
+ru = "Ракноид Ауракса: Атлок"
+
+[[term]]
+kind = "enemy"
+key = "Aurax Baculus"
+ru = "Бакулюс Ауракса"
+
+[[term]]
+kind = "enemy"
+key = "Aurax Culveri Moa"
+ru = "МОА Ауракса: Кульвери"
+
+[[term]]
+kind = "enemy"
+key = "Aurax Polaris Moa"
+ru = "МОА Ауракса: Полярис"
+
+[[term]]
+kind = "enemy"
+key = "Axio Disc Moa"
+ru = "МОА Аксио Диск"
+
+[[term]]
+kind = "enemy"
+key = "Axio Gox"
+ru = "Джокс Аксио"
+
+[[term]]
+kind = "enemy"
+key = "Axio Harpi"
+ru = "Харпи Аксио"
+
+[[term]]
+kind = "enemy"
+key = "Axio Moa"
+ru = "МОА Аксио"
+
+[[term]]
+kind = "enemy"
+key = "Axio Railgun Moa"
+ru = "МОА Рельсотрон Аксио"
+
+[[term]]
+kind = "enemy"
+key = "Axio Shockwave Moa"
+ru = "Ударный МОА Аксио"
+
+[[term]]
+kind = "enemy"
+key = "Axio Tech"
+ru = "Техник Аксио"
+
+[[term]]
+kind = "enemy"
+key = "Axio Vambac"
+ru = "Вомбак Аксио"
+
+[[term]]
+kind = "enemy"
+key = "Axio Weaver"
+ru = "Уивер Аксио"
+
+[[term]]
+kind = "enemy"
+key = "Axio Zerca"
+ru = "Зерка Аксио"
+
+[[term]]
+kind = "enemy"
+key = "Azoth"
+ru = "Азот"
+
+[[term]]
+kind = "enemy"
+key = "Bailiff"
+ru = "Бейлиф"
+
+[[term]]
+kind = "enemy"
+key = "Bailiff Defector"
+ru = "Отступник Бейлиф"
+
+[[term]]
+kind = "enemy"
+key = "Ballista"
+ru = "Баллиста"
+
+[[term]]
+kind = "enemy"
+key = "Basal Diploid"
+ru = "Базальный Диплоид"
+
+[[term]]
+kind = "enemy"
+key = "Basal Diploid Rex"
+ru = "Базальный Диплоид Рекс"
+
+[[term]]
+kind = "enemy"
+key = "Battalyst"
+ru = "Батталист"
+
+[[term]]
+kind = "enemy"
+key = "Boiler"
+ru = "Фурункулёр"
+
+[[term]]
+kind = "enemy"
+key = "Bombard"
+ru = "Бомбардировщик"
+
+[[term]]
+kind = "enemy"
+key = "Brachiolyst"
+ru = "Брахиолист"
+
+[[term]]
+kind = "enemy"
+key = "Brood Mother"
+ru = "Мать Выводка"
+
+[[term]]
+kind = "enemy"
+key = "Captain Vor"
+ru = "Капитан Вор"
+
+[[term]]
+kind = "enemy"
+key = "Carabus"
+ru = "Карабус"
+
+[[term]]
+kind = "enemy"
+key = "Carrier"
+ru = "Носитель"
+
+[[term]]
+kind = "enemy"
+key = "Coildrive"
+ru = "Циклоход"
+
+[[term]]
+kind = "enemy"
+key = "Commander"
+ru = "Командир"
+
+[[term]]
+kind = "enemy"
+key = "Conculyst"
+ru = "Конкулист"
+
+[[term]]
+kind = "enemy"
+key = "Coolant Raknoid"
+ru = "Охладительный Ракноид"
+
+[[term]]
+kind = "enemy"
+key = "Corpus Cestra Target"
+ru = "Цель Корпуса (Цестра)"
+
+[[term]]
+kind = "enemy"
+key = "Corpus Power Carrier"
+ru = "Энерготранспортёр Корпуса"
+
+[[term]]
+kind = "enemy"
+key = "Corpus Sniper Target"
+ru = "Цель Корпуса (Снайпер)"
+
+[[term]]
+kind = "enemy"
+key = "Corpus Supra Target"
+ru = "Цель Корпуса (Супра)"
+
+[[term]]
+kind = "enemy"
+key = "Corpus Tech"
+ru = "Техник Корпуса"
+
+[[term]]
+kind = "enemy"
+key = "Corpus Trencher Target"
+ru = "Цель Корпуса (Траншейник)"
+
+[[term]]
+kind = "enemy"
+key = "Corpus Warden"
+ru = "Надзиратель Корпуса"
+
+[[term]]
+kind = "enemy"
+key = "Corvette"
+ru = "Корвет"
+
+[[term]]
+kind = "enemy"
+key = "Councilor Vay Hek"
+ru = "Советник Вэй Хек"
+
+[[term]]
+kind = "enemy"
+key = "Demolyst Moa"
+ru = "МОА Демолист"
+
+[[term]]
+kind = "enemy"
+key = "Gox"
+ru = "Джокс"
+
+[[term]]
+kind = "enemy"
+key = "Grineer Power Carrier"
+ru = "Энерготранспортёр Гринир"
+
+[[term]]
+kind = "enemy"
+key = "Hellion Power Carrier"
+ru = "Энерготранспортёр: Изгнанник"
+
+[[term]]
+kind = "enemy"
+key = "Juno Dera Moa"
+ru = "МОА Джуно: Дера"
+
+[[term]]
+kind = "enemy"
+key = "Juno Disc Moa"
+ru = "МОА Джуно Диск"
+
+[[term]]
+kind = "enemy"
+key = "Juno Geminex Moa"
+ru = "МОА Джуно: Жеминекс"
+
+[[term]]
+kind = "enemy"
+key = "Juno Glaxion Moa"
+ru = "МОА Джуно: Глаксион"
+
+[[term]]
+kind = "enemy"
+key = "Juno Sapper Moa"
+ru = "МОА-Сапёр: Джуно"
+
+[[term]]
+kind = "enemy"
+key = "Juno Tech"
+ru = "Техник Джуно"
+
+[[term]]
+kind = "enemy"
+key = "M-W.A.M."
+ru = "МШ-МОА"
+
+[[term]]
+kind = "enemy"
+key = "Moa"
+ru = "МОА"
+
+[[term]]
+kind = "enemy"
+key = "Mutalist Osprey Carrier"
+ru = "Муталист Дрон-Носитель"
+
+[[term]]
+kind = "enemy"
+key = "Narmer Dera Moa"
+ru = "МОА Нармера: Дера"
+
+[[term]]
+kind = "enemy"
+key = "Narmer Geminex Moa"
+ru = "МОА Нармера: Жеминекс"
+
+[[term]]
+kind = "enemy"
+key = "Narmer Glaxion Moa"
+ru = "МОА Нармера: Глаксион"
+
+[[term]]
+kind = "enemy"
+key = "Nemes"
+ru = "Немес"
+
+[[term]]
+kind = "enemy"
+key = "Orm Disc Moa"
+ru = "МОА Ормы Диск"
+
+[[term]]
+kind = "enemy"
+key = "Orm Gox"
+ru = "Джокс Ормы"
+
+[[term]]
+kind = "enemy"
+key = "Orm Harpi"
+ru = "Харпи Ормы"
+
+[[term]]
+kind = "enemy"
+key = "Orm Moa"
+ru = "МОА Ормы"
+
+[[term]]
+kind = "enemy"
+key = "Orm Nemes"
+ru = "Немес Ормы"
+
+[[term]]
+kind = "enemy"
+key = "Orm Railgun Moa"
+ru = "МОА Рельсотрон Ормы"
+
+[[term]]
+kind = "enemy"
+key = "Orm Shockwave Moa"
+ru = "Ударный МОА Ормы"
+
+[[term]]
+kind = "enemy"
+key = "Orm Tech"
+ru = "Техник Ормы"
+
+[[term]]
+kind = "enemy"
+key = "Orm Vambac"
+ru = "Вомбак Ормы"
+
+[[term]]
+kind = "enemy"
+key = "Orm Weaver"
+ru = "Уивер Ормы"
+
+[[term]]
+kind = "enemy"
+key = "Orm Zerca"
+ru = "Зерка Ормы"
+
+[[term]]
+kind = "enemy"
+key = "Railgun Moa"
+ru = "МОА Рельсотрон"
+
+[[term]]
+kind = "enemy"
+key = "Shockwave Moa"
+ru = "Ударный МОА"
+
+[[term]]
+kind = "enemy"
+key = "Taro Disc Moa"
+ru = "МОА Таро Диск"
+
+[[term]]
+kind = "enemy"
+key = "Taro Gox"
+ru = "Джокс Таро"
+
+[[term]]
+kind = "enemy"
+key = "Taro Harpi"
+ru = "Харпи Таро"
+
+[[term]]
+kind = "enemy"
+key = "Taro Moa"
+ru = "МОА Таро"
+
+[[term]]
+kind = "enemy"
+key = "Taro Railgun Moa"
+ru = "МОА Рельсотрон Таро"
+
+[[term]]
+kind = "enemy"
+key = "Taro Shockwave Moa"
+ru = "Ударный МОА Таро"
+
+[[term]]
+kind = "enemy"
+key = "Taro Tech"
+ru = "Техник Таро"
+
+[[term]]
+kind = "enemy"
+key = "Taro Vambac"
+ru = "Вомбак Таро"
+
+[[term]]
+kind = "enemy"
+key = "Taro Weaver"
+ru = "Уивер Таро"
+
+[[term]]
+kind = "enemy"
+key = "Taro Zerca"
+ru = "Зерка Таро"
+
+[[term]]
+kind = "enemy"
+key = "Terra Detron Crewman"
+ru = "Солдат с Детроном"
+
+[[term]]
+kind = "enemy"
+key = "Terra Elite Provisor"
+ru = "Элитный Провизор Терры"
+
+[[term]]
+kind = "enemy"
+key = "Terra Elite Trencher"
+ru = "Элитный Траншейник Терры"
+
+[[term]]
+kind = "enemy"
+key = "Terra Moa"
+ru = "МОА Терры"
+
+[[term]]
+kind = "enemy"
+key = "Terra Provisor"
+ru = "Провизор Терры"
+
+[[term]]
+kind = "enemy"
+key = "Terra Railgun Moa"
+ru = "МОА Рельсотрон Терры"
+
+[[term]]
+kind = "enemy"
+key = "Terra Shockwave Moa"
+ru = "Ударный МОА Терры"
+
+[[term]]
+kind = "enemy"
+key = "Terra Trencher"
+ru = "Траншейник Терры"
+
+[[term]]
+kind = "enemy"
+key = "The Anatomizer"
+ru = "Анатомайзер"
+
+[[term]]
+kind = "enemy"
+key = "The Hollow Vein"
+ru = "Полая Вена"
+
+[[term]]
+kind = "enemy"
+key = "The Sergeant"
+ru = "Сержант"
+
+[[term]]
+kind = "enemy"
+key = "The Unseeing Herald"
+ru = "Невидящий Вестник"
+
+[[term]]
+kind = "enemy"
+key = "Thrax Centurion"
+ru = "Центурион Тракса"
+
+[[term]]
+kind = "enemy"
+key = "Thrax Legatus"
+ru = "Легат Тракса"
+
+[[term]]
+kind = "enemy"
+key = "Tia Mayn"
+ru = "Тиа Майн"
+
+[[term]]
+kind = "enemy"
+key = "Torment"
+ru = "Мучение"
+
+[[term]]
+kind = "enemy"
+key = "Tusk Ballista"
+ru = "Баллиста Бивня"
+
+[[term]]
+kind = "enemy"
+key = "Tusk Thumper Doma"
+ru = "Сотрясатель Доме Бивня"
+
+[[term]]
+kind = "enemy"
+key = "Tusk Trooper"
+ru = "Пехотинец Бивня"
+
+[[term]]
+kind = "enemy"
+key = "Tyl Regor"
+ru = "Тил Регор"
+
+[[term]]
+kind = "enemy"
+key = "Typholyst"
+ru = "Тифолист"
+
+[[term]]
+kind = "enemy"
+key = "Vapos Aquila"
+ru = "Аквила Вапоса"
+
+[[term]]
+kind = "enemy"
+key = "Vapos Bioengineer"
+ru = "Биоинженер Вапоса"
+
+[[term]]
+kind = "enemy"
+key = "Vapos Detron Ranger"
+ru = "Рейнджер с Детроном Вапоса"
+
+[[term]]
+kind = "enemy"
+key = "Vapos Elite Ranger"
+ru = "Элитный Рейнджер Вапоса"
+
+[[term]]
+kind = "enemy"
+key = "Vapos Moa"
+ru = "МОА Вапоса"
+
+[[term]]
+kind = "enemy"
+key = "Vapos Nullifier Ranger"
+ru = "Рейнджер-Нуллификатор Вапоса"
+
+[[term]]
+kind = "enemy"
+key = "Vapos Railgun Moa"
+ru = "МОА Рельсотрон Вапоса"
+
+[[term]]
+kind = "enemy"
+key = "Vapos Shockwave Moa"
+ru = "Ударный МОА Вапоса"
+
+[[term]]
+kind = "enemy"
+key = "Vapos Tech"
+ru = "Техник Вапоса"
+
+[[term]]
+kind = "enemy"
+key = "Vapos Tech Ranger"
+ru = "Техник-Рейнджер Вапоса"
+
+[[term]]
+kind = "enemy"
+key = "Vay Hek Terra Frame"
+ru = "Терра Фрейм"
+
+[[term]]
+kind = "enemy"
+key = "Ved Xol"
+ru = "Вед Ксол"
+
+[[term]]
+kind = "enemy"
+key = "Ven'Kra Tel"
+ru = "Вен'Кра Тел"
+
+[[term]]
+kind = "enemy"
+key = "Vena"
+ru = "Вена"
+
+[[term]]
+kind = "enemy"
+key = "Venin Mutalist"
+ru = "Венин Муталист"
+
+[[term]]
+kind = "enemy"
+key = "Verd-Ie"
+ru = "ВЕРД-ИЭ"
+
+[[term]]
+kind = "enemy"
+key = "Violence"
+ru = "Жестокость"
+
+[[term]]
+kind = "enemy"
+key = "Vivisect Director"
+ru = "Директор Отдела Вивисекции"
+
+[[term]]
+kind = "enemy"
+key = "Void Angel"
+ru = "Ангел Бездны"
+
+[[term]]
+kind = "enemy"
+key = "Volatile Runner"
+ru = "Взрывоопасный Бегун"
+
+[[term]]
+kind = "enemy"
+key = "Vorac Disc Moa"
+ru = "МОА Ворака Диск"
+
+[[term]]
+kind = "enemy"
+key = "Vorac Gox"
+ru = "Джокс Ворака"
+
+[[term]]
+kind = "enemy"
+key = "Vorac Harpi"
+ru = "Харпи Ворака"
+
+[[term]]
+kind = "enemy"
+key = "Vorac Moa"
+ru = "МОА Ворака"
+
+[[term]]
+kind = "enemy"
+key = "Vorac Railgun Moa"
+ru = "МОА Рельсотрон Ворака"
+
+[[term]]
+kind = "enemy"
+key = "Vorac Shockwave Moa"
+ru = "Ударный МОА Ворака"
+
+[[term]]
+kind = "enemy"
+key = "Vorac Tech"
+ru = "Техник Ворака"
+
+[[term]]
+kind = "enemy"
+key = "Vorac Vambac"
+ru = "Вомбак Ворака"
+
+[[term]]
+kind = "enemy"
+key = "Vorac Weaver"
+ru = "Уивер Ворака"
+
+[[term]]
+kind = "enemy"
+key = "Vorac Zerca"
+ru = "Зерка Ворака"
+
+[[term]]
+kind = "enemy"
+key = "Wolf Of Saturn Six"
+ru = "Волк Сатурна 6"
+
+[[term]]
+kind = "enemy"
+key = "Zanuka Hunter"
+ru = "Занука Охотник"
+
+[[term]]
+kind = "enemy"
+key = "Zealoid Prelate"
+ru = "Прелат Фанатиков"
+
+[[term]]
+kind = "enemy"
+key = "Zealot Baptizer"
+ru = "Фанатик-Креститель"
+
+[[term]]
+kind = "enemy"
+key = "Zealot Herald"
+ru = "Фанатик-Вестник"
+
+[[term]]
+kind = "enemy"
+key = "Zealot Proselytizer"
+ru = "Фанатик-Проповедник"
+
+[[term]]
+kind = "enemy"
+key = "Zeplen"
+ru = "Цеплен"
+
+[[term]]
 kind = "lab"
 key = "Bash"
 ru = "Бесшабашная Лаборатория Детей Труб"
@@ -634,153 +1529,8 @@ ru = "Нестабильность"
 
 [[term]]
 kind = "place"
-key = "002-Er"
-ru = "002-Эр"
-
-[[term]]
-kind = "place"
 key = "Abyssal Beacon"
 ru = "Абиссальный маяк"
-
-[[term]]
-kind = "place"
-key = "Aerial Commander"
-ru = "Воздушный Командир"
-
-[[term]]
-kind = "place"
-key = "Aerolyst"
-ru = "Аэролист"
-
-[[term]]
-kind = "place"
-key = "Alad V"
-ru = "Алад V"
-
-[[term]]
-kind = "place"
-key = "Amalgam Alkonost"
-ru = "Алконост Амальгама"
-
-[[term]]
-kind = "place"
-key = "Amalgam Arca Heqet"
-ru = "Хекат Арка Амальгама"
-
-[[term]]
-kind = "place"
-key = "Amalgam Arca Kucumatz"
-ru = "Кукумац Арка Амальгама"
-
-[[term]]
-kind = "place"
-key = "Amalgam Cinder Machinist"
-ru = "Пепельный Машинист Амальгама"
-
-[[term]]
-kind = "place"
-key = "Amalgam Heqet"
-ru = "Амальгама: Хекат"
-
-[[term]]
-kind = "place"
-key = "Amalgam Kucumatz"
-ru = "Кукумац Амальгама"
-
-[[term]]
-kind = "place"
-key = "Amalgam Machinist"
-ru = "Машинист Амальгама"
-
-[[term]]
-kind = "place"
-key = "Amalgam Moa"
-ru = "МОА Амальгама"
-
-[[term]]
-kind = "place"
-key = "Amalgam Phase Moa"
-ru = "Фазовый МОА Амальгама"
-
-[[term]]
-kind = "place"
-key = "Amalgam Satyr"
-ru = "Сатир Амальгама"
-
-[[term]]
-kind = "place"
-key = "Amalgam Swarm Satyr"
-ru = "Роевик Сатир Амальгама"
-
-[[term]]
-kind = "place"
-key = "Ambulas"
-ru = "Амбулас"
-
-[[term]]
-kind = "place"
-key = "Anarch Arcus"
-ru = "Анарх Аркус"
-
-[[term]]
-kind = "place"
-key = "Anarch Capsarii"
-ru = "Анарх Капсарий"
-
-[[term]]
-kind = "place"
-key = "Anarch Gladius"
-ru = "Анарх Гладиус"
-
-[[term]]
-kind = "place"
-key = "Anarch Grineer Lancer"
-ru = "Анарх Солдат Гринир"
-
-[[term]]
-kind = "place"
-key = "Anarch Grineer Trapper"
-ru = "Анарх Захватчик Гринир"
-
-[[term]]
-kind = "place"
-key = "Anarch Libritor"
-ru = "Анарх Либритор"
-
-[[term]]
-kind = "place"
-key = "Anarch Tenebra"
-ru = "Анарх Капсарий"
-
-[[term]]
-kind = "place"
-key = "Ancient Disruptor"
-ru = "Древний Разрушитель"
-
-[[term]]
-kind = "place"
-key = "Ancient Healer"
-ru = "Древний Целитель"
-
-[[term]]
-kind = "place"
-key = "Ancient Protector"
-ru = "Древний Защитник"
-
-[[term]]
-kind = "place"
-key = "Angst"
-ru = "Беспокойство"
-
-[[term]]
-kind = "place"
-key = "Anti Moa"
-ru = "Анти МОА"
-
-[[term]]
-kind = "place"
-key = "Arbitration Shield Drone"
-ru = "Дрон-Щитогенератор Арбитража"
 
 [[term]]
 kind = "place"
@@ -804,93 +1554,8 @@ ru = "Архонт Нира"
 
 [[term]]
 kind = "place"
-key = "Armaments Director"
-ru = "Директор Отдела Вооружения"
-
-[[term]]
-kind = "place"
-key = "Armis Ulta"
-ru = "Армис Ульта"
-
-[[term]]
-kind = "place"
-key = "Artificer"
-ru = "Механик"
-
-[[term]]
-kind = "place"
-key = "Attack Drone"
-ru = "Дрон Защитник"
-
-[[term]]
-kind = "place"
-key = "Attack Mutalist"
-ru = "Штурмовой Муталист"
-
-[[term]]
-kind = "place"
-key = "Auditor"
-ru = "Аудитор"
-
-[[term]]
-kind = "place"
-key = "Aurax Actinic"
-ru = "Актиник Ауракса"
-
-[[term]]
-kind = "place"
-key = "Aurax Atloc Raknoid"
-ru = "Ракноид Ауракса: Атлок"
-
-[[term]]
-kind = "place"
-key = "Aurax Baculus"
-ru = "Бакулюс Ауракса"
-
-[[term]]
-kind = "place"
-key = "Aurax Culveri Moa"
-ru = "МОА Ауракса: Кульвери"
-
-[[term]]
-kind = "place"
-key = "Aurax Polaris Moa"
-ru = "МОА Ауракса: Полярис"
-
-[[term]]
-kind = "place"
-key = "Azoth"
-ru = "Азот"
-
-[[term]]
-kind = "place"
-key = "Bailiff"
-ru = "Бейлиф"
-
-[[term]]
-kind = "place"
-key = "Bailiff Defector"
-ru = "Отступник Бейлиф"
-
-[[term]]
-kind = "place"
-key = "Ballista"
-ru = "Баллиста"
-
-[[term]]
-kind = "place"
 key = "Baro Void-Signal"
 ru = "Маячок Бездны Баро"
-
-[[term]]
-kind = "place"
-key = "Basal Diploid"
-ru = "Базальный Диплоид"
-
-[[term]]
-kind = "place"
-key = "Basal Diploid Rex"
-ru = "Базальный Диплоид Рекс"
 
 [[term]]
 kind = "region"
@@ -905,6 +1570,11 @@ ru = "Торговый Центр Хёльвании"
 [[term]]
 kind = "region"
 key = "CetusHub4"
+ru = "Цетус"
+
+[[term]]
+kind = "tileset"
+key = "Cetus"
 ru = "Цетус"
 
 [[term]]
@@ -1010,4 +1680,9 @@ note = ""
 [[dismiss]]
 source = "drops"
 key = "Powercell"
+note = ""
+
+[[verbatim]]
+kind = "region"
+key = "ClanNode16"
 note = ""

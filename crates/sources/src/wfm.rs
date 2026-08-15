@@ -26,6 +26,8 @@ pub struct WfmItem {
     pub ducats: Option<i64>,
     /// WFM tags (`mod`, `prime`, `set`, ...).
     pub tags: Vec<String>,
+    /// Whether the market calls the item vaulted. Only relics carry it.
+    pub vaulted: Option<bool>,
     /// Asset path of the item's picture per language. A mod's name and stats are drawn
     /// into it, so the languages carry different images.
     pub icons: BTreeMap<String, String>,
@@ -92,6 +94,7 @@ pub fn parse(raw: &[u8]) -> Result<Vec<WfmItem>> {
                         .collect()
                 })
                 .unwrap_or_default(),
+            vaulted: el.get("vaulted").and_then(Value::as_bool),
             icons: icons(el),
         });
     }

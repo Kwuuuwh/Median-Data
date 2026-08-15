@@ -108,6 +108,9 @@ fn resolve(w: &WfmItem, paths: &Paths, curated: &BTreeMap<&str, &str>) -> Option
         return Some(((*path).to_string(), How::Curated));
     }
     if let Some(game_ref) = w.game_ref.as_deref() {
+        if let Some(blueprint) = traded_blueprint(w, game_ref, paths) {
+            return Some((blueprint, How::Reference));
+        }
         if paths.has(game_ref) {
             return Some((game_ref.to_string(), How::Reference));
         }
@@ -117,6 +120,17 @@ fn resolve(w: &WfmItem, paths: &Paths, curated: &BTreeMap<&str, &str>) -> Option
     // name without its trailing parenthetical when the full name matches nothing.
     let matched = paths.one(name).or_else(|| paths.one(base_name(name)));
     matched.map(|path| (path.to_string(), How::Name))
+}
+
+/// The blueprint a `…_blueprint` listing really trades, where its reference points at the
+/// component that blueprint builds. The game trades the blueprint, never what it builds, and
+/// the market keeps the distinction in the slug while its `gameRef` names the component.
+fn traded_blueprint(w: &WfmItem, game_ref: &str, paths: &Paths) -> Option<String> {
+    if !w.slug.ends_with("_blueprint") {
+        return None;
+    }
+    let blueprint = format!("{}Blueprint", game_ref.strip_suffix("Component")?);
+    paths.has(&blueprint).then_some(blueprint)
 }
 
 /// A market name with its trailing ` (…)` disambiguator removed.
@@ -140,6 +154,7 @@ mod tests {
             ru_name: None,
             ducats: None,
             tags: tags.iter().map(|t| t.to_string()).collect(),
+            vaulted: None,
             icons: BTreeMap::new(),
         }
     }
@@ -211,6 +226,47 @@ mod tests {
         assert!(slugs.contains(&"volt_prime_blueprint"));
         assert!(slugs.contains(&"volt_prime_chassis_blueprint"));
         assert!(!slugs.contains(&"braton_prime_barrel"));
+    }
+
+    #[test]
+    fn a_blueprint_listing_lands_on_the_blueprint_not_on_what_it_builds() {
+        let catalog = [
+            de(
+                "/R/Archwing/SupportWingsBlueprint",
+                "Amesha Wings Blueprint",
+            ),
+            de("/R/Archwing/SupportWingsComponent", "Amesha Wings"),
+        ];
+        let paths = Paths::build(&catalog, &[]);
+        let items = vec![item(
+            "amesha_wings_blueprint",
+            "/R/Archwing/SupportWingsComponent",
+            "Amesha Wings",
+            &["archwing", "component"],
+        )];
+        let bridge = Bridge::new(&items, &paths, &BTreeMap::new());
+        assert_eq!(
+            bridge.matched()["amesha_wings_blueprint"].0,
+            "/R/Archwing/SupportWingsBlueprint"
+        );
+        assert!(bridge.get("/R/Archwing/SupportWingsComponent").is_none());
+    }
+
+    #[test]
+    fn a_component_listing_keeps_the_component_the_market_names() {
+        let catalog = [de("/R/Weapons/BratonPrimeBarrel", "Braton Prime Barrel")];
+        let paths = Paths::build(&catalog, &[]);
+        let items = vec![item(
+            "braton_prime_barrel",
+            "/R/Weapons/BratonPrimeBarrel",
+            "Braton Prime Barrel",
+            &["component"],
+        )];
+        let bridge = Bridge::new(&items, &paths, &BTreeMap::new());
+        assert_eq!(
+            bridge.matched()["braton_prime_barrel"].0,
+            "/R/Weapons/BratonPrimeBarrel"
+        );
     }
 
     #[test]

@@ -1,3 +1,5 @@
+use std::collections::BTreeSet;
+
 use graph::{Graph, Node, Rel};
 
 use crate::finding::{Finding, Layer};
@@ -16,6 +18,8 @@ pub struct Gaps {
     pub dangling_craft: Vec<String>,
     /// Drop-table rewards whose printed name matches no item.
     pub unknown_drop_items: Vec<String>,
+    /// Item paths judged to keep the name the game writes, so no Russian is owed.
+    pub verbatim: BTreeSet<String>,
 }
 
 /// Find what the catalog is missing, both from the build's own gaps and from the graph.
@@ -59,7 +63,7 @@ pub fn check(graph: &Graph, gaps: &Gaps) -> Vec<Finding> {
                 ),
             ));
         }
-        if item.names.ru.is_none() {
+        if item.names.ru.is_none() && !gaps.verbatim.contains(&item.unique_name) {
             out.push(Finding::new(
                 Layer::Coverage,
                 "russian-name-missing",
@@ -132,12 +136,15 @@ fn dead_recipes(graph: &Graph) -> Vec<Finding> {
             .iter()
             .filter(|e| matches!(e.rel, Rel::Drops(_)))
             .count();
-        out.push(Finding::new(
-            Layer::Coverage,
-            "dead-recipe",
-            &recipe.blueprint,
-            format!("nothing hands over this blueprint, and {result} drops in {ways} places"),
-        ));
+        out.push(
+            Finding::new(
+                Layer::Coverage,
+                "dead-recipe",
+                &recipe.blueprint,
+                format!("nothing hands over this blueprint, and {result} drops in {ways} places"),
+            )
+            .about([result.clone()]),
+        );
     }
     out
 }

@@ -6,7 +6,7 @@ use graph::{Extra, Graph};
 /// by their display name (drop tables) resolve through it.
 pub struct Index {
     by_name: BTreeMap<String, String>,
-    by_relic: BTreeMap<(String, String), String>,
+    by_relic: BTreeMap<(String, String), Vec<String>>,
     ambiguous: BTreeSet<String>,
     /// Names tied to an item by hand. They answer before any derived match, so a decision
     /// made once resolves the name for every source that prints it.
@@ -38,9 +38,12 @@ impl Index {
                 Extra::None => None,
             };
             if let Some(r) = relic {
+                // DE ships a relic twice where it was re-released, same name and same
+                // rewards, so a printed name answers to every record that carries it.
                 by_relic
                     .entry((key.clone(), r.refinement.clone()))
-                    .or_insert_with(|| item.unique_name.clone());
+                    .or_insert_with(Vec::new)
+                    .push(item.unique_name.clone());
             }
             grouped.entry(key).or_default().push(Candidate {
                 path: item.unique_name.clone(),
@@ -101,7 +104,10 @@ impl Index {
         }
         if let Some((name, refinement)) = relic_grade(printed) {
             let key = (normalize(name), refinement.to_string());
-            if let Some(path) = self.by_relic.get(&key) {
+            // A printed relic name can answer to more than one record; one path is all a
+            // caller asking for "the item" can use, so the first is kept and `relics` is
+            // there for the callers that need every one.
+            if let Some(path) = self.by_relic.get(&key).and_then(|paths| paths.first()) {
                 return Some(path);
             }
         }
@@ -120,9 +126,9 @@ impl Index {
     }
 
     /// Resolve a relic named separately from its refinement.
-    pub fn relic(&self, printed: &str, refinement: &str) -> Option<&str> {
+    pub fn relics(&self, printed: &str, refinement: &str) -> &[String] {
         let key = (normalize(printed), refinement.to_string());
-        self.by_relic.get(&key).map(String::as_str)
+        self.by_relic.get(&key).map_or(&[], Vec::as_slice)
     }
 
     /// Whether a printed name matches more than one item. A name tied by hand is settled.
@@ -238,6 +244,7 @@ mod tests {
                 kind: single(Kind::unknown()),
                 slug: None,
                 tradable: None,
+                vaulted: None,
                 prime: single(false),
                 ducats: None,
                 extra: Extra::None,

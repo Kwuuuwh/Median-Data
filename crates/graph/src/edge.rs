@@ -1,13 +1,22 @@
-/// How an item drops from a place.
+/// The level range a drop table is printed for.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+pub struct Levels {
+    pub min: i64,
+    pub max: i64,
+}
+
+/// How an item drops from a place or an enemy.
 #[derive(Debug, Clone, PartialEq)]
 pub struct DropInfo {
     pub rarity: String,
-    /// Probability within the place's table.
+    /// Probability within the table.
     pub chance: f64,
     pub rotation: Option<String>,
     pub stage: Option<String>,
     /// An enemy's chance to roll that table at all.
     pub table_chance: Option<f64>,
+    /// Set where an enemy carries a different table per level range.
+    pub levels: Option<Levels>,
     /// How many the row hands over, where the tables print a stack (`100X Oxium`).
     pub count: Option<i64>,
 }
@@ -80,7 +89,7 @@ pub enum Rel {
     Member,
     /// Set -> the assembled item it stands for.
     Represents,
-    /// Place -> an item it can drop.
+    /// Place or enemy -> an item it can drop.
     Drops(DropInfo),
     /// An ordinary item -> its prime counterpart.
     Primed,

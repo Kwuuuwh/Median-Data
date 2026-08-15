@@ -35,7 +35,7 @@ pub struct DeRegion {
     /// DE's key for the node, e.g. `SolNode94`.
     pub node: String,
     pub name: String,
-    pub planet: String,
+    pub location: String,
     pub mission: i64,
     pub faction: i64,
     pub node_type: i64,
@@ -159,7 +159,7 @@ pub fn de_regions(raw: &[u8]) -> Result<Vec<DeRegion>> {
         out.push(DeRegion {
             node: node.to_string(),
             name: name.to_string(),
-            planet: el
+            location: el
                 .get("systemName")
                 .and_then(Value::as_str)
                 .unwrap_or_default()

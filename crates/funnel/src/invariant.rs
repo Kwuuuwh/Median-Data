@@ -54,11 +54,14 @@ pub fn check(graph: &Graph) -> Vec<Finding> {
 
     for edge in graph.edges() {
         if !graph.has(&edge.from) || !graph.has(&edge.to) {
-            flag(
-                &mut out,
-                "dangling-edge",
-                &edge.from,
-                format!("-{}-> {}", edge.rel.as_str(), edge.to),
+            out.push(
+                Finding::new(
+                    Layer::Invariant,
+                    "dangling-edge",
+                    &edge.from,
+                    format!("-{}-> {}", edge.rel.as_str(), edge.to),
+                )
+                .about([&edge.to]),
             );
         }
         // The game trades the blueprint, never what it builds — unless a person overruled
@@ -69,11 +72,14 @@ pub fn check(graph: &Graph) -> Vec<Finding> {
                 if let Some(t) = &i.tradable {
                     let by_hand = t.sources.iter().any(|s| s.as_str() == "curated");
                     if t.value && !by_hand {
-                        flag(
-                            &mut out,
-                            "built-is-tradable",
-                            &edge.to,
-                            format!("assembled by {} yet marked tradable", edge.from),
+                        out.push(
+                            Finding::new(
+                                Layer::Invariant,
+                                "built-is-tradable",
+                                &edge.to,
+                                format!("assembled by {} yet marked tradable", edge.from),
+                            )
+                            .about([&edge.from]),
                         );
                     }
                 }

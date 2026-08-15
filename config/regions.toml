@@ -276,6 +276,139 @@ index = 4
 en = "Dark Sector"
 ru = "Тёмный сектор"
 
+# --- what each grouping of the star chart actually is ---------------------------------------
+# DE files every node under a `systemName`, and only some of those are planets. The kind is
+# written here because no source states it; `ru` is only for the ones DE ships no translation
+# for. A grouping missing from this table is reported by the build.
+
+[[location]]
+name = "Mercury"
+kind = "planet"
+
+[[location]]
+name = "Venus"
+kind = "planet"
+
+[[location]]
+name = "Earth"
+kind = "planet"
+
+[[location]]
+name = "Mars"
+kind = "planet"
+
+[[location]]
+name = "Ceres"
+kind = "planet"
+
+[[location]]
+name = "Jupiter"
+kind = "planet"
+
+[[location]]
+name = "Saturn"
+kind = "planet"
+
+[[location]]
+name = "Uranus"
+kind = "planet"
+
+[[location]]
+name = "Neptune"
+kind = "planet"
+
+[[location]]
+name = "Pluto"
+kind = "planet"
+
+[[location]]
+name = "Sedna"
+kind = "planet"
+
+[[location]]
+name = "Eris"
+kind = "planet"
+
+[[location]]
+name = "Lua"
+kind = "moon"
+
+[[location]]
+name = "Phobos"
+kind = "moon"
+
+[[location]]
+name = "Deimos"
+kind = "moon"
+
+[[location]]
+name = "Europa"
+kind = "moon"
+
+[[location]]
+name = "Void"
+kind = "place"
+
+[[location]]
+name = "Kuva Fortress"
+kind = "place"
+
+[[location]]
+name = "Zariman"
+kind = "place"
+
+[[location]]
+name = "Duviri"
+kind = "place"
+
+[[location]]
+name = "Höllvania"
+kind = "place"
+
+[[location]]
+name = "Dark Refractory, Deimos"
+kind = "place"
+
+[[location]]
+name = "Earth Proxima"
+kind = "proxima"
+ru = "Проксима Земли"
+
+[[location]]
+name = "Venus Proxima"
+kind = "proxima"
+ru = "Проксима Венеры"
+
+[[location]]
+name = "Saturn Proxima"
+kind = "proxima"
+ru = "Проксима Сатурна"
+
+[[location]]
+name = "Uranus Proxima"
+kind = "proxima"
+ru = "Проксима Урана"
+
+[[location]]
+name = "Neptune Proxima"
+kind = "proxima"
+ru = "Проксима Нептуна"
+
+[[location]]
+name = "Pluto Proxima"
+kind = "proxima"
+ru = "Проксима Плутона"
+
+[[location]]
+name = "Veil Proxima"
+kind = "proxima"
+ru = "Проксима Вуали"
+
+[[location]]
+name = "Sanctuary Onslaught"
+kind = "mode"
+ru = "Резня в Святилище"
+
 # --- the star chart DE does not export -----------------------------------------------------
 # Railjack nodes are absent from `ExportRegions` entirely, so these were curated by hand in
 # the previous project. The drop tables print them under the base planet ("Saturn/Kasio's
@@ -283,8 +416,14 @@ ru = "Тёмный сектор"
 # export.
 
 [[chart]]
-planet = "Earth Proxima"
-planet_ru = "Проксима Земли"
+location = "Sanctuary Onslaught"
+node = [
+  { ref = "SolNode801", en = "Sanctuary Onslaught", ru = "Резня в Святилище" },
+  { ref = "SolNode802", en = "Elite Sanctuary Onslaught", ru = "Элитная резня в Святилище" },
+]
+
+[[chart]]
+location = "Earth Proxima"
 node = [
   { ref = "CrewBattleNode502", en = "Sover Strait", ru = "Ущелье Совера" },
   { ref = "CrewBattleNode509", en = "Iota Temple", ru = "Храм Йоты" },
@@ -294,8 +433,7 @@ node = [
 ]
 
 [[chart]]
-planet = "Venus Proxima"
-planet_ru = "Проксима Венеры"
+location = "Venus Proxima"
 node = [
   { ref = "CrewBattleNode503", en = "Bifrost Echo", ru = "Эхо Бифроста" },
   { ref = "CrewBattleNode511", en = "Beacon Shield Ring", ru = "Защитное Кольцо Маяка" },
@@ -306,8 +444,7 @@ node = [
 ]
 
 [[chart]]
-planet = "Saturn Proxima"
-planet_ru = "Проксима Сатурна"
+location = "Saturn Proxima"
 node = [
   { ref = "CrewBattleNode501", en = "Mordo Cluster", ru = "Кластер Мордо" },
   { ref = "CrewBattleNode530", en = "Kasio's Rest", ru = "Перевал Казио" },
@@ -317,8 +454,7 @@ node = [
 ]
 
 [[chart]]
-planet = "Neptune Proxima"
-planet_ru = "Проксима Нептуна"
+location = "Neptune Proxima"
 node = [
   { ref = "CrewBattleNode504", en = "Arva Vector", ru = "Вектор Арвы" },
   { ref = "CrewBattleNode516", en = "Nu-gua Mines", ru = "Рудники Ню-Гуа" },
@@ -329,8 +465,7 @@ node = [
 ]
 
 [[chart]]
-planet = "Pluto Proxima"
-planet_ru = "Проксима Плутона"
+location = "Pluto Proxima"
 node = [
   { ref = "CrewBattleNode526", en = "Khufu Envoy", ru = "Посланник Хуфу" },
   { ref = "CrewBattleNode527", en = "Seven Sirens", ru = "Семь Сирен" },
@@ -341,8 +476,7 @@ node = [
 ]
 
 [[chart]]
-planet = "Veil Proxima"
-planet_ru = "Проксима Вуали"
+location = "Veil Proxima"
 node = [
   { ref = "CrewBattleNode538", en = "Calabash", ru = "Калабаш" },
   { ref = "CrewBattleNode539", en = "Numina", ru = "Нумина" },

@@ -15,6 +15,8 @@ pub struct RelicInfo {
     /// The logical relic behind all four refinements.
     pub base: String,
     pub refinement: String,
+    /// Game version that put the relic in the vault, where a source names one.
+    pub vaulted_in: Option<String>,
 }
 
 /// Payload carried only by items of a given kind.
@@ -35,6 +37,9 @@ pub struct Item {
     pub kind: Resolved<Kind>,
     pub slug: Option<Resolved<String>>,
     pub tradable: Option<Resolved<bool>>,
+    /// Whether the item is in the vault — out of the game's drop tables, obtainable only by
+    /// trade. Unset where nothing says either way.
+    pub vaulted: Option<Resolved<bool>>,
     pub prime: Resolved<bool>,
     pub ducats: Option<i64>,
     pub extra: Extra,
@@ -57,6 +62,8 @@ pub struct Set {
     pub slug: String,
     pub names: Names,
     pub ducats: Option<i64>,
+    /// Whether every part of the set is in the vault.
+    pub vaulted: Option<Resolved<bool>>,
 }
 
 /// A warframe.market imprint: a tradable breeding token for a pet. DE has no such entity —
@@ -70,7 +77,7 @@ pub struct Imprint {
     pub animal: String,
 }
 
-/// What kind of source an item drops from.
+/// What kind of place an item drops in.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum PlaceKind {
     Node,
@@ -78,7 +85,6 @@ pub enum PlaceKind {
     Sortie,
     Bounty,
     Transient,
-    Enemy,
 }
 
 impl PlaceKind {
@@ -89,7 +95,6 @@ impl PlaceKind {
             PlaceKind::Sortie => "sortie",
             PlaceKind::Bounty => "bounty",
             PlaceKind::Transient => "transient",
-            PlaceKind::Enemy => "enemy",
         }
     }
 }
@@ -109,15 +114,55 @@ pub struct Bounty {
     pub activity_ru: Option<String>,
 }
 
-/// Somewhere items drop from: a mission node, a key, a bounty, or an enemy. The drop tables
-/// print their names in English only, so the Russian side can only be written by hand.
+/// Somewhere items drop: a mission node, a key, a sortie, a bounty. The drop tables print
+/// their names in English only, so the Russian side can only be written by hand.
 #[derive(Debug, Clone, PartialEq)]
 pub struct Place {
+    /// The heading the drop tables print, kept verbatim: it is what a drop row names its
+    /// place by, so it stays the key whatever else is read out of it.
     pub name: String,
     pub name_ru: Option<String>,
     pub kind: PlaceKind,
     /// Set for bounty tables, where the printed name carries a level range and a label.
     pub bounty: Option<Bounty>,
+    /// Set for a node's reward table, where the heading names a location, a node and which
+    /// table of that node it is.
+    pub table: Option<Table>,
+}
+
+/// What a node's reward table heading says. The node it names is a separate entity, so the
+/// location and the mission type here are only what the drop tables printed — the star-chart
+/// node behind them carries the same facts as data.
+#[derive(Debug, Clone, PartialEq)]
+pub struct Table {
+    pub location: String,
+    pub node: String,
+    /// Printed beside the node: the mission type, or the table's own name (`Caches`).
+    pub label: String,
+    /// The node's second table, printed under a trailing `Extra`.
+    pub extra: bool,
+    /// A past event's table, which the drop tables keep long after its node is gone.
+    pub event: bool,
+}
+
+/// Someone the player kills for what they carry. The drop tables split an enemy's table by
+/// level range; the ranges belong to the tables, so the enemy is one node whatever its level.
+#[derive(Debug, Clone, PartialEq)]
+pub struct Enemy {
+    pub name: String,
+    pub name_ru: Option<String>,
+}
+
+/// A grouping the star chart files its nodes under. DE calls it the system name, and it is
+/// not always a planet: the Proxima regions, the Void, a city, and a mode reached from a relay
+/// are all filed the same way.
+#[derive(Debug, Clone, PartialEq)]
+pub struct Location {
+    pub name: String,
+    pub name_ru: Option<String>,
+    /// What the grouping is — `planet`, `moon`, `proxima`, `place`, `mode` — where the
+    /// reference table says. Nothing is guessed for one it does not name.
+    pub kind: Option<String>,
 }
 
 /// What one of DE's numbered enums is called, where the reference table names it.
@@ -138,11 +183,13 @@ pub struct Region {
     /// DE's key for the node, e.g. `SolNode94`.
     pub node: String,
     pub name: String,
-    /// Only where a translation exists: DE ships node names untranslated.
+    /// Only where a translation exists: DE ships most node names untranslated.
     pub name_ru: Option<String>,
-    /// The planet or system the node sits in, with DE's own translation.
-    pub planet: String,
-    pub planet_ru: Option<String>,
+    /// DE shipped this node's name in Russian and it reads the same as the English one — the
+    /// game keeps it as it is, so no translation is owed.
+    pub verbatim: bool,
+    /// The location the node sits in, by its English name.
+    pub location: String,
     pub mission: i64,
     pub mission_label: Label,
     pub faction: i64,
@@ -198,6 +245,8 @@ pub enum Node {
     Set(Set),
     Imprint(Imprint),
     Place(Place),
+    Enemy(Enemy),
+    Location(Location),
     Region(Region),
     Vendor(Vendor),
     Lab(Lab),
@@ -223,9 +272,19 @@ pub fn place_id(name: &str) -> String {
     format!("place:{name}")
 }
 
+/// Node id of an enemy, by its printed name.
+pub fn enemy_id(name: &str) -> String {
+    format!("enemy:{name}")
+}
+
 /// Node id of a star-chart node, by DE's key for it.
 pub fn region_id(node: &str) -> String {
     format!("region:{node}")
+}
+
+/// Node id of a location, by its English name.
+pub fn location_id(name: &str) -> String {
+    format!("location:{name}")
 }
 
 /// Node id of a vendor, by our own key for them.
@@ -247,6 +306,8 @@ impl Node {
             Node::Set(s) => set_id(&s.slug),
             Node::Imprint(i) => imprint_id(&i.slug),
             Node::Place(p) => place_id(&p.name),
+            Node::Enemy(e) => enemy_id(&e.name),
+            Node::Location(l) => location_id(&l.name),
             Node::Region(r) => region_id(&r.node),
             Node::Vendor(v) => vendor_id(&v.key),
             Node::Lab(l) => lab_id(&l.key),
@@ -261,6 +322,8 @@ impl Node {
             Node::Set(s) => &s.names.en.value,
             Node::Imprint(i) => &i.names.en.value,
             Node::Place(p) => &p.name,
+            Node::Enemy(e) => &e.name,
+            Node::Location(l) => &l.name,
             Node::Region(r) => &r.name,
             Node::Vendor(v) => &v.name,
             Node::Lab(l) => &l.name,
@@ -275,6 +338,8 @@ impl Node {
             Node::Set(s) => s.names.ru.as_ref().map(|r| r.value.as_str()),
             Node::Imprint(i) => i.names.ru.as_ref().map(|r| r.value.as_str()),
             Node::Place(p) => p.name_ru.as_deref(),
+            Node::Enemy(e) => e.name_ru.as_deref(),
+            Node::Location(l) => l.name_ru.as_deref(),
             Node::Region(r) => r.name_ru.as_deref(),
             Node::Vendor(v) => v.name_ru.as_deref(),
             Node::Lab(l) => l.name_ru.as_deref(),

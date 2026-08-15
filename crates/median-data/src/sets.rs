@@ -17,16 +17,20 @@ pub fn link(graph: &mut Graph, bridge: &Bridge<'_>) {
                 ru: info.item.ru_name.clone().map(claim),
             },
             ducats: info.item.ducats,
+            vaulted: None,
         }));
 
+        // Read through the bridge rather than off the listing's own reference: the market
+        // points a `…_blueprint` listing at the component that blueprint builds, and the set
+        // is made of the parts it trades.
         for member in &info.members {
-            let Some(game_ref) = member.game_ref.as_deref() else {
+            let Some((path, _)) = bridge.matched().get(&member.slug) else {
                 continue;
             };
-            if graph.has(game_ref) {
+            if graph.has(path) {
                 graph.link(Edge {
                     from: id.clone(),
-                    to: game_ref.to_string(),
+                    to: path.clone(),
                     rel: Rel::Member,
                 });
             }

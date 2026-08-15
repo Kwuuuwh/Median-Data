@@ -148,6 +148,9 @@ pub fn row(snap: &Snapshot, item: &Item) -> Markup {
                     None => span.tag { "?" },
                 }
                 @if let Some(d) = item.ducats { " " span.tag { (number(d)) " дук." } }
+                @if item.vaulted.as_ref().is_some_and(|v| v.value) {
+                    " " span.tag.bad { "в хранилище" }
+                }
                 @if snap.scope.reason(&item.unique_name).is_some() {
                     " " span.tag.bad { "не в поставке" }
                 }
@@ -220,6 +223,7 @@ fn only(snap: &Snapshot, filter: &Filter) -> Markup {
         ("ru", "без русского имени"),
         ("source", "неизвестно, откуда"),
         ("trade", "торгуется"),
+        ("vault", "в хранилище"),
         ("craft", "есть рецепт"),
         ("held", "не в поставке"),
     ];
@@ -260,6 +264,7 @@ fn keeps(snap: &Snapshot, filter: &Filter, item: &Item) -> bool {
                 && !graph::obtainable(&snap.graph, &item.unique_name)
         }
         "trade" => item.tradable.as_ref().is_some_and(|t| t.value),
+        "vault" => item.vaulted.as_ref().is_some_and(|v| v.value),
         "craft" => graph::producer(&snap.graph, &item.unique_name).is_some(),
         "held" => snap.scope.reason(&item.unique_name).is_some(),
         _ => true,

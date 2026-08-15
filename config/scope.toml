@@ -19,3 +19,14 @@ tier_duplicates = true
 [[exclude]]
 reason = "DE placeholder: a pet body-type record, not an item a player owns"
 name_equals = ["Helmet Or Syandana"]
+
+[[exclude]]
+reason = "DE placeholder: the generic relic the game draws before one is identified"
+name_equals = [
+  "Void Relic",
+  "Lith Relic",
+  "Meso Relic",
+  "Neo Relic",
+  "Axi Relic",
+  "Requiem Relic",
+]

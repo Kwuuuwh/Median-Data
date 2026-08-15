@@ -115,6 +115,17 @@ pub fn termed(snap: &mut Snapshot, kind: &str, key: &str, ru: &str) {
     touched(snap);
 }
 
+/// Record, or take back, the verdict that a name stays as the game writes it.
+pub fn verbatim(snap: &mut Snapshot, kind: &str, key: &str, note: &str, kept: bool) {
+    let judged = &mut snap.decided.verbatim;
+    judged.retain(|(k, id, _)| k != kind || id != key);
+    if kept {
+        judged.push((kind.into(), key.into(), note.trim().into()));
+        judged.sort();
+    }
+    touched(snap);
+}
+
 fn write_term(snap: &mut Snapshot, kind: &str, key: &str, ru: &str) {
     let word = || Some(ru.to_string());
     match kind {
@@ -122,6 +133,16 @@ fn write_term(snap: &mut Snapshot, kind: &str, key: &str, ru: &str) {
         "place" => {
             if let Some(Node::Place(p)) = snap.graph.get_mut(&graph::place_id(key)) {
                 p.name_ru = word();
+            }
+        }
+        "enemy" => {
+            if let Some(Node::Enemy(e)) = snap.graph.get_mut(&graph::enemy_id(key)) {
+                e.name_ru = word();
+            }
+        }
+        "location" => {
+            if let Some(Node::Location(l)) = snap.graph.get_mut(&graph::location_id(key)) {
+                l.name_ru = word();
             }
         }
         "region" => {
@@ -139,8 +160,8 @@ fn write_term(snap: &mut Snapshot, kind: &str, key: &str, ru: &str) {
                 l.name_ru = word();
             }
         }
-        // A planet, a mission type, a faction and a bounty's words are carried by every node
-        // that uses them, so each one is written wherever it appears.
+        // A mission type, a faction and a bounty's words are carried by every node that uses
+        // them, so each one is written wherever it appears.
         other => spread(snap, other, key, ru),
     }
 }
@@ -149,7 +170,6 @@ fn spread(snap: &mut Snapshot, kind: &str, key: &str, ru: &str) {
     for node in snap.graph.nodes_mut() {
         match node {
             Node::Region(r) => match kind {
-                "planet" if r.planet == key => r.planet_ru = Some(ru.to_string()),
                 "mission" if r.mission_label.en.as_deref() == Some(key) => {
                     r.mission_label.ru = Some(ru.to_string())
                 }
@@ -158,6 +178,9 @@ fn spread(snap: &mut Snapshot, kind: &str, key: &str, ru: &str) {
                 }
                 "node_type" if r.type_label.en.as_deref() == Some(key) => {
                     r.type_label.ru = Some(ru.to_string())
+                }
+                "tileset" if r.tileset.en.as_deref() == Some(key) => {
+                    r.tileset.ru = Some(ru.to_string())
                 }
                 _ => {}
             },

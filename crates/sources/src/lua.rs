@@ -79,13 +79,22 @@ impl Value {
 /// module is Lua, not JSON: it holds several assignments, comments and a `return`, and only
 /// one of them is the data.
 pub fn table_of(src: &str, name: &str) -> Result<Table> {
-    let start = assignment(src, name)
-        .ok_or_else(|| anyhow!("no table assigned to '{name}' in this module"))?;
-    let mut p = Parser {
-        src: src.as_bytes(),
-        at: start,
-    };
-    p.table()
+    let mut found = None;
+    // A module may declare the name empty and fill it further down; the data is the first
+    // assignment that holds anything.
+    for start in assignments(src, name) {
+        let mut p = Parser {
+            src: src.as_bytes(),
+            at: start,
+        };
+        let table = p.table()?;
+        let empty = table.items.is_empty() && table.fields.is_empty();
+        if !empty {
+            return Ok(table);
+        }
+        found.get_or_insert(table);
+    }
+    found.ok_or_else(|| anyhow!("no table assigned to '{name}' in this module"))
 }
 
 /// Read the table a module returns directly, for the ones that skip the named local and
@@ -123,9 +132,11 @@ fn assignment_after(src: &str, keyword: &str) -> Option<usize> {
     None
 }
 
-/// Byte offset of the `{` opening the table assigned to `name`.
-fn assignment(src: &str, name: &str) -> Option<usize> {
+/// Byte offsets of every `{` opening a table assigned to `name`, in the order they are
+/// written.
+fn assignments(src: &str, name: &str) -> Vec<usize> {
     let bytes = src.as_bytes();
+    let mut out = Vec::new();
     let mut from = 0;
     while let Some(hit) = src[from..].find(name) {
         let at = from + hit;
@@ -148,11 +159,11 @@ fn assignment(src: &str, name: &str) -> Option<usize> {
         if p.take(b'=') {
             p.space();
             if p.peek() == Some(b'{') {
-                return Some(p.at);
+                out.push(p.at);
             }
         }
     }
-    None
+    out
 }
 
 fn is_word(b: u8) -> bool {

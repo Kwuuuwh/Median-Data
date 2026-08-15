@@ -25,6 +25,11 @@ pub struct Built {
     /// Drop-table relic rewards resolved to catalog paths, to check DE against.
     pub relic_witness: Vec<RelicClaim>,
     pub places: usize,
+    pub enemies: usize,
+    /// What the vault pass settled.
+    pub vaulted: crate::vaulting::Vaulted,
+    /// Drop rows the tables print twice, kept once.
+    pub repeated: usize,
     /// What tying the star chart to the drop tables produced.
     pub star_chart: Linked,
     /// What the wiki says about our reference labels.
@@ -81,6 +86,8 @@ pub struct Input {
     pub wfm: Vec<WfmItem>,
     pub drops: Vec<Drop>,
     pub relic_rows: Vec<RelicRow>,
+    /// What the wiki says about which relics are in the vault.
+    pub vaulting: Vec<crate::wiki::Vaulting>,
 }
 
 /// Merge every source into the knowledge graph, honouring curated decisions.
@@ -162,9 +169,16 @@ pub fn assemble(
     let primed = primes::link(&mut graph);
     let fitted = drifters::link(&mut graph);
 
-    let before = graph.len();
-    let missed = drops::link(&mut graph, &input.drops, settlements, &index, &terms);
-    let places = graph.len() - before;
+    let dropped = drops::link(&mut graph, &input.drops, settlements, &index, &terms);
+    let missed = &dropped.missed;
+    let vaulted = crate::vaulting::mark(
+        &mut graph,
+        &input.vaulting,
+        &input.wfm,
+        &matched,
+        &curated.picks(),
+        &mut conflicts,
+    );
     let wiki_witness = regions::witness(&input.regions, &input.chart, labels);
     let star_chart = regions::link(
         &mut graph,
@@ -197,10 +211,19 @@ pub fn assemble(
             unresolved_rewards: unresolved_rewards.into_iter().collect(),
             dangling_craft: dangling_craft.into_iter().collect(),
             unknown_drop_items: missed.unknown.keys().cloned().collect(),
+            verbatim: curated
+                .verbatim()
+                .into_iter()
+                .filter(|(kind, _)| *kind == "item")
+                .map(|(_, key)| key.to_string())
+                .collect(),
         },
         orphans,
         relic_witness,
-        places,
+        places: dropped.places,
+        enemies: dropped.enemies,
+        vaulted,
+        repeated: missed.repeated,
         star_chart,
         witness: wiki_witness,
         keyless: input.chart.keyless,
@@ -224,16 +247,19 @@ pub fn assemble(
 /// Resolve printed drop-table relic rows to catalog paths. Rows naming something the
 /// catalog lacks are dropped: coverage already reports those.
 fn witness(index: &Index, rows: &[RelicRow]) -> Vec<RelicClaim> {
-    rows.iter()
-        .filter_map(|row| {
-            let relic = index.relic(&row.relic, &row.refinement)?;
-            let (_, printed) = names::quantity(&row.reward);
-            let reward = index.get(printed)?;
-            Some(RelicClaim {
-                relic: relic.to_string(),
+    let mut out = Vec::new();
+    for row in rows {
+        let (_, printed) = names::quantity(&row.reward);
+        let Some(reward) = index.get(printed) else {
+            continue;
+        };
+        for relic in index.relics(&row.relic, &row.refinement) {
+            out.push(RelicClaim {
+                relic: relic.clone(),
                 reward: reward.to_string(),
                 chance: row.chance,
-            })
-        })
-        .collect()
+            });
+        }
+    }
+    out
 }

@@ -42,6 +42,16 @@ pub struct NameForm {
 }
 
 #[derive(Deserialize)]
+pub struct VerbatimForm {
+    kind: String,
+    key: String,
+    #[serde(default)]
+    note: String,
+    #[serde(default)]
+    show: String,
+}
+
+#[derive(Deserialize)]
 pub struct TermForm {
     kind: String,
     key: String,
@@ -150,9 +160,10 @@ pub async fn name(
         return match form.frag.as_str() {
             "catalog" => match catalog::item(&snap, &form.item) {
                 Some(item) => catalog::row(&snap, item).into_response(),
-                None => html! { tr { td { "предмет исчез — пересоберите" } } }.into_response(),
+                None => html! { tr { td { "предмета нет в снимке: нужна пересборка" } } }
+                    .into_response(),
             },
-            _ => localize::row_of(&snap, "item", &form.item, form.show == "done").into_response(),
+            _ => localize::row_of(&snap, "item", &form.item, &form.show).into_response(),
         };
     }
     Redirect::to(&format!("/entity?q={}", encode(&form.item))).into_response()
@@ -167,15 +178,49 @@ pub async fn term(
         return failed("не удалось записать слово", e);
     }
     studio.patch(|snap| patch::termed(snap, &form.kind, &form.key, &form.ru));
-    let done = form.show == "done";
     if htmx(&headers) {
-        return localize::row_of(&studio.read(), &form.kind, &form.key, done).into_response();
+        return localize::row_of(&studio.read(), &form.kind, &form.key, &form.show).into_response();
     }
-    let back = match done {
-        true => format!("/localize?what={}&show=done", encode(&form.kind)),
-        false => format!("/localize?what={}", encode(&form.kind)),
-    };
-    Redirect::to(&back).into_response()
+    Redirect::to(&back_to(&form.kind, &form.show)).into_response()
+}
+
+/// Judge that a name stays as the game writes it, or ask for a Russian one again.
+pub async fn verbatim(
+    State(studio): State<Shared>,
+    headers: HeaderMap,
+    Form(form): Form<VerbatimForm>,
+) -> Response {
+    if let Err(e) = studio.store.verbatim(&form.kind, &form.key, &form.note) {
+        return failed("не удалось записать решение", e);
+    }
+    studio.patch(|snap| patch::verbatim(snap, &form.kind, &form.key, &form.note, true));
+    if htmx(&headers) {
+        return localize::row_of(&studio.read(), &form.kind, &form.key, &form.show).into_response();
+    }
+    Redirect::to(&back_to(&form.kind, &form.show)).into_response()
+}
+
+pub async fn unverbatim(
+    State(studio): State<Shared>,
+    headers: HeaderMap,
+    Form(form): Form<VerbatimForm>,
+) -> Response {
+    if let Err(e) = studio.store.unverbatim(&form.kind, &form.key) {
+        return failed("не удалось снять решение", e);
+    }
+    studio.patch(|snap| patch::verbatim(snap, &form.kind, &form.key, "", false));
+    if htmx(&headers) {
+        return localize::row_of(&studio.read(), &form.kind, &form.key, &form.show).into_response();
+    }
+    Redirect::to(&back_to(&form.kind, &form.show)).into_response()
+}
+
+/// The list a decision was made from.
+fn back_to(kind: &str, show: &str) -> String {
+    match show.is_empty() {
+        true => format!("/localize?what={}", encode(kind)),
+        false => format!("/localize?what={}&show={}", encode(kind), encode(show)),
+    }
 }
 
 pub async fn pick(State(studio): State<Shared>, Form(form): Form<PickForm>) -> Response {

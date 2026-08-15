@@ -114,10 +114,30 @@ pub fn row(snap: &Snapshot, names: &Names, u: &Unresolved) -> Markup {
                 }
             }
             .path { (u.key) }
-            @if !u.hint.is_empty() { p.note { (u.hint) } }
+            (sighting(snap, u))
             (search(&u.source, &u.key, &u.name))
             div id={ "cand-" (id) } { (candidates(snap, names, &u.source, &u.key, &u.name)) }
             (not_an_item(&u.source, &u.key))
+        }
+    }
+}
+
+/// Where the source printed the name. A node the graph holds is named the way the rest of
+/// Studio names it — a Russian name over the English one, with what it is beside it.
+fn sighting(snap: &Snapshot, u: &Unresolved) -> Markup {
+    if u.hint.is_empty() {
+        return html! {};
+    }
+    html! {
+        p.note {
+            "встретилось у: "
+            @match snap.graph.get(&u.hint) {
+                Some(node) => {
+                    span.tag.kind { (words::node(node)) } " "
+                    (page::plain(&snap.graph, &u.hint))
+                }
+                None => (u.hint),
+            }
         }
     }
 }
@@ -156,7 +176,7 @@ pub fn candidates(snap: &Snapshot, names: &Names, source: &str, key: &str, query
     let hits = names.best(query, OPTIONS);
     html! {
         @if hits.is_empty() {
-            p.note { "Ничего похожего. Попробуйте другое написание — связь можно записать только на существующий предмет." }
+            p.note { "Ничего похожего. Связь записывается только на предмет, который есть в каталоге." }
         } @else {
             .opts {
                 @for hit in &hits {
@@ -206,15 +226,21 @@ pub fn dropped(source: &str, key: &str, note: &str) -> Markup {
 }
 
 /// A candidate as its picture, its Russian name and its English one. The marking goes on the
-/// English name: that is what the sources print and what the query was scored against.
+/// name written in the language the query is in: a source prints English, a person looking a
+/// name up types Russian.
 fn marked(snap: &Snapshot, hit: &fuzzy::Hit, query: &str) -> Markup {
     let (primary, secondary) = page::names(&snap.graph, &hit.path);
     let href = format!("/entity?q={}", encode(&hit.path));
+    let asked_ru = query.chars().any(|c| c.is_alphabetic() && !c.is_ascii());
     html! {
         a.iref href=(href) {
             img.iref-icon src={ "/icon?q=" (encode(&hit.path)) "&lang=ru" } alt="" loading="lazy";
             span.iref-text {
                 @match secondary {
+                    Some(en) if asked_ru => {
+                        span.iref-ru { (fuzzy::diff(primary, query)) }
+                        span.iref-en { (en) }
+                    }
                     Some(en) => {
                         span.iref-ru { (primary) }
                         span.iref-en { (fuzzy::diff(en, query)) }

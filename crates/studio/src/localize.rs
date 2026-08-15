@@ -35,10 +35,15 @@ impl Filter {
         self.show == "done"
     }
 
+    /// Names judged to stay as the game writes them.
+    fn kept(&self) -> bool {
+        self.show == "kept"
+    }
+
     fn hidden(&self) -> Vec<(&str, &str)> {
         let mut out = vec![("what", self.what())];
-        if self.done() {
-            out.push(("show", "done"));
+        if !self.show.is_empty() {
+            out.push(("show", self.show.as_str()));
         }
         out
     }
@@ -50,8 +55,13 @@ impl Filter {
 pub fn render(snap: &Snapshot, filter: &Filter, q: &Query) -> Markup {
     let what = filter.what();
     let done = filter.done();
+    let kept = filter.kept();
     let mut rows = terms::rows(snap, what);
-    rows.retain(|r| r.ru.is_some() == done);
+    rows.retain(|r| match (done, kept) {
+        (_, true) => r.verbatim.is_some(),
+        (true, _) => r.ru.is_some(),
+        _ => r.ru.is_none() && r.verbatim.is_none(),
+    });
     rows.retain(|r| {
         q.matches(&format!(
             "{} {} {}",
@@ -103,16 +113,24 @@ pub fn render(snap: &Snapshot, filter: &Filter, q: &Query) -> Markup {
                     }
                 }
                 .chips.sub {
-                    a class=@if done { "pick" } @else { "pick on" }
-                      href={ "/localize?what=" (encode(what)) } { "нужен перевод" }
+                    @let base = format!("/localize?what={}", encode(what));
+                    a class=@if done || kept { "pick" } @else { "pick on" }
+                      href=(base) { "нужен перевод" }
                     a class=@if done { "pick on" } @else { "pick" }
-                      href={ "/localize?what=" (encode(what)) "&show=done" } { "правки" }
+                      href={ (base) "&show=done" } { "правки" }
+                    @let judged = snap.decided.verbatim.iter()
+                        .filter(|(kind, _, _)| kind == what).count();
+                    a class=@if kept { "pick on" } @else { "pick" }
+                      href={ (base) "&show=kept" } {
+                        "без перевода " span.num { (number(judged as i64)) }
+                    }
                 }
                 (list::controls("/localize", q, &hidden, "имя или ключ…"))
 
                 @if page.is_empty() {
                     .empty {
-                        @if done { "Здесь пока ничего не переведено." }
+                        @if kept { "Ни одно имя не оставлено английским." }
+                        @else if done { "Здесь пока ничего не переведено." }
                         @else { "Переводить нечего — всё названо." }
                     }
                 } @else {
@@ -121,7 +139,7 @@ pub fn render(snap: &Snapshot, filter: &Filter, q: &Query) -> Markup {
                             th { "Английское имя" } th { "Что это" } th { "Русское имя" }
                         } }
                         tbody {
-                            @for row in &page.rows { (line(what, row, done)) }
+                            @for row in &page.rows { (line(what, row, &filter.show)) }
                         }
                     } }
                 }
@@ -138,8 +156,21 @@ pub fn render(snap: &Snapshot, filter: &Filter, q: &Query) -> Markup {
 /// not shown: for an item it is a DE path, and the entity page behind the name carries it. A
 /// row keeps its place in the to-do list after a name is written, so it is marked as settled
 /// rather than looking like work that is still waiting.
-pub fn line(what: &str, row: &Row, done: bool) -> Markup {
+pub fn line(what: &str, row: &Row, show: &str) -> Markup {
     let action = if what == "item" { "/name" } else { "/term" };
+    let key = |markup: Markup| {
+        html! {
+            @if what == "item" {
+                input type="hidden" name="item" value=(row.key);
+            } @else {
+                input type="hidden" name="kind" value=(what);
+                input type="hidden" name="key" value=(row.key);
+            }
+            input type="hidden" name="frag" value="localize";
+            input type="hidden" name="show" value=(show);
+            (markup)
+        }
+    };
     html! {
         tr id={ "t-" (slug(what)) "-" (slug(&row.key)) } {
             td {
@@ -153,21 +184,36 @@ pub fn line(what: &str, row: &Row, done: bool) -> Markup {
                 .ru-cell {
                     form.inline hx-post=(action) hx-target="closest tr" hx-swap="outerHTML"
                          action=(action) method="post" {
-                        @if what == "item" {
-                            input type="hidden" name="item" value=(row.key);
-                        } @else {
-                            input type="hidden" name="kind" value=(what);
-                            input type="hidden" name="key" value=(row.key);
-                        }
-                        input type="hidden" name="frag" value="localize";
-                        input type="hidden" name="show" value=(if done { "done" } else { "" });
-                        input type="text" name="ru" value=(row.ru.clone().unwrap_or_default())
-                              placeholder="русское имя";
-                        button type="submit" { "OK" }
+                        (key(html! {
+                            input type="text" name="ru"
+                                  value=(row.ru.clone().unwrap_or_default())
+                                  placeholder="русское имя";
+                            button type="submit" { "OK" }
+                        }))
                     }
                     @if let Some(from) = row.from { (prov(from)) }
-                    @if row.ru.is_none() { span.tag.bad { "нет" } }
-                    @else if !done { span.tag.trade { "записано" } }
+                    @match (&row.verbatim, &row.ru) {
+                        (Some(_), _) => span.tag { "без перевода" },
+                        (None, None) => span.tag.bad { "нет" },
+                        (None, Some(_)) => {
+                            @if show != "done" { span.tag.trade { "записано" } }
+                        }
+                    }
+                    @if what != "item" {
+                        @let verdict = match row.verbatim {
+                            Some(_) => "/unverbatim",
+                            None => "/verbatim",
+                        };
+                        form.inline hx-post=(verdict) hx-target="closest tr"
+                             hx-swap="outerHTML" action=(verdict) method="post" {
+                            (key(html! {
+                                button.plain type="submit" {
+                                    @if row.verbatim.is_some() { "Вернуть в перевод" }
+                                    @else { "Не переводится" }
+                                }
+                            }))
+                        }
+                    }
                 }
             }
         }
@@ -326,10 +372,10 @@ fn undo(action: &str, fields: &[(&str, &str)]) -> Markup {
     }
 }
 
-/// The row a person just wrote a name into, for the fragment that replaces it.
-pub fn row_of(snap: &Snapshot, what: &str, key: &str, done: bool) -> Markup {
+/// The row a person just decided about, for the fragment that replaces it.
+pub fn row_of(snap: &Snapshot, what: &str, key: &str, show: &str) -> Markup {
     match terms::rows(snap, what).into_iter().find(|r| r.key == key) {
-        Some(row) => line(what, &row, done),
-        None => html! { tr { td colspan="3" { "строка исчезла — пересоберите" } } },
+        Some(row) => line(what, &row, show),
+        None => html! { tr { td colspan="3" { "строки нет в снимке: нужна пересборка" } } },
     }
 }

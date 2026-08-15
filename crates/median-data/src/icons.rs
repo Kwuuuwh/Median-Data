@@ -243,6 +243,7 @@ pub type Pictures = BTreeMap<String, BTreeMap<String, (String, Source)>>;
 /// market's card wins where there is one, because DE only offered artwork there.
 pub fn pictures(
     vault: &Vault,
+    graph: &Graph,
     cards: &BTreeMap<String, BTreeMap<String, String>>,
     textures: &BTreeMap<String, String>,
 ) -> Pictures {
@@ -283,6 +284,26 @@ pub fn pictures(
             }
         }
     }
+
+    // A trade set is a way to buy an item, not a thing of its own: it is drawn as what it
+    // assembles into.
+    let mut assembled = Vec::new();
+    for node in graph.nodes() {
+        let graph::Node::Set(_) = node else { continue };
+        let id = node.id();
+        let Some(built) = graph
+            .from(&id)
+            .into_iter()
+            .find(|e| e.rel == graph::Rel::Represents)
+            .map(|e| e.to.clone())
+        else {
+            continue;
+        };
+        if let Some(langs) = out.get(&built) {
+            assembled.push((id, langs.clone()));
+        }
+    }
+    out.extend(assembled);
 
     let custom = pinned(vault, "custom-icons");
     if let Some(blob) = custom.get("RegalAya.png") {

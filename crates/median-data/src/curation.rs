@@ -27,6 +27,8 @@ pub struct Curation {
     pub accept: Vec<Accept>,
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub dismiss: Vec<Dismiss>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub verbatim: Vec<Verbatim>,
 }
 
 /// A name one source uses tied to the catalog item it means, where the source's own
@@ -84,6 +86,16 @@ pub struct Accept {
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct Dismiss {
     pub source: String,
+    pub key: String,
+    #[serde(default)]
+    pub note: String,
+}
+
+/// A name the game keeps in English, so no Russian is owed: it is written that way in the
+/// game itself. Kept apart from a translation — this says a name was judged, not rendered.
+#[derive(Debug, Clone, Deserialize, Serialize)]
+pub struct Verbatim {
+    pub kind: String,
     pub key: String,
     #[serde(default)]
     pub note: String,
@@ -222,6 +234,31 @@ impl Curation {
     }
 
     /// Printed names declared to name no item, keyed by source and name.
+    /// What was judged to stay English, by what it names and its key.
+    pub fn verbatim(&self) -> BTreeSet<(&str, &str)> {
+        self.verbatim
+            .iter()
+            .map(|v| (v.kind.as_str(), v.key.as_str()))
+            .collect()
+    }
+
+    /// Declare that a name stays as the game writes it.
+    pub fn set_verbatim(&mut self, kind: &str, key: &str, note: &str) {
+        self.clear_verbatim(kind, key);
+        self.verbatim.push(Verbatim {
+            kind: kind.to_string(),
+            key: key.to_string(),
+            note: note.trim().to_string(),
+        });
+        self.verbatim
+            .sort_by(|a, b| (&a.kind, &a.key).cmp(&(&b.kind, &b.key)));
+    }
+
+    /// Ask for a Russian name again.
+    pub fn clear_verbatim(&mut self, kind: &str, key: &str) {
+        self.verbatim.retain(|v| v.kind != kind || v.key != key);
+    }
+
     pub fn dismissed(&self) -> BTreeSet<(&str, &str)> {
         self.dismiss
             .iter()
@@ -274,6 +311,11 @@ impl Curation {
                 .iter()
                 .map(|d| (d.source.clone(), d.key.clone(), d.note.clone()))
                 .collect(),
+            verbatim: self
+                .verbatim
+                .iter()
+                .map(|v| (v.kind.clone(), v.key.clone(), v.note.clone()))
+                .collect(),
         }
     }
 }
@@ -313,8 +355,12 @@ pub fn save(path: &Path, curation: &Curation) -> Result<()> {
     if let Some(dir) = path.parent() {
         std::fs::create_dir_all(dir)?;
     }
-    std::fs::write(path, format!("{HEADER}{body}"))
-        .with_context(|| format!("write {}", path.display()))
+    // Written beside the file and moved into place, so an interrupted write cannot leave a
+    // half-file where every decision made so far lives.
+    let staging = path.with_extension("toml.writing");
+    std::fs::write(&staging, format!("{HEADER}{body}"))
+        .with_context(|| format!("write {}", staging.display()))?;
+    std::fs::rename(&staging, path).with_context(|| format!("replace {}", path.display()))
 }
 
 #[cfg(test)]

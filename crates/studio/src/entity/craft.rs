@@ -10,6 +10,7 @@ pub fn render(graph: &Graph, id: &str) -> Markup {
     html! {
         (built_here(graph, id))
         (needed_for(graph, id))
+        (made_of(graph, id))
         (sets(graph, id))
         (variants(graph, id))
         (wearers(graph, id))
@@ -132,6 +133,50 @@ fn needed_for(graph: &Graph, id: &str) -> Markup {
                 }
             } }
         }),
+    )
+}
+
+/// What a trade set is made of, shown on the set's own page: the parts it trades and the
+/// item they assemble into.
+fn made_of(graph: &Graph, id: &str) -> Markup {
+    let Some(Node::Set(set)) = graph.get(id) else {
+        return html! {};
+    };
+    let members: Vec<&str> = graph
+        .from(id)
+        .into_iter()
+        .filter(|e| e.rel == Rel::Member)
+        .map(|e| e.to.as_str())
+        .collect();
+
+    card(
+        "Состав набора",
+        Some(html! {
+            span.card-n[!members.is_empty()].hot[members.is_empty()] {
+                (members.len()) " " (words::plural(members.len(), "часть", "части", "частей"))
+            }
+        }),
+        html! {
+            @if members.is_empty() {
+                p.note { "Рынок не перечислил ни одной части этого набора." }
+            } @else {
+                .strip {
+                    @for member in &members { (tile(graph, member, None, false)) }
+                    @if let Some(built) = represents(graph, id) {
+                        span.arrow { "→" }
+                        (tile(graph, built, None, false))
+                    }
+                }
+            }
+            .tags {
+                @if let Some(d) = set.ducats { span.tag { (number(d)) " дук." } }
+                @match set.vaulted.as_ref().map(|v| v.value) {
+                    Some(true) => span.tag.bad { "в хранилище" },
+                    Some(false) => span.tag.trade { "добывается" },
+                    None => {}
+                }
+            }
+        },
     )
 }
 

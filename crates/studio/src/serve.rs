@@ -86,6 +86,8 @@ pub async fn run(addr: &str, store: Box<dyn Store>) -> Result<()> {
         .route("/undismiss", post(act::undismiss))
         .route("/name", post(act::name))
         .route("/term", post(act::term))
+        .route("/verbatim", post(act::verbatim))
+        .route("/unverbatim", post(act::unverbatim))
         .route("/pick", post(act::pick))
         .route("/accept", post(act::accept))
         .route("/unaccept", post(act::unaccept))
@@ -96,9 +98,23 @@ pub async fn run(addr: &str, store: Box<dyn Store>) -> Result<()> {
         .with_state(studio);
 
     let listener = tokio::net::TcpListener::bind(addr).await?;
-    println!("Studio on http://{addr}");
+    let local = listener.local_addr()?;
+    println!("Studio on http://{local}");
+    // Bound to every interface, so the address to hand to someone else is the machine's own.
+    if local.ip().is_unspecified()
+        && let Some(host) = host_address()
+    {
+        println!("Studio on http://{host}:{} for this network", local.port());
+    }
     axum::serve(listener, app).await?;
     Ok(())
+}
+
+/// The address this machine has on its network, read off a socket that never sends anything.
+fn host_address() -> Option<std::net::IpAddr> {
+    let probe = std::net::UdpSocket::bind("0.0.0.0:0").ok()?;
+    probe.connect("192.168.0.1:9").ok()?;
+    probe.local_addr().ok().map(|a| a.ip())
 }
 
 /// Every screen's list controls, flat: a nested struct cannot be read out of a query string.

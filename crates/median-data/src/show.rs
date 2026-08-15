@@ -57,10 +57,21 @@ fn print(graph: &Graph, node: &Node) {
             println!("  animal   {}", i.animal);
         }
         Node::Place(p) => println!("  kind     {}", p.kind.as_str()),
+        Node::Enemy(e) => {
+            if let Some(ru) = &e.name_ru {
+                println!("  ru       {ru}");
+            }
+        }
+        Node::Location(l) => {
+            println!("  kind     {}", l.kind.as_deref().unwrap_or("?"));
+            if let Some(ru) = &l.name_ru {
+                println!("  ru       {ru}");
+            }
+        }
         Node::Vendor(v) => println!("  vendor   {} (rotates {})", v.name, v.rotates),
         Node::Lab(l) => println!("  lab      {} ({})", l.name, l.faction),
         Node::Region(r) => {
-            println!("  planet   {}", r.planet);
+            println!("  location {}", r.location);
             println!(
                 "  mission  {} ({})",
                 r.mission_label.en.as_deref().unwrap_or("?"),
