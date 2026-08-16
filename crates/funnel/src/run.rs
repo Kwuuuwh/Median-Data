@@ -23,6 +23,8 @@ pub struct Input<'a> {
     pub taxonomy: &'a graph::Taxonomy,
     /// Classification rules that decided nothing in this data, as the build describes them.
     pub dead_rules: Vec<String>,
+    /// Headings a parser knew the layout of and still could not place.
+    pub unread_headings: Vec<String>,
     /// Whether an entity is part of what the product ships. What the scope policy holds back
     /// is DE's own duplicates and placeholders, and judging those says nothing about the
     /// catalog — only an invariant still applies to them.
@@ -45,7 +47,12 @@ pub fn run(graph: &Graph, input: Input<'_>) -> (Report, State) {
     all.extend(outlier::check(graph));
     all.extend(coverage::check(graph, &input.gaps));
     all.extend(anchor::check(graph, input.anchors));
-    all.extend(silence::check(graph, input.taxonomy, &input.dead_rules));
+    all.extend(silence::check(
+        graph,
+        input.taxonomy,
+        &input.dead_rules,
+        &input.unread_headings,
+    ));
 
     let before = all.len();
     all.retain(|f| {

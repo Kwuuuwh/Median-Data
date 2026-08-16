@@ -73,6 +73,7 @@ CREATE TABLE relic_rewards (
   reward TEXT NOT NULL,
   rarity TEXT NOT NULL,
   count  INTEGER NOT NULL,
+  chance REAL,
   PRIMARY KEY (relic, reward, rarity)
 ) WITHOUT ROWID;
 CREATE TABLE relics (
@@ -80,12 +81,6 @@ CREATE TABLE relics (
   base        TEXT NOT NULL,
   refinement  TEXT NOT NULL,
   vaulted_in  TEXT
-) WITHOUT ROWID;
-CREATE TABLE relic_chances (
-  rarity     TEXT NOT NULL,
-  refinement TEXT NOT NULL,
-  chance     REAL NOT NULL,
-  PRIMARY KEY (rarity, refinement)
 ) WITHOUT ROWID;
 CREATE TABLE sets (
   slug    TEXT PRIMARY KEY,
@@ -292,7 +287,6 @@ impl Projection for Catalog {
         // What this file is, written first so a reader can decide whether to read the rest.
         tx.execute_batch(SETUP)?;
         stamp(tx, ctx)?;
-        reference(tx)?;
         tree(tx, ctx)?;
         let items = nodes(tx, ctx)?;
         edges(tx, ctx.graph)?;
@@ -313,15 +307,6 @@ fn stamp(tx: &Transaction<'_>, ctx: &Context<'_>) -> Result<()> {
     insert.execute(("fold", FOLD))?;
     for (key, value) in ctx.meta {
         insert.execute((key, value))?;
-    }
-    Ok(())
-}
-
-fn reference(tx: &Transaction<'_>) -> Result<()> {
-    let mut chances =
-        tx.prepare("INSERT INTO relic_chances (rarity, refinement, chance) VALUES (?1, ?2, ?3)")?;
-    for (rarity, refinement, chance) in graph::CHANCES {
-        chances.execute((rarity, refinement, chance))?;
     }
     Ok(())
 }
@@ -567,7 +552,8 @@ fn edges(tx: &Transaction<'_>, graph: &Graph) -> Result<()> {
     // Not `OR IGNORE`: a relic awards the same item in more than one slot, so a swallowed key
     // conflict would drop a reward the graph holds and nothing downstream would notice.
     let mut rewards = tx.prepare(
-        "INSERT INTO relic_rewards (relic, reward, rarity, count) VALUES (?1, ?2, ?3, ?4)",
+        "INSERT INTO relic_rewards (relic, reward, rarity, count, chance) \
+         VALUES (?1, ?2, ?3, ?4, ?5)",
     )?;
     let mut members =
         tx.prepare("INSERT OR IGNORE INTO set_members (slug, item) VALUES (?1, ?2)")?;
@@ -602,8 +588,12 @@ fn edges(tx: &Transaction<'_>, graph: &Graph) -> Result<()> {
             Rel::Requires { count } => {
                 requires.execute((strip(&edge.from, "recipe:"), &edge.to, count))?;
             }
-            Rel::Rewards { rarity, count } => {
-                rewards.execute((&edge.from, &edge.to, rarity, count))?;
+            Rel::Rewards {
+                rarity,
+                count,
+                chance,
+            } => {
+                rewards.execute((&edge.from, &edge.to, rarity, count, chance))?;
             }
             Rel::Member => {
                 members.execute((strip(&edge.from, "set:"), &edge.to))?;

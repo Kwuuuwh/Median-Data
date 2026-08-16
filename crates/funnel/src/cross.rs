@@ -135,11 +135,10 @@ pub fn drops(graph: &Graph, witness: &[DropClaim]) -> Vec<Finding> {
 pub fn relic_rewards(graph: &Graph, witness: &[RelicClaim]) -> Vec<Finding> {
     let mut ours: BTreeMap<(&str, &str), f64> = BTreeMap::new();
     for edge in graph.edges() {
-        let Rel::Rewards { rarity, .. } = &edge.rel else {
+        let Rel::Rewards { chance, .. } = &edge.rel else {
             continue;
         };
-        let odds = refinement_of(graph, &edge.from).and_then(|r| graph::chance(rarity, r));
-        *ours.entry((&edge.from, &edge.to)).or_default() += odds.unwrap_or_default();
+        *ours.entry((&edge.from, &edge.to)).or_default() += chance.unwrap_or_default();
     }
 
     let mut theirs: BTreeMap<(&str, &str), f64> = BTreeMap::new();
@@ -199,17 +198,7 @@ pub fn relic_rewards(graph: &Graph, witness: &[RelicClaim]) -> Vec<Finding> {
 }
 
 fn is_relic(graph: &Graph, item: &str) -> bool {
-    refinement_of(graph, item).is_some()
-}
-
-pub(crate) fn refinement_of<'a>(graph: &'a Graph, relic: &str) -> Option<&'a str> {
-    match graph.get(relic)? {
-        Node::Item(item) => match &item.extra {
-            graph::Extra::Relic(r) => Some(&r.refinement),
-            graph::Extra::None => None,
-        },
-        _ => None,
-    }
+    graph::refinement_of(graph, item).is_some()
 }
 
 /// Check the vault status against our own drop tables: what is in the vault is out of the
@@ -244,7 +233,13 @@ pub fn vault_against_drops(graph: &Graph) -> Vec<Finding> {
 }
 
 /// Compare each trade set's membership, as the market lists it, against the parts the DE
-/// recipe actually needs.
+/// recipe needs — over the part both can speak about.
+///
+/// The two answer different questions and neither is a subset of the other by accident: a
+/// craft needs raw resources and built components nobody sells, and a set is only ever what
+/// the market sells. So the comparison is drawn over the tradable ones, and the flag is what
+/// decides who can speak. What the foundry needs in full lives in the recipe, untouched by
+/// this.
 pub fn set_composition(graph: &Graph) -> Vec<Finding> {
     let mut out = Vec::new();
     for node in graph.nodes() {
@@ -274,32 +269,42 @@ pub fn set_composition(graph: &Graph) -> Vec<Finding> {
         let missing: Vec<&str> = required.difference(&listed).copied().collect();
         let extra: Vec<&str> = listed.difference(&required).copied().collect();
         if !missing.is_empty() || !extra.is_empty() {
-            out.push(Finding::new(
-                Layer::Cross,
-                "set-composition-differs",
-                &set.slug,
-                format!(
-                    "market lists {} part(s), DE needs {}; only in DE: [{}]; only on market: [{}]",
-                    listed.len(),
-                    required.len(),
-                    missing.join(", "),
-                    extra.join(", ")
-                ),
-            ).about(missing.iter().chain(&extra).copied()));
+            out.push(
+                Finding::new(
+                    Layer::Cross,
+                    "set-composition-differs",
+                    &set.slug,
+                    format!(
+                        "the set sells {}, the craft needs {} the market could sell; \
+                     needed and not sold as part of the set: [{}]; \
+                     sold in the set and not needed: [{}]",
+                        listed.len(),
+                        required.len(),
+                        missing.join(", "),
+                        extra.join(", ")
+                    ),
+                )
+                .about(missing.iter().chain(&extra).copied()),
+            );
         }
     }
     out
 }
 
 /// The tradable parts a set must contain: the blueprint that assembles the item, plus one
-/// per part the assembly consumes.
+/// per part the assembly consumes. Everything here is weighed the same way — a set is what
+/// the market sells, so what the market cannot sell was never going to be in it. Duviri
+/// weapons are the case: their parts are traded and the blueprint that joins them is not.
 fn parts_of<'a>(graph: &'a Graph, built: &str) -> Option<BTreeSet<&'a str>> {
     let recipe = graph
         .into(built)
         .into_iter()
         .find(|e| matches!(e.rel, Rel::Produces))?;
     let mut parts = BTreeSet::new();
-    parts.insert(strip_recipe(&recipe.from));
+    let blueprint = strip_recipe(&recipe.from);
+    if traded(graph, blueprint) {
+        parts.insert(blueprint);
+    }
 
     for edge in graph.from(&recipe.from) {
         let Rel::Requires { .. } = edge.rel else {
@@ -315,20 +320,43 @@ fn parts_of<'a>(graph: &'a Graph, built: &str) -> Option<BTreeSet<&'a str>> {
 /// What a set sells for an ingredient. A warframe component is built, so the set carries
 /// its blueprint; a weapon part is dropped whole, so the set carries the part itself. Raw
 /// resources are neither.
+///
+/// An ingredient that is a set in its own right is neither: building Akbronco Prime consumes
+/// a whole assembled Bronco Prime, which the market sells as its own set. The craft link is
+/// the recipe's business and stays there; it is not a part this set failed to list.
 fn tradable_part<'a>(graph: &'a Graph, ingredient: &'a str) -> Option<&'a str> {
+    if sold_as_its_own_set(graph, ingredient) {
+        return None;
+    }
     let built_by = graph
         .into(ingredient)
         .into_iter()
         .find(|e| matches!(e.rel, Rel::Produces));
+    // The blueprint first where the market sells one, the part itself otherwise: Ambassador
+    // is built from its parts and only the parts are traded, while a warframe component is
+    // the other way round.
     if let Some(sub) = built_by
         && matches!(graph.get(&sub.from), Some(Node::Recipe(r)) if r.consumed)
     {
-        return Some(strip_recipe(&sub.from));
+        let blueprint = strip_recipe(&sub.from);
+        if traded(graph, blueprint) {
+            return Some(blueprint);
+        }
     }
-    match graph.get(ingredient) {
-        Some(Node::Item(i)) if i.tradable.as_ref().is_some_and(|t| t.value) => Some(ingredient),
-        _ => None,
-    }
+    traded(graph, ingredient).then_some(ingredient)
+}
+
+/// Whether some set stands for this item, so it is bought as a set rather than as a part.
+fn sold_as_its_own_set(graph: &Graph, item: &str) -> bool {
+    graph
+        .into(item)
+        .into_iter()
+        .any(|e| matches!(e.rel, Rel::Represents))
+}
+
+/// Whether the market trades an item at all.
+fn traded(graph: &Graph, id: &str) -> bool {
+    matches!(graph.get(id), Some(Node::Item(i)) if i.tradable.as_ref().is_some_and(|t| t.value))
 }
 
 fn strip_recipe(id: &str) -> &str {

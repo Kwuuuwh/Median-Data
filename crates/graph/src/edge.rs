@@ -84,8 +84,14 @@ pub enum Rel {
     /// Recipe -> an ingredient it consumes.
     Requires { count: i64 },
     /// Relic -> an item it can award. One relic can award the same item in two slots at
-    /// different rarities, so this edge is not unique on its endpoints.
-    Rewards { rarity: String, count: i64 },
+    /// different rarities, so this edge is not unique on its endpoints. The chance is carried
+    /// rather than looked up: it depends on how many rewards of that rarity the relic holds,
+    /// which only the relic knows.
+    Rewards {
+        rarity: String,
+        count: i64,
+        chance: Option<f64>,
+    },
     /// Set -> a part belonging to it.
     Member,
     /// Set -> the assembled item it stands for.

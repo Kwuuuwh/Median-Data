@@ -524,6 +524,11 @@ ru = "Заказы Долины Сфер"
 
 [[term]]
 kind = "activity"
+key = "PROFIT-TAKER - PHASE 3"
+ru = "Извлекатель Прибыли - Фаза 3"
+
+[[term]]
+kind = "activity"
 key = "WF1999 Bounty"
 ru = "Заказы Хёльвании"
 
@@ -1579,6 +1584,11 @@ ru = "Лаборатория Альбрехта"
 
 [[term]]
 kind = "tileset"
+key = "Cambion Drift"
+ru = "Камбионский Дрейф"
+
+[[term]]
+kind = "tileset"
 key = "Cetus"
 ru = "Цетус"
 
@@ -1586,6 +1596,46 @@ ru = "Цетус"
 kind = "tileset"
 key = "Chrysalith"
 ru = "Хризалит"
+
+[[term]]
+kind = "tileset"
+key = "Conclave Maps"
+ru = "Конклав"
+
+[[term]]
+kind = "tileset"
+key = "Corpus Gas City"
+ru = "Газовый Город Корпуса"
+
+[[term]]
+kind = "tileset"
+key = "Corpus Ice Planet"
+ru = "Ледяная Планета Корпуса"
+
+[[term]]
+kind = "tileset"
+key = "Corpus Outpost"
+ru = "Аванпост Корпуса"
+
+[[term]]
+kind = "tileset"
+key = "Corpus Ship"
+ru = "Корабль Корпуса"
+
+[[term]]
+kind = "tileset"
+key = "Corpus Ship (Archwing)"
+ru = "Корабль Корпуса (Арчвинг)"
+
+[[term]]
+kind = "tileset"
+key = "Deepmines"
+ru = "Глубинные Шахты"
+
+[[term]]
+kind = "tileset"
+key = "Descendia"
+ru = "Спуск"
 
 [[term]]
 kind = "tileset"
@@ -1604,13 +1654,68 @@ ru = "Фортуна"
 
 [[term]]
 kind = "tileset"
+key = "Grineer Asteroid"
+ru = "Астероид Гринир"
+
+[[term]]
+kind = "tileset"
+key = "Grineer Asteroid Fortress"
+ru = "Астероидная База Гринир"
+
+[[term]]
+kind = "tileset"
+key = "Grineer Forest"
+ru = "Лес Гринир"
+
+[[term]]
+kind = "tileset"
+key = "Grineer Galleon"
+ru = "Галеон Гринир"
+
+[[term]]
+kind = "tileset"
+key = "Grineer Sealab"
+ru = "Подводная Лаборатория Гринир"
+
+[[term]]
+kind = "tileset"
+key = "Grineer Settlement"
+ru = "Поселение Гринир"
+
+[[term]]
+kind = "tileset"
+key = "Grineer Shipyard"
+ru = "Верфь Гринир"
+
+[[term]]
+kind = "tileset"
 key = "Höllvania"
 ru = "Хёльвания"
 
 [[term]]
 kind = "tileset"
+key = "Infested Ship"
+ru = "Заражённый корабль"
+
+[[term]]
+kind = "tileset"
 key = "Necralisk"
 ru = "Некралиск"
+
+[[term]]
+kind = "tileset"
+key = "Orokin Moon"
+ru = "Луна Орокин"
+
+[[term]]
+kind = "tileset"
+key = "Orokin Tower"
+ru = "Башня Орокин"
+
+[[term]]
+kind = "tileset"
+key = "Perita"
+ru = "Перита"
 
 [[term]]
 kind = "tileset"
@@ -1716,6 +1821,56 @@ ru = "Элеонора Найтингейл"
 kind = "vendor"
 key = "ergo-glast"
 ru = "Эрго Гласт"
+
+[[term]]
+kind = "vendor"
+key = "father"
+ru = "Отец"
+
+[[term]]
+kind = "vendor"
+key = "fisher-hai-luk"
+ru = "Рыбачка Хаи-Лук"
+
+[[term]]
+kind = "vendor"
+key = "flare"
+ru = "Флэр"
+
+[[term]]
+kind = "vendor"
+key = "grandmother"
+ru = "Бабушка"
+
+[[term]]
+kind = "vendor"
+key = "hok"
+ru = "Хок"
+
+[[term]]
+kind = "vendor"
+key = "hombask"
+ru = "Хомбаск"
+
+[[term]]
+kind = "vendor"
+key = "kahl-s-garrison"
+ru = "Гарнизон Кахла"
+
+[[term]]
+kind = "vendor"
+key = "kaya"
+ru = "Кайя"
+
+[[term]]
+kind = "vendor"
+key = "koumei-s-shrine"
+ru = "Святилище Комеи"
+
+[[term]]
+kind = "vendor"
+key = "otak"
+ru = "Отак"
 
 [[dismiss]]
 source = "dojo"

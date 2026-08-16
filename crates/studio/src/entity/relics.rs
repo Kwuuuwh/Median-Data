@@ -15,11 +15,11 @@ pub fn render(graph: &Graph, id: &str) -> Markup {
 
 /// A relic's own reward table, with the chance each refinement gives.
 fn rewards(graph: &Graph, id: &str) -> Markup {
-    let rows: Vec<(&str, &str)> = graph
+    let rows: Vec<(&str, &str, Option<f64>)> = graph
         .from(id)
         .into_iter()
         .filter_map(|e| match &e.rel {
-            Rel::Rewards { rarity, .. } => Some((e.to.as_str(), rarity.as_str())),
+            Rel::Rewards { rarity, chance, .. } => Some((e.to.as_str(), rarity.as_str(), *chance)),
             _ => None,
         })
         .collect();
@@ -28,10 +28,7 @@ fn rewards(graph: &Graph, id: &str) -> Markup {
     }
 
     let refinement = refinement_of(graph, id);
-    let sum: f64 = rows
-        .iter()
-        .filter_map(|(_, rarity)| graph::chance(rarity, refinement))
-        .sum();
+    let sum: f64 = rows.iter().filter_map(|(.., chance)| *chance).sum();
     let fold = Fold::new(rows.len());
 
     card(
@@ -49,11 +46,11 @@ fn rewards(graph: &Graph, id: &str) -> Markup {
                         (col("Шанс", "chance"))
                     } }
                     tbody {
-                        @for (at, (reward, rarity)) in rows.iter().enumerate() {
+                        @for (at, (reward, rarity, chance)) in rows.iter().enumerate() {
                             tr.folded[fold.hides(at)] {
                                 td { (named(graph, reward)) }
                                 td.dim { (rarity.to_lowercase()) }
-                                td.num { (chance(rarity, refinement)) }
+                                td.num { (odds(*chance)) }
                             }
                         }
                     }
@@ -65,11 +62,13 @@ fn rewards(graph: &Graph, id: &str) -> Markup {
 
 /// The relics that can award this item, one row per refinement it is worth opening.
 fn from_relics(graph: &Graph, id: &str) -> Markup {
-    let rows: Vec<(&str, &str)> = graph
+    let rows: Vec<(&str, &str, Option<f64>)> = graph
         .into(id)
         .into_iter()
         .filter_map(|e| match &e.rel {
-            Rel::Rewards { rarity, .. } => Some((e.from.as_str(), rarity.as_str())),
+            Rel::Rewards { rarity, chance, .. } => {
+                Some((e.from.as_str(), rarity.as_str(), *chance))
+            }
             _ => None,
         })
         .collect();
@@ -90,13 +89,12 @@ fn from_relics(graph: &Graph, id: &str) -> Markup {
                     (col("Шанс", "chance"))
                 } }
                 tbody {
-                    @for (at, (relic, rarity)) in rows.iter().enumerate() {
-                        @let refinement = refinement_of(graph, relic);
+                    @for (at, (relic, rarity, chance)) in rows.iter().enumerate() {
                         tr.folded[fold.hides(at)] {
                             td { (named(graph, relic)) }
-                            td.dim { (words::refinement(refinement)) }
+                            td.dim { (words::refinement(refinement_of(graph, relic))) }
                             td.dim { (rarity.to_lowercase()) }
-                            td.num { (chance(rarity, refinement)) }
+                            td.num { (odds(*chance)) }
                         }
                     }
                 }
@@ -105,12 +103,10 @@ fn from_relics(graph: &Graph, id: &str) -> Markup {
     )
 }
 
-/// The chance a rarity carries at one refinement, where the reference table gives one.
-fn chance(rarity: &str, refinement: &str) -> String {
-    match graph::chance(rarity, refinement) {
-        Some(c) => pct(c),
-        None => "—".to_string(),
-    }
+/// A reward's chance as the graph worked it out, or a dash where the rarity is one we have no
+/// share for.
+fn odds(chance: Option<f64>) -> String {
+    chance.map_or_else(|| "—".to_string(), pct)
 }
 
 fn refinement_of<'a>(graph: &'a Graph, relic: &str) -> &'a str {

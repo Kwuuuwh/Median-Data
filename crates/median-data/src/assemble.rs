@@ -66,6 +66,8 @@ pub struct Built {
     pub refined: usize,
     /// Classification rules that decided nothing, as the audit describes them.
     pub dead_rules: Vec<String>,
+    /// Headings the drop-table parser knew the layout of and still could not place.
+    pub unread_headings: Vec<String>,
 }
 
 /// Raw inputs of one build.
@@ -249,6 +251,7 @@ pub fn assemble(
         imprinted,
         refined,
         dead_rules: Vec::new(),
+        unread_headings: Vec::new(),
         graph,
         taxonomy: taxonomy.tree,
     }

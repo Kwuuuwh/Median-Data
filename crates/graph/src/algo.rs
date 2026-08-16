@@ -2,6 +2,7 @@ use std::collections::{BTreeMap, BTreeSet};
 
 use crate::edge::Rel;
 use crate::graph::Graph;
+use crate::node::{Extra, Node};
 
 /// The recipe that produces an item, if one does.
 pub fn producer<'a>(graph: &'a Graph, item: &str) -> Option<&'a str> {
@@ -162,6 +163,17 @@ fn reaches(graph: &Graph, item: &str, target: &str, path: &mut BTreeSet<String>)
         }
     }
     false
+}
+
+/// The refinement of a relic, where the id names one.
+pub fn refinement_of<'a>(graph: &'a Graph, relic: &str) -> Option<&'a str> {
+    match graph.get(relic)? {
+        Node::Item(item) => match &item.extra {
+            Extra::Relic(r) => Some(&r.refinement),
+            Extra::None => None,
+        },
+        _ => None,
+    }
 }
 
 #[cfg(test)]

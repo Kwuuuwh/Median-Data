@@ -2,7 +2,6 @@ use std::collections::BTreeMap;
 
 use graph::{Graph, Node, Rel};
 
-use crate::cross::refinement_of;
 use crate::finding::{Finding, Layer};
 
 /// One measurement, judged against others in its group.
@@ -43,15 +42,10 @@ pub fn check(graph: &Graph) -> Vec<Finding> {
 fn chances_add_up(graph: &Graph) -> Vec<Finding> {
     let mut odds: BTreeMap<&str, f64> = BTreeMap::new();
     for edge in graph.edges() {
-        let Rel::Rewards { rarity, .. } = &edge.rel else {
+        let Rel::Rewards { chance, .. } = &edge.rel else {
             continue;
         };
-        let Some(refinement) = refinement_of(graph, &edge.from) else {
-            continue;
-        };
-        let Some(chance) = graph::chance(rarity, refinement) else {
-            continue;
-        };
+        let Some(chance) = chance else { continue };
         *odds.entry(edge.from.as_str()).or_default() += chance;
     }
     odds.into_iter()

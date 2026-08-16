@@ -1,6 +1,6 @@
 use std::collections::BTreeSet;
 
-use graph::{Graph, Node, Rel};
+use graph::{Graph, Node, PlaceKind, Rel};
 
 use crate::finding::{Finding, Layer};
 
@@ -51,6 +51,27 @@ pub fn check(graph: &Graph, gaps: &Gaps) -> Vec<Finding> {
             name,
             "dropped somewhere but matches no item".to_string(),
         ));
+    }
+
+    // A bounty heading carries its level range. Where the range came out empty, the heading
+    // was not understood — and the parser filled zeros rather than saying so.
+    for node in graph.nodes() {
+        let Node::Place(place) = node else { continue };
+        if place.kind != PlaceKind::Bounty {
+            continue;
+        }
+        let unparsed = place
+            .bounty
+            .as_ref()
+            .is_none_or(|b| b.min_level == 0 && b.max_level == 0);
+        if unparsed {
+            out.push(Finding::new(
+                Layer::Coverage,
+                "bounty-heading-unparsed",
+                &place.name,
+                "filed as a bounty, yet its heading carries no level range".to_string(),
+            ));
+        }
     }
 
     for item in graph.items() {

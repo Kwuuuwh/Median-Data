@@ -406,6 +406,9 @@ input[type=text]:focus, input[type=search]:focus { outline: none; border-color: 
 .col.kept { border-color: var(--accent-dim); background: var(--accent-soft); }
 .col-h { display: flex; align-items: center; gap: 6px; font-size: 11px; }
 .col-v { font-size: 13.5px; overflow-wrap: anywhere; }
+.slots { list-style: none; margin: 0; padding: 0; display: grid; gap: 3px; }
+.slot { font-size: 12.5px; line-height: 1.5; }
+.slot.bad { color: var(--bad); }
 .diff { color: var(--warn); background: var(--warn-soft); border-radius: 3px; padding: 0 2px; }
 /* On a candidate's name whole words get marked, so the mark has to be quiet enough to read
    through. */

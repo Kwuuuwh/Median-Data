@@ -143,7 +143,11 @@ fn compare(c: &Conflict) -> Markup {
     html! {
         .cmp-h {
             span.cmp-prop { (words::prop(c.prop)) }
-            span.dim { "выбрано: " } span.cmp-kept { (c.chosen) }
+            @if listed(c.prop) {
+                span.dim { (rows_of(&c.chosen).len()) " позиций, выбрано у победителя" }
+            } @else {
+                span.dim { "выбрано: " } span.cmp-kept { (c.chosen) }
+            }
         }
         .cmp {
             @for (source, value) in &c.claims {
@@ -153,13 +157,30 @@ fn compare(c: &Conflict) -> Markup {
                         (prov(*source)) " " span.dim { (words::source_full(*source)) }
                         @if kept { span.tag.trade { "сейчас" } }
                     }
-                    .col-v { (mark(value, &others(c, *source))) }
-                    form.inline action="/pick" method="post" {
-                        input type="hidden" name="item" value=(c.entity);
-                        input type="hidden" name="prop" value=(c.prop);
-                        input type="hidden" name="value" value=(value);
-                        button type="submit" {
-                            @if kept { "Подтвердить" } @else { "Принять" }
+                    .col-v {
+                        @if listed(c.prop) {
+                            (slots(value, &others(c, *source)))
+                        } @else {
+                            (mark(value, &others(c, *source)))
+                        }
+                    }
+                    // A composition is not something a person picks whole: a decision is
+                    // stored as a path and a value, and a reward list is neither, so the
+                    // pipeline would read nothing back. Said out loud rather than left as a
+                    // control that quietly does nothing.
+                    @if listed(c.prop) {
+                        p.why { "Выбрать источник здесь пока нельзя: решение хранится как одно \
+                                 значение, а состав — список. Расхождение видно, DE остаётся \
+                                 победителем." }
+                    }
+                    @if !listed(c.prop) {
+                        form.inline action="/pick" method="post" {
+                            input type="hidden" name="item" value=(c.entity);
+                            input type="hidden" name="prop" value=(c.prop);
+                            input type="hidden" name="value" value=(value);
+                            button type="submit" {
+                                @if kept { "Подтвердить" } @else { "Принять" }
+                            }
                         }
                     }
                 }
@@ -220,6 +241,34 @@ fn mark(value: &str, other: &str) -> Markup {
 
 /// Properties whose value a person may write rather than pick: the booleans only have the
 /// two values the sources already offer.
+/// Properties whose value is a list rather than a single word. Read as one run-on string, the
+/// one entry that differs drowns among the ones that match.
+fn listed(prop: &str) -> bool {
+    matches!(prop, "rewards")
+}
+
+/// One claim's entries, in the order the value spells them.
+fn rows_of(value: &str) -> Vec<&str> {
+    value.split(", ").filter(|s| !s.is_empty()).collect()
+}
+
+/// A listed claim as one line per entry, with the entries the other source does not have
+/// picked out — that is the whole of what a person needs to see here.
+fn slots(value: &str, other: &str) -> Markup {
+    let theirs = rows_of(other);
+    html! {
+        ul.slots {
+            @for row in rows_of(value) {
+                @let differs = !theirs.contains(&row);
+                li.slot.bad[differs] {
+                    @if differs { span.tag.bad { "≠" } " " }
+                    (row)
+                }
+            }
+        }
+    }
+}
+
 fn editable(prop: &str) -> bool {
     matches!(prop, "name_en" | "name_ru")
 }

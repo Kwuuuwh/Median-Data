@@ -16,7 +16,19 @@ const REFINEMENTS: [&str; 4] = ["intact", "exceptional", "flawless", "radiant"];
 
 /// Reward edges from each relic to the items it can award. Rewards naming something the
 /// graph does not hold are skipped and reported.
+///
+/// A reward's chance is worked out here because only here is the whole relic in view: the
+/// rarity says what share of an opening it accounts for, and that share is split between the
+/// rewards holding it. The usual relic has three commons and gives 25.33 % each; Requiem
+/// Eterna has eight and gives 9.5 %.
 pub fn link(graph: &mut Graph, rewards: &[DeReward]) -> BTreeSet<String> {
+    let mut held: BTreeMap<(&str, String), usize> = BTreeMap::new();
+    for r in rewards {
+        *held
+            .entry((r.relic.as_str(), r.rarity.to_uppercase()))
+            .or_default() += 1;
+    }
+
     let mut unresolved = BTreeSet::new();
     for r in rewards {
         if !graph.has(&r.relic) {
@@ -27,12 +39,19 @@ pub fn link(graph: &mut Graph, rewards: &[DeReward]) -> BTreeSet<String> {
             unresolved.insert(r.reward.clone());
             continue;
         }
+        let in_rarity = held
+            .get(&(r.relic.as_str(), r.rarity.to_uppercase()))
+            .copied()
+            .unwrap_or(1);
+        let chance = graph::refinement_of(graph, &r.relic)
+            .and_then(|refinement| graph::chance(&r.rarity, refinement, in_rarity));
         graph.link(Edge {
             from: r.relic.clone(),
             to: r.reward.clone(),
             rel: Rel::Rewards {
                 rarity: r.rarity.clone(),
                 count: r.count,
+                chance,
             },
         });
     }
@@ -63,7 +82,7 @@ pub fn witnessed(
 
     let mut ours: BTreeMap<&str, Vec<Held<'_>>> = BTreeMap::new();
     for edge in graph.edges() {
-        if let Rel::Rewards { rarity, count } = &edge.rel {
+        if let Rel::Rewards { rarity, count, .. } = &edge.rel {
             ours.entry(&edge.from)
                 .or_default()
                 .push((&edge.to, rarity.to_uppercase(), *count));

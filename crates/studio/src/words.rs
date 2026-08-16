@@ -121,6 +121,7 @@ pub fn prop(prop: &str) -> &str {
         "tradable" => "торгуется",
         "vaulted" => "в хранилище",
         "prime" => "прайм",
+        "rewards" => "состав",
         other => other,
     }
 }

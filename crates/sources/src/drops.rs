@@ -48,7 +48,17 @@ pub struct Tables {
     pub relics: Vec<RelicRow>,
     /// Sections carrying a table this parser does not read.
     pub skipped: Vec<String>,
+    /// Headings in a layout this parser does know, that it still could not place. Kept rather
+    /// than turned into somewhere an item drops from: a name nobody recognised is not a place.
+    pub unknown_headings: Vec<String>,
 }
+
+/// Bounty headings that qualify the reward table rather than name a new bounty. The document
+/// marks them exactly like a bounty of their own, so only the text tells them apart.
+const RUN_CONDITIONS: [&str; 2] = ["First Completion", "Subsequent Completions"];
+
+/// How a real bounty heading opens: `Level 40 - 60 PROFIT-TAKER - PHASE 3`.
+const BOUNTY_PREFIX: &str = "Level ";
 
 /// How a section's table is laid out.
 #[derive(Clone, Copy)]
@@ -101,7 +111,7 @@ pub fn parse(raw: &[u8]) -> Result<Tables> {
         };
         match (section, layout(section)) {
             ("relicRewards", _) => read_relics(&sel, table, &mut out.relics),
-            (_, Some(kind)) => read(&sel, table, section, kind, &mut out.drops),
+            (_, Some(kind)) => read(&sel, table, section, kind, &mut out),
             (_, None) => out.skipped.push(section.to_string()),
         }
     }
@@ -152,10 +162,11 @@ fn cells(sel: &Selectors, tr: ElementRef<'_>) -> Vec<Cell> {
 }
 
 /// Walk one table, emitting a drop per item row.
-fn read(sel: &Selectors, table: ElementRef<'_>, section: &str, kind: Layout, out: &mut Vec<Drop>) {
+fn read(sel: &Selectors, table: ElementRef<'_>, section: &str, kind: Layout, out: &mut Tables) {
     let mut place = String::new();
     let mut rotation = None;
     let mut stage = None;
+    let mut condition: Option<String> = None;
     let mut table_chance = None;
 
     for tr in table.select(&sel.tr) {
@@ -167,13 +178,24 @@ fn read(sel: &Selectors, table: ElementRef<'_>, section: &str, kind: Layout, out
         match kind {
             Layout::Place | Layout::Bounty => {
                 if row.len() == 1 && row[0].header {
-                    match row[0].text.strip_prefix("Rotation ") {
-                        Some(letter) => rotation = Some(letter.trim().to_string()),
-                        None => {
-                            place = row[0].text.clone();
-                            rotation = None;
+                    let text = row[0].text.as_str();
+                    if let Some(letter) = text.strip_prefix("Rotation ") {
+                        rotation = Some(letter.trim().to_string());
+                    } else if matches!(kind, Layout::Bounty) && !text.starts_with(BOUNTY_PREFIX) {
+                        // Inside a bounty every heading looks alike, so a heading that names
+                        // no bounty either qualifies the one in hand or is not understood —
+                        // and neither may become a place of its own.
+                        if RUN_CONDITIONS.contains(&text) {
+                            condition = Some(text.to_string());
                             stage = None;
+                        } else {
+                            out.unknown_headings.push(text.to_string());
                         }
+                    } else {
+                        place = text.to_string();
+                        rotation = None;
+                        stage = None;
+                        condition = None;
                     }
                     continue;
                 }
@@ -224,16 +246,26 @@ fn read(sel: &Selectors, table: ElementRef<'_>, section: &str, kind: Layout, out
             continue;
         }
 
-        out.push(Drop {
+        out.drops.push(Drop {
             section: section.to_string(),
             item,
             place: source,
             rotation: rotation.clone(),
-            stage: stage.clone(),
+            stage: staged(condition.as_deref(), stage.as_deref()),
             rarity,
             chance: drop_chance,
             table_chance: chance,
         });
+    }
+}
+
+/// The stage a row sits in, with the condition under which its table applies. The two are one
+/// label because nothing downstream reads them apart.
+fn staged(condition: Option<&str>, stage: Option<&str>) -> Option<String> {
+    match (condition, stage) {
+        (Some(c), Some(s)) => Some(format!("{c} · {s}")),
+        (Some(c), None) => Some(c.to_string()),
+        (None, s) => s.map(str::to_string),
     }
 }
 
@@ -293,8 +325,52 @@ mod tests {
     use super::*;
 
     fn one(section: &str, table: &str) -> Vec<Drop> {
+        all(section, table).drops
+    }
+
+    fn all(section: &str, table: &str) -> Tables {
         let html = format!("<h3 id=\"{section}\">x</h3><table>{table}</table>");
-        parse(html.as_bytes()).unwrap().drops
+        parse(html.as_bytes()).unwrap()
+    }
+
+    #[test]
+    fn a_run_condition_qualifies_the_bounty_it_follows() {
+        let drops = one(
+            "solarisRewards",
+            "<tr><th colspan=3>Level 40 - 60 PROFIT-TAKER - PHASE 3</th></tr>\
+             <tr><th colspan=3>First Completion</th></tr>\
+             <tr><td class=\"pad-cell\"></td><th colspan=2>Final Stage</th></tr>\
+             <tr><td></td><td>Gravimag</td><td>Very Common (100.00%)</td></tr>\
+             <tr><th colspan=3>Subsequent Completions</th></tr>\
+             <tr><td class=\"pad-cell\"></td><th colspan=2>Final Stage</th></tr>\
+             <tr><td></td><td>5X Gyromag Systems</td><td>Uncommon (25.00%)</td></tr>",
+        );
+        assert_eq!(drops.len(), 2);
+        for drop in &drops {
+            assert_eq!(drop.place, "Level 40 - 60 PROFIT-TAKER - PHASE 3");
+        }
+        assert_eq!(
+            drops[0].stage.as_deref(),
+            Some("First Completion · Final Stage")
+        );
+        assert_eq!(
+            drops[1].stage.as_deref(),
+            Some("Subsequent Completions · Final Stage")
+        );
+    }
+
+    #[test]
+    fn an_unknown_bounty_heading_is_reported_and_invents_nothing() {
+        let read = all(
+            "solarisRewards",
+            "<tr><th colspan=3>Level 40 - 60 PROFIT-TAKER - PHASE 3</th></tr>\
+             <tr><th colspan=3>Third Completion</th></tr>\
+             <tr><td class=\"pad-cell\"></td><th colspan=2>Final Stage</th></tr>\
+             <tr><td></td><td>Gravimag</td><td>Very Common (100.00%)</td></tr>",
+        );
+        assert_eq!(read.unknown_headings, ["Third Completion"]);
+        assert_eq!(read.drops.len(), 1);
+        assert_eq!(read.drops[0].place, "Level 40 - 60 PROFIT-TAKER - PHASE 3");
     }
 
     #[test]

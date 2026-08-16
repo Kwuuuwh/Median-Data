@@ -290,6 +290,7 @@ pub fn judge(vault: &Vault, built: &Built, curated: &Curation) -> Result<(Report
             anchors: &anchors,
             taxonomy: &built.taxonomy,
             dead_rules: built.dead_rules.clone(),
+            unread_headings: built.unread_headings.clone(),
             shipped: &|entity| scope.allows(entity),
             // A drop-table name declared to be no item at all answers the same question the
             // coverage check asks, so the verdict counts as accepting its finding.
@@ -446,6 +447,8 @@ pub fn graph_with(vault: &Vault, curated: &Curation) -> Result<Built> {
         eprintln!("drop sections not read: {}", tables.skipped.join(", "));
     }
 
+    let unread_headings = tables.unknown_headings.clone();
+
     let policy = taxonomy::load(Path::new(crate::TAXONOMY))?;
     let dead_rules = audit(&policy, &de, &recipes);
 
@@ -476,6 +479,7 @@ pub fn graph_with(vault: &Vault, curated: &Curation) -> Result<Built> {
         curated,
     );
     built.dead_rules = dead_rules;
+    built.unread_headings = unread_headings;
     Ok(built)
 }
 

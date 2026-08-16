@@ -12,7 +12,12 @@ const BUILD: &str = "build";
 /// no other layer can see: a property nothing ever confirmed, and a rule that decided nothing.
 /// Both are reported per class rather than per item — one line a person reads beats six
 /// hundred nobody does.
-pub fn check(graph: &Graph, taxonomy: &Taxonomy, dead_rules: &[String]) -> Vec<Finding> {
+pub fn check(
+    graph: &Graph,
+    taxonomy: &Taxonomy,
+    dead_rules: &[String],
+    unread_headings: &[String],
+) -> Vec<Finding> {
     let mut alone: BTreeMap<(&str, &str), usize> = BTreeMap::new();
     let mut confirmed: BTreeMap<(&str, &str), usize> = BTreeMap::new();
 
@@ -69,6 +74,14 @@ pub fn check(graph: &Graph, taxonomy: &Taxonomy, dead_rules: &[String]) -> Vec<F
                 ));
             }
         }
+    }
+    for heading in unread_headings {
+        out.push(Finding::new(
+            Layer::Silence,
+            "heading-unread",
+            BUILD,
+            format!("a source printed '{heading}' where nothing says what it is"),
+        ));
     }
     for rule in dead_rules {
         out.push(Finding::new(
