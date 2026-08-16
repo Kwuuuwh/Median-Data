@@ -83,8 +83,9 @@ pub enum Rel {
     Produces,
     /// Recipe -> an ingredient it consumes.
     Requires { count: i64 },
-    /// Relic -> an item it can award.
-    Rewards { rarity: String },
+    /// Relic -> an item it can award. One relic can award the same item in two slots at
+    /// different rarities, so this edge is not unique on its endpoints.
+    Rewards { rarity: String, count: i64 },
     /// Set -> a part belonging to it.
     Member,
     /// Set -> the assembled item it stands for.

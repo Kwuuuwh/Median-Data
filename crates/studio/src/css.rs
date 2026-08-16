@@ -217,6 +217,7 @@ a.stat:hover { border-color: var(--accent); }
 .tag.prime { color: var(--warn); border-color: var(--warn-line); background: var(--warn-soft); }
 .tag.trade { color: var(--accent); border-color: var(--accent-dim); background: var(--accent-soft); }
 .tag.bad { color: var(--bad); border-color: var(--bad-line); background: var(--bad-soft); }
+.tag.alone { color: var(--warn); border-color: var(--warn-line); background: var(--warn-soft); }
 .path { font-family: var(--mono); font-size: 10.5px; color: var(--faint); word-break: break-all; }
 
 /* ---------- provenance ---------- */

@@ -1,3 +1,4 @@
+use std::collections::BTreeSet;
 use std::path::Path;
 
 use anyhow::{Context, Result};
@@ -36,6 +37,10 @@ pub struct Rule {
     pub path_contains: Vec<String>,
     #[serde(default)]
     pub mod_type: Vec<String>,
+    /// A rule that catches whatever is left rather than recognising anything. What it assigns
+    /// is a placeholder, and the funnel counts it as unclassified.
+    #[serde(default)]
+    pub fallback: bool,
 }
 
 /// What a rule reads about one item.
@@ -67,6 +72,15 @@ impl Policy {
     /// The kind of an item DE only knows as a recipe key.
     pub fn classify_blueprint(&self, path: &str) -> Kind {
         self.classify(&blueprint_facts(path))
+    }
+
+    /// Kinds that only a catch-all rule assigns, so nothing about them was recognised.
+    pub fn provisional(&self) -> BTreeSet<String> {
+        self.rules
+            .iter()
+            .filter(|r| r.fallback)
+            .map(|r| r.kind.clone())
+            .collect()
     }
 
     /// Rules that decide nothing in this data. A rule that never fires is either wrong or

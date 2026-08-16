@@ -7,7 +7,7 @@ use crate::coverage::Gaps;
 use crate::cross::{DropClaim, RelicClaim};
 use crate::diff::{self, State};
 use crate::report::{Report, Totals};
-use crate::{anchor, coverage, cross, invariant, outlier};
+use crate::{anchor, coverage, cross, invariant, outlier, silence};
 
 /// Everything the funnel needs beyond the graph itself.
 pub struct Input<'a> {
@@ -19,6 +19,10 @@ pub struct Input<'a> {
     /// An independent account of the mission drop tables, to check the official ones against.
     pub drop_witness: Vec<DropClaim>,
     pub anchors: &'a Anchors,
+    /// The tree that classified this graph, to check the classification against the graph.
+    pub taxonomy: &'a graph::Taxonomy,
+    /// Classification rules that decided nothing in this data, as the build describes them.
+    pub dead_rules: Vec<String>,
     /// Whether an entity is part of what the product ships. What the scope policy holds back
     /// is DE's own duplicates and placeholders, and judging those says nothing about the
     /// catalog — only an invariant still applies to them.
@@ -36,13 +40,20 @@ pub fn run(graph: &Graph, input: Input<'_>) -> (Report, State) {
     all.extend(cross::relic_rewards(graph, &input.relic_witness));
     all.extend(cross::drops(graph, &input.drop_witness));
     all.extend(cross::set_composition(graph));
+    all.extend(cross::taxonomy_against_sets(graph, input.taxonomy));
     all.extend(cross::vault_against_drops(graph));
     all.extend(outlier::check(graph));
     all.extend(coverage::check(graph, &input.gaps));
     all.extend(anchor::check(graph, input.anchors));
+    all.extend(silence::check(graph, input.taxonomy, &input.dead_rules));
 
     let before = all.len();
-    all.retain(|f| f.layer == crate::finding::Layer::Invariant || (input.shipped)(&f.entity));
+    all.retain(|f| {
+        matches!(
+            f.layer,
+            crate::finding::Layer::Invariant | crate::finding::Layer::Silence
+        ) || (input.shipped)(&f.entity)
+    });
     let out_of_scope = before - all.len();
 
     let (accepted, findings): (Vec<_>, Vec<_>) = all

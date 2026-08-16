@@ -6,6 +6,7 @@ license.workspace = true
 rust-version.workspace = true
 
 [dependencies]
+consensus.workspace = true
 graph.workspace = true
 anyhow.workspace = true
 serde.workspace = true

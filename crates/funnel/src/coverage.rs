@@ -20,6 +20,8 @@ pub struct Gaps {
     pub unknown_drop_items: Vec<String>,
     /// Item paths judged to keep the name the game writes, so no Russian is owed.
     pub verbatim: BTreeSet<String>,
+    /// Kinds only a catch-all rule assigns: they read like a decision and are not one.
+    pub provisional: BTreeSet<String>,
 }
 
 /// Find what the catalog is missing, both from the build's own gaps and from the graph.
@@ -52,15 +54,21 @@ pub fn check(graph: &Graph, gaps: &Gaps) -> Vec<Finding> {
     }
 
     for item in graph.items() {
-        if item.kind.value.is_unknown() {
+        let caught_by_catch_all = gaps.provisional.contains(item.kind.value.as_str());
+        if item.kind.value.is_unknown() || caught_by_catch_all {
+            let why = if caught_by_catch_all {
+                format!(
+                    "only a catch-all claims it, as {}",
+                    item.kind.value.as_str()
+                )
+            } else {
+                "no taxonomy rule matched".to_string()
+            };
             out.push(Finding::new(
                 Layer::Coverage,
                 "kind-unresolved",
                 &item.unique_name,
-                format!(
-                    "no taxonomy rule matched, DE files it as {}",
-                    item.category.value
-                ),
+                format!("{why}, DE files it as {}", item.category.value),
             ));
         }
         if item.names.ru.is_none() && !gaps.verbatim.contains(&item.unique_name) {

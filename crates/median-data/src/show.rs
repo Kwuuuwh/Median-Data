@@ -106,7 +106,7 @@ fn print(graph: &Graph, node: &Node) {
 
 fn detail(rel: &Rel) -> String {
     match rel {
-        Rel::Rewards { rarity } => format!(" ({rarity})"),
+        Rel::Rewards { rarity, .. } => format!(" ({rarity})"),
         Rel::Requires { count } if *count > 1 => format!(" (x{count})"),
         Rel::Drops(d) => {
             let where_ = [d.rotation.as_deref(), d.stage.as_deref()]

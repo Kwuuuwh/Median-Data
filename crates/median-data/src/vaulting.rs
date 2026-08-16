@@ -115,6 +115,7 @@ pub fn mark(
         &status,
         Rel::Rewards {
             rarity: String::new(),
+            count: 0,
         },
     );
     out.derived = rewarded.len();
@@ -391,6 +392,7 @@ mod tests {
             to: item.into(),
             rel: Rel::Rewards {
                 rarity: "Common".into(),
+                count: 1,
             },
         });
     }

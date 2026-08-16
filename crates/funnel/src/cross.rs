@@ -1,6 +1,6 @@
 use std::collections::{BTreeMap, BTreeSet};
 
-use graph::{Graph, Node, Rel};
+use graph::{Graph, Node, Rel, Taxonomy};
 
 use crate::finding::{Finding, Layer};
 
@@ -23,6 +23,43 @@ pub struct DropClaim {
 
 /// Drop chances are printed rounded to two decimals.
 const CHANCE_TOLERANCE: f64 = 0.0005;
+
+/// Classes whose items are parts of something bigger rather than things in their own right.
+const PART_CLASSES: [&str; 2] = ["component", "blueprint"];
+
+/// Check what the taxonomy calls an item against what the graph shows it doing. Set
+/// composition comes from the market, which never read the rule table, so the two are
+/// independent accounts of the same thing.
+pub fn taxonomy_against_sets(graph: &Graph, taxonomy: &Taxonomy) -> Vec<Finding> {
+    let mut out = Vec::new();
+    for item in graph.items() {
+        let class = taxonomy.class_slug(&item.kind.value);
+        let in_a_set = graph
+            .into(&item.unique_name)
+            .iter()
+            .any(|e| matches!(e.rel, Rel::Member));
+
+        if in_a_set && !PART_CLASSES.contains(&class) {
+            out.push(Finding::new(
+                Layer::Cross,
+                "kind-not-a-part",
+                &item.unique_name,
+                format!("belongs to a set, yet the rules call it {class}"),
+            ));
+        }
+        // Only for what the market trades: a part nobody sells needs no set to belong to.
+        let traded = item.tradable.as_ref().is_some_and(|t| t.value);
+        if traded && !in_a_set && class == "component" {
+            out.push(Finding::new(
+                Layer::Cross,
+                "part-without-set",
+                &item.unique_name,
+                "traded as a part, yet belongs to no set".to_string(),
+            ));
+        }
+    }
+    out
+}
 
 /// Compare the drop rows the catalog took from the official tables against another source's
 /// account of the same table. Only places the witness actually covers are judged: it knows
@@ -93,22 +130,25 @@ pub fn drops(graph: &Graph, witness: &[DropClaim]) -> Vec<Finding> {
 
 /// Compare the relic rewards the catalog took from DE against another source's account of
 /// the same thing. Rarity labels are not comparable across sources, so each side is reduced
-/// to the chance it implies.
+/// to the chance it implies. A relic can award the same item in two slots, so both sides are
+/// summed per pair rather than kept one-to-one — otherwise a slot silently disappears.
 pub fn relic_rewards(graph: &Graph, witness: &[RelicClaim]) -> Vec<Finding> {
-    let mut ours: BTreeMap<(&str, &str), &str> = BTreeMap::new();
+    let mut ours: BTreeMap<(&str, &str), f64> = BTreeMap::new();
     for edge in graph.edges() {
-        if let Rel::Rewards { rarity } = &edge.rel {
-            ours.insert((&edge.from, &edge.to), rarity);
-        }
+        let Rel::Rewards { rarity, .. } = &edge.rel else {
+            continue;
+        };
+        let odds = refinement_of(graph, &edge.from).and_then(|r| graph::chance(rarity, r));
+        *ours.entry((&edge.from, &edge.to)).or_default() += odds.unwrap_or_default();
     }
 
     let mut theirs: BTreeMap<(&str, &str), f64> = BTreeMap::new();
     for claim in witness {
-        theirs.insert((&claim.relic, &claim.reward), claim.chance);
+        *theirs.entry((&claim.relic, &claim.reward)).or_default() += claim.chance;
     }
 
     let mut out = Vec::new();
-    for (pair, rarity) in &ours {
+    for (pair, odds) in &ours {
         let Some(theirs) = theirs.get(pair) else {
             out.push(
                 Finding::new(
@@ -121,22 +161,20 @@ pub fn relic_rewards(graph: &Graph, witness: &[RelicClaim]) -> Vec<Finding> {
             );
             continue;
         };
-        let Some(refinement) = refinement_of(graph, pair.0) else {
+        // Zero means no refinement or no chance for the rarity, not a real disagreement.
+        if *odds == 0.0 {
             continue;
-        };
-        let Some(ours) = graph::chance(rarity, refinement) else {
-            continue;
-        };
-        if (ours - theirs).abs() > CHANCE_TOLERANCE {
+        }
+        if (odds - theirs).abs() > CHANCE_TOLERANCE {
             out.push(
                 Finding::new(
                     Layer::Cross,
                     "relic-chance-differs",
                     pair.0,
                     format!(
-                        "{}: DE {rarity} implies {:.2}%, drop tables print {:.2}%",
+                        "{}: DE implies {:.2}%, drop tables print {:.2}%",
                         pair.1,
-                        ours * 100.0,
+                        odds * 100.0,
                         theirs * 100.0
                     ),
                 )
@@ -164,7 +202,7 @@ fn is_relic(graph: &Graph, item: &str) -> bool {
     refinement_of(graph, item).is_some()
 }
 
-fn refinement_of<'a>(graph: &'a Graph, relic: &str) -> Option<&'a str> {
+pub(crate) fn refinement_of<'a>(graph: &'a Graph, relic: &str) -> Option<&'a str> {
     match graph.get(relic)? {
         Node::Item(item) => match &item.extra {
             graph::Extra::Relic(r) => Some(&r.refinement),

@@ -103,7 +103,8 @@ fn badge(status: Status) -> Markup {
         @match status {
             Status::Confirmed => span.tag.trade { (words::status(status)) },
             Status::Conflict => span.tag.bad { (words::status(status)) },
-            Status::Single => span.tag { (words::status(status)) },
+            // Marked, not neutral: one source and no objection is not the same as checked.
+            Status::Single => span.tag.alone { (words::status(status)) },
         }
     }
 }

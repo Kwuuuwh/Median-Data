@@ -82,6 +82,50 @@ pub fn vaulting(raw: &[u8]) -> Result<Vec<Vaulting>> {
     Ok(out)
 }
 
+/// One slot of a relic as the wiki writes it. The wiki keeps the thing and the part of it
+/// apart, where DE ships a single path, so the two are joined back into a printed name.
+pub struct Slot {
+    /// Printed relic name, as the module keys it: `Axi A1`.
+    pub relic: String,
+    /// Printed reward name: `Item` and `Part` joined, as the catalog spells it.
+    pub reward: String,
+    /// `Common`, `Uncommon`, `Rare`, as printed.
+    pub rarity: String,
+    /// How many the slot hands over; the module states it only when it is not one.
+    pub count: i64,
+}
+
+/// What every relic awards, from `Module:Void/data`. DE exports the same thing, so this is a
+/// second account of it — the only one written by people who open relics rather than by the
+/// studio that ships them.
+pub fn composition(raw: &[u8]) -> Result<Vec<Slot>> {
+    let src = String::from_utf8_lossy(raw);
+    let root = lua::table_of(&src, "RelicData").context("read Module:Void/data")?;
+    let mut out = Vec::new();
+    for (key, entry) in &root.fields {
+        let Some(table) = entry.table() else { continue };
+        let Some(drops) = table.table("Drops") else {
+            continue;
+        };
+        let relic = table.str("Name").unwrap_or(key);
+        for slot in &drops.items {
+            let Some(slot) = slot.table() else { continue };
+            let (Some(item), Some(part), Some(rarity)) =
+                (slot.str("Item"), slot.str("Part"), slot.str("Rarity"))
+            else {
+                continue;
+            };
+            out.push(Slot {
+                relic: relic.to_string(),
+                reward: format!("{item} {part}"),
+                rarity: rarity.to_string(),
+                count: slot.int("ItemCount").unwrap_or(1),
+            });
+        }
+    }
+    Ok(out)
+}
+
 /// Mission reward tables from `Module:DropTables/data`, keyed by the alias the star chart
 /// module refers to them by.
 pub fn tables(raw: &[u8]) -> Result<BTreeMap<String, Vec<Row>>> {

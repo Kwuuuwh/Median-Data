@@ -15,7 +15,7 @@ pub struct Catalog;
 /// application reads it to decide whether it can open the file at all — so it lives here,
 /// beside the schema it describes, and is written both as `PRAGMA user_version` and as a row
 /// of `meta`.
-pub const SCHEMA: u32 = 9;
+pub const SCHEMA: u32 = 10;
 
 pub const SETUP: &str = "\
 CREATE TABLE meta (
@@ -72,7 +72,8 @@ CREATE TABLE relic_rewards (
   relic  TEXT NOT NULL,
   reward TEXT NOT NULL,
   rarity TEXT NOT NULL,
-  PRIMARY KEY (relic, reward)
+  count  INTEGER NOT NULL,
+  PRIMARY KEY (relic, reward, rarity)
 ) WITHOUT ROWID;
 CREATE TABLE relics (
   unique_name TEXT PRIMARY KEY,
@@ -563,8 +564,10 @@ fn edges(tx: &Transaction<'_>, graph: &Graph) -> Result<()> {
     let mut requires = tx.prepare(
         "INSERT OR IGNORE INTO recipe_requires (blueprint, item, count) VALUES (?1, ?2, ?3)",
     )?;
+    // Not `OR IGNORE`: a relic awards the same item in more than one slot, so a swallowed key
+    // conflict would drop a reward the graph holds and nothing downstream would notice.
     let mut rewards = tx.prepare(
-        "INSERT OR IGNORE INTO relic_rewards (relic, reward, rarity) VALUES (?1, ?2, ?3)",
+        "INSERT INTO relic_rewards (relic, reward, rarity, count) VALUES (?1, ?2, ?3, ?4)",
     )?;
     let mut members =
         tx.prepare("INSERT OR IGNORE INTO set_members (slug, item) VALUES (?1, ?2)")?;
@@ -599,8 +602,8 @@ fn edges(tx: &Transaction<'_>, graph: &Graph) -> Result<()> {
             Rel::Requires { count } => {
                 requires.execute((strip(&edge.from, "recipe:"), &edge.to, count))?;
             }
-            Rel::Rewards { rarity } => {
-                rewards.execute((&edge.from, &edge.to, rarity))?;
+            Rel::Rewards { rarity, count } => {
+                rewards.execute((&edge.from, &edge.to, rarity, count))?;
             }
             Rel::Member => {
                 members.execute((strip(&edge.from, "set:"), &edge.to))?;
@@ -670,6 +673,18 @@ fn edges(tx: &Transaction<'_>, graph: &Graph) -> Result<()> {
             Rel::Produces | Rel::Represents | Rel::Yields | Rel::At | Rel::Refines => {}
         }
     }
+
+    // The funnel only ever sees the graph, so a row lost on the way into the table would pass
+    // every check. Reward slots are the case that already happened, so they are counted back.
+    let awarded = graph
+        .edges()
+        .filter(|e| matches!(e.rel, Rel::Rewards { .. }))
+        .count() as i64;
+    let stored: i64 = tx.query_row("SELECT count(*) FROM relic_rewards", [], |row| row.get(0))?;
+    if stored != awarded {
+        anyhow::bail!("relic_rewards stored {stored} rows for {awarded} reward edges");
+    }
+
     Ok(())
 }
 

@@ -49,6 +49,8 @@ pub struct DeReward {
     pub relic: String,
     pub reward: String,
     pub rarity: String,
+    /// How many the slot hands over. Forma comes in twos.
+    pub count: i64,
 }
 
 /// DE items (uniqueName + name, `productCategory` as category) from a manifest's raw bytes.
@@ -135,6 +137,7 @@ pub fn de_rewards(raw: &[u8]) -> Result<Vec<DeReward>> {
                     .and_then(Value::as_str)
                     .unwrap_or("COMMON")
                     .to_string(),
+                count: int(r, "itemCount").unwrap_or(1),
             });
         }
     }

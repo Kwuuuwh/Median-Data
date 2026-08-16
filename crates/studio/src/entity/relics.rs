@@ -19,7 +19,7 @@ fn rewards(graph: &Graph, id: &str) -> Markup {
         .from(id)
         .into_iter()
         .filter_map(|e| match &e.rel {
-            Rel::Rewards { rarity } => Some((e.to.as_str(), rarity.as_str())),
+            Rel::Rewards { rarity, .. } => Some((e.to.as_str(), rarity.as_str())),
             _ => None,
         })
         .collect();
@@ -36,9 +36,9 @@ fn rewards(graph: &Graph, id: &str) -> Markup {
 
     card(
         "Награды реликвии",
-        Some(html! { span.card-n.hot[!(0.995..=1.005).contains(&sum)] {
-            "Σ " (pct(sum))
-        } }),
+        // Shown as a number only: whether the sum is wrong is the funnel's verdict, and it
+        // arrives on this page as a finding like any other.
+        Some(html! { span.card-n { "Σ " (pct(sum)) } }),
         html! {
             p.why { "Улучшение: " (words::refinement(refinement)) }
             (fold.wrap(html! {
@@ -69,7 +69,7 @@ fn from_relics(graph: &Graph, id: &str) -> Markup {
         .into(id)
         .into_iter()
         .filter_map(|e| match &e.rel {
-            Rel::Rewards { rarity } => Some((e.from.as_str(), rarity.as_str())),
+            Rel::Rewards { rarity, .. } => Some((e.from.as_str(), rarity.as_str())),
             _ => None,
         })
         .collect();

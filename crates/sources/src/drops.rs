@@ -27,8 +27,9 @@ pub struct Drop {
     pub table_chance: Option<f64>,
 }
 
-/// One printed relic reward line. The catalog takes relic rewards from the DE export;
-/// these are kept as an independent witness to check that against.
+/// One printed relic reward line. The catalog takes relic rewards from the DE export, and
+/// these come from DE too — the same studio, a different publication — so they witness the
+/// export, not the game. The account written by people who open relics is the wiki's.
 #[derive(Debug, Clone, PartialEq)]
 pub struct RelicRow {
     /// Relic name as printed, without the refinement.

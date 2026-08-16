@@ -14,6 +14,8 @@ pub enum Layer {
     Coverage,
     /// A hand-curated fact the build failed to reproduce.
     Anchor,
+    /// Not a wrong value but an unexamined one: nothing ever checked it.
+    Silence,
 }
 
 impl Layer {
@@ -24,6 +26,7 @@ impl Layer {
             Layer::Outlier => "outlier",
             Layer::Coverage => "coverage",
             Layer::Anchor => "anchor",
+            Layer::Silence => "silence",
         }
     }
 }

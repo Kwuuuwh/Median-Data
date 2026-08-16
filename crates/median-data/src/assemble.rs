@@ -24,6 +24,8 @@ pub struct Built {
     pub gaps: Gaps,
     /// Drop-table relic rewards resolved to catalog paths, to check DE against.
     pub relic_witness: Vec<RelicClaim>,
+    /// What checking relic contents against the wiki came to.
+    pub witnessed: crate::relic::Witnessed,
     pub places: usize,
     pub enemies: usize,
     /// What the vault pass settled.
@@ -62,6 +64,8 @@ pub struct Built {
     pub imprinted: usize,
     /// Relic refinement steps linked.
     pub refined: usize,
+    /// Classification rules that decided nothing, as the audit describes them.
+    pub dead_rules: Vec<String>,
 }
 
 /// Raw inputs of one build.
@@ -88,6 +92,8 @@ pub struct Input {
     pub relic_rows: Vec<RelicRow>,
     /// What the wiki says about which relics are in the vault.
     pub vaulting: Vec<crate::wiki::Vaulting>,
+    /// What the wiki says every relic awards, to check DE's own account against.
+    pub composition: Vec<crate::wiki::Slot>,
 }
 
 /// Merge every source into the knowledge graph, honouring curated decisions.
@@ -192,6 +198,7 @@ pub fn assemble(
     let vendors = crate::vendors::link(&mut graph, &input.stores, &input.baro, &index, &terms);
     let dojo = crate::labs::link(&mut graph, &input.dojo, &index, &terms);
     let relic_witness = witness(&index, &input.relic_rows);
+    let witnessed = relic::witnessed(&graph, &index, &input.composition, &mut conflicts);
     let drop_witness =
         crate::witness::drops(&graph, &input.chart.nodes, &input.wiki_tables, &index);
 
@@ -211,6 +218,7 @@ pub fn assemble(
             unresolved_rewards: unresolved_rewards.into_iter().collect(),
             dangling_craft: dangling_craft.into_iter().collect(),
             unknown_drop_items: missed.unknown.keys().cloned().collect(),
+            provisional: taxonomy.provisional(),
             verbatim: curated
                 .verbatim()
                 .into_iter()
@@ -220,6 +228,7 @@ pub fn assemble(
         },
         orphans,
         relic_witness,
+        witnessed,
         places: dropped.places,
         enemies: dropped.enemies,
         vaulted,
@@ -239,6 +248,7 @@ pub fn assemble(
         fitted,
         imprinted,
         refined,
+        dead_rules: Vec::new(),
         graph,
         taxonomy: taxonomy.tree,
     }

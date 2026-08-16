@@ -1574,13 +1574,63 @@ ru = "Цетус"
 
 [[term]]
 kind = "tileset"
+key = "Albrecht's Laboratories"
+ru = "Лаборатория Альбрехта"
+
+[[term]]
+kind = "tileset"
 key = "Cetus"
 ru = "Цетус"
 
 [[term]]
 kind = "tileset"
+key = "Chrysalith"
+ru = "Хризалит"
+
+[[term]]
+kind = "tileset"
+key = "Dormizone"
+ru = "Дормизон"
+
+[[term]]
+kind = "tileset"
+key = "Duviri"
+ru = "Дувири"
+
+[[term]]
+kind = "tileset"
+key = "Fortuna"
+ru = "Фортуна"
+
+[[term]]
+kind = "tileset"
+key = "Höllvania"
+ru = "Хёльвания"
+
+[[term]]
+kind = "tileset"
+key = "Necralisk"
+ru = "Некралиск"
+
+[[term]]
+kind = "tileset"
+key = "Plains of Eidolon"
+ru = "Равнины Эйдолонов"
+
+[[term]]
+kind = "tileset"
+key = "Relay"
+ru = "Реле"
+
+[[term]]
+kind = "tileset"
 key = "Stalker's Lair"
 ru = "Логово Сталкера"
+
+[[term]]
+kind = "tileset"
+key = "The Index"
+ru = "Индекс"
 
 [[term]]
 kind = "tileset"
@@ -1675,6 +1725,11 @@ note = ""
 [[dismiss]]
 source = "dojo"
 key = "Ostron Gatherer (Standing)"
+note = ""
+
+[[dismiss]]
+source = "drops"
+key = "3 Day Mod Drop Chance Booster"
 note = ""
 
 [[dismiss]]

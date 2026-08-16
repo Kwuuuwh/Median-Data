@@ -15,7 +15,9 @@
 #   path_contains substring of `uniqueName`
 #   mod_type      `type`, which only mods carry (`STANCE`, `AURA`)
 #
-# An item no rule matches lands in `unknown`, which the funnel reports.
+# An item no rule matches lands in `unknown`, which the funnel reports. A rule that catches
+# what is left rather than recognising anything says `fallback = true`: what it assigns reads
+# like a decision and is not one, so the funnel counts those items as unclassified too.
 
 [[class]]
 slug = "warframe"
@@ -153,6 +155,7 @@ slug = "component"
 en = "Components"
 ru = "Компоненты"
 kind = [
+  { slug = "weapon-component", en = "Weapon component", ru = "Компонент оружия" },
   { slug = "warframe-component", en = "Warframe component", ru = "Компонент варфрейма" },
   { slug = "archwing-component", en = "Archwing component", ru = "Компонент арчвинга" },
   { slug = "ship-component", en = "Ship component", ru = "Компонент корабля" },
@@ -558,6 +561,11 @@ kind = "arcane"
 reason = "path: DE files arcanes as cosmetic enhancers"
 path_contains = ["/Upgrades/CosmeticEnhancers/"]
 
+[[rule]]
+kind = "weapon-component"
+reason = "path: DE files weapon parts under the recipe folder, all sharing the junk-drawer prototype"
+path_contains = ["/Recipes/Weapons/WeaponParts/"]
+
 # --- resources and components --------------------------------------------------------------
 # `parentName` is DE's own prototype pointer, and it splits the resource manifest.
 
@@ -879,8 +887,10 @@ array = ["ExportFlavour"]
 kind = "misc-resource"
 reason = "parentName: DE's own junk drawer"
 parent = ["/Lotus/Types/Items/MiscItems/MiscItemBase"]
+fallback = true
 
 [[rule]]
 kind = "misc"
 reason = "manifest"
 array = ["ExportResources", "ExportDrones"]
+fallback = true

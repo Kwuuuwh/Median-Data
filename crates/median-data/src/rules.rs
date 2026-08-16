@@ -138,6 +138,7 @@ mod tests {
             relic: "/Relic/A".into(),
             reward: "/R/VoltPrimeBlueprint".into(),
             rarity: "RARE".into(),
+            count: 1,
         }];
         let recipes = vec![DeRecipe {
             blueprint: "/R/VoltPrimeBlueprint".into(),

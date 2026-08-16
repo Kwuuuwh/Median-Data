@@ -1,4 +1,4 @@
-use std::collections::{BTreeMap, BTreeSet};
+use std::collections::BTreeMap;
 use std::path::Path;
 
 use anyhow::{Context, Result};
@@ -48,6 +48,14 @@ pub fn run(vault: &Vault, out: &Path) -> Result<()> {
     );
     for name in vaulted.unmatched.iter().take(8) {
         eprintln!("vault    the wiki names a relic the catalog does not hold — {name}");
+    }
+    let rewards = &built.witnessed;
+    eprintln!(
+        "rewards  {} relics checked against the wiki, {} stated by DE alone",
+        rewards.compared, rewards.alone
+    );
+    for name in rewards.unresolved.iter().take(8) {
+        eprintln!("rewards  the wiki awards something the catalog does not hold — {name}");
     }
     let chart = &built.star_chart;
     eprintln!(
@@ -148,23 +156,13 @@ pub fn run(vault: &Vault, out: &Path) -> Result<()> {
     Ok(())
 }
 
-/// How the taxonomy filled up, largest class first, plus kinds nothing landed in. An empty
-/// kind is the mirror of a rule that fires for nothing: one of the two is wrong.
+/// How the taxonomy filled up, largest class first.
 fn taxonomy_tally(built: &Built) {
     let mut classes: BTreeMap<&str, usize> = BTreeMap::new();
-    let mut filled: BTreeSet<&str> = BTreeSet::new();
     for item in built.graph.items() {
         *classes
             .entry(built.taxonomy.class_slug(&item.kind.value))
             .or_default() += 1;
-        filled.insert(item.kind.value.as_str());
-    }
-    for class in built.taxonomy.classes() {
-        for leaf in &class.kind {
-            if leaf.slug != graph::Kind::UNKNOWN && !filled.contains(leaf.slug.as_str()) {
-                eprintln!("taxonomy kind '{}' holds nothing", leaf.slug);
-            }
-        }
     }
     let mut ranked: Vec<(&str, usize)> = classes.into_iter().collect();
     ranked.sort_by(|a, b| b.1.cmp(&a.1).then(a.0.cmp(b.0)));
@@ -213,19 +211,28 @@ fn acquisition_tally(built: &Built, scope: &projections::Scope) {
     }
 }
 
-/// Rules that decided nothing: a dead rule is either wrong or left over.
-fn audit(policy: &taxonomy::Policy, de: &[extract::DeItem], recipes: &[extract::DeRecipe]) {
+/// Rules that decided nothing: a dead rule is either wrong or left over. The answer goes to
+/// the funnel rather than to the terminal, so it is read on the same page as everything else.
+fn audit(
+    policy: &taxonomy::Policy,
+    de: &[extract::DeItem],
+    recipes: &[extract::DeRecipe],
+) -> Vec<String> {
     let facts = de.iter().map(taxonomy::facts).chain(
         recipes
             .iter()
             .map(|r| taxonomy::blueprint_facts(&r.blueprint)),
     );
-    for rule in policy.unused(facts) {
-        eprintln!(
-            "taxonomy rule for '{}' matched nothing — {}",
-            rule.kind, rule.reason
-        );
-    }
+    policy
+        .unused(facts)
+        .into_iter()
+        .map(|rule| {
+            format!(
+                "taxonomy rule for '{}' matched nothing — {}",
+                rule.kind, rule.reason
+            )
+        })
+        .collect()
 }
 
 /// Run every filter of the funnel over an assembled graph.
@@ -252,6 +259,7 @@ pub fn judge(vault: &Vault, built: &Built, curated: &Curation) -> Result<(Report
                 unresolved_rewards: built.gaps.unresolved_rewards.clone(),
                 dangling_craft: built.gaps.dangling_craft.clone(),
                 unknown_drop_items: built.gaps.unknown_drop_items.clone(),
+                provisional: built.gaps.provisional.clone(),
                 verbatim: curated
                     .verbatim()
                     .into_iter()
@@ -280,6 +288,8 @@ pub fn judge(vault: &Vault, built: &Built, curated: &Curation) -> Result<(Report
                 })
                 .collect(),
             anchors: &anchors,
+            taxonomy: &built.taxonomy,
+            dead_rules: built.dead_rules.clone(),
             shipped: &|entity| scope.allows(entity),
             // A drop-table name declared to be no item at all answers the same question the
             // coverage check asks, so the verdict counts as accepting its finding.
@@ -437,11 +447,11 @@ pub fn graph_with(vault: &Vault, curated: &Curation) -> Result<Built> {
     }
 
     let policy = taxonomy::load(Path::new(crate::TAXONOMY))?;
-    audit(&policy, &de, &recipes);
+    let dead_rules = audit(&policy, &de, &recipes);
 
     let labels = regions::load(Path::new(crate::REGIONS))?;
 
-    Ok(assemble::assemble(
+    let mut built = assemble::assemble(
         Input {
             de,
             ru,
@@ -458,12 +468,15 @@ pub fn graph_with(vault: &Vault, curated: &Curation) -> Result<Built> {
             drops: tables.drops,
             relic_rows: tables.relics,
             vaulting: wiki::vaulting(&blob(vault, &wiki_snap, spec::WIKI_VOID)?)?,
+            composition: wiki::composition(&blob(vault, &wiki_snap, spec::WIKI_VOID)?)?,
         },
         policy,
         &labels,
         &bounties::load(Path::new(crate::BOUNTIES))?,
         curated,
-    ))
+    );
+    built.dead_rules = dead_rules;
+    Ok(built)
 }
 
 pub fn blob(vault: &Vault, snap: &Snapshot, logical: &str) -> Result<Vec<u8>> {

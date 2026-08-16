@@ -361,6 +361,7 @@ name = "funnel"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "consensus",
  "graph",
  "serde",
  "serde_json",

@@ -7,6 +7,7 @@ mod invariant;
 mod outlier;
 mod report;
 mod run;
+mod silence;
 
 pub use anchor::{Anchors, load as load_anchors};
 pub use coverage::{DROP_NOT_IN_CATALOG, Gaps};

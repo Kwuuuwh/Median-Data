@@ -2,6 +2,7 @@ use std::collections::BTreeMap;
 
 use graph::{Graph, Node, Rel};
 
+use crate::cross::refinement_of;
 use crate::finding::{Finding, Layer};
 
 /// One measurement, judged against others in its group.
@@ -13,6 +14,9 @@ struct Sample {
 
 /// Groups smaller than this say nothing about what is normal.
 const MIN_GROUP: usize = 8;
+
+/// How far a relic's slot chances may stand from a whole before it stops looking normal.
+const SUM_TOLERANCE: f64 = 0.005;
 
 /// Flag values unlike their siblings, across every measured series.
 pub fn check(graph: &Graph) -> Vec<Finding> {
@@ -29,7 +33,38 @@ pub fn check(graph: &Graph) -> Vec<Finding> {
         "ingredients",
     ));
     out.extend(judge(&ducats(graph), "ducat-value", "ducats"));
+    out.extend(chances_add_up(graph));
     out
+}
+
+/// Opening a relic hands over exactly one reward, so the chances of its slots add up to a
+/// whole. Requiem relics answer to a table of their own and stand out here honestly, which is
+/// why this reports rather than gates.
+fn chances_add_up(graph: &Graph) -> Vec<Finding> {
+    let mut odds: BTreeMap<&str, f64> = BTreeMap::new();
+    for edge in graph.edges() {
+        let Rel::Rewards { rarity, .. } = &edge.rel else {
+            continue;
+        };
+        let Some(refinement) = refinement_of(graph, &edge.from) else {
+            continue;
+        };
+        let Some(chance) = graph::chance(rarity, refinement) else {
+            continue;
+        };
+        *odds.entry(edge.from.as_str()).or_default() += chance;
+    }
+    odds.into_iter()
+        .filter(|(_, sum)| (sum - 1.0).abs() > SUM_TOLERANCE)
+        .map(|(relic, sum)| {
+            Finding::new(
+                Layer::Outlier,
+                "relic-chances-sum",
+                relic,
+                format!("slot chances add up to {:.2}%", sum * 100.0),
+            )
+        })
+        .collect()
 }
 
 /// Compare each sample with the median of its group, using a median absolute deviation so
