@@ -60,15 +60,20 @@ impl<'a> Bridge<'a> {
             by_ref.entry(path).or_insert(w);
         }
 
+        let bases: Vec<&str> = items
+            .iter()
+            .filter(|w| w.has_tag("set"))
+            .filter_map(|w| w.slug.strip_suffix("_set"))
+            .collect();
+
         let mut sets = Vec::new();
         for item in items.iter().filter(|w| w.has_tag("set")) {
             let Some(base) = item.slug.strip_suffix("_set") else {
                 continue;
             };
-            let prefix = format!("{base}_");
             let members = items
                 .iter()
-                .filter(|m| !m.has_tag("set") && m.slug.starts_with(&prefix))
+                .filter(|m| !m.has_tag("set") && owner(&bases, &m.slug) == Some(base))
                 .collect();
             sets.push(SetInfo { item, members });
         }
@@ -101,6 +106,26 @@ impl<'a> Bridge<'a> {
     pub fn sets(&self) -> &[SetInfo<'a>] {
         &self.sets
     }
+}
+
+/// The set a listing belongs to: the **longest** base its slug carries, and nothing when it
+/// carries none.
+///
+/// A prime weapon shares the start of its plain namesake's slug — `perigale_prime_barrel`
+/// begins with both `perigale_` and `perigale_prime_` — so a set that took every slug
+/// starting with its own base would take its prime's parts as well, and the part would end up
+/// in two sets at once. Only the longest base names a set, because the market builds the
+/// slug by appending to the item's name and the longer base is the more specific item.
+fn owner<'a>(bases: &[&'a str], slug: &str) -> Option<&'a str> {
+    bases
+        .iter()
+        .filter(|base| {
+            slug.len() > base.len()
+                && slug.starts_with(**base)
+                && slug.as_bytes()[base.len()] == b'_'
+        })
+        .max_by_key(|base| base.len())
+        .copied()
 }
 
 fn resolve(w: &WfmItem, paths: &Paths, curated: &BTreeMap<&str, &str>) -> Option<(String, How)> {
@@ -226,6 +251,65 @@ mod tests {
         assert!(slugs.contains(&"volt_prime_blueprint"));
         assert!(slugs.contains(&"volt_prime_chassis_blueprint"));
         assert!(!slugs.contains(&"braton_prime_barrel"));
+    }
+
+    /// Measured on the real market 30.08.2026: `perigale_set` held seven members, four of
+    /// them the prime's, and every prime part sat in two sets at once. Eight weapon families
+    /// and the damaged Necramech were in the same state.
+    #[test]
+    fn a_prime_part_belongs_to_the_primes_set_and_not_to_its_namesakes() {
+        let catalog = [
+            de("/R/PerigaleBarrel", "Perigale Barrel"),
+            de("/R/PerigalePrimeBarrel", "Perigale Prime Barrel"),
+        ];
+        let paths = Paths::build(&catalog, &[]);
+        let items = vec![
+            item("perigale_set", "", "Perigale Set", &["set"]),
+            item(
+                "perigale_prime_set",
+                "",
+                "Perigale Prime Set",
+                &["set", "prime"],
+            ),
+            item(
+                "perigale_barrel",
+                "/R/PerigaleBarrel",
+                "Perigale Barrel",
+                &["component"],
+            ),
+            item(
+                "perigale_prime_barrel",
+                "/R/PerigalePrimeBarrel",
+                "Perigale Prime Barrel",
+                &["component"],
+            ),
+        ];
+        let bridge = Bridge::new(&items, &paths, &BTreeMap::new());
+
+        let members = |slug: &str| -> Vec<String> {
+            bridge
+                .sets()
+                .iter()
+                .find(|set| set.item.slug == slug)
+                .expect("the set")
+                .members
+                .iter()
+                .map(|m| m.slug.clone())
+                .collect()
+        };
+
+        assert_eq!(members("perigale_set"), ["perigale_barrel"]);
+        assert_eq!(members("perigale_prime_set"), ["perigale_prime_barrel"]);
+    }
+
+    /// A listing whose slug no set base claims belongs to no set at all.
+    #[test]
+    fn a_listing_no_set_claims_stands_alone() {
+        assert_eq!(owner(&["perigale", "perigale_prime"], "cedo_barrel"), None);
+        assert_eq!(owner(&[], "perigale_barrel"), None);
+        // a base is not its own member, and a longer word is not a longer base
+        assert_eq!(owner(&["perigale"], "perigale"), None);
+        assert_eq!(owner(&["mag"], "magnus_prime_barrel"), None);
     }
 
     #[test]

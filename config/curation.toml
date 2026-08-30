@@ -599,6 +599,11 @@ ru = "МОА Амальгама"
 
 [[term]]
 kind = "enemy"
+key = "Amalgam Osprey"
+ru = "Дрон Амальгама"
+
+[[term]]
+kind = "enemy"
 key = "Amalgam Phase Moa"
 ru = "Фазовый МОА Амальгама"
 
