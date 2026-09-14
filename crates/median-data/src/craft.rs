@@ -101,6 +101,9 @@ pub fn blueprints(
             vaulted: None,
             prime,
             ducats: wfm.and_then(|w| w.ducats),
+            mastery: None,
+            mastery_req: None,
+            max_level_cap: None,
             extra: Extra::None,
         });
     }

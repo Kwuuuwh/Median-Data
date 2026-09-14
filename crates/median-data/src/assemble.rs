@@ -102,6 +102,7 @@ pub struct Input {
 pub fn assemble(
     input: Input,
     mut taxonomy: Policy,
+    mastery: &crate::mastery::Policy,
     labels: &Labels,
     settlements: &crate::bounties::Settlements,
     curated: &Curation,
@@ -130,6 +131,7 @@ pub fn assemble(
         built: &built,
         economy: &economy,
         taxonomy: &taxonomy,
+        mastery,
     };
     let items = merge::items(
         input.de,

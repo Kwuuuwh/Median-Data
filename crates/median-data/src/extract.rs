@@ -17,6 +17,10 @@ pub struct DeItem {
     pub parent: Option<String>,
     /// `type` as DE prints it. Only mods carry it.
     pub mod_type: Option<String>,
+    /// `masteryReq`: the rank the game asks before the item is built or traded.
+    pub mastery_req: Option<i64>,
+    /// `maxLevelCap`, which DE prints only where an item ranks past thirty.
+    pub max_level_cap: Option<i64>,
 }
 
 /// A DE foundry recipe.
@@ -39,7 +43,8 @@ pub struct DeRegion {
     pub mission: i64,
     pub faction: i64,
     pub node_type: i64,
-    pub mastery: i64,
+    /// `masteryReq`: the rank the node asks before it can be played.
+    pub mastery_req: i64,
     pub min_level: i64,
     pub max_level: i64,
 }
@@ -79,6 +84,8 @@ pub fn de_items(manifest: &str, raw: &[u8]) -> Result<Vec<DeItem>> {
             array: array.to_string(),
             parent: text(el, "parentName"),
             mod_type: text(el, "type"),
+            mastery_req: int(el, "masteryReq"),
+            max_level_cap: int(el, "maxLevelCap"),
         });
     }
     Ok(out)
@@ -170,7 +177,7 @@ pub fn de_regions(raw: &[u8]) -> Result<Vec<DeRegion>> {
             mission: int(el, "missionIndex").unwrap_or(-1),
             faction: int(el, "factionIndex").unwrap_or(-1),
             node_type: int(el, "nodeType").unwrap_or(-1),
-            mastery: int(el, "masteryReq").unwrap_or(0),
+            mastery_req: int(el, "masteryReq").unwrap_or(0),
             min_level: int(el, "minEnemyLevel").unwrap_or(0),
             max_level: int(el, "maxEnemyLevel").unwrap_or(0),
         });
@@ -297,5 +304,28 @@ mod tests {
             "/Lotus/Types/Recipes/WarframeRecipes/VoltPrimeChassisBlueprint"
         );
         assert_eq!(rewards[0].rarity, "UNCOMMON");
+    }
+
+    #[test]
+    fn reads_the_rank_an_item_asks_and_how_far_it_ranks() {
+        let raw = serde_json::to_vec(&serde_json::json!({
+            "ExportWeapons": [
+                { "uniqueName": "/Lotus/Weapons/Tenno/Pistol/Torid", "name": "Torid",
+                  "productCategory": "LongGuns", "masteryReq": 4 },
+                { "uniqueName": "/Lotus/Weapons/Grineer/KuvaLich/Secondaries/Nukor/KuvaNukor",
+                  "name": "Kuva Nukor", "productCategory": "Pistols",
+                  "masteryReq": 13, "maxLevelCap": 40 }
+            ]
+        }))
+        .unwrap();
+        let items = de_items("ExportWeapons", &raw).unwrap();
+        assert_eq!(
+            (items[0].mastery_req, items[0].max_level_cap),
+            (Some(4), None)
+        );
+        assert_eq!(
+            (items[1].mastery_req, items[1].max_level_cap),
+            (Some(13), Some(40))
+        );
     }
 }

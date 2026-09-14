@@ -50,6 +50,14 @@ pub fn check(graph: &Graph) -> Vec<Finding> {
                 "empty English name".to_string(),
             );
         }
+        if item.mastery.is_some() && item.max_level_cap.is_none() {
+            flag(
+                &mut out,
+                "mastery-needs-cap",
+                &item.unique_name,
+                "gives mastery but names no top rank".to_string(),
+            );
+        }
     }
 
     for edge in graph.edges() {

@@ -364,6 +364,9 @@ mod tests {
             vaulted: None,
             prime: value(true),
             ducats: None,
+            mastery: None,
+            mastery_req: None,
+            max_level_cap: None,
             extra,
         })
     }

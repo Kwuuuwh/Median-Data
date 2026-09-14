@@ -80,6 +80,9 @@ mod tests {
             vaulted: None,
             prime: value(prime),
             ducats: None,
+            mastery: None,
+            mastery_req: None,
+            max_level_cap: None,
             extra: Extra::None,
         })
     }

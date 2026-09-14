@@ -1,0 +1,77 @@
+# Which items count toward the account's mastery rank, on which of the game's two tables
+# their ranks count, and how far each one ranks.
+#
+# `[[exclude]]` comes first: an item it names gives no mastery whatever a rule says.
+# `[[rule]]` is ordered, first match wins. A rule matches when the item's kind is one it
+# lists and, if it lists paths, the item's `uniqueName` contains one of them. An item no rule
+# matches gives no mastery.
+#
+#   wielded   a hundred per rank — weapons, amps, zaws, kitguns
+#   carried   two hundred per rank — warframes, companions, archwings, K-drives, the plexus
+#
+# A modular weapon is not an item of its own: the game counts its ranks on one part, so the
+# rule names that part.
+#
+# `[[cap]]` gives the top rank of an item DE prints no `maxLevelCap` for. First match wins; a
+# cap that lists no kind covers every item, and one has to.
+
+[[exclude]]
+reason = "the second of the twin warframe, filed by DE as a special item outside the codex"
+path_contains = ["/Powersuits/SiriusOrion/OrionSuit"]
+
+[[exclude]]
+reason = "a Conclave copy of a zaw strike"
+path_contains = ["PvPVariant"]
+
+[[rule]]
+mastery = "carried"
+reason = "warframes, archwings and necramechs"
+kind = ["warframe", "archwing", "necramech"]
+
+[[rule]]
+mastery = "carried"
+reason = "companions; a MOA or a Hound is its head"
+kind = ["sentinel", "kubrow", "kavat", "predasite", "vulpaphyla", "moa", "hound"]
+
+[[rule]]
+mastery = "carried"
+reason = "a K-drive is its deck"
+kind = ["kdrive-part"]
+path_contains = ["Deck"]
+
+[[rule]]
+mastery = "carried"
+reason = "the Railjack plexus"
+kind = ["plexus"]
+
+[[rule]]
+mastery = "wielded"
+reason = "weapons, the archwing's own and the companions' included"
+kind = ["primary", "secondary", "melee", "arch-gun", "arch-melee", "companion-weapon"]
+
+[[rule]]
+mastery = "wielded"
+reason = "a zaw is its strike"
+kind = ["zaw-part"]
+path_contains = ["/Tip/", "/Tips/"]
+
+[[rule]]
+mastery = "wielded"
+reason = "a kitgun is its chamber"
+kind = ["kitgun-part"]
+path_contains = ["/Barrel/"]
+
+[[rule]]
+mastery = "wielded"
+reason = "an amp is its prism; Sirocco is a whole amp"
+kind = ["amp-part"]
+path_contains = ["/Barrel/", "SentAmpTrainingBarrel", "/DrifterPistol/"]
+
+[[cap]]
+rank = 40
+reason = "necramechs rank to forty and DE's ExportWarframes carries no maxLevelCap; the wiki's Module:Warframes/data says MaxRank = 40"
+kind = ["necramech"]
+
+[[cap]]
+rank = 30
+reason = "DE prints maxLevelCap only where an item ranks past thirty"

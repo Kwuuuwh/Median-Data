@@ -15,7 +15,7 @@ pub struct Catalog;
 /// application reads it to decide whether it can open the file at all — so it lives here,
 /// beside the schema it describes, and is written both as `PRAGMA user_version` and as a row
 /// of `meta`.
-pub const SCHEMA: u32 = 10;
+pub const SCHEMA: u32 = 11;
 
 pub const SETUP: &str = "\
 CREATE TABLE meta (
@@ -23,18 +23,21 @@ CREATE TABLE meta (
   value TEXT NOT NULL
 ) WITHOUT ROWID;
 CREATE TABLE items (
-  unique_name TEXT PRIMARY KEY,
-  name_en     TEXT NOT NULL,
-  name_ru     TEXT,
-  category    TEXT NOT NULL,
-  class       TEXT NOT NULL,
-  kind        TEXT NOT NULL,
-  slug        TEXT,
-  tradable    INTEGER,
-  vaulted     INTEGER,
-  prime       INTEGER NOT NULL,
-  ducats      INTEGER,
-  in_scope    INTEGER NOT NULL
+  unique_name   TEXT PRIMARY KEY,
+  name_en       TEXT NOT NULL,
+  name_ru       TEXT,
+  category      TEXT NOT NULL,
+  class         TEXT NOT NULL,
+  kind          TEXT NOT NULL,
+  slug          TEXT,
+  tradable      INTEGER,
+  vaulted       INTEGER,
+  prime         INTEGER NOT NULL,
+  ducats        INTEGER,
+  in_scope      INTEGER NOT NULL,
+  mastery       TEXT,
+  mastery_req   INTEGER,
+  max_level_cap INTEGER
 ) WITHOUT ROWID;
 CREATE TABLE classes (
   slug    TEXT PRIMARY KEY,
@@ -201,7 +204,8 @@ CREATE TABLE regions (
   node_type    INTEGER NOT NULL,
   node_type_en TEXT,
   node_type_ru TEXT,
-  mastery      INTEGER NOT NULL,
+  mastery_req  INTEGER NOT NULL,
+  mastery_xp   INTEGER NOT NULL DEFAULT 0,
   min_level    INTEGER NOT NULL,
   max_level    INTEGER NOT NULL,
   tileset      TEXT,
@@ -339,8 +343,8 @@ fn nodes(tx: &Transaction<'_>, ctx: &Context<'_>) -> Result<usize> {
     let mut items = tx.prepare(
         "INSERT INTO items \
          (unique_name, name_en, name_ru, category, class, kind, slug, tradable, vaulted, \
-          prime, ducats, in_scope) \
-         VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12)",
+          prime, ducats, in_scope, mastery, mastery_req, max_level_cap) \
+         VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15)",
     )?;
     let mut dropped =
         tx.prepare("INSERT INTO out_of_scope (unique_name, reason) VALUES (?1, ?2)")?;
@@ -383,10 +387,10 @@ fn nodes(tx: &Transaction<'_>, ctx: &Context<'_>) -> Result<usize> {
     let mut regions = tx.prepare(
         "INSERT INTO regions (node, name, name_ru, location, mission, mission_en, \
          mission_ru, faction, faction_en, faction_ru, faction_icon, node_type, node_type_en, \
-         node_type_ru, mastery, min_level, max_level, tileset, tileset_ru, origin, railjack, \
-         hidden) \
+         node_type_ru, mastery_req, mastery_xp, min_level, max_level, tileset, tileset_ru, \
+         origin, railjack, hidden) \
          VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15, ?16, ?17, \
-         ?18, ?19, ?20, ?21, ?22)",
+         ?18, ?19, ?20, ?21, ?22, ?23)",
     )?;
 
     let mut count = 0;
@@ -407,6 +411,9 @@ fn nodes(tx: &Transaction<'_>, ctx: &Context<'_>) -> Result<usize> {
                     it.prime.value as i64,
                     it.ducats,
                     kept as i64,
+                    it.mastery.as_ref().map(|m| m.value.as_str()),
+                    it.mastery_req,
+                    it.max_level_cap.as_ref().map(|c| c.value),
                 ))?;
                 if let Some(reason) = ctx.scope.reason(&it.unique_name) {
                     dropped.execute((&it.unique_name, reason))?;
@@ -418,6 +425,12 @@ fn nodes(tx: &Transaction<'_>, ctx: &Context<'_>) -> Result<usize> {
                 put(&mut prov, &it.unique_name, "category", &it.category)?;
                 put(&mut prov, &it.unique_name, "kind", &it.kind)?;
                 put(&mut prov, &it.unique_name, "prime", &it.prime)?;
+                if let Some(mastery) = &it.mastery {
+                    put(&mut prov, &it.unique_name, "mastery", mastery)?;
+                }
+                if let Some(cap) = &it.max_level_cap {
+                    put(&mut prov, &it.unique_name, "max_level_cap", cap)?;
+                }
                 if let Some(slug) = &it.slug {
                     put(&mut prov, &it.unique_name, "slug", slug)?;
                 }
@@ -518,7 +531,8 @@ fn nodes(tx: &Transaction<'_>, ctx: &Context<'_>) -> Result<usize> {
                     r.node_type,
                     r.type_label.en.as_deref(),
                     r.type_label.ru.as_deref(),
-                    r.mastery,
+                    r.mastery_req,
+                    r.mastery_xp,
                     r.min_level,
                     r.max_level,
                     r.tileset.en.as_deref(),

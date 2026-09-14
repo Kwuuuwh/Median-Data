@@ -1,4 +1,5 @@
 use consensus::{Resolved, Source};
+use serde::Deserialize;
 
 use crate::kind::Kind;
 
@@ -26,6 +27,25 @@ pub enum Extra {
     Relic(RelicInfo),
 }
 
+/// Which of the game's two mastery tables an item's ranks count on.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Deserialize)]
+#[serde(rename_all = "lowercase")]
+pub enum Mastery {
+    /// A hundred per rank: weapons, amps, zaws, kitguns.
+    Wielded,
+    /// Two hundred per rank: warframes, companions, archwings, K-drives.
+    Carried,
+}
+
+impl Mastery {
+    pub fn as_str(self) -> &'static str {
+        match self {
+            Mastery::Wielded => "wielded",
+            Mastery::Carried => "carried",
+        }
+    }
+}
+
 /// A catalog item.
 #[derive(Debug, Clone, PartialEq)]
 pub struct Item {
@@ -42,6 +62,12 @@ pub struct Item {
     pub vaulted: Option<Resolved<bool>>,
     pub prime: Resolved<bool>,
     pub ducats: Option<i64>,
+    /// Which mastery table the item's ranks count on; none when it gives no mastery.
+    pub mastery: Option<Resolved<Mastery>>,
+    /// Mastery rank the game asks before the item is built or traded.
+    pub mastery_req: Option<i64>,
+    /// Highest rank the item levels to, where it gives mastery.
+    pub max_level_cap: Option<Resolved<i64>>,
     pub extra: Extra,
 }
 
@@ -196,7 +222,10 @@ pub struct Region {
     pub faction_label: Label,
     pub node_type: i64,
     pub type_label: Label,
-    pub mastery: i64,
+    /// Mastery rank the node asks before it can be played.
+    pub mastery_req: i64,
+    /// Mastery the node's first completion gives, and as much again on the Steel Path.
+    pub mastery_xp: i64,
     pub min_level: i64,
     pub max_level: i64,
     /// The map the node is played on. DE exports no such field; the wiki names one per node,

@@ -104,6 +104,7 @@ ru = "Рейлджек"
 kind = [
   { slug = "railjack-weapon", en = "Railjack armament", ru = "Вооружение рейлджека" },
   { slug = "railjack-part", en = "Railjack component", ru = "Компонент рейлджека" },
+  { slug = "plexus", en = "Plexus", ru = "Плексус" },
 ]
 
 [[class]]
@@ -377,6 +378,11 @@ category = ["SpaceMelee"]
 kind = "railjack-weapon"
 reason = "productCategory"
 category = ["CrewShipWeapons"]
+
+[[rule]]
+kind = "plexus"
+reason = "productCategory: the Railjack's plexus, which no manifest exports and the build adds by hand"
+category = ["CrewShipHarnesses"]
 
 # --- warframes and companions -------------------------------------------------------------
 # Every pet is `KubrowPets`; the species is in the path. Khora's Venari is `SpecialItems`.

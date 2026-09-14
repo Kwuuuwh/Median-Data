@@ -7,8 +7,8 @@ use sources::wfm::WfmItem;
 use crate::bridge::Bridge;
 use crate::curation::Curation;
 use crate::extract::DeItem;
-use crate::rules;
 use crate::taxonomy::{self, Policy};
+use crate::{mastery, rules};
 
 /// Source order for every property: a person outranks DE, which outranks the market, which
 /// outranks a rule the build derived.
@@ -21,6 +21,7 @@ pub struct Facts<'a> {
     pub built: &'a BTreeSet<String>,
     pub economy: &'a BTreeSet<String>,
     pub taxonomy: &'a Policy,
+    pub mastery: &'a mastery::Policy,
 }
 
 /// Build item nodes from DE facts, WFM evidence, curated decisions and rules, collecting
@@ -139,16 +140,22 @@ fn one(
         ));
     }
 
+    let kind = kind(de, hand.kind, facts.taxonomy, conflicts);
+    let mastery = facts.mastery.judge(&de.unique_name, &kind.value);
+    let max_level_cap = mastery.map(|_| facts.mastery.cap(&kind.value, de.max_level_cap));
     Item {
         unique_name: de.unique_name.clone(),
         names: Names { en, ru },
         category: single(Source::De, de.category.clone()),
-        kind: kind(de, hand.kind, facts.taxonomy, conflicts),
+        kind,
         slug: wfm.map(|w| single(Source::Wfm, w.slug.clone())),
         tradable,
         vaulted: None,
         prime,
         ducats: wfm.and_then(|w| w.ducats),
+        mastery: mastery.map(|m| single(Source::Rule, m)),
+        mastery_req: de.mastery_req,
+        max_level_cap,
         extra: rules::relic(&de.unique_name).map_or(Extra::None, Extra::Relic),
     }
 }
@@ -290,7 +297,7 @@ fn flag(picks: &BTreeMap<(&str, &str), &str>, item: &str, prop: &str) -> Option<
     }
 }
 
-fn single<T: Clone + PartialEq>(source: Source, value: T) -> Resolved<T> {
+pub(crate) fn single<T: Clone + PartialEq>(source: Source, value: T) -> Resolved<T> {
     resolve(&[Claim { source, value }], &[source]).expect("one claim resolves")
 }
 

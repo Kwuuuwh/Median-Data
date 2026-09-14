@@ -30,6 +30,8 @@ pub struct Node {
     pub faction: Option<String>,
     pub min_level: i64,
     pub max_level: i64,
+    /// `MasteryExp`: mastery the node's first completion gives.
+    pub mastery_xp: i64,
     pub railjack: bool,
     /// Not shown on the star chart: onslaught, free flight, event-only nodes.
     pub hidden: bool,
@@ -406,6 +408,7 @@ pub fn chart(raw: &[u8]) -> Result<Chart> {
                 faction: text(t, "Enemy"),
                 min_level: t.int("MinLevel").unwrap_or(0),
                 max_level: t.int("MaxLevel").unwrap_or(0),
+                mastery_xp: t.int("MasteryExp").unwrap_or(0),
                 railjack: t.bool("IsRailjack").unwrap_or(false),
                 hidden: t.bool("IsHidden").unwrap_or(false),
                 tileset: text(t, "Tileset").as_deref().map(tileset),
@@ -451,7 +454,8 @@ mod tests {
         \x20\t[\"MissionDetails\"] = {\n\
         \t\t{ Name = \"Apollodorus\", Planet = \"Mercury\", Type = \"Survival\", \
              Tileset = \"Grineer Galleon\", \
-             Enemy = \"Infested\", MinLevel = 6, MaxLevel = 11, InternalName = \"SolNode94\", \
+             Enemy = \"Infested\", MinLevel = 6, MaxLevel = 11, MasteryExp = 24, \
+             InternalName = \"SolNode94\", \
              PreviousNodes = { \"Boethius\" }, IsTracked = true },\n\
         \t\t{ Name = \"Sover Strait\", Planet = \"Earth Proxima\", Type = \"Skirmish\", \
              Enemy = \"Grineer\", MinLevel = 15, MaxLevel = 20, \
@@ -493,6 +497,8 @@ mod tests {
         assert_eq!(sol.mission.as_deref(), Some("Survival"));
         assert_eq!(sol.faction.as_deref(), Some("Infested"));
         assert_eq!((sol.min_level, sol.max_level), (6, 11));
+        assert_eq!(sol.mastery_xp, 24);
+        assert_eq!(c.nodes[2].mastery_xp, 0);
         assert_eq!(sol.tileset.as_deref(), Some("Grineer Galleon"));
         assert!(!sol.railjack && !sol.hidden);
 

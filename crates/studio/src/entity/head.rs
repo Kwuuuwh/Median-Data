@@ -130,7 +130,8 @@ pub fn render(snap: &Snapshot, node: &Node, ru: Option<&Icon>, en: Option<&Icon>
                             @if r.max_level > 0 {
                                 span.tag { "ур. " (r.min_level) "–" (r.max_level) }
                             }
-                            @if r.mastery > 0 { span.tag { "мастерство " (r.mastery) } }
+                            @if r.mastery_req > 0 { span.tag { "с ранга " (r.mastery_req) } }
+                            @if r.mastery_xp > 0 { span.tag { "мастерство " (r.mastery_xp) } }
                             @if r.railjack { span.tag { "рейлджек" } }
                             @if r.hidden { span.tag.bad { "не на карте" } }
                             (prov(r.origin))

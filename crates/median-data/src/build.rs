@@ -7,7 +7,7 @@ use vault::{BlobId, Snapshot, Vault};
 
 use crate::assemble::{self, Built, Input};
 use crate::curation::Curation;
-use crate::{bounties, curation, extract, regions, spec, taxonomy, version, wiki};
+use crate::{bounties, curation, extract, mastery, regions, spec, taxonomy, version, wiki};
 
 /// Sources whose pinned snapshot the catalog records, so a build can name what it read.
 const SOURCES: [&str; 7] = [
@@ -24,6 +24,9 @@ const SOURCES: [&str; 7] = [
 const REPORT: &str = "catalog.report.json";
 const STATE: &str = "catalog.state.json";
 
+/// The Railjack's plexus, which no manifest exports.
+const PLEXUS: &str = "/Lotus/Types/Game/CrewShip/RailJack/DefaultHarness";
+
 /// Build the catalog from the latest pinned snapshots into `out`.
 pub fn run(vault: &Vault, out: &Path) -> Result<()> {
     let curated = crate::curation::load(Path::new(crate::CURATION))?;
@@ -32,6 +35,7 @@ pub fn run(vault: &Vault, out: &Path) -> Result<()> {
 
     print!("{}", report.render());
     taxonomy_tally(&built);
+    mastery_tally(&built);
     eprintln!(
         "drops    {} rows are amounts, {} names matched several items, \
          {} rows printed twice kept once",
@@ -174,6 +178,42 @@ fn taxonomy_tally(built: &Built) {
     for (class, count) in ranked {
         eprintln!("           {count:>6}  {class}");
     }
+}
+
+/// Items giving mastery per table and class, where their top rank came from, what nodes give.
+fn mastery_tally(built: &Built) {
+    let mut tables: BTreeMap<(&str, &str), usize> = BTreeMap::new();
+    let (mut from_de, mut by_rule) = (0, 0);
+    for item in built.graph.items() {
+        let Some(mastery) = &item.mastery else {
+            continue;
+        };
+        let class = built.taxonomy.class_slug(&item.kind.value);
+        *tables.entry((mastery.value.as_str(), class)).or_default() += 1;
+        match item.max_level_cap.as_ref().map(|cap| cap.winner) {
+            Some(consensus::Source::De) => from_de += 1,
+            Some(_) => by_rule += 1,
+            None => {}
+        }
+    }
+    eprintln!(
+        "mastery  {} items give mastery, top rank from DE for {from_de} and by rule for {by_rule}",
+        tables.values().sum::<usize>()
+    );
+    for ((table, class), count) in &tables {
+        eprintln!("           {count:>6}  {table} {class}");
+    }
+
+    let (mut nodes, mut total) = (0, 0);
+    for node in built.graph.nodes() {
+        if let graph::Node::Region(region) = node {
+            if region.mastery_xp > 0 {
+                nodes += 1;
+                total += region.mastery_xp;
+            }
+        }
+    }
+    eprintln!("mastery  {nodes} star-chart nodes give {total} on first completion");
 }
 
 /// How much of the catalog the graph can actually explain the source of. Most of what is
@@ -418,11 +458,26 @@ pub fn graph_with(vault: &Vault, curated: &Curation) -> Result<Built> {
         array: "ExportResources".to_string(),
         parent: None,
         mod_type: None,
+        mastery_req: None,
+        max_level_cap: None,
     });
     ru.insert(
         "/Lotus/Types/Items/MiscItems/PremiumSchismKey".to_string(),
         "Королевская Айя".to_string(),
     );
+
+    // Inject the Railjack plexus
+    de.push(extract::DeItem {
+        unique_name: PLEXUS.to_string(),
+        name: "Plexus".to_string(),
+        category: "CrewShipHarnesses".to_string(),
+        array: "CrewShipHarnesses".to_string(),
+        parent: None,
+        mod_type: None,
+        mastery_req: None,
+        max_level_cap: None,
+    });
+    ru.insert(PLEXUS.to_string(), "Плексус".to_string());
 
     let recipes = extract::de_recipes(&blob(vault, &de_snap, spec::RECIPES)?)?;
     let rewards = extract::de_rewards(&blob(vault, &de_snap, spec::RELICS)?)?;
@@ -450,6 +505,7 @@ pub fn graph_with(vault: &Vault, curated: &Curation) -> Result<Built> {
     let unread_headings = tables.unknown_headings.clone();
 
     let policy = taxonomy::load(Path::new(crate::TAXONOMY))?;
+    let mastery = mastery::load(Path::new(crate::MASTERY), &policy.tree)?;
     let dead_rules = audit(&policy, &de, &recipes);
 
     let labels = regions::load(Path::new(crate::REGIONS))?;
@@ -474,6 +530,7 @@ pub fn graph_with(vault: &Vault, curated: &Curation) -> Result<Built> {
             composition: wiki::composition(&blob(vault, &wiki_snap, spec::WIKI_VOID)?)?,
         },
         policy,
+        &mastery,
         &labels,
         &bounties::load(Path::new(crate::BOUNTIES))?,
         curated,

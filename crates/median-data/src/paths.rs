@@ -92,6 +92,8 @@ mod tests {
             array: "Test".into(),
             parent: None,
             mod_type: None,
+            mastery_req: None,
+            max_level_cap: None,
         }
     }
 
