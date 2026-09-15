@@ -1,8 +1,6 @@
 name: data
 
-# Runs itself every six hours and can be started by hand from the Actions tab. Nothing is
-# fetched, built or published unless a source actually moved: `check` reads the game's export
-# index and the three small sources — a few megabytes — and says whether anything is new.
+# Runs every six hours or by hand. Builds only when a source or the recipe moved.
 on:
   workflow_dispatch:
     inputs:

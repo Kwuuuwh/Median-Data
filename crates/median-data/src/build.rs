@@ -282,6 +282,8 @@ pub fn judge(vault: &Vault, built: &Built, curated: &Curation) -> Result<(Report
         .ok()
         .and_then(|raw| serde_json::from_slice::<State>(&raw).ok());
     let was = previous.as_ref().and_then(|s| s.version.clone());
+    let made_by = previous.as_ref().and_then(|s| s.recipe.clone());
+    let recipe = crate::recipe::fingerprint(Path::new("."))?;
     let _ = vault;
     let scope = projections::apply(&built.graph, &projections::load(Path::new(crate::SCOPE))?);
 
@@ -353,7 +355,9 @@ pub fn judge(vault: &Vault, built: &Built, curated: &Curation) -> Result<(Report
         projections::SCHEMA,
         was.as_deref(),
         report.diff.as_ref(),
+        made_by.as_deref() != Some(recipe.as_str()),
     ));
+    state.recipe = Some(recipe);
     Ok((report, state))
 }
 

@@ -11,6 +11,9 @@ pub struct State {
     /// The version this build was stamped with, so the next one can carry on from it.
     #[serde(default)]
     pub version: Option<String>,
+    /// Fingerprint of the rules and code the build was made by.
+    #[serde(default)]
+    pub recipe: Option<String>,
     pub items: Vec<String>,
     pub sets: Vec<String>,
     pub findings: BTreeMap<String, usize>,
@@ -45,6 +48,7 @@ pub fn snapshot(graph: &Graph, findings: &[Finding]) -> State {
     }
     State {
         version: None,
+        recipe: None,
         items: graph.items().map(|i| i.unique_name.clone()).collect(),
         sets: graph
             .nodes()
@@ -101,6 +105,7 @@ mod tests {
     fn state(items: &[&str], findings: &[(&str, usize)]) -> State {
         State {
             version: None,
+            recipe: None,
             items: items.iter().map(|s| s.to_string()).collect(),
             sets: Vec::new(),
             findings: findings

@@ -27,6 +27,7 @@ mod orphans;
 mod paths;
 mod portraits;
 mod primes;
+mod recipe;
 mod regions;
 mod release;
 mod relic;
@@ -74,7 +75,11 @@ fn run() -> Result<ExitCode> {
     match args.next().as_deref() {
         Some("check") => {
             let released = args.next().map(PathBuf::from);
-            let moved = fetch::changed(&Vault::open(VAULT_DIR)?, released.as_deref())?;
+            let moved = fetch::changed(
+                &Vault::open(VAULT_DIR)?,
+                released.as_deref(),
+                Path::new(STATE),
+            )?;
             Ok(match moved {
                 true => ExitCode::from(CHANGED),
                 false => ExitCode::SUCCESS,

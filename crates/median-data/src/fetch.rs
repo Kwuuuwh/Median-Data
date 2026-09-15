@@ -21,10 +21,15 @@ impl Change {
     }
 }
 
-/// Whether any source has something newer than the baseline, reported source by source. The
-/// baseline is the vault, or — where there is none, as in a fresh checkout — the manifest of
-/// the last release, which names the snapshot every source was at.
-pub fn changed(vault: &Vault, released: Option<&std::path::Path>) -> Result<bool> {
+/// Name the recipe is reported under.
+const RECIPE: &str = "recipe";
+
+/// Whether any source or the recipe moved since the last build, reported line by line.
+pub fn changed(
+    vault: &Vault,
+    released: Option<&std::path::Path>,
+    state_file: &std::path::Path,
+) -> Result<bool> {
     let was: BTreeMap<String, String> = match released {
         Some(path) => {
             let raw = std::fs::read(path).with_context(|| format!("read {}", path.display()))?;
@@ -42,11 +47,23 @@ pub fn changed(vault: &Vault, released: Option<&std::path::Path>) -> Result<bool
         None => BTreeMap::new(),
     };
 
-    let mut moved = false;
-    for mut change in check(vault)? {
-        if released.is_some() {
+    let mut changes = check(vault)?;
+    if released.is_some() {
+        for change in &mut changes {
             change.pinned = was.get(change.source).cloned();
         }
+    }
+    changes.push(Change {
+        source: RECIPE,
+        pinned: std::fs::read(state_file)
+            .ok()
+            .and_then(|raw| serde_json::from_slice::<funnel::State>(&raw).ok())
+            .and_then(|last| last.recipe),
+        current: crate::recipe::fingerprint(std::path::Path::new("."))?,
+    });
+
+    let mut moved = false;
+    for change in changes {
         let state = match (change.moved(), &change.pinned) {
             (false, _) => "unchanged".to_string(),
             (true, None) => format!("new — {}", change.current),
