@@ -23,6 +23,10 @@ path_contains = ["/Powersuits/SiriusOrion/OrionSuit"]
 reason = "a Conclave copy of a zaw strike"
 path_contains = ["PvPVariant"]
 
+[[exclude]]
+reason = "the copy of the Grimoire a doppelganger carries; the player levels TnGrimoire"
+path_contains = ["/Grimoire/TnDoppelgangerGrimoire"]
+
 [[rule]]
 mastery = "carried"
 reason = "warframes, archwings and necramechs"

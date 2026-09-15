@@ -80,6 +80,8 @@ pub struct Recipe {
     /// The blueprint is spent when built.
     pub consumed: bool,
     pub rush_price: Option<i64>,
+    /// Copies one build hands over.
+    pub output: i64,
 }
 
 /// A warframe.market trade set.

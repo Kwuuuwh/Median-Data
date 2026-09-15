@@ -102,6 +102,7 @@ mod tests {
             build_time: None,
             consumed,
             rush_price: None,
+            output: 1,
         }
     }
 
@@ -148,6 +149,7 @@ mod tests {
             build_time: None,
             consumed: true,
             rush_price: None,
+            output: 1,
         }];
         let economy = void_economy(&rewards, &recipes);
         assert!(economy.contains("/Powersuits/VoltPrime"));

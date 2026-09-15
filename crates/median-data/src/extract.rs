@@ -32,6 +32,8 @@ pub struct DeRecipe {
     pub build_time: Option<i64>,
     pub consumed: bool,
     pub rush_price: Option<i64>,
+    /// Copies one build hands over.
+    pub output: i64,
 }
 
 /// A star-chart node from `ExportRegions`.
@@ -116,6 +118,7 @@ pub fn de_recipes(raw: &[u8]) -> Result<Vec<DeRecipe>> {
                 .and_then(Value::as_bool)
                 .unwrap_or(false),
             rush_price: int(el, "skipBuildTimePrice"),
+            output: int(el, "num").filter(|n| *n > 0).unwrap_or(1),
         });
     }
     Ok(out)
@@ -281,6 +284,20 @@ mod tests {
         assert!(r.consumed);
         assert_eq!(r.ingredients.len(), 1);
         assert_eq!(r.ingredients[0].1, 1);
+        assert_eq!(r.output, 1);
+    }
+
+    #[test]
+    fn a_recipe_says_how_many_copies_one_build_hands_over() {
+        let raw = serde_json::to_vec(&serde_json::json!({
+            "ExportRecipes": [
+                { "uniqueName": "/Lotus/Types/Recipes/DeimosRecipes/Prospecting/DeimosCommonOreAAlloyBlueprint",
+                  "resultType": "/Lotus/Types/Items/Gems/Deimos/DeimosCommonOreAAlloyItem",
+                  "num": 20, "ingredients": [] }
+            ]
+        }))
+        .unwrap();
+        assert_eq!(de_recipes(&raw).unwrap()[0].output, 20);
     }
 
     #[test]

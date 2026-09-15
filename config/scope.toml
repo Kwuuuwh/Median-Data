@@ -21,6 +21,10 @@ reason = "DE placeholder: a pet body-type record, not an item a player owns"
 name_equals = ["Helmet Or Syandana"]
 
 [[exclude]]
+reason = "the copy of the Grimoire a doppelganger carries, not one a player owns"
+path_contains = ["/Grimoire/TnDoppelgangerGrimoire"]
+
+[[exclude]]
 reason = "DE placeholder: the generic relic the game draws before one is identified"
 name_equals = [
   "Void Relic",

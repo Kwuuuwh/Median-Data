@@ -15,7 +15,7 @@ pub struct Catalog;
 /// application reads it to decide whether it can open the file at all — so it lives here,
 /// beside the schema it describes, and is written both as `PRAGMA user_version` and as a row
 /// of `meta`.
-pub const SCHEMA: u32 = 11;
+pub const SCHEMA: u32 = 12;
 
 pub const SETUP: &str = "\
 CREATE TABLE meta (
@@ -63,7 +63,8 @@ CREATE TABLE recipes (
   build_price INTEGER,
   build_time  INTEGER,
   consumed    INTEGER NOT NULL,
-  rush_price  INTEGER
+  rush_price  INTEGER,
+  output      INTEGER NOT NULL
 ) WITHOUT ROWID;
 CREATE TABLE recipe_requires (
   blueprint TEXT NOT NULL,
@@ -357,8 +358,9 @@ fn nodes(tx: &Transaction<'_>, ctx: &Context<'_>) -> Result<usize> {
          VALUES (?1, ?2, ?3, ?4, ?5, ?6)",
     )?;
     let mut recipes = tx.prepare(
-        "INSERT INTO recipes (blueprint, result, build_price, build_time, consumed, rush_price) \
-         VALUES (?1, ?2, ?3, ?4, ?5, ?6)",
+        "INSERT INTO recipes \
+         (blueprint, result, build_price, build_time, consumed, rush_price, output) \
+         VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7)",
     )?;
     let mut relics = tx.prepare(
         "INSERT INTO relics (unique_name, base, refinement, vaulted_in) \
@@ -551,6 +553,7 @@ fn nodes(tx: &Transaction<'_>, ctx: &Context<'_>) -> Result<usize> {
                         r.build_time,
                         r.consumed as i64,
                         r.rush_price,
+                        r.output,
                     ))?;
                 }
             }

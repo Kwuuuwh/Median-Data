@@ -126,6 +126,7 @@ pub fn link(graph: &mut Graph, recipes: &[DeRecipe]) -> BTreeSet<String> {
             build_time: r.build_time,
             consumed: r.consumed,
             rush_price: r.rush_price,
+            output: r.output,
         }));
         graph.link(Edge {
             from: id.clone(),

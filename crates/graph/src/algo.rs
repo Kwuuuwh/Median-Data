@@ -189,6 +189,7 @@ mod tests {
             build_time: None,
             consumed: true,
             rush_price: None,
+            output: 1,
         }));
         let id = recipe_id(blueprint);
         graph.link(Edge {
