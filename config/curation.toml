@@ -744,6 +744,11 @@ ru = "МОА Ауракса: Полярис"
 
 [[term]]
 kind = "enemy"
+key = "Aurax Vertec"
+ru = "Вертек Ауракса"
+
+[[term]]
+kind = "enemy"
 key = "Axio Disc Moa"
 ru = "МОА Аксио Диск"
 
@@ -829,6 +834,11 @@ ru = "Батталист"
 
 [[term]]
 kind = "enemy"
+key = "Blite Captain"
+ru = "Капитан Блайд"
+
+[[term]]
+kind = "enemy"
 key = "Boiler"
 ru = "Фурункулёр"
 
@@ -849,6 +859,11 @@ ru = "Мать Выводка"
 
 [[term]]
 kind = "enemy"
+key = "Butcher"
+ru = "Мясник"
+
+[[term]]
+kind = "enemy"
 key = "Captain Vor"
 ru = "Капитан Вор"
 
@@ -861,6 +876,16 @@ ru = "Карабус"
 kind = "enemy"
 key = "Carrier"
 ru = "Носитель"
+
+[[term]]
+kind = "enemy"
+key = "Charger"
+ru = "Инфестоид"
+
+[[term]]
+kind = "enemy"
+key = "Cinderthresh Hyena"
+ru = "Гиена Пепломол"
 
 [[term]]
 kind = "enemy"
@@ -894,6 +919,11 @@ ru = "Энерготранспортёр Корпуса"
 
 [[term]]
 kind = "enemy"
+key = "Corpus Ramsled"
+ru = "Капсула Корпуса"
+
+[[term]]
+kind = "enemy"
 key = "Corpus Sniper Target"
 ru = "Цель Корпуса (Снайпер)"
 
@@ -919,6 +949,46 @@ ru = "Надзиратель Корпуса"
 
 [[term]]
 kind = "enemy"
+key = "Corrupted Ancient"
+ru = "Порабощённый Древний"
+
+[[term]]
+kind = "enemy"
+key = "Corrupted Bombard"
+ru = "Порабощённый Бомбардировщик"
+
+[[term]]
+kind = "enemy"
+key = "Corrupted Butcher"
+ru = "Порабощённый Мясник"
+
+[[term]]
+kind = "enemy"
+key = "Corrupted Crewman"
+ru = "Порабощённый Солдат Корпуса"
+
+[[term]]
+kind = "enemy"
+key = "Corrupted Heavy Gunner"
+ru = "Порабощённый Пулемётчик"
+
+[[term]]
+kind = "enemy"
+key = "Corrupted Lancer"
+ru = "Порабощённый Солдат Гринир"
+
+[[term]]
+kind = "enemy"
+key = "Corrupted Moa"
+ru = "Порабощённый МОА"
+
+[[term]]
+kind = "enemy"
+key = "Corrupted Nullifier"
+ru = "Порабощённый Нуллификатор"
+
+[[term]]
+kind = "enemy"
 key = "Corvette"
 ru = "Корвет"
 
@@ -929,8 +999,243 @@ ru = "Советник Вэй Хек"
 
 [[term]]
 kind = "enemy"
+key = "Crawler"
+ru = "Ползун"
+
+[[term]]
+kind = "enemy"
+key = "Crewman"
+ru = "Солдат Корпуса"
+
+[[term]]
+kind = "enemy"
+key = "Datalyst"
+ru = "Обработчик Данных"
+
+[[term]]
+kind = "enemy"
+key = "Dax Arcus"
+ru = "Дакс Аркус"
+
+[[term]]
+kind = "enemy"
+key = "Dax Equitem"
+ru = "Дакс Эквитем"
+
+[[term]]
+kind = "enemy"
+key = "Dax Gladius"
+ru = "Дакс Гладиус"
+
+[[term]]
+kind = "enemy"
+key = "Dax Herald"
+ru = "Дакс Геральд"
+
+[[term]]
+kind = "enemy"
+key = "Dax Malleus"
+ru = "Дакс Маллеус"
+
+[[term]]
+kind = "enemy"
+key = "Deimos Carnis"
+ru = "Карнис Деймоса"
+
+[[term]]
+kind = "enemy"
+key = "Deimos Jugulus"
+ru = "Джугулюс Деймоса"
+
+[[term]]
+kind = "enemy"
+key = "Deimos Saxum"
+ru = "Саксум Деймоса"
+
+[[term]]
+kind = "enemy"
+key = "Deimos Tendril Drone"
+ru = "Усиковый Дрон Деймоса"
+
+[[term]]
+kind = "enemy"
+key = "Deimos Therid"
+ru = "Терид Деймоса"
+
+[[term]]
+kind = "enemy"
+key = "Demolisher Boiler"
+ru = "Крушитель-Фурункулёр"
+
+[[term]]
+kind = "enemy"
+key = "Demolisher Bonewidow"
+ru = "Крушитель-Костяная Вдова"
+
+[[term]]
+kind = "enemy"
+key = "Demolisher Charger"
+ru = "Крушитель-Инфестоид"
+
+[[term]]
+kind = "enemy"
+key = "Demolisher Juggernaut"
+ru = "Крушитель-Джаггернаут"
+
+[[term]]
+kind = "enemy"
+key = "Demolisher Thrasher"
+ru = "Крушитель-Молотильщик"
+
+[[term]]
+kind = "enemy"
+key = "Demolisher Voidrig"
+ru = "Крушитель-Войдриг"
+
+[[term]]
+kind = "enemy"
 key = "Demolyst Moa"
 ru = "МОА Демолист"
+
+[[term]]
+kind = "enemy"
+key = "Denial Bursa"
+ru = "Бурса-Нуллификатор"
+
+[[term]]
+kind = "enemy"
+key = "Derim Zahn"
+ru = "Дерим Зан"
+
+[[term]]
+kind = "enemy"
+key = "Detron Crewman"
+ru = "Солдат с Детроном"
+
+[[term]]
+kind = "enemy"
+key = "Draga"
+ru = "Драга"
+
+[[term]]
+kind = "enemy"
+key = "Drahk"
+ru = "Драк"
+
+[[term]]
+kind = "enemy"
+key = "Drahk Master"
+ru = "Повелитель Драков"
+
+[[term]]
+kind = "enemy"
+key = "Dreg"
+ru = "Дрег"
+
+[[term]]
+kind = "enemy"
+key = "Drover Bursa"
+ru = "Бурса-Дровер"
+
+[[term]]
+kind = "enemy"
+key = "Dru Pesfor"
+ru = "Дрю Престор"
+
+[[term]]
+kind = "enemy"
+key = "Eidolon Gantulyst"
+ru = "Эйдолонский Гантулист"
+
+[[term]]
+kind = "enemy"
+key = "Eidolon Hydrolyst"
+ru = "Эйдолонский Гидролист"
+
+[[term]]
+kind = "enemy"
+key = "Eidolon Teralyst"
+ru = "Эйдолонский Тералист"
+
+[[term]]
+kind = "enemy"
+key = "Elite Crewman"
+ru = "Элитный Солдат Корпуса"
+
+[[term]]
+kind = "enemy"
+key = "Elite Lancer"
+ru = "Элитный Солдат"
+
+[[term]]
+kind = "enemy"
+key = "Elite Shield Lancer"
+ru = "Элитный Щитоносец"
+
+[[term]]
+kind = "enemy"
+key = "Eviscerator"
+ru = "Потрошитель"
+
+[[term]]
+kind = "enemy"
+key = "Exploiter Orb"
+ru = "Сфера Эксплуатации"
+
+[[term]]
+kind = "enemy"
+key = "Feral Diploid"
+ru = "Одичавший Диплоид"
+
+[[term]]
+kind = "enemy"
+key = "Feyarch Specter"
+ru = "Спектр Фейарка"
+
+[[term]]
+kind = "enemy"
+key = "Flameblade"
+ru = "Солдат с Огненным Клинком"
+
+[[term]]
+kind = "enemy"
+key = "Frigate"
+ru = "Фрегат"
+
+[[term]]
+kind = "enemy"
+key = "Fusion Moa"
+ru = "Гибридный МОА"
+
+[[term]]
+kind = "enemy"
+key = "General Sargas Ruk"
+ru = "Генерал Саргас Рук"
+
+[[term]]
+kind = "enemy"
+key = "Ghoul Auger"
+ru = "Гуль-Бурав"
+
+[[term]]
+kind = "enemy"
+key = "Ghoul Devourer"
+ru = "Гуль-Пожиратель"
+
+[[term]]
+kind = "enemy"
+key = "Ghoul Expired"
+ru = "Гуль-Отброс"
+
+[[term]]
+kind = "enemy"
+key = "Ghoul Rictus"
+ru = "Гуль-Гримаса"
+
+[[term]]
+kind = "enemy"
+key = "Glacik Commander"
+ru = "Капитан Глацик"
 
 [[term]]
 kind = "enemy"
@@ -944,8 +1249,113 @@ ru = "Энерготранспортёр Гринир"
 
 [[term]]
 kind = "enemy"
+key = "Guardsman"
+ru = "Охранник"
+
+[[term]]
+kind = "enemy"
+key = "Gyre Hyena"
+ru = "Гиена Вихрь"
+
+[[term]]
+kind = "enemy"
+key = "H-09 Apex"
+ru = "Танк Н-09 Апекс"
+
+[[term]]
+kind = "enemy"
+key = "H-09 Efervon Tank"
+ru = "Танк Н-09 Эфервон"
+
+[[term]]
+kind = "enemy"
+key = "Heavy Gunner"
+ru = "Тяжёлый Пулемётчик"
+
+[[term]]
+kind = "enemy"
+key = "Hellion"
+ru = "Изгнанник"
+
+[[term]]
+kind = "enemy"
+key = "Hellion Dargyn"
+ru = "Геллион Даргин"
+
+[[term]]
+kind = "enemy"
 key = "Hellion Power Carrier"
 ru = "Энерготранспортёр: Изгнанник"
+
+[[term]]
+kind = "enemy"
+key = "Hemocyte"
+ru = "Гемоцит"
+
+[[term]]
+kind = "enemy"
+key = "Hunhow"
+ru = "Хунхау"
+
+[[term]]
+kind = "enemy"
+key = "Hyekka"
+ru = "Хьёкка"
+
+[[term]]
+kind = "enemy"
+key = "Hyekka Master"
+ru = "Дрессировщик Хьёкк"
+
+[[term]]
+kind = "enemy"
+key = "Icemire Hyena"
+ru = "Гиена Ледотопь"
+
+[[term]]
+kind = "enemy"
+key = "Infested Mesa"
+ru = "Заражённая Миса"
+
+[[term]]
+kind = "enemy"
+key = "Isolator Bursa"
+ru = "Бурса-Изолятор"
+
+[[term]]
+kind = "enemy"
+key = "Jackal"
+ru = "Шакал"
+
+[[term]]
+kind = "enemy"
+key = "Jad Teran"
+ru = "Джад Теран"
+
+[[term]]
+kind = "enemy"
+key = "Janus Captain Vor"
+ru = "Капитан Вор Янус"
+
+[[term]]
+kind = "enemy"
+key = "Jen Dro"
+ru = "Джен Дро"
+
+[[term]]
+kind = "enemy"
+key = "Jordas Golem"
+ru = "Голем Джордас"
+
+[[term]]
+kind = "enemy"
+key = "Juggernaut"
+ru = "Джаггернаут"
+
+[[term]]
+kind = "enemy"
+key = "Juggernaut Behemoth"
+ru = "Джаггернаут Бегемот"
 
 [[term]]
 kind = "enemy"
@@ -969,6 +1379,11 @@ ru = "МОА Джуно: Глаксион"
 
 [[term]]
 kind = "enemy"
+key = "Juno Jactus Osprey"
+ru = "Дрон Джуно: Яктус"
+
+[[term]]
+kind = "enemy"
 key = "Juno Sapper Moa"
 ru = "МОА-Сапёр: Джуно"
 
@@ -979,8 +1394,123 @@ ru = "Техник Джуно"
 
 [[term]]
 kind = "enemy"
+key = "Kela De Thaym"
+ru = "Кела Де Тэйм"
+
+[[term]]
+kind = "enemy"
+key = "Knave Specter"
+ru = "Спектр Плута"
+
+[[term]]
+kind = "enemy"
+key = "Kuva Guardian"
+ru = "Страж Кувы"
+
+[[term]]
+kind = "enemy"
+key = "Kuva Jester"
+ru = "Шут Кувы"
+
+[[term]]
+kind = "enemy"
+key = "Kyta Raknoid"
+ru = "Кита Ракноид"
+
+[[term]]
+kind = "enemy"
+key = "Lancer"
+ru = "Солдат Гринир"
+
+[[term]]
+kind = "enemy"
+key = "Leaper"
+ru = "Прыгун"
+
+[[term]]
+kind = "enemy"
+key = "Leaping Thrasher"
+ru = "Прыгающий Молотильщик"
+
+[[term]]
+kind = "enemy"
+key = "Leech Osprey"
+ru = "Дрон-Пиявка"
+
+[[term]]
+kind = "enemy"
+key = "Lektro Commander"
+ru = "Капитан Лектро"
+
+[[term]]
+kind = "enemy"
+key = "Lephantis"
+ru = "Лефантис"
+
+[[term]]
+kind = "enemy"
+key = "Lockjaw & Sol"
+ru = "Сжиматель и Сол"
+
+[[term]]
+kind = "enemy"
+key = "Locust Drone"
+ru = "Дрон-Саранча"
+
+[[term]]
+kind = "enemy"
+key = "Lumbering Fragment"
+ru = "Неуклюжий Фрагмент"
+
+[[term]]
+kind = "enemy"
+key = "Lynx"
+ru = "Рысь"
+
+[[term]]
+kind = "enemy"
 key = "M-W.A.M."
 ru = "МШ-МОА"
+
+[[term]]
+kind = "enemy"
+key = "Machinist"
+ru = "Машинист"
+
+[[term]]
+kind = "enemy"
+key = "Malice"
+ru = "Порок"
+
+[[term]]
+kind = "enemy"
+key = "Mania"
+ru = "Безумство"
+
+[[term]]
+kind = "enemy"
+key = "Manic Bombard"
+ru = "Безумный Бомбардировщик"
+
+[[term]]
+kind = "enemy"
+key = "Mimic"
+ru = "Мимик"
+
+[[term]]
+kind = "enemy"
+key = "Mine Osprey"
+ru = "Дрон-Минёр"
+
+[[term]]
+kind = "enemy"
+key = "Misery"
+ru = "Страдание"
+
+[[term]]
+kind = "enemy"
+key = "Mite Raknoid"
+ru = "Клещ Ракноид"
 
 [[term]]
 kind = "enemy"
@@ -989,13 +1519,88 @@ ru = "МОА"
 
 [[term]]
 kind = "enemy"
+key = "Mocking Whisper"
+ru = "Насмешливый Шёпот"
+
+[[term]]
+kind = "enemy"
+key = "Mutalist Alad V"
+ru = "Муталист Алад V"
+
+[[term]]
+kind = "enemy"
+key = "Mutalist Lightning Carrier"
+ru = "Электрический Муталист-Носитель"
+
+[[term]]
+kind = "enemy"
+key = "Mutalist Osprey"
+ru = "Муталист-Дрон"
+
+[[term]]
+kind = "enemy"
 key = "Mutalist Osprey Carrier"
 ru = "Муталист Дрон-Носитель"
 
 [[term]]
 kind = "enemy"
+key = "Mutalist Toxic Carrier"
+ru = "Ядовитый Муталист-Носитель"
+
+[[term]]
+kind = "enemy"
+key = "Nako Xol"
+ru = "Нако Ксол"
+
+[[term]]
+kind = "enemy"
+key = "Napalm"
+ru = "Огнемётчик"
+
+[[term]]
+kind = "enemy"
+key = "Narmer Ballista"
+ru = "Баллиста Нармера"
+
+[[term]]
+kind = "enemy"
+key = "Narmer Bombard"
+ru = "Бомбардировщик Нармера"
+
+[[term]]
+kind = "enemy"
+key = "Narmer Coildrive"
+ru = "Циклоход Нармера"
+
+[[term]]
+kind = "enemy"
+key = "Narmer Commander"
+ru = "Командир Нармера"
+
+[[term]]
+kind = "enemy"
+key = "Narmer Crewman"
+ru = "Солдат Корпуса Нармера"
+
+[[term]]
+kind = "enemy"
 key = "Narmer Dera Moa"
 ru = "МОА Нармера: Дера"
+
+[[term]]
+kind = "enemy"
+key = "Narmer Detron Crewman"
+ru = "Солдат с Детроном Нармера"
+
+[[term]]
+kind = "enemy"
+key = "Narmer Disc Moa"
+ru = "Дисковый МОА Нармера"
+
+[[term]]
+kind = "enemy"
+key = "Narmer Flameblade"
+ru = "Солдат с Огненным Клинком Нармера"
 
 [[term]]
 kind = "enemy"
@@ -1009,8 +1614,128 @@ ru = "МОА Нармера: Глаксион"
 
 [[term]]
 kind = "enemy"
+key = "Narmer Heavy Gunner"
+ru = "Тяжёлый Пулемётчик Нармера"
+
+[[term]]
+kind = "enemy"
+key = "Narmer Hellion"
+ru = "Изгнанник Нармера"
+
+[[term]]
+kind = "enemy"
+key = "Narmer Jailer"
+ru = "Тюремщик Нармера"
+
+[[term]]
+kind = "enemy"
+key = "Narmer Lancer"
+ru = "Солдат Гринир Нармера"
+
+[[term]]
+kind = "enemy"
+key = "Narmer Leech Osprey"
+ru = "Дрон-Пиявка Нармера"
+
+[[term]]
+kind = "enemy"
+key = "Narmer Mine Osprey"
+ru = "Дрон-Минёр Нармера"
+
+[[term]]
+kind = "enemy"
+key = "Narmer Napalm"
+ru = "Огнемётчик Нармера"
+
+[[term]]
+kind = "enemy"
+key = "Narmer Nullifier Crewman"
+ru = "Нуллификатор Корпуса Нармера"
+
+[[term]]
+kind = "enemy"
+key = "Narmer Powerfist"
+ru = "Солдат с Силовой Перчаткой Нармера"
+
+[[term]]
+kind = "enemy"
+key = "Narmer Prod Crewman"
+ru = "Солдат с Жезлом Нармера"
+
+[[term]]
+kind = "enemy"
+key = "Narmer Raknoid"
+ru = "Ракноид Нармера"
+
+[[term]]
+kind = "enemy"
+key = "Narmer Sapping Osprey"
+ru = "Дрон-Подрывник Нармера"
+
+[[term]]
+kind = "enemy"
+key = "Narmer Scorch"
+ru = "Выжигатель Нармера"
+
+[[term]]
+kind = "enemy"
+key = "Narmer Scorpion"
+ru = "Скорпион Нармера"
+
+[[term]]
+kind = "enemy"
+key = "Narmer Shield Lancer"
+ru = "Щитоносец Нармера"
+
+[[term]]
+kind = "enemy"
+key = "Narmer Shield Osprey"
+ru = "Дрон-Щитогенератор Нармера"
+
+[[term]]
+kind = "enemy"
+key = "Narmer Sniper Crewman"
+ru = "Солдат-Снайпер Нармера"
+
+[[term]]
+kind = "enemy"
+key = "Narmer Tech"
+ru = "Техник Нармера"
+
+[[term]]
+kind = "enemy"
+key = "Narmer Thumper Doma"
+ru = "Сотрясатель Доме Нармера"
+
+[[term]]
+kind = "enemy"
+key = "Narmer Trooper"
+ru = "Пехотинец Нармера"
+
+[[term]]
+kind = "enemy"
 key = "Nemes"
 ru = "Немес"
+
+[[term]]
+kind = "enemy"
+key = "Nox"
+ru = "Нокс"
+
+[[term]]
+kind = "enemy"
+key = "Nullifier Crewman"
+ru = "Нуллификатор Корпуса"
+
+[[term]]
+kind = "enemy"
+key = "Ogma"
+ru = "Огма"
+
+[[term]]
+kind = "enemy"
+key = "Optio"
+ru = "Оптио"
 
 [[term]]
 kind = "enemy"
@@ -1069,13 +1794,278 @@ ru = "Зерка Ормы"
 
 [[term]]
 kind = "enemy"
+key = "Orokin Drone"
+ru = "Дрон Орокин"
+
+[[term]]
+kind = "enemy"
+key = "Orokin Spectator"
+ru = "Регулятор Орокин"
+
+[[term]]
+kind = "enemy"
+key = "Orphid Specter"
+ru = "Спектр Орхидеи"
+
+[[term]]
+kind = "enemy"
+key = "Ortholyst"
+ru = "Ортолист"
+
+[[term]]
+kind = "enemy"
+key = "Oxium Osprey"
+ru = "Оксиумный Дрон"
+
+[[term]]
+kind = "enemy"
+key = "Pelna Cade"
+ru = "Пелна Кейд"
+
+[[term]]
+kind = "enemy"
+key = "Phorid"
+ru = "Форид"
+
+[[term]]
+kind = "enemy"
+key = "Plains Commander"
+ru = "Командир Равнин"
+
+[[term]]
+kind = "enemy"
+key = "Powerfist"
+ru = "Солдат с Силовой Перчаткой"
+
+[[term]]
+kind = "enemy"
+key = "Prod Crewman"
+ru = "Солдат с Жезлом"
+
+[[term]]
+kind = "enemy"
+key = "Prosecutor"
+ru = "Каратель"
+
+[[term]]
+kind = "enemy"
+key = "Pyr Captain"
+ru = "Капитан Пир"
+
+[[term]]
+kind = "enemy"
+key = "Rabbleback Hyena"
+ru = "Гиена Спинобут"
+
+[[term]]
+kind = "enemy"
 key = "Railgun Moa"
 ru = "МОА Рельсотрон"
 
 [[term]]
 kind = "enemy"
+key = "Rana Del"
+ru = "Рана Дель"
+
+[[term]]
+kind = "enemy"
+key = "Ranger"
+ru = "Рейнджер"
+
+[[term]]
+kind = "enemy"
+key = "Raptor Rx"
+ru = "Раптор RX"
+
+[[term]]
+kind = "enemy"
+key = "Ratel"
+ru = "Ратель"
+
+[[term]]
+kind = "enemy"
+key = "Recon Commander"
+ru = "Командир Разведки"
+
+[[term]]
+kind = "enemy"
+key = "Regulator"
+ru = "Регулятор"
+
+[[term]]
+kind = "enemy"
+key = "Remech Osprey"
+ru = "Дрон-Ремех"
+
+[[term]]
+kind = "enemy"
+key = "Rogue Bonewidow"
+ru = "Дикая Костяная Вдова"
+
+[[term]]
+kind = "enemy"
+key = "Rogue Voidrig"
+ru = "Дикая Войдирг"
+
+[[term]]
+kind = "enemy"
+key = "Roller"
+ru = "Роллер"
+
+[[term]]
+kind = "enemy"
+key = "Roller Sentry"
+ru = "Роллер-Турель"
+
+[[term]]
+kind = "enemy"
+key = "Sapping Osprey"
+ru = "Дрон-Подрывник"
+
+[[term]]
+kind = "enemy"
+key = "Saturn Six Fugitive"
+ru = "Беглец Сатурна 6"
+
+[[term]]
+kind = "enemy"
+key = "Scaldra Barbican"
+ru = "Страж Скальдры"
+
+[[term]]
+kind = "enemy"
+key = "Scaldra Dedicant"
+ru = "Адепт Скальдры"
+
+[[term]]
+kind = "enemy"
+key = "Scaldra Eradicator"
+ru = "Ликвидатор Скальдры"
+
+[[term]]
+kind = "enemy"
+key = "Scaldra Flayer"
+ru = "Живодёр Скальдры"
+
+[[term]]
+kind = "enemy"
+key = "Scaldra Jaeger"
+ru = "Загонщик Скальдры"
+
+[[term]]
+kind = "enemy"
+key = "Scaldra Screamer"
+ru = "Крикун Скальдры"
+
+[[term]]
+kind = "enemy"
+key = "Scaldra Ti-92"
+ru = "Скальдра TI-92"
+
+[[term]]
+kind = "enemy"
+key = "Scathing Whisper"
+ru = "Язвительный Шёпот"
+
+[[term]]
+kind = "enemy"
+key = "Scavenger Drone"
+ru = "Дрон-Сборщик"
+
+[[term]]
+kind = "enemy"
+key = "Scorch"
+ru = "Выжигатель"
+
+[[term]]
+kind = "enemy"
+key = "Scorpion"
+ru = "Скорпион"
+
+[[term]]
+kind = "enemy"
+key = "Scyto Raknoid"
+ru = "Скито Ракноид"
+
+[[term]]
+kind = "enemy"
+key = "Seeker"
+ru = "Искатель"
+
+[[term]]
+kind = "enemy"
+key = "Sensor Regulator"
+ru = "Сторожевой Регулятор"
+
+[[term]]
+kind = "enemy"
+key = "Sentient Research Director"
+ru = "Директор Отдела Исследований Владеющих Разумом"
+
+[[term]]
+kind = "enemy"
+key = "Shield Dargyn"
+ru = "Даргин-Щитоносец"
+
+[[term]]
+kind = "enemy"
+key = "Shield Lancer"
+ru = "Щитоносец"
+
+[[term]]
+kind = "enemy"
+key = "Shield Osprey"
+ru = "Дрон-Щитогенератор"
+
+[[term]]
+kind = "enemy"
 key = "Shockwave Moa"
 ru = "Ударный МОА"
+
+[[term]]
+kind = "enemy"
+key = "Sikula"
+ru = "Сикула"
+
+[[term]]
+kind = "enemy"
+key = "Sniper Crewman"
+ru = "Солдат-Снайпер"
+
+[[term]]
+kind = "enemy"
+key = "Sprag"
+ru = "Спраг"
+
+[[term]]
+kind = "enemy"
+key = "Stalker"
+ru = "Сталкер"
+
+[[term]]
+kind = "enemy"
+key = "Summulyst"
+ru = "Суммулист"
+
+[[term]]
+kind = "enemy"
+key = "Swarm Mutalist Moa"
+ru = "Роевик-Муталист МОА"
+
+[[term]]
+kind = "enemy"
+key = "Symbilyst"
+ru = "Симбилист"
+
+[[term]]
+kind = "enemy"
+key = "Tar Mutalist Moa"
+ru = "Деготь-Муталист МОА"
+
+[[term]]
+kind = "enemy"
+key = "Tarask Bursa"
+ru = "Бурса-Тараск"
 
 [[term]]
 kind = "enemy"
@@ -1129,6 +2119,41 @@ ru = "Зерка Таро"
 
 [[term]]
 kind = "enemy"
+key = "Techrot Babau"
+ru = "Техротный Бабай"
+
+[[term]]
+kind = "enemy"
+key = "Techrot Galliflex"
+ru = "Техротный Галлифлекс"
+
+[[term]]
+kind = "enemy"
+key = "Techrot Matmas"
+ru = "Техротный Матмас"
+
+[[term]]
+kind = "enemy"
+key = "Techrot Obsolyte"
+ru = "Техротный Обсолайт"
+
+[[term]]
+kind = "enemy"
+key = "Techrot Scaart"
+ru = "Техротный Скаарт"
+
+[[term]]
+kind = "enemy"
+key = "Techrot Skuzzi"
+ru = "Техротный Скуззи"
+
+[[term]]
+kind = "enemy"
+key = "Techrot Volatile Galliflex"
+ru = "Взрывной Техротный Галлифлекс"
+
+[[term]]
+kind = "enemy"
 key = "Terra Detron Crewman"
 ru = "Солдат с Детроном"
 
@@ -1144,8 +2169,33 @@ ru = "Элитный Траншейник Терры"
 
 [[term]]
 kind = "enemy"
+key = "Terra Embattor Moa"
+ru = "Эмбаттор МОА Терры"
+
+[[term]]
+kind = "enemy"
+key = "Terra Jailer"
+ru = "Тюремщик Терры"
+
+[[term]]
+kind = "enemy"
+key = "Terra Manker"
+ru = "Манкер Терры"
+
+[[term]]
+kind = "enemy"
 key = "Terra Moa"
 ru = "МОА Терры"
+
+[[term]]
+kind = "enemy"
+key = "Terra Overtaker"
+ru = "Захватчик Терры"
+
+[[term]]
+kind = "enemy"
+key = "Terra Plasmor Crewman"
+ru = "Солдат с Плазмором Терры"
 
 [[term]]
 kind = "enemy"
@@ -1159,8 +2209,18 @@ ru = "МОА Рельсотрон Терры"
 
 [[term]]
 kind = "enemy"
+key = "Terra Raptor Sx"
+ru = "Раптор SX Терры"
+
+[[term]]
+kind = "enemy"
 key = "Terra Shockwave Moa"
 ru = "Ударный МОА Терры"
+
+[[term]]
+kind = "enemy"
+key = "Terra Sniper Crewman"
+ru = "Солдат-Снайпер Терры"
 
 [[term]]
 kind = "enemy"
@@ -1181,6 +2241,11 @@ ru = "Полая Вена"
 kind = "enemy"
 key = "The Sergeant"
 ru = "Сержант"
+
+[[term]]
+kind = "enemy"
+key = "The Severed Warden"
+ru = "Обезглавленный Надзиратель"
 
 [[term]]
 kind = "enemy"
@@ -1209,8 +2274,38 @@ ru = "Мучение"
 
 [[term]]
 kind = "enemy"
+key = "Toxic Ancient"
+ru = "Токсичный Древний"
+
+[[term]]
+kind = "enemy"
+key = "Trooper"
+ru = "Пехотинец"
+
+[[term]]
+kind = "enemy"
 key = "Tusk Ballista"
 ru = "Баллиста Бивня"
+
+[[term]]
+kind = "enemy"
+key = "Tusk Command Dargyn"
+ru = "Командный Даргин Бивня"
+
+[[term]]
+kind = "enemy"
+key = "Tusk Reaver"
+ru = "Похититель Бивня"
+
+[[term]]
+kind = "enemy"
+key = "Tusk Thumper"
+ru = "Сотрясатель Бивня"
+
+[[term]]
+kind = "enemy"
+key = "Tusk Thumper Bull"
+ru = "Сотрясатель Белл Бивня"
 
 [[term]]
 kind = "enemy"
@@ -1231,6 +2326,11 @@ ru = "Тил Регор"
 kind = "enemy"
 key = "Typholyst"
 ru = "Тифолист"
+
+[[term]]
+kind = "enemy"
+key = "Undying Flyer"
+ru = "Бессмертный Летун"
 
 [[term]]
 kind = "enemy"
@@ -1874,8 +2974,178 @@ ru = "Святилище Комеи"
 
 [[term]]
 kind = "vendor"
+key = "legs"
+ru = "Ходули"
+
+[[term]]
+kind = "vendor"
+key = "loid"
+ru = "Лойд"
+
+[[term]]
+kind = "vendor"
+key = "marie"
+ru = "Мари Леру"
+
+[[term]]
+kind = "vendor"
+key = "market"
+ru = "Магазин"
+
+[[term]]
+kind = "vendor"
+key = "master-teasonai"
+ru = "Мастер Тисонай"
+
+[[term]]
+kind = "vendor"
+key = "minerva"
+ru = "Минерва Хендрикс"
+
+[[term]]
+kind = "vendor"
+key = "necraloid"
+ru = "Некралоид"
+
+[[term]]
+kind = "vendor"
+key = "new-loka"
+ru = "Новая Лока"
+
+[[term]]
+kind = "vendor"
+key = "nightcap"
+ru = "Мракомор"
+
+[[term]]
+kind = "vendor"
+key = "nightwave"
+ru = "Ночная Волна"
+
+[[term]]
+kind = "vendor"
+key = "old-man-suumbaat"
+ru = "Старик Суумбаат"
+
+[[term]]
+kind = "vendor"
+key = "operation-ambulas-reborn"
+ru = "Операция: Возрождение Амбулас"
+
+[[term]]
+kind = "vendor"
+key = "operation-eight-claw"
+ru = "Операция: Восемь Когтей"
+
+[[term]]
+kind = "vendor"
+key = "operation-orphix-venom"
+ru = "Операция: Яд Орфикса"
+
+[[term]]
+kind = "vendor"
+key = "operation-scarlet-spear"
+ru = "Операция: Алое Копьё"
+
+[[term]]
+kind = "vendor"
+key = "operational-supply"
+ru = "Операционное Снабжение"
+
+[[term]]
+kind = "vendor"
+key = "ordis"
+ru = "Ордис"
+
+[[term]]
+kind = "vendor"
 key = "otak"
 ru = "Отак"
+
+[[term]]
+kind = "vendor"
+key = "palladino"
+ru = "Палладино"
+
+[[term]]
+kind = "vendor"
+key = "quincy"
+ru = "Куинси Айзекс"
+
+[[term]]
+kind = "vendor"
+key = "red-veil"
+ru = "Красная Вуаль"
+
+[[term]]
+kind = "vendor"
+key = "roathe"
+ru = "Роут"
+
+[[term]]
+kind = "vendor"
+key = "rude-zuud"
+ru = "Грубиянка Зууд"
+
+[[term]]
+kind = "vendor"
+key = "smokefinger"
+ru = "Смоукфингер"
+
+[[term]]
+kind = "vendor"
+key = "son"
+ru = "Сын"
+
+[[term]]
+kind = "vendor"
+key = "star-days"
+ru = "Звёздные дни"
+
+[[term]]
+kind = "vendor"
+key = "steel-meridian"
+ru = "Стальной Меридиан"
+
+[[term]]
+kind = "vendor"
+key = "the-business"
+ru = "Бизнес"
+
+[[term]]
+kind = "vendor"
+key = "the-perrin-sequence"
+ru = "Последовательность Перрина"
+
+[[term]]
+kind = "vendor"
+key = "the-quills"
+ru = "Перья"
+
+[[term]]
+kind = "vendor"
+key = "the-steel-path"
+ru = "Стальной Путь"
+
+[[term]]
+kind = "vendor"
+key = "varzia"
+ru = "Варзия"
+
+[[term]]
+kind = "vendor"
+key = "velimir"
+ru = "Велимир Волков"
+
+[[term]]
+kind = "vendor"
+key = "ventkids"
+ru = "Дети Труб"
+
+[[term]]
+kind = "vendor"
+key = "vox-solaris"
+ru = "Глас Солярис"
 
 [[dismiss]]
 source = "dojo"
@@ -1901,3 +3171,64 @@ note = ""
 kind = "region"
 key = "ClanNode16"
 note = ""
+
+[[vendor]]
+key = "teshin-s-cave"
+name = "Teshin's Cave"
+ru = "Пещера Тешина"
+currency = "Pathos Clamp"
+note = "Drifter weapon racks; the wiki prices them in prose on the Pathos Clamp page"
+
+[[offer]]
+vendor = "teshin-s-cave"
+item = "Syam Blueprint"
+cost = 50
+note = "Pathos Clamp page store table"
+
+[[offer]]
+vendor = "teshin-s-cave"
+item = "Azothane Blueprint"
+cost = 50
+note = "Pathos Clamp page store table"
+
+[[offer]]
+vendor = "teshin-s-cave"
+item = "Edun Blueprint"
+cost = 50
+note = "Pathos Clamp page store table"
+
+[[offer]]
+vendor = "teshin-s-cave"
+item = "Sampotes Blueprint"
+cost = 60
+note = "Pathos Clamp page store table"
+
+[[offer]]
+vendor = "teshin-s-cave"
+item = "Argo & Vel Blueprint"
+cost = 60
+note = "Pathos Clamp page store table"
+
+[[offer]]
+vendor = "ordis"
+item = "Evensong Blueprint"
+cost = 300
+note = "300 Vestigial Motes in game; the module still has the quest price"
+
+[[offer]]
+vendor = "ordis"
+item = "Cantare Blueprint"
+cost = 300
+note = "300 Vestigial Motes in game; the module still has the quest price"
+
+[[offer]]
+vendor = "ordis"
+item = "Harmony Blueprint"
+cost = 300
+note = "300 Vestigial Motes in game; the module still has the quest price"
+
+[[drop]]
+enemy = "Prosecutor"
+item = "Javlok Capacitor"
+chance = 1.0
+note = "Javlok page: dropped only by Prosecutors, 100%"

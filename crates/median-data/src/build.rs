@@ -499,6 +499,7 @@ pub fn graph_with(vault: &Vault, curated: &Curation) -> Result<Built> {
     let baro = wiki::baro(&blob(vault, &wiki_snap, spec::WIKI_BARO)?)?;
     let dojo = wiki::dojo(&blob(vault, &wiki_snap, spec::WIKI_RESEARCH)?)?;
     let stores = wiki::vendors(&blob(vault, &wiki_snap, spec::WIKI_VENDORS)?)?;
+    let market = wiki::market_blueprints(&blob(vault, &wiki_snap, spec::WIKI_BLUEPRINTS)?)?;
 
     let drop_snap = vault.latest(spec::DROPS)?;
     let tables = sources::drops::parse(&blob(vault, &drop_snap, spec::DROP_TABLES)?)?;
@@ -527,6 +528,7 @@ pub fn graph_with(vault: &Vault, curated: &Curation) -> Result<Built> {
             baro,
             dojo,
             stores,
+            market,
             wfm,
             drops: tables.drops,
             relic_rows: tables.relics,

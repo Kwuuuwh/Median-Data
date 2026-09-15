@@ -2,9 +2,10 @@ use std::collections::{BTreeMap, BTreeSet};
 
 use graph::{Edge, Graph, Node, Offer, Rel, Vendor, vendor_id};
 
+use crate::curation::{Curation, Terms};
 use crate::names::{self, Index};
 use crate::orphans::{self, Missing};
-use crate::wiki::{Offered, Store};
+use crate::wiki::{Offered, Priced, Store};
 
 /// Baro Ki'Teer, whose whole stock changes every visit. He is the one vendor with his own
 /// module, because the wiki keeps the history of what he brought and when.
@@ -12,6 +13,23 @@ const BARO: (&str, &str, &str) = ("baro", "Baro Ki'Teer", "Баро Ки'Тир"
 
 /// His key and the wiki page that illustrates him.
 pub const BARO_PAGE: (&str, &str) = ("baro", "Baro Ki'Teer");
+
+/// The wiki page of the in-game market.
+const MARKET: &str = "Market";
+
+/// The one name of Nightwave's currency, whatever season prints on it.
+const CRED: &str = "Cred";
+
+/// What the market charges blueprints in.
+const CREDITS: &str = "Credits";
+
+/// Everything the vendor sources hand a build.
+pub struct Stock<'a> {
+    pub stores: &'a [Store],
+    pub baro: &'a [Offered],
+    /// Blueprints the market sells for credits.
+    pub market: &'a [Priced],
+}
 
 /// What tying vendor offerings to the catalog produced.
 pub struct Linked {
@@ -43,17 +61,21 @@ impl Linked {
     }
 }
 
-/// Every vendor: the ones the wiki lists by stock, and Baro from his own history.
+/// Every vendor: the ones the wiki lists by stock, Baro from his own history, the market's
+/// blueprints, and what was written by hand.
 pub fn link(
     graph: &mut Graph,
-    stores: &[Store],
-    baro_stock: &[Offered],
+    stock: &Stock,
     index: &Index,
-    terms: &crate::curation::Terms,
+    curated: &Curation,
+    terms: &Terms,
 ) -> Linked {
+    let prices = curated.prices();
     let mut out = Linked::new();
-    out.absorb(stores_of(graph, stores, index, terms));
-    out.absorb(baro(graph, baro_stock, index, terms));
+    out.absorb(stores_of(graph, stock.stores, index, terms, &prices));
+    out.absorb(baro(graph, stock.baro, index, terms));
+    out.absorb(market(graph, stock.market, index, terms));
+    out.absorb(curated_of(graph, stock.stores, index, curated));
     out
 }
 
@@ -66,29 +88,23 @@ fn stores_of(
     graph: &mut Graph,
     stores: &[Store],
     index: &Index,
-    terms: &crate::curation::Terms,
+    terms: &Terms,
+    prices: &BTreeMap<(&str, &str), i64>,
 ) -> Linked {
     let mut out = Linked::new();
-    let mut counters: BTreeMap<String, Vec<&Store>> = BTreeMap::new();
-    for store in stores {
-        counters.entry(person(store)).or_default().push(store);
-    }
-
-    for (page, group) in counters {
+    for (page, group) in counters(stores) {
         let key = slug(&page);
-        // One counter keeps its own name; several are one person, and the page names them.
-        let name = match group.as_slice() {
-            [only] => only.name.clone(),
-            _ => page.clone(),
-        };
-        let currencies: BTreeSet<&str> =
-            group.iter().filter_map(|s| s.currency.as_deref()).collect();
+        let currencies: BTreeSet<String> = group
+            .iter()
+            .filter_map(|s| s.currency.as_deref())
+            .map(currency)
+            .collect();
         if graph.insert(Node::Vendor(Vendor {
             key: key.clone(),
-            name: name.clone(),
+            name: page.clone(),
             name_ru: terms.get("vendor", &key).map(str::to_string),
             currency: match currencies.len() {
-                1 => currencies.iter().next().map(|c| c.to_string()),
+                1 => currencies.into_iter().next(),
                 _ => None,
             },
             kind: group.iter().find_map(|s| s.kind.clone()),
@@ -100,21 +116,29 @@ fn stores_of(
 
         let mut edges = Vec::new();
         for store in &group {
-            let counter = (store.name != name).then(|| store.name.clone());
+            let counter = (store.name != page).then(|| store.name.clone());
             for offer in &store.offers {
                 let (_, printed) = names::quantity(&offer.name);
                 let Some(item) = resolve(index, printed, &offer.kind) else {
                     orphans::note(&mut out.unresolved, printed, || from.clone());
                     continue;
                 };
+                let cost = prices
+                    .get(&(key.as_str(), printed))
+                    .copied()
+                    .unwrap_or(offer.cost);
                 edges.push(Edge {
                     from: from.clone(),
                     to: item.to_string(),
                     rel: Rel::Sells(Offer {
-                        cost: Some(offer.cost).filter(|c| *c > 0),
-                        currency: store.currency.clone(),
+                        cost: Some(cost).filter(|c| *c > 0),
+                        currency: offer
+                            .currency
+                            .as_deref()
+                            .or(store.currency.as_deref())
+                            .map(currency),
                         store: counter.clone(),
-                        credits: None,
+                        credits: offer.credits,
                         count: offer.count,
                         rank: offer.rank,
                         timer: offer.timer,
@@ -133,6 +157,15 @@ fn stores_of(
     out
 }
 
+/// Counters grouped by the person who keeps them.
+fn counters(stores: &[Store]) -> BTreeMap<String, Vec<&Store>> {
+    let mut counters: BTreeMap<String, Vec<&Store>> = BTreeMap::new();
+    for store in stores {
+        counters.entry(person(store)).or_default().push(store);
+    }
+    counters
+}
+
 /// Who a counter belongs to: the wiki page it links to, without the section anchor and without
 /// the disambiguator the wiki adds to a page title (`Vox Solaris (Syndicate)`, `Loid (Original)`).
 pub fn person(store: &Store) -> String {
@@ -144,15 +177,18 @@ pub fn person(store: &Store) -> String {
     }
 }
 
+/// A currency under the name the game gives it everywhere.
+fn currency(printed: &str) -> String {
+    match printed.ends_with(" Cred") {
+        true => CRED.to_string(),
+        false => printed.to_string(),
+    }
+}
+
 /// Baro and everything he has ever brought. The edge says the item has been offered, not that
 /// it is on sale: his stock rotates, and what stands in his kiosk today is live world state
 /// that a pinned catalog cannot answer for.
-fn baro(
-    graph: &mut Graph,
-    offered: &[Offered],
-    index: &Index,
-    terms: &crate::curation::Terms,
-) -> Linked {
+fn baro(graph: &mut Graph, offered: &[Offered], index: &Index, terms: &Terms) -> Linked {
     let (key, name, name_ru) = BARO;
     let mut out = Linked::new();
 
@@ -195,6 +231,104 @@ fn baro(
     out
 }
 
+/// Blueprints the market sells for credits.
+fn market(graph: &mut Graph, priced: &[Priced], index: &Index, terms: &Terms) -> Linked {
+    let key = slug(MARKET);
+    let mut out = Linked::new();
+    if graph.insert(Node::Vendor(Vendor {
+        key: key.clone(),
+        name: MARKET.to_string(),
+        name_ru: terms.get("vendor", &key).map(str::to_string),
+        currency: None,
+        kind: Some("Store".to_string()),
+        rotates: false,
+    })) {
+        out.vendors += 1;
+    }
+    let from = vendor_id(&key);
+
+    for blueprint in priced {
+        let Some(item) = index.get(&blueprint.name) else {
+            orphans::note(&mut out.unresolved, &blueprint.name, || from.clone());
+            continue;
+        };
+        out.offers += 1;
+        graph.link(Edge {
+            from: from.clone(),
+            to: item.to_string(),
+            rel: Rel::Sells(offer(blueprint.credits, CREDITS.to_string())),
+        });
+    }
+    out
+}
+
+/// Vendors and offers written by hand, for what no source lists. A hand-written price for a
+/// line a source does list is applied where that line is read.
+fn curated_of(graph: &mut Graph, stores: &[Store], index: &Index, curated: &Curation) -> Linked {
+    let mut out = Linked::new();
+    for seller in &curated.vendor {
+        if graph.insert(Node::Vendor(Vendor {
+            key: seller.key.clone(),
+            name: seller.name.clone(),
+            name_ru: Some(seller.ru.clone()),
+            currency: Some(seller.currency.clone()),
+            kind: Some("Store".to_string()),
+            rotates: false,
+        })) {
+            out.vendors += 1;
+        }
+    }
+
+    let listed: BTreeSet<(String, &str)> = counters(stores)
+        .into_iter()
+        .flat_map(|(page, group)| {
+            let key = slug(&page);
+            group
+                .into_iter()
+                .flat_map(|store| &store.offers)
+                .map(move |offer| (key.clone(), names::quantity(&offer.name).1))
+        })
+        .collect();
+    for sale in &curated.offer {
+        if listed.contains(&(sale.vendor.clone(), sale.item.as_str())) {
+            continue;
+        }
+        let from = vendor_id(&sale.vendor);
+        let (Some(item), Some(Node::Vendor(vendor))) = (index.get(&sale.item), graph.get(&from))
+        else {
+            orphans::note(&mut out.unresolved, &sale.item, || from.clone());
+            continue;
+        };
+        let (item, currency) = (
+            item.to_string(),
+            vendor.currency.clone().unwrap_or_default(),
+        );
+        out.offers += 1;
+        graph.link(Edge {
+            from: from.clone(),
+            to: item,
+            rel: Rel::Sells(offer(sale.cost, currency)),
+        });
+    }
+    out
+}
+
+/// A plain offer: one copy for a price.
+fn offer(cost: i64, currency: String) -> Offer {
+    Offer {
+        cost: Some(cost),
+        currency: Some(currency),
+        store: None,
+        credits: None,
+        count: 1,
+        rank: None,
+        timer: None,
+        times: 0,
+        always: false,
+        gone: false,
+    }
+}
+
 /// A stock line resolved to a catalog path. The wiki names a relic without the word and says
 /// what it is in its own kind column, so the kind is what puts the word back.
 fn resolve<'a>(index: &'a Index, printed: &str, kind: &str) -> Option<&'a str> {
@@ -223,10 +357,33 @@ pub fn slug(name: &str) -> String {
 mod tests {
     use super::*;
 
+    fn store(name: &str, link: &str) -> Store {
+        Store {
+            name: name.to_string(),
+            link: Some(link.to_string()),
+            currency: None,
+            kind: None,
+            offers: Vec::new(),
+        }
+    }
+
     #[test]
     fn a_vendor_key_survives_punctuation() {
         assert_eq!(slug("Cephalon Simaris"), "cephalon-simaris");
         assert_eq!(slug("Kahl's Garrison"), "kahl-s-garrison");
         assert_eq!(slug("The Perrin Sequence"), "the-perrin-sequence");
+    }
+
+    #[test]
+    fn a_lone_counter_is_filed_under_its_keeper() {
+        let stores = [store("Release Vestigal Motes", "Ordis#Jade Shadows")];
+        let grouped = counters(&stores);
+        assert_eq!(grouped.keys().collect::<Vec<_>>(), ["Ordis"]);
+    }
+
+    #[test]
+    fn every_nightwave_season_pays_in_cred() {
+        assert_eq!(currency("Nora's Mix Vol. 6 Cred"), "Cred");
+        assert_eq!(currency("Standing"), "Standing");
     }
 }

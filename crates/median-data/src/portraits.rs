@@ -33,7 +33,8 @@ pub fn choose(agent: &ureq::Agent, wanted: &[(String, String)]) -> Result<Vec<Po
     for (vendor, page) in wanted {
         let direct = named(page)
             .into_iter()
-            .find_map(|title| held.get(title.trim_start_matches("File:")).cloned());
+            .find_map(|title| held.get(title.trim_start_matches("File:")).cloned())
+            .filter(|file| !is_redirect(file));
         let file = match direct {
             Some(file) => Some(file),
             None => pick(page, &wiki::page_files(agent, page)?),
@@ -86,6 +87,37 @@ fn pick(page: &str, files: &[File]) -> Option<File> {
     best.map(|(_, file)| file.clone())
 }
 
+/// Whether the wiki serves the file under another name: a title redirected to another picture.
+fn is_redirect(file: &File) -> bool {
+    let served = file.url.split('?').next().unwrap_or(&file.url);
+    let served = served.rsplit('/').next().unwrap_or(served);
+    fold(&decode(served)) != fold(&file.name)
+}
+
+/// A URL path segment with its percent escapes decoded.
+fn decode(segment: &str) -> String {
+    let bytes = segment.as_bytes();
+    let mut out = Vec::with_capacity(bytes.len());
+    let mut i = 0;
+    while i < bytes.len() {
+        let escaped = (bytes[i] == b'%')
+            .then(|| segment.get(i + 1..i + 3))
+            .flatten()
+            .and_then(|hex| u8::from_str_radix(hex, 16).ok());
+        match escaped {
+            Some(byte) => {
+                out.push(byte);
+                i += 3;
+            }
+            None => {
+                out.push(bytes[i]);
+                i += 1;
+            }
+        }
+    }
+    String::from_utf8_lossy(&out).into_owned()
+}
+
 /// Collapse a name to letters and digits, so `Baro Ki'Teer` and `BaroKi'Teer` meet.
 fn fold(name: &str) -> String {
     name.chars()
@@ -126,6 +158,20 @@ mod tests {
     fn a_toy_named_after_the_subject_is_not_their_picture() {
         let files = [file("BaroKi'TeerFloof.png"), file("BaroKi'TeerGlyph.png")];
         assert!(pick("Baro Ki'Teer", &files).is_none());
+    }
+
+    #[test]
+    fn a_title_redirected_to_another_picture_is_not_the_subject() {
+        let skin = File {
+            url: "https://wiki/images/NightwaveSkin.png?f68ec".to_string(),
+            ..file("Nightwave.png")
+        };
+        let own = File {
+            url: "https://wiki/images/Baro_Ki%27Teer.png?1".to_string(),
+            ..file("Baro Ki'Teer.png")
+        };
+        assert!(is_redirect(&skin));
+        assert!(!is_redirect(&own));
     }
 
     #[test]

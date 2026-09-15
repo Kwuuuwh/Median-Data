@@ -89,6 +89,8 @@ pub struct Input {
     pub dojo: crate::wiki::Dojo,
     /// Every vendor the wiki lists by stock.
     pub stores: Vec<crate::wiki::Store>,
+    /// Blueprints the market sells for credits.
+    pub market: Vec<crate::wiki::Priced>,
     pub wfm: Vec<WfmItem>,
     pub drops: Vec<Drop>,
     pub relic_rows: Vec<RelicRow>,
@@ -180,6 +182,7 @@ pub fn assemble(
     let fitted = drifters::link(&mut graph);
 
     let dropped = drops::link(&mut graph, &input.drops, settlements, &index, &terms);
+    let looted = drops::curated(&mut graph, &curated.drop, &index, &terms);
     let missed = &dropped.missed;
     let vaulted = crate::vaulting::mark(
         &mut graph,
@@ -199,7 +202,12 @@ pub fn assemble(
         &terms,
     );
 
-    let vendors = crate::vendors::link(&mut graph, &input.stores, &input.baro, &index, &terms);
+    let stock = crate::vendors::Stock {
+        stores: &input.stores,
+        baro: &input.baro,
+        market: &input.market,
+    };
+    let vendors = crate::vendors::link(&mut graph, &stock, &index, curated, &terms);
     let dojo = crate::labs::link(&mut graph, &input.dojo, &index, &terms);
     let relic_witness = witness(&index, &input.relic_rows);
     let witnessed = relic::witnessed(&graph, &index, &input.composition, &mut conflicts);
@@ -207,6 +215,7 @@ pub fn assemble(
         crate::witness::drops(&graph, &input.chart.nodes, &input.wiki_tables, &index);
 
     let mut orphans = crate::orphans::rows(crate::curation::DROPS, &missed.unknown);
+    orphans.extend(crate::orphans::rows(crate::curation::DROPS, &looted));
     orphans.extend(crate::orphans::rows(
         crate::curation::VENDOR,
         &vendors.unresolved,

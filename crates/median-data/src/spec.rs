@@ -44,6 +44,7 @@ pub const WIKI_BARO: &str = "baro";
 pub const WIKI_RESEARCH: &str = "research";
 pub const WIKI_VENDORS: &str = "vendors";
 pub const WIKI_VOID: &str = "void";
+pub const WIKI_BLUEPRINTS: &str = "blueprints";
 
 /// DE manifest carrying relics and their rewards.
 pub const RELICS: &str = "ExportRelicArcane";

@@ -24,6 +24,7 @@ pub const BARO: &str = "Baro/data";
 pub const RESEARCH: &str = "Research/data";
 pub const VENDORS: &str = "Vendors/data";
 pub const VOID: &str = "Void/data";
+pub const BLUEPRINTS: &str = "Blueprints/data";
 
 /// Fetch one data module's Lua source.
 pub fn fetch_module(agent: &ureq::Agent, module: &str) -> Result<Vec<u8>> {

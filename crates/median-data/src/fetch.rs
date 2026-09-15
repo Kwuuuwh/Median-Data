@@ -125,7 +125,7 @@ fn vault_hash(bytes: &[u8]) -> String {
 }
 
 /// The wiki modules pinned as one snapshot, with the logical name each is stored under.
-fn wiki_modules() -> [(&'static str, &'static str); 6] {
+fn wiki_modules() -> [(&'static str, &'static str); 7] {
     [
         (spec::WIKI_MISSIONS, wiki::MISSIONS),
         (spec::WIKI_DROPS, wiki::DROP_TABLES),
@@ -133,6 +133,7 @@ fn wiki_modules() -> [(&'static str, &'static str); 6] {
         (spec::WIKI_RESEARCH, wiki::RESEARCH),
         (spec::WIKI_VENDORS, wiki::VENDORS),
         (spec::WIKI_VOID, wiki::VOID),
+        (spec::WIKI_BLUEPRINTS, wiki::BLUEPRINTS),
     ]
 }
 

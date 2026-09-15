@@ -172,6 +172,10 @@ pub struct StoreOffer {
     /// The wiki's own label for what the thing is.
     pub kind: String,
     pub cost: i64,
+    /// What the cost is in, where the line names it instead of the vendor.
+    pub currency: Option<String>,
+    /// Credits charged on top of the cost.
+    pub credits: Option<i64>,
     pub count: i64,
     /// Standing rank required.
     pub rank: Option<i64>,
@@ -198,6 +202,7 @@ pub fn vendors(raw: &[u8]) -> Result<Vec<Store>> {
                     .iter()
                     .filter_map(|row| {
                         let row = row.table()?;
+                        let price = price(row.items.get(2));
                         Some(StoreOffer {
                             name: row.items.first()?.str()?.to_string(),
                             kind: row
@@ -206,7 +211,9 @@ pub fn vendors(raw: &[u8]) -> Result<Vec<Store>> {
                                 .and_then(|v| v.str())
                                 .unwrap_or_default()
                                 .to_string(),
-                            cost: row.items.get(2).and_then(|v| v.num()).unwrap_or(0.0) as i64,
+                            cost: price.cost,
+                            currency: price.currency,
+                            credits: price.credits,
                             count: row.items.get(3).and_then(|v| v.num()).unwrap_or(1.0) as i64,
                             rank: row.int("Prereq"),
                             timer: row.int("Timer"),
@@ -225,6 +232,70 @@ pub fn vendors(raw: &[u8]) -> Result<Vec<Store>> {
         });
     }
     Ok(out)
+}
+
+/// What a stock line charges.
+#[derive(Debug, Default, PartialEq)]
+struct Price {
+    cost: i64,
+    currency: Option<String>,
+    credits: Option<i64>,
+}
+
+/// A stock line's cost: a number in the vendor's currency, or a table naming each currency.
+fn price(value: Option<&lua::Value>) -> Price {
+    let Some(value) = value else {
+        return Price::default();
+    };
+    if let Some(cost) = value.num() {
+        return Price {
+            cost: cost as i64,
+            ..Price::default()
+        };
+    }
+    let Some(table) = value.table() else {
+        return Price::default();
+    };
+    let mut out = Price {
+        credits: table.int("Credits"),
+        ..Price::default()
+    };
+    if let Some((currency, cost)) = table
+        .fields
+        .iter()
+        .filter(|(key, _)| *key != "Credits")
+        .find_map(|(key, cost)| cost.num().map(|cost| (key, cost)))
+    {
+        out.cost = cost as i64;
+        out.currency = Some(currency.clone());
+    }
+    out
+}
+
+/// A blueprint the in-game market sells for credits.
+pub struct Priced {
+    pub name: String,
+    pub credits: i64,
+}
+
+/// Every blueprint of `Module:Blueprints/data` the market sells for credits.
+pub fn market_blueprints(raw: &[u8]) -> Result<Vec<Priced>> {
+    let src = String::from_utf8_lossy(raw);
+    let root = lua::returned(&src).context("read Module:Blueprints/data")?;
+    let Some(blueprints) = root.table("Blueprints") else {
+        return Ok(Vec::new());
+    };
+    Ok(blueprints
+        .fields
+        .values()
+        .filter_map(|entry| {
+            let t = entry.table()?;
+            Some(Priced {
+                name: text(t, "Name")?,
+                credits: t.int("BPCost").filter(|cost| *cost > 0)?,
+            })
+        })
+        .collect())
 }
 
 /// A dojo lab and everything researched in it.
@@ -522,5 +593,34 @@ mod tests {
         assert_eq!(tileset("Grineer Galleon"), "Grineer Galleon");
         assert_eq!(tileset("Tile Sets#Conclave Maps"), "Conclave Maps");
         assert_eq!(tileset("Zariman (Tileset)"), "Zariman");
+    }
+
+    #[test]
+    fn a_cost_table_names_its_currency_and_credits_apart() {
+        let src = "return { Vendors = { [\"Operational Supply\"] = {\n\
+            Currency = { \"Standing\", \"Credits\" }, Name = \"Operational Supply\",\n\
+            Offerings = {\n\
+            { \"Forma\", \"Resource\", { Credits = 5000, Standing = 3000 }, 1, Prereq = 0 },\n\
+            { \"Kuva\", \"Resource\", 50, 10000 },\n\
+            } } } }";
+        let stores = vendors(src.as_bytes()).unwrap();
+        let offers = &stores[0].offers;
+        assert_eq!(stores[0].currency, None);
+        assert_eq!(offers[0].cost, 3000);
+        assert_eq!(offers[0].currency.as_deref(), Some("Standing"));
+        assert_eq!(offers[0].credits, Some(5000));
+        assert_eq!((offers[1].cost, offers[1].currency.as_deref()), (50, None));
+    }
+
+    #[test]
+    fn only_blueprints_with_a_market_price_are_read() {
+        let src = "return { Blueprints = {\n\
+            Astilla = { BPCost = 20000, Credits = 20000, Name = \"Astilla Blueprint\" },\n\
+            Forma = { Credits = 35000, Name = \"Forma Blueprint\" },\n\
+            } }";
+        let priced = market_blueprints(src.as_bytes()).unwrap();
+        assert_eq!(priced.len(), 1);
+        assert_eq!(priced[0].name, "Astilla Blueprint");
+        assert_eq!(priced[0].credits, 20000);
     }
 }

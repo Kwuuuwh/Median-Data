@@ -29,6 +29,46 @@ pub struct Curation {
     pub dismiss: Vec<Dismiss>,
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub verbatim: Vec<Verbatim>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub vendor: Vec<Seller>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub offer: Vec<Sale>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub drop: Vec<Loot>,
+}
+
+/// A vendor no source lists by stock.
+#[derive(Debug, Clone, Deserialize, Serialize)]
+pub struct Seller {
+    pub key: String,
+    pub name: String,
+    pub ru: String,
+    pub currency: String,
+    #[serde(default)]
+    pub note: String,
+}
+
+/// An offer written by hand: a price the source has wrong, or an offer it leaves out.
+#[derive(Debug, Clone, Deserialize, Serialize)]
+pub struct Sale {
+    pub vendor: String,
+    /// The item's name as the sources print it.
+    pub item: String,
+    pub cost: i64,
+    #[serde(default)]
+    pub note: String,
+}
+
+/// An enemy drop the drop tables leave out.
+#[derive(Debug, Clone, Deserialize, Serialize)]
+pub struct Loot {
+    pub enemy: String,
+    /// The item's name as the sources print it.
+    pub item: String,
+    /// Probability of one kill dropping it.
+    pub chance: f64,
+    #[serde(default)]
+    pub note: String,
 }
 
 /// A name one source uses tied to the catalog item it means, where the source's own
@@ -135,6 +175,14 @@ impl Curation {
         self.pick
             .iter()
             .map(|p| ((p.item.as_str(), p.prop.as_str()), p.value.as_str()))
+            .collect()
+    }
+
+    /// Hand-written prices keyed by vendor and the item's printed name.
+    pub fn prices(&self) -> BTreeMap<(&str, &str), i64> {
+        self.offer
+            .iter()
+            .map(|o| ((o.vendor.as_str(), o.item.as_str()), o.cost))
             .collect()
     }
 

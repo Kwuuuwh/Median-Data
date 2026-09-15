@@ -138,6 +138,41 @@ pub fn link(
     out
 }
 
+/// Enemy drops written by hand, for what the drop tables leave out.
+pub fn curated(
+    graph: &mut Graph,
+    loot: &[crate::curation::Loot],
+    index: &Index,
+    terms: &crate::curation::Terms,
+) -> Missing {
+    let mut unknown = Missing::new();
+    for line in loot {
+        let from = enemy_id(&line.enemy);
+        let Some(item) = index.get(&line.item) else {
+            orphans::note(&mut unknown, &line.item, || from.clone());
+            continue;
+        };
+        graph.insert(Node::Enemy(Enemy {
+            name: line.enemy.clone(),
+            name_ru: terms.get("enemy", &line.enemy).map(str::to_string),
+        }));
+        graph.link(Edge {
+            from,
+            to: item.to_string(),
+            rel: Rel::Drops(DropInfo {
+                rarity: "Common".to_string(),
+                chance: line.chance,
+                rotation: None,
+                stage: None,
+                table_chance: None,
+                levels: None,
+                count: None,
+            }),
+        });
+    }
+    unknown
+}
+
 /// A bounty with whatever Russian was written for its settlement, its giver and the activity
 /// its table is named after.
 fn localize(mut bounty: graph::Bounty, terms: &crate::curation::Terms) -> graph::Bounty {
