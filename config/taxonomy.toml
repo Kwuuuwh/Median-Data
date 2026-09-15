@@ -169,6 +169,7 @@ en = "Resources"
 ru = "Ресурсы"
 kind = [
   { slug = "resource", en = "Resource", ru = "Ресурс" },
+  { slug = "railjack-resource", en = "Railjack resource", ru = "Ресурс рейлджека" },
   { slug = "gem", en = "Gem", ru = "Самоцвет" },
   { slug = "plant", en = "Plant", ru = "Растение" },
   { slug = "fish", en = "Fish", ru = "Рыба" },
@@ -576,12 +577,14 @@ path_contains = ["/Recipes/Weapons/WeaponParts/"]
 # `parentName` is DE's own prototype pointer, and it splits the resource manifest.
 
 [[rule]]
+kind = "railjack-resource"
+reason = "parentName: gathered in Railjack missions; its recipe is the dry dock's refinement"
+parent_starts = ["/Lotus/Types/Items/RailjackMiscItems/"]
+
+[[rule]]
 kind = "railjack-part"
 reason = "parentName"
-parent_starts = [
-  "/Lotus/Types/Items/RailjackMiscItems/",
-  "/Lotus/Types/Items/ShipFeatureItems/Railjack/",
-]
+parent_starts = ["/Lotus/Types/Items/ShipFeatureItems/Railjack/"]
 
 [[rule]]
 kind = "warframe-component"
