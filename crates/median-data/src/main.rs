@@ -5,6 +5,7 @@ use std::time::{SystemTime, UNIX_EPOCH};
 use anyhow::Result;
 use vault::Vault;
 
+mod areas;
 mod assemble;
 mod bounties;
 mod bridge;
@@ -50,6 +51,7 @@ const TAXONOMY: &str = "config/taxonomy.toml";
 const MASTERY: &str = "config/mastery.toml";
 const REGIONS: &str = "config/regions.toml";
 const BOUNTIES: &str = "config/bounties.toml";
+const AREAS: &str = "config/areas.toml";
 const ANCHORS: &str = "config/anchors.toml";
 const CURATION: &str = "config/curation.toml";
 const PACK: &str = "pack";

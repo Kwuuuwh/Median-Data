@@ -55,6 +55,7 @@ pub fn render(graph: &Graph, id: &str) -> Markup {
             Rel::Sells(_) => push(&mut left, graph, id, &e.from, "продаёт"),
             Rel::Refines => push(&mut left, graph, id, &e.from, "улучшение"),
             Rel::Researched(_) => push(&mut left, graph, id, &e.from, "исследование"),
+            Rel::Within => push(&mut right, graph, id, &e.from, "в области"),
         }
     }
     for e in graph.from(id) {
@@ -63,6 +64,7 @@ pub fn render(graph: &Graph, id: &str) -> Markup {
             Rel::Fits => push(&mut right, graph, id, &e.to, "скиталец"),
             Rel::At => push(&mut right, graph, id, &e.to, "узел"),
             Rel::Refines => push(&mut right, graph, id, &e.to, "улучшается в"),
+            Rel::Within => push(&mut right, graph, id, &e.to, "область"),
             _ => {}
         }
     }
@@ -230,6 +232,7 @@ fn disp<'a>(graph: &'a Graph, id: &'a str) -> &'a str {
         Some(Node::Region(r)) => r.name_ru.as_deref().unwrap_or(&r.name),
         Some(Node::Vendor(v)) => v.name_ru.as_deref().unwrap_or(&v.name),
         Some(Node::Lab(l)) => &l.name,
+        Some(Node::Area(a)) => a.name_ru.as_deref().unwrap_or(&a.name),
         Some(Node::Recipe(r)) => &r.blueprint,
         None => id.rsplit('/').next().unwrap_or(id),
     }

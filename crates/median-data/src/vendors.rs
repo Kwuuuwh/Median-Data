@@ -20,8 +20,11 @@ const MARKET: &str = "Market";
 /// The one name of Nightwave's currency, whatever season prints on it.
 const CRED: &str = "Cred";
 
-/// What the market charges blueprints in.
-const CREDITS: &str = "Credits";
+/// The kind of counter whose stock rotates on a schedule.
+const ROTATING: &str = "Rotating Store";
+
+/// Kinds of counter whose stock comes and goes: a rotation, an event, a Nightwave season.
+const FLEETING: [&str; 3] = [ROTATING, "Event", "Nightwave"];
 
 /// Everything the vendor sources hand a build.
 pub struct Stock<'a> {
@@ -94,6 +97,8 @@ fn stores_of(
     let mut out = Linked::new();
     for (page, group) in counters(stores) {
         let key = slug(&page);
+        let kind = group.iter().find_map(|s| s.kind.clone());
+        let fleeting = kind.as_deref().is_some_and(|kind| FLEETING.contains(&kind));
         let currencies: BTreeSet<String> = group
             .iter()
             .filter_map(|s| s.currency.as_deref())
@@ -107,8 +112,8 @@ fn stores_of(
                 1 => currencies.into_iter().next(),
                 _ => None,
             },
-            kind: group.iter().find_map(|s| s.kind.clone()),
-            rotates: false,
+            rotates: kind.as_deref() == Some(ROTATING),
+            kind,
         })) {
             out.vendors += 1;
         }
@@ -127,23 +132,25 @@ fn stores_of(
                     .get(&(key.as_str(), printed))
                     .copied()
                     .unwrap_or(offer.cost);
+                let currency = offer
+                    .currency
+                    .as_deref()
+                    .or(store.currency.as_deref())
+                    .map(currency);
                 edges.push(Edge {
                     from: from.clone(),
                     to: item.to_string(),
                     rel: Rel::Sells(Offer {
                         cost: Some(cost).filter(|c| *c > 0),
-                        currency: offer
-                            .currency
-                            .as_deref()
-                            .or(store.currency.as_deref())
-                            .map(currency),
+                        pays: paid_in(index, currency.as_deref()),
+                        currency,
                         store: counter.clone(),
                         credits: offer.credits,
                         count: offer.count,
                         rank: offer.rank,
                         timer: offer.timer,
                         times: 0,
-                        always: false,
+                        always: offer.timer.is_none() && !fleeting,
                         gone: false,
                     }),
                 });
@@ -175,6 +182,13 @@ pub fn person(store: &Store) -> String {
         Some((head, _)) if !head.is_empty() => head.to_string(),
         _ => page,
     }
+}
+
+/// The catalog item a currency is, where it is one: standing and platinum are not.
+fn paid_in(index: &Index, currency: Option<&str>) -> Option<String> {
+    currency
+        .and_then(|currency| index.get(currency))
+        .map(str::to_string)
 }
 
 /// A currency under the name the game gives it everywhere.
@@ -217,6 +231,7 @@ fn baro(graph: &mut Graph, offered: &[Offered], index: &Index, terms: &Terms) ->
             rel: Rel::Sells(Offer {
                 cost: it.ducats,
                 currency: Some("Ducats".to_string()),
+                pays: paid_in(index, Some("Ducats")),
                 store: None,
                 credits: it.credits,
                 count: 1,
@@ -231,7 +246,7 @@ fn baro(graph: &mut Graph, offered: &[Offered], index: &Index, terms: &Terms) ->
     out
 }
 
-/// Blueprints the market sells for credits.
+/// Blueprints the market sells for credits, which is all it charges.
 fn market(graph: &mut Graph, priced: &[Priced], index: &Index, terms: &Terms) -> Linked {
     let key = slug(MARKET);
     let mut out = Linked::new();
@@ -256,14 +271,20 @@ fn market(graph: &mut Graph, priced: &[Priced], index: &Index, terms: &Terms) ->
         graph.link(Edge {
             from: from.clone(),
             to: item.to_string(),
-            rel: Rel::Sells(offer(blueprint.credits, CREDITS.to_string())),
+            rel: Rel::Sells(Offer {
+                cost: None,
+                currency: None,
+                pays: None,
+                credits: Some(blueprint.credits),
+                ..offer()
+            }),
         });
     }
     out
 }
 
-/// Vendors and offers written by hand, for what no source lists. A hand-written price for a
-/// line a source does list is applied where that line is read.
+/// Vendors and offers written by hand, for what no source lists; each is a stall that stays.
+/// A hand-written price for a line a source does list is applied where that line is read.
 fn curated_of(graph: &mut Graph, stores: &[Store], index: &Index, curated: &Curation) -> Linked {
     let mut out = Linked::new();
     for seller in &curated.vendor {
@@ -307,24 +328,30 @@ fn curated_of(graph: &mut Graph, stores: &[Store], index: &Index, curated: &Cura
         graph.link(Edge {
             from: from.clone(),
             to: item,
-            rel: Rel::Sells(offer(sale.cost, currency)),
+            rel: Rel::Sells(Offer {
+                cost: Some(sale.cost),
+                pays: paid_in(index, Some(&currency)),
+                currency: Some(currency),
+                ..offer()
+            }),
         });
     }
     out
 }
 
-/// A plain offer: one copy for a price.
-fn offer(cost: i64, currency: String) -> Offer {
+/// A plain offer: one copy, always on the counter, its price still to be said.
+fn offer() -> Offer {
     Offer {
-        cost: Some(cost),
-        currency: Some(currency),
+        cost: None,
+        currency: None,
+        pays: None,
         store: None,
         credits: None,
         count: 1,
         rank: None,
         timer: None,
         times: 0,
-        always: false,
+        always: true,
         gone: false,
     }
 }
@@ -356,6 +383,132 @@ pub fn slug(name: &str) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::wiki::StoreOffer;
+    use consensus::{Claim, Resolved, Source, resolve};
+    use graph::{Extra, Item, Names};
+
+    fn value<T: Clone + PartialEq>(v: T) -> Resolved<T> {
+        resolve(
+            &[Claim {
+                source: Source::De,
+                value: v,
+            }],
+            &[Source::De],
+        )
+        .unwrap()
+    }
+
+    fn catalog(names: &[(&str, &str)]) -> Graph {
+        let mut graph = Graph::new();
+        for (path, name) in names {
+            graph.insert(Node::Item(Item {
+                unique_name: (*path).into(),
+                names: Names {
+                    en: value(name.to_string()),
+                    ru: None,
+                },
+                category: value("Test".to_string()),
+                kind: value(graph::Kind::unknown()),
+                slug: None,
+                tradable: None,
+                vaulted: None,
+                prime: value(false),
+                ducats: None,
+                mastery: None,
+                mastery_req: None,
+                max_level_cap: None,
+                extra: Extra::None,
+            }));
+        }
+        graph
+    }
+
+    fn selling(name: &str, kind: &str, currency: &str, item: &str, timer: Option<i64>) -> Store {
+        Store {
+            name: name.to_string(),
+            link: Some(name.to_string()),
+            currency: Some(currency.to_string()),
+            kind: Some(kind.to_string()),
+            offers: vec![StoreOffer {
+                name: item.to_string(),
+                kind: "Weapon".to_string(),
+                cost: 50,
+                currency: None,
+                credits: None,
+                count: 1,
+                rank: None,
+                timer,
+            }],
+        }
+    }
+
+    /// The one offer the vendor makes.
+    fn sold(graph: &Graph, vendor: &str) -> Offer {
+        graph
+            .from(&vendor_id(vendor))
+            .into_iter()
+            .find_map(|edge| match &edge.rel {
+                Rel::Sells(offer) => Some(offer.clone()),
+                _ => None,
+            })
+            .expect("an offer")
+    }
+
+    #[test]
+    fn an_offer_names_the_item_its_currency_is_and_stays_on_a_plain_counter() {
+        let mut graph = catalog(&[
+            ("/Clamp", "Pathos Clamp"),
+            ("/SyamBlueprint", "Syam Blueprint"),
+        ]);
+        let index = Index::build(&graph, &BTreeMap::new());
+        let stores = [
+            selling("Teshin", "Store", "Pathos Clamp", "Syam Blueprint", None),
+            selling(
+                "Acrithis",
+                "Store",
+                "Pathos Clamp",
+                "Syam Blueprint",
+                Some(604_800),
+            ),
+            selling("Palladino", ROTATING, "Standing", "Syam Blueprint", None),
+        ];
+
+        stores_of(
+            &mut graph,
+            &stores,
+            &index,
+            &Curation::default().terms(),
+            &BTreeMap::new(),
+        );
+
+        let teshin = sold(&graph, "teshin");
+        assert_eq!(teshin.pays.as_deref(), Some("/Clamp"));
+        assert!(teshin.always);
+        assert!(!sold(&graph, "acrithis").always);
+        let palladino = sold(&graph, "palladino");
+        assert_eq!(palladino.pays, None);
+        assert!(!palladino.always);
+        assert!(matches!(
+            graph.get(&vendor_id("palladino")),
+            Some(Node::Vendor(Vendor { rotates: true, .. }))
+        ));
+    }
+
+    #[test]
+    fn the_market_charges_credits_and_nothing_else() {
+        let mut graph = catalog(&[("/BratonBlueprint", "Braton Blueprint")]);
+        let index = Index::build(&graph, &BTreeMap::new());
+        let priced = [Priced {
+            name: "Braton Blueprint".to_string(),
+            credits: 1_500,
+        }];
+
+        market(&mut graph, &priced, &index, &Curation::default().terms());
+
+        let offer = sold(&graph, &slug(MARKET));
+        assert_eq!((offer.cost, offer.credits), (None, Some(1_500)));
+        assert!(offer.currency.is_none() && offer.pays.is_none() && offer.always);
+    }
 
     fn store(name: &str, link: &str) -> Store {
         Store {

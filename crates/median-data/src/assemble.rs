@@ -107,6 +107,7 @@ pub fn assemble(
     mastery: &crate::mastery::Policy,
     labels: &Labels,
     settlements: &crate::bounties::Settlements,
+    areas: &crate::areas::Areas,
     curated: &Curation,
 ) -> Built {
     let links = curated.market_links();
@@ -183,6 +184,7 @@ pub fn assemble(
 
     let dropped = drops::link(&mut graph, &input.drops, settlements, &index, &terms);
     let looted = drops::curated(&mut graph, &curated.drop, &index, &terms);
+    let unpaid = drops::paid(&mut graph, &curated.payout, &index, &terms);
     let missed = &dropped.missed;
     let vaulted = crate::vaulting::mark(
         &mut graph,
@@ -208,6 +210,7 @@ pub fn assemble(
         market: &input.market,
     };
     let vendors = crate::vendors::link(&mut graph, &stock, &index, curated, &terms);
+    crate::areas::link(&mut graph, areas);
     let dojo = crate::labs::link(&mut graph, &input.dojo, &index, &terms);
     let relic_witness = witness(&index, &input.relic_rows);
     let witnessed = relic::witnessed(&graph, &index, &input.composition, &mut conflicts);
@@ -216,6 +219,7 @@ pub fn assemble(
 
     let mut orphans = crate::orphans::rows(crate::curation::DROPS, &missed.unknown);
     orphans.extend(crate::orphans::rows(crate::curation::DROPS, &looted));
+    orphans.extend(crate::orphans::rows(crate::curation::DROPS, &unpaid));
     orphans.extend(crate::orphans::rows(
         crate::curation::VENDOR,
         &vendors.unresolved,

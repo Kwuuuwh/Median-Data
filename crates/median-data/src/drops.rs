@@ -173,6 +173,45 @@ pub fn curated(
     unknown
 }
 
+/// What places hand over every time they are finished, written by hand. A place the drop
+/// tables do not print is added as a transient one.
+pub fn paid(
+    graph: &mut Graph,
+    payouts: &[crate::curation::Payout],
+    index: &Index,
+    terms: &crate::curation::Terms,
+) -> Missing {
+    let mut unknown = Missing::new();
+    for payout in payouts {
+        let from = place_id(&payout.place);
+        let Some(item) = index.get(&payout.item) else {
+            orphans::note(&mut unknown, &payout.item, || from.clone());
+            continue;
+        };
+        graph.insert(Node::Place(Place {
+            name: payout.place.clone(),
+            name_ru: terms.get("place", &payout.place).map(str::to_string),
+            kind: PlaceKind::Transient,
+            bounty: None,
+            table: None,
+        }));
+        graph.link(Edge {
+            from,
+            to: item.to_string(),
+            rel: Rel::Drops(DropInfo {
+                rarity: "Common".to_string(),
+                chance: 1.0,
+                rotation: None,
+                stage: None,
+                table_chance: None,
+                levels: None,
+                count: Some(payout.count),
+            }),
+        });
+    }
+    unknown
+}
+
 /// A bounty with whatever Russian was written for its settlement, its giver and the activity
 /// its table is named after.
 fn localize(mut bounty: graph::Bounty, terms: &crate::curation::Terms) -> graph::Bounty {
@@ -222,6 +261,76 @@ fn kind_of(section: &str) -> PlaceKind {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::curation::{Curation, Payout};
+    use consensus::{Claim, Resolved, Source, resolve};
+    use graph::{Extra, Item, Names};
+    use std::collections::BTreeMap;
+
+    fn value<T: Clone + PartialEq>(v: T) -> Resolved<T> {
+        resolve(
+            &[Claim {
+                source: Source::De,
+                value: v,
+            }],
+            &[Source::De],
+        )
+        .unwrap()
+    }
+
+    fn clamp() -> Node {
+        Node::Item(Item {
+            unique_name: "/Clamp".into(),
+            names: Names {
+                en: value("Pathos Clamp".to_string()),
+                ru: None,
+            },
+            category: value("Test".to_string()),
+            kind: value(graph::Kind::unknown()),
+            slug: None,
+            tradable: None,
+            vaulted: None,
+            prime: value(false),
+            ducats: None,
+            mastery: None,
+            mastery_req: None,
+            max_level_cap: None,
+            extra: Extra::None,
+        })
+    }
+
+    #[test]
+    fn a_payout_stands_as_a_certain_drop_of_its_count_from_a_place_it_adds() {
+        let mut graph = Graph::new();
+        graph.insert(clamp());
+        let index = Index::build(&graph, &BTreeMap::new());
+        let payouts = [Payout {
+            place: "Duviri Lone Story (Steel Path)".to_string(),
+            item: "Pathos Clamp".to_string(),
+            count: 15,
+            note: String::new(),
+        }];
+
+        let unknown = paid(&mut graph, &payouts, &index, &Curation::default().terms());
+
+        assert!(unknown.is_empty());
+        let place = place_id("Duviri Lone Story (Steel Path)");
+        assert!(matches!(
+            graph.get(&place),
+            Some(Node::Place(Place {
+                kind: PlaceKind::Transient,
+                ..
+            }))
+        ));
+        let paid: Vec<_> = graph
+            .from(&place)
+            .into_iter()
+            .filter_map(|edge| match &edge.rel {
+                Rel::Drops(drop) => Some((edge.to.as_str(), drop.chance, drop.count)),
+                _ => None,
+            })
+            .collect();
+        assert_eq!(paid, [("/Clamp", 1.0, Some(15))]);
+    }
 
     #[test]
     fn sections_map_to_place_kinds() {

@@ -1,0 +1,66 @@
+# Areas a player stays in and gathers across: a hub with its open world, or the missions played
+# out of it. A star-chart node belongs by its tileset, and a place by the node it names, its
+# bounty settlement, the location the drop tables print, or by name. Vendors are listed by key,
+# area by area, once someone has checked where each one stands.
+
+[[area]]
+key = "duviri"
+name = "Duviri"
+ru = "Дувири"
+tilesets = ["Duviri", "Dormizone"]
+locations = ["Duviri"]
+places = [
+    "Duviri Circuit",
+    "Duviri Full Experience",
+    "Duviri Full Experience (Steel Path)",
+    "Duviri Lone Story",
+    "Duviri Lone Story (Steel Path)",
+    "Duviri Murmur Invasion Rewards",
+    "Duviri Murmur Invasion Rewards (Steel Path)",
+    "Duviri Static Undercroft Portal",
+    "Duviri Static Undercroft Portal (Steel Path)",
+    "Kullervo's Hold",
+]
+vendors = ["acrithis", "teshin-s-cave"]
+
+[[area]]
+key = "cetus"
+name = "Cetus"
+ru = "Цетус"
+tilesets = ["Cetus", "Plains of Eidolon"]
+settlements = ["Cetus"]
+
+[[area]]
+key = "fortuna"
+name = "Fortuna"
+ru = "Фортуна"
+tilesets = ["Fortuna", "Orb Vallis"]
+settlements = ["Orb Vallis"]
+
+[[area]]
+key = "necralisk"
+name = "Necralisk"
+ru = "Некралиск"
+tilesets = ["Necralisk", "Cambion Drift"]
+settlements = ["Cambion Drift"]
+
+[[area]]
+key = "zariman"
+name = "Zariman"
+ru = "Зариман"
+tilesets = ["Chrysalith", "Zariman"]
+settlements = ["Zariman"]
+
+[[area]]
+key = "hollvania"
+name = "Höllvania"
+ru = "Хёльвания"
+tilesets = ["Höllvania"]
+settlements = ["Höllvania"]
+
+[[area]]
+key = "sanctum"
+name = "Sanctum Anatomica"
+ru = "Санктум Анатомика"
+tilesets = ["Albrecht's Laboratories"]
+settlements = ["Sanctum Anatomica"]

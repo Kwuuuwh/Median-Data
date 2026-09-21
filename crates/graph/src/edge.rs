@@ -42,9 +42,11 @@ pub struct Offer {
     /// What the cost is in. It belongs to the offer, not the vendor: one person can keep
     /// several counters, each taking a different token.
     pub currency: Option<String>,
+    /// The catalog item the cost is paid in; none for standing and platinum.
+    pub pays: Option<String>,
     /// The counter the offer stands on, where the vendor keeps more than one.
     pub store: Option<String>,
-    /// Some vendors charge credits on top of their own currency.
+    /// Credits the offer charges: on top of its own currency, or alone where it has none.
     pub credits: Option<i64>,
     /// How many the offer hands over.
     pub count: i64,
@@ -115,6 +117,8 @@ pub enum Rel {
     Refines,
     /// A dojo lab -> the blueprint its research unlocks.
     Researched(Research),
+    /// A place, a vendor or a star-chart node -> the area it stands in.
+    Within,
 }
 
 impl Rel {
@@ -133,6 +137,7 @@ impl Rel {
             Rel::Sells(_) => "sells",
             Rel::Refines => "refines",
             Rel::Researched(_) => "researched",
+            Rel::Within => "within",
         }
     }
 }

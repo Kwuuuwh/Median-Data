@@ -539,6 +539,7 @@ pub fn graph_with(vault: &Vault, curated: &Curation) -> Result<Built> {
         &mastery,
         &labels,
         &bounties::load(Path::new(crate::BOUNTIES))?,
+        &crate::areas::load(Path::new(crate::AREAS))?,
         curated,
     );
     built.dead_rules = dead_rules;

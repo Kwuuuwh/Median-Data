@@ -98,15 +98,17 @@ pub fn sold_at(graph: &Graph, id: &str) -> Markup {
 /// What it costs, in whatever the counter takes.
 fn price(offer: &Offer) -> Markup {
     html! {
-        @match offer.cost {
-            Some(cost) => {
+        @match (offer.cost, offer.credits) {
+            (Some(cost), _) => {
                 span.num { (number(cost)) }
                 @if let Some(currency) = &offer.currency { " " span.dim { (currency) } }
             }
-            None => span.dim { "—" },
+            (None, Some(_)) => {}
+            (None, None) => span.dim { "—" },
         }
         @if let Some(credits) = offer.credits {
-            span.dim { " + " (number(credits)) " кредитов" }
+            @if offer.cost.is_some() { span.dim { " + " } }
+            span.num { (number(credits)) } span.dim { " кредитов" }
         }
         @if offer.count > 1 { span.tag { "×" (number(offer.count)) } }
     }

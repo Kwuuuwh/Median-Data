@@ -35,6 +35,8 @@ pub struct Curation {
     pub offer: Vec<Sale>,
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub drop: Vec<Loot>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub payout: Vec<Payout>,
 }
 
 /// A vendor no source lists by stock.
@@ -67,6 +69,17 @@ pub struct Loot {
     pub item: String,
     /// Probability of one kill dropping it.
     pub chance: f64,
+    #[serde(default)]
+    pub note: String,
+}
+
+/// What a place hands over every time it is finished, where the drop tables leave it out.
+#[derive(Debug, Clone, Deserialize, Serialize)]
+pub struct Payout {
+    pub place: String,
+    /// The item's name as the sources print it.
+    pub item: String,
+    pub count: i64,
     #[serde(default)]
     pub note: String,
 }

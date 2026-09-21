@@ -11,6 +11,11 @@ source = "vendor"
 key = "Cherub Color Palette"
 item = "/Lotus/Types/StoreItems/SuitCustomizations/ColourPickerValItemB"
 
+[[link]]
+source = "vendor"
+key = "Ducats"
+item = "/Lotus/Types/Items/MiscItems/PrimeBucks"
+
 [[name]]
 item = "/Lotus/Types/Game/FishBait/Infested/InfestedFishBaitBBlueprint"
 ru = "Обработанные Останки Фэза"
@@ -2668,6 +2673,26 @@ key = "Baro Void-Signal"
 ru = "Маячок Бездны Баро"
 
 [[term]]
+kind = "place"
+key = "Duviri Full Experience"
+ru = "Дувирийский путь"
+
+[[term]]
+kind = "place"
+key = "Duviri Full Experience (Steel Path)"
+ru = "Дувирийский путь (Стальной путь)"
+
+[[term]]
+kind = "place"
+key = "Duviri Lone Story"
+ru = "Одинокий путь"
+
+[[term]]
+kind = "place"
+key = "Duviri Lone Story (Steel Path)"
+ru = "Одинокий путь (Стальной путь)"
+
+[[term]]
 kind = "region"
 key = "/Lotus/Types/Keys/SyndicateCacheHuntBaseKeyItem"
 ru = "Абиссальная Зона"
@@ -3232,3 +3257,27 @@ enemy = "Prosecutor"
 item = "Javlok Capacitor"
 chance = 1.0
 note = "Javlok page: dropped only by Prosecutors, 100%"
+
+[[payout]]
+place = "Duviri Full Experience"
+item = "Pathos Clamp"
+count = 10
+note = "Handed over at the end of the Duviri Experience"
+
+[[payout]]
+place = "Duviri Full Experience (Steel Path)"
+item = "Pathos Clamp"
+count = 15
+note = "Handed over at the end of the Duviri Experience on the Steel Path"
+
+[[payout]]
+place = "Duviri Lone Story"
+item = "Pathos Clamp"
+count = 10
+note = "Handed over at the end of the Lone Story"
+
+[[payout]]
+place = "Duviri Lone Story (Steel Path)"
+item = "Pathos Clamp"
+count = 15
+note = "Handed over at the end of the Lone Story on the Steel Path"

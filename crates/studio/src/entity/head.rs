@@ -100,6 +100,11 @@ pub fn render(snap: &Snapshot, node: &Node, ru: Option<&Icon>, en: Option<&Icon>
                             span.tag { (l.faction) }
                         }
                     }
+                    Node::Area(a) => {
+                        h1 { (a.name) }
+                        @if let Some(name) = &a.name_ru { p.ru { (name) } }
+                        .tags { span.tag.kind { "область" } }
+                    }
                     Node::Location(l) => {
                         h1 { (l.name) }
                         @match &l.name_ru {

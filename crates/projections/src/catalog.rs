@@ -15,7 +15,7 @@ pub struct Catalog;
 /// application reads it to decide whether it can open the file at all — so it lives here,
 /// beside the schema it describes, and is written both as `PRAGMA user_version` and as a row
 /// of `meta`.
-pub const SCHEMA: u32 = 12;
+pub const SCHEMA: u32 = 13;
 
 pub const SETUP: &str = "\
 CREATE TABLE meta (
@@ -124,7 +124,8 @@ CREATE TABLE places (
   node     TEXT,
   label    TEXT,
   extra    INTEGER,
-  event    INTEGER
+  event    INTEGER,
+  area     TEXT
 ) WITHOUT ROWID;
 CREATE TABLE enemies (
   name    TEXT PRIMARY KEY,
@@ -173,13 +174,20 @@ CREATE TABLE vendors (
   name_ru  TEXT,
   currency TEXT,
   kind     TEXT,
-  rotates  INTEGER NOT NULL
+  rotates  INTEGER NOT NULL,
+  area     TEXT
+) WITHOUT ROWID;
+CREATE TABLE areas (
+  key     TEXT PRIMARY KEY,
+  name    TEXT NOT NULL,
+  name_ru TEXT
 ) WITHOUT ROWID;
 CREATE TABLE vendor_offers (
   vendor   TEXT NOT NULL,
   item     TEXT NOT NULL,
   cost     INTEGER,
   currency TEXT,
+  pays     TEXT,
   store    TEXT,
   credits  INTEGER,
   count   INTEGER NOT NULL,
@@ -213,7 +221,8 @@ CREATE TABLE regions (
   tileset_ru   TEXT,
   origin       TEXT NOT NULL,
   railjack     INTEGER NOT NULL,
-  hidden       INTEGER NOT NULL
+  hidden       INTEGER NOT NULL,
+  area         TEXT
 ) WITHOUT ROWID;
 CREATE TABLE item_drops (
   place    TEXT NOT NULL,
@@ -370,15 +379,16 @@ fn nodes(tx: &Transaction<'_>, ctx: &Context<'_>) -> Result<usize> {
         .prepare("INSERT INTO imprints (slug, name_en, name_ru, animal) VALUES (?1, ?2, ?3, ?4)")?;
     let mut places = tx.prepare(
         "INSERT INTO places (name, name_ru, kind, region, location, node, label, \
-                    extra, event) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9)",
+                    extra, event, area) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10)",
     )?;
     let mut enemies = tx.prepare("INSERT INTO enemies (name, name_ru) VALUES (?1, ?2)")?;
     let mut locations =
         tx.prepare("INSERT INTO locations (name, name_ru, kind) VALUES (?1, ?2, ?3)")?;
     let mut vendors = tx.prepare(
-        "INSERT INTO vendors (key, name, name_ru, currency, kind, rotates) \
-         VALUES (?1, ?2, ?3, ?4, ?5, ?6)",
+        "INSERT INTO vendors (key, name, name_ru, currency, kind, rotates, area) \
+         VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7)",
     )?;
+    let mut areas = tx.prepare("INSERT INTO areas (key, name, name_ru) VALUES (?1, ?2, ?3)")?;
     let mut labs =
         tx.prepare("INSERT INTO labs (key, name, name_ru, faction) VALUES (?1, ?2, ?3, ?4)")?;
     let mut bounties = tx.prepare(
@@ -390,9 +400,9 @@ fn nodes(tx: &Transaction<'_>, ctx: &Context<'_>) -> Result<usize> {
         "INSERT INTO regions (node, name, name_ru, location, mission, mission_en, \
          mission_ru, faction, faction_en, faction_ru, faction_icon, node_type, node_type_en, \
          node_type_ru, mastery_req, mastery_xp, min_level, max_level, tileset, tileset_ru, \
-         origin, railjack, hidden) \
+         origin, railjack, hidden, area) \
          VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15, ?16, ?17, \
-         ?18, ?19, ?20, ?21, ?22, ?23)",
+         ?18, ?19, ?20, ?21, ?22, ?23, ?24)",
     )?;
 
     let mut count = 0;
@@ -483,6 +493,7 @@ fn nodes(tx: &Transaction<'_>, ctx: &Context<'_>) -> Result<usize> {
                     p.table.as_ref().map(|t| t.label.clone()),
                     p.table.as_ref().map(|t| t.extra as i64),
                     p.table.as_ref().map(|t| t.event as i64),
+                    area_of(graph, &node.id()),
                 ))?;
                 if let Some(b) = &p.bounty {
                     bounties.execute((
@@ -512,7 +523,11 @@ fn nodes(tx: &Transaction<'_>, ctx: &Context<'_>) -> Result<usize> {
                     v.currency.as_deref(),
                     v.kind.as_deref(),
                     v.rotates as i64,
+                    area_of(graph, &node.id()),
                 ))?;
+            }
+            Node::Area(a) => {
+                areas.execute((&a.key, &a.name, a.name_ru.as_deref()))?;
             }
             Node::Lab(l) => {
                 labs.execute((&l.key, &l.name, l.name_ru.as_deref(), &l.faction))?;
@@ -542,6 +557,7 @@ fn nodes(tx: &Transaction<'_>, ctx: &Context<'_>) -> Result<usize> {
                     r.origin.as_str(),
                     r.railjack as i64,
                     r.hidden as i64,
+                    area_of(graph, &node.id()),
                 ])?;
             }
             Node::Recipe(r) => {
@@ -596,8 +612,9 @@ fn edges(tx: &Transaction<'_>, graph: &Graph) -> Result<()> {
     )?;
     let mut offers = tx.prepare(
         "INSERT OR IGNORE INTO vendor_offers \
-         (vendor, item, cost, currency, store, credits, count, rank, timer, times, always, gone) \
-         VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12)",
+         (vendor, item, cost, currency, pays, store, credits, count, rank, timer, times, always, \
+          gone) \
+         VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13)",
     )?;
 
     for edge in sorted(graph) {
@@ -665,6 +682,7 @@ fn edges(tx: &Transaction<'_>, graph: &Graph) -> Result<()> {
                     &edge.to,
                     offer.cost,
                     offer.currency.as_deref(),
+                    offer.pays.as_deref(),
                     offer.store.as_deref(),
                     offer.credits,
                     offer.count,
@@ -677,7 +695,12 @@ fn edges(tx: &Transaction<'_>, graph: &Graph) -> Result<()> {
             }
             // Produces, Represents, Yields and At are read back from a node column, and the
             // refinement chain is already in `relics` as base plus refinement.
-            Rel::Produces | Rel::Represents | Rel::Yields | Rel::At | Rel::Refines => {}
+            Rel::Produces
+            | Rel::Represents
+            | Rel::Yields
+            | Rel::At
+            | Rel::Refines
+            | Rel::Within => {}
         }
     }
 
@@ -727,6 +750,11 @@ fn sorted(graph: &Graph) -> Vec<&graph::Edge> {
 }
 
 /// The single node a relation points at, if any.
+/// The key of the area a node stands in.
+fn area_of(graph: &Graph, id: &str) -> Option<String> {
+    target(graph, id, &Rel::Within).map(|area| area.trim_start_matches("area:").to_string())
+}
+
 fn target(graph: &Graph, id: &str, rel: &Rel) -> Option<String> {
     graph
         .from(id)

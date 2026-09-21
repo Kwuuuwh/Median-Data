@@ -281,6 +281,21 @@ pub enum Node {
     Region(Region),
     Vendor(Vendor),
     Lab(Lab),
+    Area(Area),
+}
+
+/// A part of the game a player stays in and gathers across: a hub with its open world, or the
+/// missions played out of it.
+#[derive(Debug, Clone, PartialEq)]
+pub struct Area {
+    pub key: String,
+    pub name: String,
+    pub name_ru: Option<String>,
+}
+
+/// Node id of an area, by its key.
+pub fn area_id(key: &str) -> String {
+    format!("area:{key}")
 }
 
 /// Node id of a recipe, by its blueprint path.
@@ -342,6 +357,7 @@ impl Node {
             Node::Region(r) => region_id(&r.node),
             Node::Vendor(v) => vendor_id(&v.key),
             Node::Lab(l) => lab_id(&l.key),
+            Node::Area(a) => area_id(&a.key),
         }
     }
 
@@ -358,6 +374,7 @@ impl Node {
             Node::Region(r) => &r.name,
             Node::Vendor(v) => &v.name,
             Node::Lab(l) => &l.name,
+            Node::Area(a) => &a.name,
         }
     }
 
@@ -374,6 +391,7 @@ impl Node {
             Node::Region(r) => r.name_ru.as_deref(),
             Node::Vendor(v) => v.name_ru.as_deref(),
             Node::Lab(l) => l.name_ru.as_deref(),
+            Node::Area(a) => a.name_ru.as_deref(),
         }
     }
 }

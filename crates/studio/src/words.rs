@@ -17,6 +17,7 @@ pub fn rel(rel: &Rel) -> &'static str {
         Rel::Sells(_) => "продаёт",
         Rel::Refines => "улучшается в",
         Rel::Researched(_) => "исследуется",
+        Rel::Within => "стоит в области",
     }
 }
 
@@ -36,6 +37,7 @@ pub fn rel_back(rel: &Rel) -> &'static str {
         Rel::Sells(_) => "продаётся у",
         Rel::Refines => "улучшается из",
         Rel::Researched(_) => "исследуется в",
+        Rel::Within => "включает",
     }
 }
 
@@ -84,6 +86,7 @@ pub fn node(node: &graph::Node) -> &'static str {
         Node::Region(_) => "узел",
         Node::Vendor(_) => "торговец",
         Node::Lab(_) => "лаборатория",
+        Node::Area(_) => "область",
     }
 }
 

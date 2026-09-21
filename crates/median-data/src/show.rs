@@ -70,6 +70,7 @@ fn print(graph: &Graph, node: &Node) {
         }
         Node::Vendor(v) => println!("  vendor   {} (rotates {})", v.name, v.rotates),
         Node::Lab(l) => println!("  lab      {} ({})", l.name, l.faction),
+        Node::Area(a) => println!("  area     {}", a.name),
         Node::Region(r) => {
             println!("  location {}", r.location);
             println!(
