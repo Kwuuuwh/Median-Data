@@ -230,24 +230,27 @@ fn text(el: &Value, key: &str) -> Option<String> {
         .map(str::to_string)
 }
 
+/// A recipe's ingredients, one entry per item. The export lists an item once per copy for
+/// some recipes (two Kohmak for Twin Kohmak), so repeats add up.
 fn ingredients(el: &Value) -> Vec<(String, i64)> {
-    el.get("ingredients")
-        .and_then(Value::as_array)
-        .map(|arr| {
-            arr.iter()
-                .filter_map(|ing| {
-                    let item = ing.get("ItemType").and_then(Value::as_str)?;
-                    if item.is_empty() {
-                        return None;
-                    }
-                    Some((
-                        normalize::path(item).into_owned(),
-                        int(ing, "ItemCount").unwrap_or(1),
-                    ))
-                })
-                .collect()
-        })
-        .unwrap_or_default()
+    let mut out: Vec<(String, i64)> = Vec::new();
+    let listed = el.get("ingredients").and_then(Value::as_array);
+    for ing in listed.into_iter().flatten() {
+        let Some(item) = ing
+            .get("ItemType")
+            .and_then(Value::as_str)
+            .filter(|item| !item.is_empty())
+        else {
+            continue;
+        };
+        let item = normalize::path(item).into_owned();
+        let count = int(ing, "ItemCount").unwrap_or(1);
+        match out.iter_mut().find(|(held, _)| *held == item) {
+            Some((_, held)) => *held += count,
+            None => out.push((item, count)),
+        }
+    }
+    out
 }
 
 fn int(el: &Value, key: &str) -> Option<i64> {
@@ -285,6 +288,32 @@ mod tests {
         assert_eq!(r.ingredients.len(), 1);
         assert_eq!(r.ingredients[0].1, 1);
         assert_eq!(r.output, 1);
+    }
+
+    #[test]
+    fn an_ingredient_listed_once_per_copy_adds_up() {
+        let raw = serde_json::to_vec(&serde_json::json!({
+            "ExportRecipes": [
+                { "uniqueName": "/Lotus/Types/Recipes/Weapons/TwinKohmakBlueprint",
+                  "resultType": "/Lotus/Weapons/Grineer/Pistols/GrnDWUniques/GrnTwinKohmaks",
+                  "ingredients": [
+                      { "ItemType": "/Lotus/Weapons/Grineer/Pistols/GrnKohmPistol/GrnKohmPistol", "ItemCount": 1 },
+                      { "ItemType": "/Lotus/Weapons/Grineer/Pistols/GrnKohmPistol/GrnKohmPistol", "ItemCount": 1 },
+                      { "ItemType": "/Lotus/Types/Items/MiscItems/Forma", "ItemCount": 1 }
+                  ] }
+            ]
+        }))
+        .unwrap();
+        assert_eq!(
+            de_recipes(&raw).unwrap()[0].ingredients,
+            vec![
+                (
+                    "/Lotus/Weapons/Grineer/Pistols/GrnKohmPistol/GrnKohmPistol".to_string(),
+                    2
+                ),
+                ("/Lotus/Types/Items/MiscItems/Forma".to_string(), 1),
+            ]
+        );
     }
 
     #[test]
