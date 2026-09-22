@@ -11,5 +11,6 @@ serde_json.workspace = true
 ureq.workspace = true
 lzma-rs.workspace = true
 lzf.workspace = true
+zstd.workspace = true
 oozextract.workspace = true
 scraper.workspace = true
