@@ -200,13 +200,15 @@ impl Curation {
     }
 
     /// Hand-written words keyed by what they name.
-    pub fn terms(&self) -> Terms<'_> {
-        Terms(
-            self.term
+    pub fn terms<'a>(&'a self, game: &'a BTreeMap<String, String>) -> Terms<'a> {
+        Terms {
+            curated: self
+                .term
                 .iter()
                 .map(|t| ((t.kind.as_str(), t.key.as_str()), t.ru.as_str()))
                 .collect(),
-        )
+            game,
+        }
     }
 
     /// Findings let through on purpose, keyed by check and entity.
@@ -381,13 +383,25 @@ impl Curation {
     }
 }
 
-/// Hand-written words, looked up by what they name.
-#[derive(Debug, Default)]
-pub struct Terms<'a>(BTreeMap<(&'a str, &'a str), &'a str>);
+/// Kinds the game client names for itself; a curated word still outranks it.
+const SPOKEN: [&str; 2] = ["enemy", "place"];
+
+/// The Russian word for a thing: what a person decided, and failing that what the client says.
+#[derive(Debug)]
+pub struct Terms<'a> {
+    curated: BTreeMap<(&'a str, &'a str), &'a str>,
+    game: &'a BTreeMap<String, String>,
+}
 
 impl<'a> Terms<'a> {
     pub fn get(&self, kind: &str, key: &str) -> Option<&'a str> {
-        self.0.get(&(kind, key)).copied()
+        if let Some(curated) = self.curated.get(&(kind, key)) {
+            return Some(curated);
+        }
+        SPOKEN
+            .contains(&kind)
+            .then(|| self.game.get(key).map(String::as_str))
+            .flatten()
     }
 
     /// The word, or what the source already carries.
@@ -488,10 +502,33 @@ mod tests {
     }
 
     #[test]
+    fn the_client_names_what_nobody_curated() {
+        let mut curated = Curation::default();
+        curated.set_term("enemy", "Butcher", "Мясник");
+        let spoken = BTreeMap::from([
+            ("Butcher".to_string(), "Забойщик".to_string()),
+            (
+                "Leaping Thrasher".to_string(),
+                "Прыгающий Молотильщик".to_string(),
+            ),
+        ]);
+
+        let terms = curated.terms(&spoken);
+
+        assert_eq!(terms.get("enemy", "Butcher"), Some("Мясник"));
+        assert_eq!(
+            terms.get("enemy", "Leaping Thrasher"),
+            Some("Прыгающий Молотильщик")
+        );
+        assert_eq!(terms.get("vendor", "Leaping Thrasher"), None);
+    }
+
+    #[test]
     fn a_term_names_a_thing_that_is_not_an_item() {
         let mut c = Curation::default();
         c.set_term("place", "Earth/Mariana", "Земля/Мариана");
-        let terms = c.terms();
+        let spoken = BTreeMap::new();
+        let terms = c.terms(&spoken);
         assert_eq!(
             terms.get("place", "Earth/Mariana").unwrap(),
             "Земля/Мариана"

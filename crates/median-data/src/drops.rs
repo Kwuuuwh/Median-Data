@@ -310,7 +310,12 @@ mod tests {
             note: String::new(),
         }];
 
-        let unknown = paid(&mut graph, &payouts, &index, &Curation::default().terms());
+        let unknown = paid(
+            &mut graph,
+            &payouts,
+            &index,
+            &Curation::default().terms(&BTreeMap::new()),
+        );
 
         assert!(unknown.is_empty());
         let place = place_id("Duviri Lone Story (Steel Path)");

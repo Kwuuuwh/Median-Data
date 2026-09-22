@@ -477,7 +477,7 @@ mod tests {
             &mut graph,
             &stores,
             &index,
-            &Curation::default().terms(),
+            &Curation::default().terms(&BTreeMap::new()),
             &BTreeMap::new(),
         );
 
@@ -503,7 +503,12 @@ mod tests {
             credits: 1_500,
         }];
 
-        market(&mut graph, &priced, &index, &Curation::default().terms());
+        market(
+            &mut graph,
+            &priced,
+            &index,
+            &Curation::default().terms(&BTreeMap::new()),
+        );
 
         let offer = sold(&graph, &slug(MARKET));
         assert_eq!((offer.cost, offer.credits), (None, Some(1_500)));

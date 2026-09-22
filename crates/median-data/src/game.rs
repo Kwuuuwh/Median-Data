@@ -2,7 +2,7 @@ use std::collections::BTreeMap;
 use std::path::Path;
 
 use anyhow::{Context, Result, bail};
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 use sources::cache::Archive;
 use sources::{language, notation};
 
@@ -40,10 +40,20 @@ struct Stalls {
 
 /// What the client calls things: the Russian for an English name, and the English the client
 /// gives more than one Russian for, which nothing may translate on its own.
-#[derive(Debug, Default, Serialize, PartialEq)]
+#[derive(Debug, Default, Serialize, Deserialize, PartialEq)]
 struct Names {
     name: BTreeMap<String, String>,
     ambiguous: BTreeMap<String, Vec<String>>,
+}
+
+/// The Russian the client shows for a name it prints in English.
+pub fn spoken(dir: &Path) -> Result<BTreeMap<String, String>> {
+    let path = dir.join(NAMES);
+    let text = std::fs::read_to_string(&path)
+        .with_context(|| format!("read {} — run `extract` to write it", path.display()))?;
+    let names: Names =
+        toml::from_str(&text).with_context(|| format!("parse {}", path.display()))?;
+    Ok(names.name)
 }
 
 /// Distil the game cache into the files a build reads.

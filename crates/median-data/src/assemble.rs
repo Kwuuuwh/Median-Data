@@ -98,6 +98,8 @@ pub struct Input {
     pub vaulting: Vec<crate::wiki::Vaulting>,
     /// What the wiki says every relic awards, to check DE's own account against.
     pub composition: Vec<crate::wiki::Slot>,
+    /// The Russian the game client shows for a name it prints in English.
+    pub spoken: BTreeMap<String, String>,
 }
 
 /// Merge every source into the knowledge graph, honouring curated decisions.
@@ -111,7 +113,7 @@ pub fn assemble(
     curated: &Curation,
 ) -> Built {
     let links = curated.market_links();
-    let terms = curated.terms();
+    let terms = curated.terms(&input.spoken);
     for (kind, key, ru) in curated.term.iter().map(|t| (&t.kind, &t.key, &t.ru)) {
         if kind == "class" || kind == "kind" {
             taxonomy.tree.relabel(key, ru);

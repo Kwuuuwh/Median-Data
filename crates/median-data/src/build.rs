@@ -519,6 +519,7 @@ pub fn graph_with(vault: &Vault, curated: &Curation) -> Result<Built> {
         Input {
             de,
             ru,
+            spoken: crate::game::spoken(Path::new(crate::GAME))?,
             recipes,
             rewards,
             regions: star_chart,
