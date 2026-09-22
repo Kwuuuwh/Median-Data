@@ -2,7 +2,7 @@ use std::path::{Path, PathBuf};
 use std::process::ExitCode;
 use std::time::{SystemTime, UNIX_EPOCH};
 
-use anyhow::Result;
+use anyhow::{Context, Result};
 use vault::Vault;
 
 mod areas;
@@ -16,6 +16,7 @@ mod drifters;
 mod drops;
 mod extract;
 mod fetch;
+mod game;
 mod icons;
 mod imprints;
 mod inspect;
@@ -54,7 +55,10 @@ const BOUNTIES: &str = "config/bounties.toml";
 const AREAS: &str = "config/areas.toml";
 const ANCHORS: &str = "config/anchors.toml";
 const CURATION: &str = "config/curation.toml";
+const CACHE: &str = "config/cache.toml";
 const PACK: &str = "pack";
+/// Where `extract` writes the artifact it publishes.
+const EXTRACT: &str = "extract";
 const STATE: &str = "catalog.state.json";
 const STUDIO_ADDR: &str = "127.0.0.1:8787";
 
@@ -94,6 +98,16 @@ fn run() -> Result<ExitCode> {
                 None => fetch::run(&vault, now_ms()),
             })
         }
+        Some("extract") => {
+            let cache = args
+                .next()
+                .context("usage: median-data extract CACHE_DIR")?;
+            done(game::run(
+                Path::new(&cache),
+                Path::new(EXTRACT),
+                Path::new(CACHE),
+            ))
+        }
         Some("build") => done(build::run(&Vault::open(VAULT_DIR)?, Path::new(OUT))),
         Some("icons") => done(icons::run(
             &Vault::open(VAULT_DIR)?,
@@ -127,8 +141,8 @@ fn run() -> Result<ExitCode> {
         }
         cmd => {
             eprintln!(
-                "usage: median-data <check [MANIFEST]|fetch [SOURCE]|icons|build|release [PREV]|\
-                 studio [ADDR]|show QUERY>"
+                "usage: median-data <check [MANIFEST]|fetch [SOURCE]|extract CACHE_DIR|icons|\
+                 build|release [PREV]|studio [ADDR]|show QUERY>"
             );
             anyhow::bail!("unknown command: {}", cmd.unwrap_or("(none)"));
         }

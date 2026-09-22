@@ -914,6 +914,7 @@ dependencies = [
  "toml",
  "ureq",
  "vault",
+ "zstd",
 ]
 
 [[package]]

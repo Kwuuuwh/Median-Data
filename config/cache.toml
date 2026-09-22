@@ -1,0 +1,9 @@
+# Written by `median-data extract`. Names the artifact a build
+# downloads the game cache from.
+
+id = "game-39854a2690ac1cf8"
+build = "2026.09.22"
+tag = "cache-2026.09.22"
+file = "game-39854a2690ac1cf8.tar.zst"
+blake3 = "39854a2690ac1cf81602661f1647accdef82fe730dccd2ededa2b4a985e79572"
+size = 6266149

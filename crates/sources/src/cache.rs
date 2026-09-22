@@ -19,6 +19,8 @@ pub struct TocEntry {
     /// Bytes the `.cache` holds, compressed.
     pub stored_len: u32,
     pub len: u32,
+    /// When the game last wrote this file.
+    pub written_ms: i64,
 }
 
 /// A `.toc`/`.cache` pair of the game's `Cache.Windows`.
@@ -91,13 +93,13 @@ fn parse_toc(raw: &[u8]) -> Result<Vec<TocEntry>> {
                 .ok_or_else(|| anyhow!("directory {name} sits under unread directory {parent}"))?;
             dir_paths.push(format!("{base}/{name}"));
         } else if stamp != 0 {
-            files.push((parent, name, offset as u64, stored_len, len));
+            files.push((parent, name, offset as u64, stored_len, len, unix_ms(stamp)));
         }
     }
 
     files
         .into_iter()
-        .map(|(parent, name, offset, stored_len, len)| {
+        .map(|(parent, name, offset, stored_len, len, written_ms)| {
             let base = dir_paths
                 .get(parent)
                 .ok_or_else(|| anyhow!("file {name} sits under unread directory {parent}"))?;
@@ -106,9 +108,15 @@ fn parse_toc(raw: &[u8]) -> Result<Vec<TocEntry>> {
                 offset,
                 stored_len,
                 len,
+                written_ms,
             })
         })
         .collect()
+}
+
+/// A Windows file time, in milliseconds since the Unix epoch.
+fn unix_ms(stamp: i64) -> i64 {
+    stamp / 10_000 - 11_644_473_600_000
 }
 
 fn entry_name(raw: &[u8]) -> String {
@@ -207,6 +215,13 @@ mod tests {
         assert_eq!(entries[0].offset, 64);
         assert_eq!(entries[0].stored_len, 7);
         assert_eq!(entries[0].len, 9);
+        assert_eq!(entries[0].written_ms, unix_ms(1));
+    }
+
+    #[test]
+    fn a_windows_file_time_becomes_a_unix_one() {
+        // 2026-08-19T21:09:03Z, as the game wrote it.
+        assert_eq!(unix_ms(134_316_473_430_000_000), 1_787_173_743_000);
     }
 
     #[test]
