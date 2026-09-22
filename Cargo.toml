@@ -34,6 +34,8 @@ toml = "1"
 blake3 = "1"
 ureq = "3"
 lzma-rs = "0.3"
+lzf = "1"
+oozextract = "0.5"
 scraper = "0.27"
 axum = "0.8"
 maud = { version = "0.27", features = ["axum"] }

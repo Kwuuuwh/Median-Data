@@ -1,3 +1,4 @@
+pub mod cache;
 pub mod de;
 pub mod drops;
 pub mod lua;
