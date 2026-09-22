@@ -18,7 +18,6 @@ catalog.changes.md
 # Release output
 /dist
 /prev
-/extract
 
 # Other
 temp.md

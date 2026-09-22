@@ -55,10 +55,8 @@ const BOUNTIES: &str = "config/bounties.toml";
 const AREAS: &str = "config/areas.toml";
 const ANCHORS: &str = "config/anchors.toml";
 const CURATION: &str = "config/curation.toml";
-const CACHE: &str = "config/cache.toml";
+const GAME: &str = "game";
 const PACK: &str = "pack";
-/// Where `extract` writes the artifact it publishes.
-const EXTRACT: &str = "extract";
 const STATE: &str = "catalog.state.json";
 const STUDIO_ADDR: &str = "127.0.0.1:8787";
 
@@ -102,11 +100,7 @@ fn run() -> Result<ExitCode> {
             let cache = args
                 .next()
                 .context("usage: median-data extract CACHE_DIR")?;
-            done(game::run(
-                Path::new(&cache),
-                Path::new(EXTRACT),
-                Path::new(CACHE),
-            ))
+            done(game::run(Path::new(&cache), Path::new(GAME)))
         }
         Some("build") => done(build::run(&Vault::open(VAULT_DIR)?, Path::new(OUT))),
         Some("icons") => done(icons::run(

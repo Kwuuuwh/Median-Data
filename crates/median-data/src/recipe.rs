@@ -4,7 +4,7 @@ use std::path::{Path, PathBuf};
 use anyhow::{Context, Result};
 
 /// Directories the build is made of besides its sources.
-const INPUTS: [&str; 2] = ["config", "crates"];
+const INPUTS: [&str; 3] = ["config", "crates", "game"];
 
 /// Lockfile of the build's dependencies.
 const LOCK: &str = "Cargo.lock";
