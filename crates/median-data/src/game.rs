@@ -4,7 +4,9 @@ use std::path::Path;
 use anyhow::{Context, Result, bail};
 use serde::Serialize;
 use sources::cache::Archive;
-use sources::language;
+use sources::{language, notation};
+
+use crate::offers::{self, Stall};
 
 /// Languages median reads, and the package each one's string table sits in.
 const STRING_TABLES: [(&str, &str); 2] = [("en", "H.Misc_en"), ("ru", "H.Misc_ru")];
@@ -21,7 +23,20 @@ const NAME_WORDS: usize = 4;
 /// Longest a word may be and still read as a joiner inside a name, as in `Sister of Parvos`.
 const JOINER_LEN: usize = 3;
 
+/// Package the vendor manifests sit in.
+const PACKAGE: &str = "H.Misc";
+
+/// Directories of the cache that hold what vendors sell.
+const STALLS: [&str; 2] = ["/Lotus/Types/Game/VendorManifests/", "/Lotus/Syndicates/"];
+
 const NAMES: &str = "names.toml";
+const OFFERS: &str = "offers.toml";
+
+/// Every stall of the game, under one key so the file reads as a list.
+#[derive(Debug, Serialize)]
+struct Stalls {
+    vendor: Vec<Stall>,
+}
 
 /// What the client calls things: the Russian for an English name, and the English the client
 /// gives more than one Russian for, which nothing may translate on its own.
@@ -62,7 +77,46 @@ pub fn run(cache: &Path, out_dir: &Path) -> Result<()> {
         "# Written by `median-data extract` from the game cache: the Russian the client\n\
          # shows for a name it prints in English.\n\n",
         &names,
+    )?;
+
+    let stalls = stalls(&Archive::open(&cache.join(format!("{PACKAGE}.toc")))?)?;
+    eprintln!(
+        "cache    {} stalls, {} offers",
+        stalls.vendor.len(),
+        stalls
+            .vendor
+            .iter()
+            .map(|stall| stall.offer.len())
+            .sum::<usize>()
+    );
+    write(
+        &out_dir.join(OFFERS),
+        "# Written by `median-data extract` from the game cache: what each vendor and\n\
+         # syndicate manifest sells, in the game's own paths.\n\n",
+        &stalls,
     )
+}
+
+/// Every stall the cache describes, in the order its table of contents lists them.
+fn stalls(archive: &Archive) -> Result<Stalls> {
+    let mut vendor = Vec::new();
+    for entry in archive.entries() {
+        if !STALLS.iter().any(|dir| entry.path.starts_with(dir)) {
+            continue;
+        }
+        let raw = archive.read(entry)?;
+        // Binary files share these directories; they are not manifests.
+        let Ok(written) = notation::parse(&raw) else {
+            eprintln!("cache    skipped {} — not a manifest", entry.path);
+            continue;
+        };
+        let stall = offers::stall(&entry.path, &written);
+        if !stall.offer.is_empty() {
+            vendor.push(stall);
+        }
+    }
+    vendor.sort_by(|one, other| one.manifest.cmp(&other.manifest));
+    Ok(Stalls { vendor })
 }
 
 fn names(en: &BTreeMap<String, String>, ru: &BTreeMap<String, String>) -> Names {

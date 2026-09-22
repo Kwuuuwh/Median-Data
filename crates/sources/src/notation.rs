@@ -31,6 +31,10 @@ impl Block {
     pub fn block(&self, key: &str) -> Option<&Block> {
         self.field(key)?.block()
     }
+
+    pub fn int(&self, key: &str) -> Option<i64> {
+        self.text(key)?.parse().ok()
+    }
 }
 
 impl Value {
@@ -238,6 +242,17 @@ NumItemsPerBin={
 
         let bins = acrithis.block("NumItemsPerBin").unwrap();
         assert_eq!(bins.text("BIN_0"), Some("5"));
+    }
+
+    #[test]
+    fn a_number_reads_as_one() {
+        let acrithis = parse(&manifest(ACRITHIS)).unwrap();
+        let offer = acrithis.block("ItemManifest").unwrap().items[0]
+            .block()
+            .unwrap();
+
+        assert_eq!(offer.int("PurchaseQuantityLimit"), Some(1));
+        assert_eq!(offer.int("StoreItem"), None);
     }
 
     #[test]

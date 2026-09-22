@@ -25,6 +25,7 @@ mod mastery;
 mod merge;
 mod names;
 mod normalize;
+mod offers;
 mod orphans;
 mod paths;
 mod portraits;
