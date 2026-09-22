@@ -4,6 +4,7 @@ pub mod drops;
 pub mod language;
 pub mod lua;
 pub mod net;
+pub mod notation;
 pub mod wfm;
 pub mod wiki;
 
