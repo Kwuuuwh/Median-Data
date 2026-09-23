@@ -17,6 +17,7 @@ mod drops;
 mod extract;
 mod fetch;
 mod game;
+mod headings;
 mod icons;
 mod imprints;
 mod inspect;
@@ -126,7 +127,8 @@ fn run() -> Result<ExitCode> {
         }
         Some("studio") => {
             let addr = args.next().unwrap_or_else(|| STUDIO_ADDR.to_string());
-            done(inspect::run(VAULT_DIR, &addr))
+            let cache = args.next();
+            done(inspect::run(VAULT_DIR, &addr, cache.as_deref()))
         }
         Some("show") => {
             let query = args.next().unwrap_or_default();
@@ -137,7 +139,7 @@ fn run() -> Result<ExitCode> {
         cmd => {
             eprintln!(
                 "usage: median-data <check [MANIFEST]|fetch [SOURCE]|extract CACHE_DIR|icons|\
-                 build|release [PREV]|studio [ADDR]|show QUERY>"
+                 build|release [PREV]|studio [ADDR [CACHE_DIR]]|show QUERY>"
             );
             anyhow::bail!("unknown command: {}", cmd.unwrap_or("(none)"));
         }

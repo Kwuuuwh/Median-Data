@@ -3,11 +3,12 @@ use std::path::Path;
 
 use anyhow::Result;
 use consensus::Source;
-use graph::{Graph, Taxonomy};
+use graph::{Graph, Node, Taxonomy};
 use projections::Detail;
 use sources::wfm::WfmItem;
 use vault::{BlobId, Entry, Snapshot, Vault};
 
+use crate::curation::{self, Curation};
 use crate::{build, spec};
 
 /// DE puts a mod's card artwork here instead of an icon: the scene painted on the card,
@@ -52,7 +53,12 @@ pub fn run(vault: &Vault, scope_path: &Path, now_ms: i64) -> Result<()> {
         sources::wfm::fetch_asset(agent, path)
     })?;
 
-    portraits(vault, now_ms)?;
+    portraits(
+        vault,
+        &built.graph,
+        &curation::load(Path::new(crate::CURATION))?,
+        now_ms,
+    )?;
     custom_icons(vault, now_ms)?;
     Ok(())
 }
@@ -96,14 +102,32 @@ fn custom_icons(vault: &Vault, now_ms: i64) -> Result<()> {
 }
 
 /// Pin a picture for every vendor. They are people and places, not items, so DE has nothing
-/// for them; the wiki illustrates its own pages and is the only source there is.
-fn portraits(vault: &Vault, now_ms: i64) -> Result<()> {
+/// for them; the wiki illustrates its own pages and is the only source there is. The game's
+/// manifests name no person, so a counter is tied to its page by hand — except where the
+/// vendor already carries the name of a page, which is most of the lone stalls.
+fn portraits(vault: &Vault, graph: &Graph, curated: &Curation, now_ms: i64) -> Result<()> {
     let snap = vault.latest(spec::WIKI)?;
-    let stores = crate::wiki::vendors(&build::blob(vault, &snap, spec::WIKI_VENDORS)?)?;
+    let illustrated: BTreeSet<String> =
+        crate::wiki::vendors(&build::blob(vault, &snap, spec::WIKI_VENDORS)?)?
+            .iter()
+            .map(crate::vendors::person)
+            .collect();
+    let by_hand = curated.portraits();
+
     let mut wanted: BTreeMap<String, String> = BTreeMap::new();
-    for store in &stores {
-        let page = crate::vendors::person(store);
-        wanted.insert(crate::vendors::slug(&page), page);
+    for node in graph.nodes() {
+        let Node::Vendor(vendor) = node else { continue };
+        let page = by_hand
+            .get(vendor.key.as_str())
+            .map(|page| (*page).to_string())
+            .or_else(|| {
+                illustrated
+                    .contains(&vendor.name)
+                    .then(|| vendor.name.clone())
+            });
+        if let Some(page) = page {
+            wanted.insert(vendor.key.clone(), page);
+        }
     }
     // Baro comes from his own module, so the stock list does not name him.
     let (key, page) = crate::vendors::BARO_PAGE;
@@ -346,7 +370,7 @@ impl projections::IconSource for Pinned<'_> {
 }
 
 /// Vendor key -> the blob holding their picture, as the last icon run pinned it.
-fn vendor_pictures(vault: &Vault) -> BTreeMap<String, String> {
+pub(crate) fn vendor_pictures(vault: &Vault) -> BTreeMap<String, String> {
     let held = pinned(vault, spec::PORTRAITS);
     let Some(blob) = held.get(INDEX) else {
         return BTreeMap::new();

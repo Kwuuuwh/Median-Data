@@ -6,10 +6,12 @@ use crate::state::Snapshot;
 /// The sidebar's work counts, so every screen shows what is left to do.
 pub struct Side {
     pub active: &'static str,
+    pub client: crate::state::Client,
     pub mapping: usize,
     pub conflicts: usize,
     pub localize: usize,
     pub anomalies: usize,
+    pub sellers: usize,
     pub stale: bool,
 }
 
@@ -17,10 +19,12 @@ impl Side {
     pub fn of(snap: &Snapshot, active: &'static str) -> Self {
         Self {
             active,
-            mapping: snap.unresolved.len(),
-            conflicts: snap.conflicts.len(),
+            client: snap.client.clone(),
+            mapping: crate::mapping::outstanding(snap),
+            conflicts: crate::conflicts::outstanding(snap),
             localize: crate::localize::pending(snap),
-            anomalies: snap.report.findings.len(),
+            anomalies: snap.report.queue(),
+            sellers: crate::sellers::pending(snap),
             stale: snap.stale,
         }
     }
@@ -52,10 +56,29 @@ pub fn shell(title: &str, side: &Side, body: Markup) -> Markup {
                         (item(side, "mapping", "/mapping", "Маппинг", Some(side.mapping)))
                         (item(side, "conflicts", "/conflicts", "Конфликты", Some(side.conflicts)))
                         (item(side, "anomalies", "/anomalies", "Аномалии", Some(side.anomalies)))
+                        (item(side, "sellers", "/sellers", "Торговцы", Some(side.sellers)))
                     }
+                    (client(&side.client))
                     (rebuild(side.stale))
                 }
                 main.main { (body) }
+            }
+        }
+    }
+}
+
+/// Which client the catalog speaks for, and whether the machine has a newer one.
+fn client(client: &crate::state::Client) -> Markup {
+    html! {
+        .side-sec { "клиент" }
+        p.side-note {
+            "Дистиллят снят с " (client.distilled) "."
+            @if let Some(installed) = &client.installed {
+                @if client.behind() {
+                    " В кеше уже " (installed) " — вышло обновление, нужен extract."
+                } @else {
+                    " Кеш той же сборки."
+                }
             }
         }
     }

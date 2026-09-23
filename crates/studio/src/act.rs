@@ -6,7 +6,10 @@ use serde::Deserialize;
 
 use crate::page::encode;
 use crate::serve::Shared;
-use crate::{anomalies, catalog, localize, mapping, patch};
+
+/// The screen vendors are named from, beside the translation list.
+const SELLERS: &str = "sellers";
+use crate::{anomalies, catalog, localize, mapping, patch, sellers};
 
 #[derive(Deserialize)]
 pub struct MapForm {
@@ -58,6 +61,19 @@ pub struct TermForm {
     #[serde(default)]
     ru: String,
     /// Which of the two lists asked, so the row comes back reading the same way.
+    #[serde(default)]
+    show: String,
+    /// Which screen asked, since vendors are named from their own screen too.
+    #[serde(default)]
+    screen: String,
+}
+
+/// Which wiki page pictures a vendor.
+#[derive(Deserialize)]
+pub struct PortraitForm {
+    vendor: String,
+    #[serde(default)]
+    page: String,
     #[serde(default)]
     show: String,
 }
@@ -178,10 +194,34 @@ pub async fn term(
         return failed("не удалось записать слово", e);
     }
     studio.patch(|snap| patch::termed(snap, &form.kind, &form.key, &form.ru));
+    if form.screen == SELLERS {
+        let snap = studio.read();
+        return match htmx(&headers) {
+            true => sellers::row_of(&snap, &form.key, &form.show).into_response(),
+            false => Redirect::to("/sellers").into_response(),
+        };
+    }
     if htmx(&headers) {
         return localize::row_of(&studio.read(), &form.kind, &form.key, &form.show).into_response();
     }
     Redirect::to(&back_to(&form.kind, &form.show)).into_response()
+}
+
+/// Tie a vendor to the wiki page that pictures them. The picture itself arrives with the
+/// next `icons` run; the screen shows the page at once.
+pub async fn portrait(
+    State(studio): State<Shared>,
+    headers: HeaderMap,
+    Form(form): Form<PortraitForm>,
+) -> Response {
+    if let Err(e) = studio.store.portrait(&form.vendor, &form.page) {
+        return failed("не удалось записать страницу", e);
+    }
+    studio.patch(|snap| patch::pictured(snap, &form.vendor, &form.page));
+    if htmx(&headers) {
+        return sellers::row_of(&studio.read(), &form.vendor, &form.show).into_response();
+    }
+    Redirect::to("/sellers").into_response()
 }
 
 /// Judge that a name stays as the game writes it, or ask for a Russian one again.

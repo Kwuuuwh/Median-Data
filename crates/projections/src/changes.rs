@@ -10,6 +10,51 @@ pub struct Changes;
 const FILE: &str = "catalog.changes.md";
 /// Long lists say nothing a sample does not; the full set lives in the report.
 const SHOWN: usize = 40;
+/// How many sources of one move are worth printing.
+const SOURCES: usize = 6;
+
+/// Items whose sources moved: what dropped them before, and what does now. A thing that used
+/// to come off one boss and now falls off ordinary enemies is worth less, and nothing else
+/// in the build would say so.
+fn moved(page: &mut String, ctx: &Context<'_>, items: &[funnel::Moved]) -> Result<()> {
+    if items.is_empty() {
+        return Ok(());
+    }
+    writeln!(page, "## Dropped differently\n")?;
+    for item in items.iter().take(SHOWN) {
+        writeln!(page, "- `{}`{}", item.item, named(ctx, &item.item))?;
+        part(page, "now drops from", &item.added)?;
+        part(page, "no longer drops from", &item.gone)?;
+        part(page, "chance moved", &item.rechanced)?;
+    }
+    if items.len() > SHOWN {
+        writeln!(page, "- … and {} more", items.len() - SHOWN)?;
+    }
+    writeln!(page)?;
+    Ok(())
+}
+
+/// The item's printed name, where the graph holds it.
+fn named(ctx: &Context<'_>, path: &str) -> String {
+    match ctx.graph.get(path) {
+        Some(graph::Node::Item(item)) => format!(" — {}", item.names.en.value),
+        _ => String::new(),
+    }
+}
+
+/// One side of a move, listed short: a long list says nothing a sample does not.
+fn part(page: &mut String, what: &str, sources: &[String]) -> Result<()> {
+    if sources.is_empty() {
+        return Ok(());
+    }
+    let shown: Vec<&str> = sources.iter().take(SOURCES).map(String::as_str).collect();
+    let rest = match sources.len() > SOURCES {
+        true => format!(" … and {} more", sources.len() - SOURCES),
+        false => String::new(),
+    };
+    writeln!(page, "  - {what}: {}{rest}", shown.join("; "))?;
+    Ok(())
+}
 
 impl Projection for Changes {
     fn name(&self) -> &'static str {
@@ -43,6 +88,8 @@ impl Projection for Changes {
                 list(&mut page, "Sets added", &diff.sets_added)?;
                 list(&mut page, "Sets removed", &diff.sets_removed)?;
 
+                moved(&mut page, ctx, &diff.drops_changed)?;
+
                 if !diff.findings_delta.is_empty() {
                     writeln!(page, "## Findings\n")?;
                     for (rule, delta) in &diff.findings_delta {
@@ -50,11 +97,19 @@ impl Projection for Changes {
                     }
                     writeln!(page)?;
                 }
-                format!(
-                    "items +{} -{}",
-                    diff.items_added.len(),
-                    diff.items_removed.len()
-                )
+                match diff.drops_changed.is_empty() {
+                    true => format!(
+                        "items +{} -{}",
+                        diff.items_added.len(),
+                        diff.items_removed.len()
+                    ),
+                    false => format!(
+                        "items +{} -{}, {} dropped differently",
+                        diff.items_added.len(),
+                        diff.items_removed.len(),
+                        diff.drops_changed.len()
+                    ),
+                }
             }
         };
 

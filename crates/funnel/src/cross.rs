@@ -48,8 +48,11 @@ pub fn taxonomy_against_sets(graph: &Graph, taxonomy: &Taxonomy) -> Vec<Finding>
             ));
         }
         // Only for what the market trades: a part nobody sells needs no set to belong to.
+        // And only where the market sells a set for the thing at all — Orvius has parts on
+        // the market and no set listing, and no set can be missing a part it does not exist
+        // to hold.
         let traded = item.tradable.as_ref().is_some_and(|t| t.value);
-        if traded && !in_a_set && class == "component" {
+        if traded && !in_a_set && class == "component" && built_as_a_set(graph, &item.unique_name) {
             out.push(Finding::new(
                 Layer::Cross,
                 "part-without-set",
@@ -296,25 +299,37 @@ pub fn set_composition(graph: &Graph) -> Vec<Finding> {
 /// the market sells, so what the market cannot sell was never going to be in it. Duviri
 /// weapons are the case: their parts are traded and the blueprint that joins them is not.
 fn parts_of<'a>(graph: &'a Graph, built: &str) -> Option<BTreeSet<&'a str>> {
-    let recipe = graph
+    // A thing can be built more than one way: Sheev has a market recipe made of raw resources
+    // and a sortie one made of parts, and only the second is what a set stands for. The set is
+    // compared against the recipe that asks for the most of what the market sells.
+    let recipes: Vec<&str> = graph
         .into(built)
         .into_iter()
-        .find(|e| matches!(e.rel, Rel::Produces))?;
-    let mut parts = BTreeSet::new();
-    let blueprint = strip_recipe(&recipe.from);
-    if traded(graph, blueprint) {
-        parts.insert(blueprint);
+        .filter(|e| matches!(e.rel, Rel::Produces))
+        .map(|e| e.from.as_str())
+        .collect();
+    if recipes.is_empty() {
+        return None;
     }
-
-    for edge in graph.from(&recipe.from) {
-        let Rel::Requires { .. } = edge.rel else {
-            continue;
-        };
-        if let Some(part) = tradable_part(graph, &edge.to) {
-            parts.insert(part);
-        }
-    }
-    Some(parts)
+    recipes
+        .into_iter()
+        .map(|recipe| {
+            let mut parts = BTreeSet::new();
+            let blueprint = strip_recipe(recipe);
+            if traded(graph, blueprint) {
+                parts.insert(blueprint);
+            }
+            for edge in graph.from(recipe) {
+                let Rel::Requires { .. } = edge.rel else {
+                    continue;
+                };
+                if let Some(part) = tradable_part(graph, &edge.to) {
+                    parts.insert(part);
+                }
+            }
+            parts
+        })
+        .max_by_key(BTreeSet::len)
 }
 
 /// What a set sells for an ingredient. A warframe component is built, so the set carries
@@ -325,7 +340,7 @@ fn parts_of<'a>(graph: &'a Graph, built: &str) -> Option<BTreeSet<&'a str>> {
 /// a whole assembled Bronco Prime, which the market sells as its own set. The craft link is
 /// the recipe's business and stays there; it is not a part this set failed to list.
 fn tradable_part<'a>(graph: &'a Graph, ingredient: &'a str) -> Option<&'a str> {
-    if sold_as_its_own_set(graph, ingredient) {
+    if sold_as_its_own_set(graph, ingredient) || raw_material(graph, ingredient) {
         return None;
     }
     let built_by = graph
@@ -344,6 +359,33 @@ fn tradable_part<'a>(graph: &'a Graph, ingredient: &'a str) -> Option<&'a str> {
         }
     }
     traded(graph, ingredient).then_some(ingredient)
+}
+
+/// Whether an ingredient is raw material rather than a part of this one thing. A part is
+/// made for what it builds; anything several recipes call for is bought on its own, and no
+/// set is expected to carry it.
+fn raw_material(graph: &Graph, ingredient: &str) -> bool {
+    graph
+        .into(ingredient)
+        .iter()
+        .filter(|e| matches!(e.rel, Rel::Requires { .. }))
+        .count()
+        > 1
+}
+
+/// Whether the thing this part builds is sold as a set at all.
+fn built_as_a_set(graph: &Graph, part: &str) -> bool {
+    graph
+        .into(part)
+        .iter()
+        .filter(|e| matches!(e.rel, Rel::Requires { .. }))
+        .filter_map(|e| {
+            graph
+                .from(&e.from)
+                .into_iter()
+                .find(|made| matches!(made.rel, Rel::Produces))
+        })
+        .any(|made| sold_as_its_own_set(graph, &made.to))
 }
 
 /// Whether some set stands for this item, so it is bought as a set rather than as a part.

@@ -31,6 +31,14 @@ pub struct Report {
     pub diff: Option<Diff>,
 }
 
+/// Whether a finding waits on a person rather than on a reader.
+fn decided_by_hand(finding: &Finding) -> bool {
+    matches!(
+        finding.layer,
+        Layer::Cross | Layer::Coverage | Layer::Anchor
+    )
+}
+
 impl Report {
     /// How many findings each layer produced.
     pub fn by_layer(&self) -> BTreeMap<&'static str, usize> {
@@ -50,11 +58,18 @@ impl Report {
         counts
     }
 
-    /// Findings a human still has to judge — everything that is not a hard failure.
+    /// Findings a person is expected to settle: a source contradicting another, something
+    /// enumerated but missing, a curated fact the build could not reproduce.
     pub fn queue(&self) -> usize {
+        self.findings.iter().filter(|f| decided_by_hand(f)).count()
+    }
+
+    /// Findings that describe the data rather than ask for a decision: a value unlike its
+    /// siblings, a property no second source ever confirmed. Worth reading, never overdue.
+    pub fn observations(&self) -> usize {
         self.findings
             .iter()
-            .filter(|f| f.layer != Layer::Invariant)
+            .filter(|f| f.layer != Layer::Invariant && !decided_by_hand(f))
             .count()
     }
 
@@ -91,7 +106,12 @@ impl Report {
             for (rule, count) in self.by_rule() {
                 let _ = writeln!(out, "           {count:>6}  {rule}");
             }
-            let _ = writeln!(out, "queue    {} to review", self.queue());
+            let _ = writeln!(
+                out,
+                "queue    {} to review, {} observations",
+                self.queue(),
+                self.observations()
+            );
         }
 
         match &self.diff {

@@ -33,6 +33,7 @@ pub fn rows(source: &str, missing: &Missing) -> Vec<Unresolved> {
             name: name.clone(),
             hint: seen.hint.clone(),
             count: seen.count,
+            since_ms: 0,
         })
         .collect();
     out.sort_by(|a, b| b.count.cmp(&a.count).then_with(|| a.name.cmp(&b.name)));

@@ -44,7 +44,7 @@ pub fn run(graph: &Graph, input: Input<'_>) -> (Report, State) {
     all.extend(cross::set_composition(graph));
     all.extend(cross::taxonomy_against_sets(graph, input.taxonomy));
     all.extend(cross::vault_against_drops(graph));
-    all.extend(outlier::check(graph));
+    all.extend(outlier::check(graph, input.taxonomy));
     all.extend(coverage::check(graph, &input.gaps));
     all.extend(anchor::check(graph, input.anchors));
     all.extend(silence::check(
@@ -52,6 +52,7 @@ pub fn run(graph: &Graph, input: Input<'_>) -> (Report, State) {
         input.taxonomy,
         &input.dead_rules,
         &input.unread_headings,
+        &input.gaps.provisional,
     ));
 
     let before = all.len();

@@ -9,6 +9,31 @@ use crate::page::{Side, bar, encode, number, prov, shell, stat};
 use crate::state::Snapshot;
 use crate::words;
 
+/// After this many days a disagreement is no longer two sources at different points in a
+/// patch cycle, and somebody has to say which one is right.
+const STALE: i64 = 7;
+
+/// Disagreements old enough to be worth settling. A Prime Vault return has the wiki and the
+/// market saying different things for a few days, and that resolves itself.
+pub fn outstanding(snap: &Snapshot) -> usize {
+    snap.conflicts.iter().filter(|c| aged(snap, c)).count()
+}
+
+/// Whether a disagreement has outlived the wait.
+fn aged(snap: &Snapshot, conflict: &Conflict) -> bool {
+    let key = format!("{} {}", conflict.prop, conflict.entity);
+    match snap.conflict_since.get(&key) {
+        Some(since) => {
+            let now = std::time::SystemTime::now()
+                .duration_since(std::time::UNIX_EPOCH)
+                .map(|d| d.as_millis() as i64)
+                .unwrap_or(0);
+            (now - since).max(0) / 86_400_000 >= STALE
+        }
+        None => true,
+    }
+}
+
 /// Where sources disagree, one card per item, every claim on one line.
 pub fn render(snap: &Snapshot, prop: Option<&str>, settled: Option<&str>, q: &Query) -> Markup {
     let by_prop = tally(snap);
@@ -31,8 +56,9 @@ pub fn render(snap: &Snapshot, prop: Option<&str>, settled: Option<&str>, q: &Qu
                         span.sep { "›" } span.cur { (words::prop(p)) }
                     }
                 },
-                Some(html! { span.chip.hot[!snap.conflicts.is_empty()] {
-                    (number(snap.conflicts.len() as i64)) " всего"
+                Some(html! { span.chip.hot[outstanding(snap) > 0] {
+                    (number(snap.conflicts.len() as i64)) " всего, "
+                    (number(outstanding(snap) as i64)) " ждут решения"
                 } }),
             ))
             .wrap {
@@ -46,6 +72,11 @@ pub fn render(snap: &Snapshot, prop: Option<&str>, settled: Option<&str>, q: &Qu
                     "что сказал каждый. Любое решение — «Подтвердить» то, что выбрано, "
                     "«Принять» другой источник или записать своё — убирает расхождение "
                     "из этого списка и переживает пересборку."
+                }
+                p.why {
+                    "После патча источники расходятся сами собой: вики отмечает уход в "
+                    "хранилище раньше рынка, состав новой реликвии появляется у DE раньше, "
+                    "чем на вики. Такое расхождение неделю ждёт, а не требует решения."
                 }
 
                 .stats {

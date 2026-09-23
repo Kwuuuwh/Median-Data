@@ -37,6 +37,8 @@ pub struct Curation {
     pub drop: Vec<Loot>,
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub payout: Vec<Payout>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub portrait: Vec<Portrait>,
 }
 
 /// A vendor no source lists by stock.
@@ -57,6 +59,10 @@ pub struct Sale {
     /// The item's name as the sources print it.
     pub item: String,
     pub cost: i64,
+    /// What the price is in, where it is not the vendor's own currency: `Credits`,
+    /// `Platinum`, or an item the counter takes.
+    #[serde(default, skip_serializing_if = "String::is_empty")]
+    pub currency: String,
     #[serde(default)]
     pub note: String,
 }
@@ -121,6 +127,28 @@ pub struct Term {
     pub kind: String,
     pub key: String,
     pub ru: String,
+}
+
+/// The page a wiki link points at, or the title as it stands.
+fn page_title(page: &str) -> String {
+    let page = page.trim();
+    let title = match page.split_once("/wiki/") {
+        Some((_, title)) => title,
+        None => page,
+    };
+    title
+        .replace('_', " ")
+        .replace("%20", " ")
+        .trim()
+        .to_string()
+}
+
+/// The wiki page that pictures a vendor. The game's manifests name no person, so nothing
+/// derives which page illustrates a counter — it is said once, by hand.
+#[derive(Debug, Clone, Deserialize, Serialize)]
+pub struct Portrait {
+    pub vendor: String,
+    pub page: String,
 }
 
 /// A finding looked at and kept: the check is right, the data is what it is. The funnel
@@ -279,6 +307,28 @@ impl Curation {
         }
     }
 
+    /// Say which wiki page pictures a vendor. An empty page clears it, and a link is read
+    /// as the page it points at, since that is what a person copies out of a browser.
+    pub fn set_portrait(&mut self, vendor: &str, page: &str) {
+        self.portrait.retain(|p| p.vendor != vendor);
+        let page = page_title(page);
+        if !page.is_empty() {
+            self.portrait.push(Portrait {
+                vendor: vendor.to_string(),
+                page,
+            });
+            self.portrait.sort_by(|a, b| a.vendor.cmp(&b.vendor));
+        }
+    }
+
+    /// The wiki page each vendor is pictured by.
+    pub fn portraits(&self) -> BTreeMap<&str, &str> {
+        self.portrait
+            .iter()
+            .map(|p| (p.vendor.as_str(), p.page.as_str()))
+            .collect()
+    }
+
     /// Let a finding through, with the reason it is not a defect.
     pub fn set_accept(&mut self, rule: &str, entity: &str, note: &str) {
         self.clear_accept(rule, entity);
@@ -383,8 +433,9 @@ impl Curation {
     }
 }
 
-/// Kinds the game client names for itself; a curated word still outranks it.
-const SPOKEN: [&str; 2] = ["enemy", "place"];
+/// Kinds the game client names for itself, by the name the thing is printed under. A word
+/// written by hand still outranks it.
+const SPOKEN: [&str; 6] = ["enemy", "place", "region", "location", "vendor", "tileset"];
 
 /// The Russian word for a thing: what a person decided, and failing that what the client says.
 #[derive(Debug)]
@@ -393,23 +444,72 @@ pub struct Terms<'a> {
     game: &'a BTreeMap<String, String>,
 }
 
-impl<'a> Terms<'a> {
-    pub fn get(&self, kind: &str, key: &str) -> Option<&'a str> {
-        if let Some(curated) = self.curated.get(&(kind, key)) {
-            return Some(curated);
+/// The Russian the client shows for a printed name. The interface shouts some names in
+/// capitals (`HOK`, `РЫБАЧКА ХАИ-ЛУК`), and the catalog writes them as words, so a name the
+/// client shouts in both languages comes back in ordinary case.
+pub fn spoken_name(game: &BTreeMap<String, String>, printed: &str) -> Option<String> {
+    let (english, russian) = game
+        .get_key_value(printed)
+        .or_else(|| game.iter().find(|(en, _)| same_name(en, printed)))?;
+    match shouted(english) && shouted(russian) {
+        true => Some(spelled(russian)),
+        false => Some(russian.clone()),
+    }
+}
+
+/// Whether two printed names are the same name, however the interface cased them.
+fn same_name(one: &str, other: &str) -> bool {
+    one.chars()
+        .flat_map(char::to_lowercase)
+        .eq(other.chars().flat_map(char::to_lowercase))
+}
+
+/// Whether a phrase is written the way the interface shouts, with no lower-case letter in it.
+fn shouted(phrase: &str) -> bool {
+    phrase.chars().any(char::is_alphabetic) && !phrase.chars().any(char::is_lowercase)
+}
+
+/// A shouted phrase written as words: every letter after a letter goes lower case.
+fn spelled(phrase: &str) -> String {
+    let mut out = String::with_capacity(phrase.len());
+    let mut inside = false;
+    for letter in phrase.chars() {
+        match inside && letter.is_alphabetic() {
+            true => out.extend(letter.to_lowercase()),
+            false => out.push(letter),
         }
+        inside = letter.is_alphabetic();
+    }
+    out
+}
+
+impl<'a> Terms<'a> {
+    /// The word a person wrote for a thing, by the key its kind is filed under.
+    pub fn get(&self, kind: &str, key: &str) -> Option<&'a str> {
+        self.curated.get(&(kind, key)).copied()
+    }
+
+    /// The Russian for a thing: a word written by hand, then what the client shows for the
+    /// name it is printed under. Most kinds are filed under that same name; a vendor is filed
+    /// under their counter's key, so the two are asked for separately.
+    pub fn of(&self, kind: &str, key: &str, printed: &str) -> Option<String> {
+        if let Some(curated) = self.get(kind, key) {
+            return Some(curated.to_string());
+        }
+        self.spoken(kind, printed)
+    }
+
+    /// What the client shows for a printed name, where it names this kind of thing at all.
+    pub fn spoken(&self, kind: &str, printed: &str) -> Option<String> {
         SPOKEN
             .contains(&kind)
-            .then(|| self.game.get(key).map(String::as_str))
+            .then(|| spoken_name(self.game, printed))
             .flatten()
     }
 
     /// The word, or what the source already carries.
     pub fn or(&self, kind: &str, key: &str, current: Option<String>) -> Option<String> {
-        match self.get(kind, key) {
-            Some(ru) => Some(ru.to_string()),
-            None => current,
-        }
+        self.of(kind, key, key).or(current)
     }
 }
 
@@ -502,6 +602,42 @@ mod tests {
     }
 
     #[test]
+    fn a_name_the_interface_shouts_is_written_as_words() {
+        let game = BTreeMap::from([
+            ("HOK".to_string(), "ХОК".to_string()),
+            ("FISHER HAI-LUK".to_string(), "РЫБАЧКА ХАИ-ЛУК".to_string()),
+            ("Father".to_string(), "Отец".to_string()),
+        ]);
+
+        assert_eq!(spoken_name(&game, "Hok").as_deref(), Some("Хок"));
+        assert_eq!(
+            spoken_name(&game, "Fisher Hai-Luk").as_deref(),
+            Some("Рыбачка Хаи-Лук")
+        );
+        // A name the client writes as words is taken as it stands.
+        assert_eq!(spoken_name(&game, "Father").as_deref(), Some("Отец"));
+        assert_eq!(spoken_name(&game, "Nobody"), None);
+    }
+
+    #[test]
+    fn a_vendor_points_at_the_page_that_pictures_them() {
+        let mut curated = Curation::default();
+        curated.set_portrait("cetus-weaponsmith", " Hok ");
+        // A link copied out of a browser names the same page.
+        curated.set_portrait(
+            "acrithis",
+            "https://wiki.warframe.com/wiki/Old_Man_Suumbaat",
+        );
+
+        assert_eq!(curated.portraits()["cetus-weaponsmith"], "Hok");
+        assert_eq!(curated.portraits()["acrithis"], "Old Man Suumbaat");
+
+        curated.set_portrait("acrithis", "");
+
+        assert_eq!(curated.portraits().len(), 1);
+    }
+
+    #[test]
     fn the_client_names_what_nobody_curated() {
         let mut curated = Curation::default();
         curated.set_term("enemy", "Butcher", "Мясник");
@@ -515,12 +651,20 @@ mod tests {
 
         let terms = curated.terms(&spoken);
 
-        assert_eq!(terms.get("enemy", "Butcher"), Some("Мясник"));
         assert_eq!(
-            terms.get("enemy", "Leaping Thrasher"),
+            terms.of("enemy", "Butcher", "Butcher").as_deref(),
+            Some("Мясник")
+        );
+        assert_eq!(
+            terms
+                .of("enemy", "Leaping Thrasher", "Leaping Thrasher")
+                .as_deref(),
             Some("Прыгающий Молотильщик")
         );
-        assert_eq!(terms.get("vendor", "Leaping Thrasher"), None);
+        assert_eq!(
+            terms.of("lab", "Leaping Thrasher", "Leaping Thrasher"),
+            None
+        );
     }
 
     #[test]

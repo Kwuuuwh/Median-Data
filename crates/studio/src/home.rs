@@ -47,14 +47,15 @@ pub fn render(snap: &Snapshot) -> Markup {
 
                 h2 { "Требует человека" }
                 .stats {
-                    (stat("имён без предмета", snap.unresolved.len(),
-                          tone(snap.unresolved.len()), Some("/mapping")))
+                    (stat("имён без предмета", crate::mapping::outstanding(snap),
+                          tone(crate::mapping::outstanding(snap)), Some("/mapping")))
                     (stat("конфликтов", snap.conflicts.len(),
                           tone(snap.conflicts.len()), Some("/conflicts")))
                     (stat("без русского имени", terms::pending(snap),
                           tone(terms::pending(snap)), Some("/localize")))
-                    (stat("находок воронки", snap.report.findings.len(),
-                          tone(snap.report.findings.len()), Some("/anomalies")))
+                    (stat("находок воронки", snap.report.queue(),
+                          tone(snap.report.queue()), Some("/anomalies")))
+                    (stat("наблюдений", snap.report.observations(), "", Some("/anomalies")))
                     (stat("принято", snap.report.accepted.len(), "", Some("/anomalies#done")))
                     (stat("решено рукой", snap.decided.len(), "", None))
                 }

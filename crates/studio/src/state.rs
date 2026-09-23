@@ -3,6 +3,7 @@ use consensus::{Conflict, Source};
 use funnel::Report;
 use graph::{Graph, Taxonomy};
 use projections::Scope;
+use std::collections::{BTreeMap, BTreeSet};
 
 /// A name one source prints that the catalog could not tie to an item.
 pub struct Unresolved {
@@ -15,6 +16,9 @@ pub struct Unresolved {
     pub hint: String,
     /// How many rows hang on this name.
     pub count: usize,
+    /// When the build first saw this name with nothing to tie it to. Zero means the build
+    /// kept no record — the first build after this was added, or a name the screen made up.
+    pub since_ms: i64,
 }
 
 /// An item's picture as the build pinned it, for one language.
@@ -73,20 +77,74 @@ impl Decided {
 /// Everything Studio shows, as of the last build.
 pub struct Snapshot {
     pub graph: Graph,
+    /// Which client the distillate came from, beside the one installed here.
+    pub client: Client,
     /// The taxonomy the build classified items with, for labels and grouping.
     pub taxonomy: Taxonomy,
     pub report: Report,
     pub scope: Scope,
     pub conflicts: Vec<Conflict>,
+    /// When each disagreement was first seen, keyed as `<prop> <entity>`. Sources drift apart
+    /// for a few days after a patch and come back together on their own.
+    pub conflict_since: BTreeMap<String, i64>,
     /// Every printed name no item answers to, from every source that prints names.
     pub unresolved: Vec<Unresolved>,
     /// Shipped items whose source serves no picture.
     pub iconless: Vec<String>,
+    /// Every vendor of the catalog, with the wiki page that pictures them.
+    pub sellers: Vec<Seller>,
+    /// Names the game client prints the same way in Russian, so no translation is owed.
+    pub kept: BTreeSet<String>,
+    /// Every phrase the client prints at all, folded to lower case. A name missing from it is
+    /// not a name the game shows: it is a heading a source built for itself, and no Russian
+    /// for it exists to be found.
+    pub spoken: BTreeSet<String>,
     pub decided: Decided,
     /// Whether decisions have been applied to this snapshot in memory since it was built.
     /// A patched snapshot shows the decision at once; only a rebuild makes the whole graph
     /// agree with it.
     pub stale: bool,
+}
+
+/// A vendor as the screen that ties them to a page and a Russian name reads them.
+#[derive(Debug, Clone)]
+pub struct Seller {
+    pub key: String,
+    pub name: String,
+    pub name_ru: Option<String>,
+    /// The wiki page tying them to a picture, where one is known.
+    pub page: Option<String>,
+    /// Whether that page actually yielded a picture the vault holds.
+    pub pictured: bool,
+    pub offers: usize,
+    pub currency: Option<String>,
+    /// The hub they stand in, where the game's own directories say which.
+    pub area: Option<String>,
+}
+
+impl Seller {
+    /// Nothing points at a picture for them: no page was named and none was found.
+    pub fn waiting(&self) -> bool {
+        !self.pictured && self.page.is_none()
+    }
+}
+
+/// The client a build reads the cache of, as two dates.
+#[derive(Debug, Default, Clone)]
+pub struct Client {
+    /// The client the distillate in the repository was taken from.
+    pub distilled: String,
+    /// The client installed on this machine, where the cache is at hand.
+    pub installed: Option<String>,
+}
+
+impl Client {
+    /// Whether the machine holds a newer client than the distillate was taken from.
+    pub fn behind(&self) -> bool {
+        self.installed
+            .as_deref()
+            .is_some_and(|installed| installed > self.distilled.as_str())
+    }
 }
 
 impl Snapshot {
@@ -125,4 +183,23 @@ pub trait Store: Send + Sync {
     fn unaccept(&self, rule: &str, entity: &str) -> Result<()>;
     /// The item's pinned picture in one language, when the vault holds it.
     fn icon(&self, item: &str, lang: &str) -> Option<Icon>;
+    /// Say which wiki page pictures a vendor. An empty page clears it.
+    fn portrait(&self, vendor: &str, page: &str) -> Result<()>;
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn a_newer_cache_than_the_distillate_is_an_update() {
+        let taken = |installed: Option<&str>| Client {
+            distilled: "2026.09.22".to_string(),
+            installed: installed.map(str::to_string),
+        };
+
+        assert!(taken(Some("2026.09.25")).behind());
+        assert!(!taken(Some("2026.09.22")).behind());
+        assert!(!taken(None).behind());
+    }
 }

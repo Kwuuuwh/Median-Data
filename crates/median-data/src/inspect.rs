@@ -1,4 +1,4 @@
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use std::sync::Mutex;
 
 use anyhow::Result;
@@ -11,8 +11,8 @@ use crate::{build, curation, extract, icons, spec, unmatched};
 
 /// Serve Studio over the pinned sources. Every screen reads one in-memory graph; a curated
 /// decision rewrites the file and reassembles it.
-pub fn run(vault_dir: &str, addr: &str) -> Result<()> {
-    let inspector = Inspector::open(vault_dir)?;
+pub fn run(vault_dir: &str, addr: &str, cache: Option<&str>) -> Result<()> {
+    let inspector = Inspector::open(vault_dir, cache)?;
     let runtime = tokio::runtime::Builder::new_multi_thread()
         .enable_all()
         .build()?;
@@ -27,21 +27,79 @@ struct Inspector {
     /// Which blob holds each item's picture per language, resolved once at startup — the
     /// vault only changes when `fetch` or `icons` runs, and neither runs from here.
     pictures: icons::Pictures,
+    /// The game cache on this machine, where Studio runs beside the client, so a screen can
+    /// say that a newer client is installed than the distillate was taken from.
+    cache: Option<PathBuf>,
     /// Held for the whole read-change-write of the decisions file. Two people working at
     /// once send their decisions at once, and without this the later write would drop the
     /// earlier one.
     writing: Mutex<()>,
 }
 
+/// The hub a vendor stands in, named the way the catalog names it.
+fn area_of(graph: &graph::Graph, vendor: &str) -> Option<String> {
+    let area = graph
+        .from(vendor)
+        .into_iter()
+        .find(|edge| edge.rel == graph::Rel::Within)?
+        .to
+        .clone();
+    match graph.get(&area) {
+        Some(graph::Node::Area(area)) => Some(area.name_ru.clone().unwrap_or(area.name.clone())),
+        _ => None,
+    }
+}
+
+/// Every vendor of the catalog, with the page that pictures them and what they sell.
+fn sellers(
+    graph: &graph::Graph,
+    curated: &Curation,
+    pictures: &std::collections::BTreeMap<String, String>,
+) -> Vec<studio::Seller> {
+    let by_hand = curated.portraits();
+    let mut out: Vec<studio::Seller> = graph
+        .nodes()
+        .filter_map(|node| match node {
+            graph::Node::Vendor(vendor) => Some(vendor),
+            _ => None,
+        })
+        .map(|vendor| studio::Seller {
+            area: area_of(graph, &graph::vendor_id(&vendor.key)),
+            page: by_hand.get(vendor.key.as_str()).map(|p| (*p).to_string()),
+            pictured: pictures.contains_key(&vendor.key),
+            offers: graph.from(&graph::vendor_id(&vendor.key)).len(),
+            key: vendor.key.clone(),
+            name: vendor.name.clone(),
+            name_ru: vendor.name_ru.clone(),
+            currency: vendor.currency.clone(),
+        })
+        .collect();
+    out.sort_by(|one, other| one.name.cmp(&other.name));
+    out
+}
+
 impl Inspector {
-    fn open(vault_dir: &str) -> Result<Self> {
+    fn open(vault_dir: &str, cache: Option<&str>) -> Result<Self> {
         let vault = Vault::open(vault_dir)?;
         Ok(Self {
             vault_dir: vault_dir.into(),
             scope: PathBuf::from(crate::SCOPE),
             curation: PathBuf::from(crate::CURATION),
             pictures: pictures(&vault).unwrap_or_default(),
+            cache: cache.map(PathBuf::from),
             writing: Mutex::new(()),
+        })
+    }
+
+    /// Which client the distillate came from, beside the one whose cache is at hand.
+    fn client(&self) -> Result<studio::Client> {
+        Ok(studio::Client {
+            distilled: crate::game::client(Path::new(crate::GAME))?.build,
+            installed: self
+                .cache
+                .as_deref()
+                .map(crate::game::installed)
+                .transpose()?,
         })
     }
 
@@ -59,7 +117,7 @@ impl Store for Inspector {
         let vault = Vault::open(&self.vault_dir)?;
         let curated = curation::load(&self.curation)?;
         let built = build::graph_with(&vault, &curated)?;
-        let (report, _) = build::judge(&vault, &built, &curated)?;
+        let (report, state) = build::judge(&vault, &built, &curated)?;
 
         let policy = projections::load(&self.scope)?;
         let scope = projections::apply(&built.graph, &policy);
@@ -68,6 +126,14 @@ impl Store for Inspector {
         unresolved.extend(unmatched::find(&built.wfm, &built.matched));
         let dismissed = curated.dismissed();
         unresolved.retain(|u| !dismissed.contains(&(u.source.as_str(), u.key.as_str())));
+        for row in &mut unresolved {
+            row.since_ms = state
+                .waiting
+                .get(&row.source)
+                .and_then(|keys| keys.get(&row.key))
+                .copied()
+                .unwrap_or_default();
+        }
 
         let iconless = built
             .graph
@@ -76,11 +142,25 @@ impl Store for Inspector {
             .map(|i| i.unique_name.clone())
             .collect();
 
+        let spoken = crate::game::spoken(Path::new(crate::GAME))?;
         Ok(Snapshot {
+            client: self.client()?,
+            spoken: spoken
+                .name
+                .keys()
+                .map(|phrase| phrase.to_lowercase())
+                .collect(),
+            kept: spoken.verbatim,
+            sellers: sellers(&built.graph, &curated, &icons::vendor_pictures(&vault)),
             graph: built.graph,
             taxonomy: built.taxonomy,
             report,
             scope,
+            conflict_since: state
+                .waiting
+                .get(build::CONFLICT)
+                .cloned()
+                .unwrap_or_default(),
             conflicts: built.conflicts,
             unresolved,
             iconless,
@@ -103,6 +183,10 @@ impl Store for Inspector {
 
     fn undismiss(&self, source: &str, key: &str) -> Result<()> {
         self.edit(|c| c.clear_dismiss(source, key))
+    }
+
+    fn portrait(&self, vendor: &str, page: &str) -> Result<()> {
+        self.edit(|c| c.set_portrait(vendor, page))
     }
 
     fn name(&self, item: &str, ru: &str) -> Result<()> {

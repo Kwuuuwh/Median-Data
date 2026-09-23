@@ -1,6 +1,3159 @@
 # Written by `median-data extract` from the game cache: the Russian the client
 # shows for a name it prints in English.
 
+verbatim = [
+    " [PH] Secured",
+    "$¢£¤¥฿₠₡₢₣₤₥₦₧₨₩₪₫€﹩＄￠￡￥￦₺",
+    "%",
+    "((!$@%!^!$@@#!))",
+    "((JAJAJA))",
+    "((jajajajajaja))",
+    "(C) 1995 BIZ-MARQUE",
+    "(っᵔ◡ᵔ)っ(˶ᵔ ᵕ ᵔ˶)",
+    "+1",
+    "+1, 19",
+    "+100% Range",
+    "+1000 Armor",
+    "+1000 Health",
+    "+200% Duration",
+    "+200% Strength",
+    "+300% Damage",
+    "+300% Status Chance",
+    "+300% Weak Point Multiplier",
+    "+4",
+    "+40 Melee Starting Combo",
+    "+5, +4",
+    ", ",
+    "-",
+    "---",
+    "----",
+    "-1",
+    "-Scooter",
+    "-Skids",
+    "-Slick",
+    "-_-",
+    ". ",
+    ".1999",
+    "0",
+    "011100110110000101101101",
+    "1",
+    "1 DAY RESOURCE BOOSTER",
+    "1, 4, 3",
+    "10",
+    "10 USES AFFINITY BOOSTER",
+    "10 USES CREDIT BOOSTER",
+    "10 USES RESOURCE BOOSTER",
+    "10, 19",
+    "10, 5",
+    "10, 9",
+    "100 USES AFFINITY BOOSTER",
+    "100 USES CREDIT BOOSTER",
+    "100 USES RESOURCE BOOSTER",
+    "11",
+    "11, 3",
+    "12",
+    "12, 11",
+    "123Olympian",
+    "13",
+    "14",
+    "15",
+    "16",
+    "17",
+    "18",
+    "19",
+    "1999",
+    "2",
+    "2, 3",
+    "20",
+    "20, 4",
+    "21",
+    "2kDegrees",
+    "2x",
+    "3",
+    "3.6",
+    "33",
+    "36",
+    "4",
+    "4, 5",
+    "4Eva",
+    "4Lyfe",
+    "4eevveeerrr",
+    "5",
+    "5, 1",
+    "5ive",
+    "6",
+    "6.3",
+    "7",
+    "7, 12",
+    "7, 17",
+    "8",
+    "88",
+    "8Track",
+    "9",
+    ":(",
+    ":-)",
+    ":-C",
+    ":-U",
+    ":D",
+    ":D :D :D",
+    ":D:D",
+    ";)",
+    ";) ;) ;)",
+    "@___@",
+    "A",
+    "A Byte-sized Adventure",
+    "A+",
+    "A-",
+    "A1",
+    "A10",
+    "A11",
+    "A12",
+    "A13",
+    "A14",
+    "A15",
+    "A16",
+    "A17",
+    "A18",
+    "A19",
+    "A2",
+    "A20",
+    "A21",
+    "A22",
+    "A23",
+    "A3",
+    "A4",
+    "A5",
+    "A6",
+    "A7",
+    "A8",
+    "A9",
+    "ACCURACY",
+    "ACHIEVEMENTS",
+    "AFFINITY BOOSTER CY",
+    "AKS-74",
+    "ALifeTime",
+    "ALittle",
+    "AM",
+    "AMD FSR3",
+    "AMD GPU Services",
+    "AMD SPD",
+    "APPLE ID",
+    "ASH PRIME ACCESS PACK",
+    "AX-52",
+    "Abaddon",
+    "Above",
+    "Acanth",
+    "Ace",
+    "Acheron",
+    "Acid",
+    "Acoustics",
+    "Active Map",
+    "Active Players",
+    "Adaro",
+    "Adrastea",
+    "Aegaeon",
+    "Ailerons",
+    "Aim Sensitivity",
+    "Air",
+    "Akkad",
+    "Alator",
+    "Albedo",
+    "Alive Again",
+    "AllMy",
+    "AllThat",
+    "Alpha",
+    "Alumeti Prime Sugatra",
+    "Am1rb0t",
+    "Amalthea",
+    "Amarna",
+    "Ammo Efficiency",
+    "Amp",
+    "Amuga",
+    "Ananke",
+    "Anchovy",
+    "AndNow",
+    "Android Game Development Kit",
+    "Angels Requiem",
+    "Angle",
+    "Angry",
+    "Anguta",
+    "Ani",
+    "Another",
+    "Answering Challenge",
+    "Anthe",
+    "Aphrodite",
+    "Apollo",
+    "Apollodorus",
+    "AppliedThanatology",
+    "Ara",
+    "Arcade",
+    "Arcadia",
+    "Archwing",
+    "Arena",
+    "Ares",
+    "Argon",
+    "Arial",
+    "Ariel",
+    "Armaros",
+    "Armatus",
+    "Armored",
+    "Arturos Vessel Glyph",
+    "Arunasoul",
+    "Arval",
+    "Ascar",
+    "Ascii",
+    "Assur",
+    "Aten",
+    "Atom",
+    "Atomic",
+    "Audio",
+    "Augustus",
+    "Awesome",
+    "Axe",
+    "B",
+    "B+",
+    "B-",
+    "B1",
+    "B10",
+    "B11",
+    "B12",
+    "B2",
+    "B3",
+    "B4",
+    "B5",
+    "B6",
+    "B7",
+    "B8",
+    "B9",
+    "BALANCE REWARD PACK",
+    "BANSHEE PRIME ACCESS PACK",
+    "BIGBYTES",
+    "BLUES",
+    "BOOSTER BUNDLE",
+    "BOOYAH",
+    "BOYBAND",
+    "Baal",
+    "Back",
+    "BackAgain",
+    "BackTo",
+    "Backmask",
+    "Backup",
+    "Bacon",
+    "Bad",
+    "Bad Moon",
+    "Bad2da",
+    "Badger",
+    "Bag",
+    "Bagel",
+    "Bait",
+    "Baller",
+    "Ballistic",
+    "Balor",
+    "Band",
+    "BandOf",
+    "Banshee Sonatus Glyph",
+    "Banshee Threnodia Glyph",
+    "Banshee Threnodia Shoulder Armor",
+    "Banshee Threnodia Skin",
+    "Bard",
+    "Barkin'",
+    "Barrel",
+    "Base",
+    "Bass",
+    "Bat",
+    "BcozOf",
+    "Beacon",
+    "Beaker",
+    "Beecher",
+    "Beeper",
+    "Belenus",
+    "Beleth",
+    "Belfri Ephemera",
+    "BelieveIn",
+    "Bell",
+    "Belladonna ~{@",
+    "Belly",
+    "Below The Thunder",
+    "Below Zero",
+    "Beneath Her Eyes",
+    "Bent",
+    "Berehynia",
+    "Berry",
+    "Berserk Crucible Honoria",
+    "Beta",
+    "Betty",
+    "Beyond",
+    "Bianca",
+    "Big",
+    "Big Old",
+    "BiggestFan",
+    "Binary",
+    "Bird",
+    "Birog",
+    "Biscuit",
+    "Bitter",
+    "Biz-Marque Bop",
+    "Bizkit",
+    "Blacklight",
+    "Blade",
+    "Blast Damage",
+    "Blaster",
+    "Blaze",
+    "Blind",
+    "Blingy",
+    "Blooddrizzt",
+    "Bloop",
+    "Blue",
+    "Blues",
+    "Bode",
+    "Boethius",
+    "Bomb",
+    "Bomber",
+    "Bone Pile",
+    "Bone Pile (Large)",
+    "Bone Pile (Small)",
+    "Bone Pile (Very Large)",
+    "Bones",
+    "Bonobo",
+    "Bonobos",
+    "Boo",
+    "Boogaloo",
+    "Boogie",
+    "Boom",
+    "Boot",
+    "Bork",
+    "Boss",
+    "Bot",
+    "Botnet",
+    "Bounce",
+    "Bouncy",
+    "BoysRInSync",
+    "Brain",
+    "BrazillianJoe",
+    "Break",
+    "BreakUp",
+    "Breaker",
+    "Breath",
+    "Breathmint",
+    "Bres",
+    "Brick",
+    "Bricks",
+    "Brigadier",
+    "Bright",
+    "Brightness",
+    "Broadsword",
+    "Broke",
+    "Broken",
+    "Bronze",
+    "Brood's Oversurge",
+    "Brother",
+    "Brugia",
+    "Brute",
+    "Brutus",
+    "Buarainech",
+    "Bueno",
+    "Bug",
+    "Buggin",
+    "Bull",
+    "Bumblin'",
+    "Bunny",
+    "Burger",
+    "Burn",
+    "Burner",
+    "Bus",
+    "Buster",
+    "Butcher",
+    "Butter",
+    "Buttery",
+    "ByteMe",
+    "C",
+    "C+",
+    "C-",
+    "C1",
+    "C10",
+    "C11",
+    "C12",
+    "C13",
+    "C14",
+    "C15",
+    "C2",
+    "C3",
+    "C4",
+    "C4 EXPLOSIVE",
+    "C5",
+    "C6",
+    "C7",
+    "C8",
+    "C9",
+    "CALIBER CHICKS",
+    "CALIBER CHICKS II",
+    "CAPS LOCK",
+    "CD",
+    "CHROMA PRIME ACCESS PACK",
+    "CITRINE PRIME",
+    "CLIP EXTENDER",
+    "COMMEMORATIVE BUNDLE",
+    "COUNTRY",
+    "CPU",
+    "CRC32C Adler",
+    "CREDITS BOOSTER CY",
+    "Cables",
+    "Caduceus",
+    "Caelus",
+    "Cage",
+    "Cake",
+    "Caliban",
+    "CallFor",
+    "Calling",
+    "CallingOn",
+    "Callisto",
+    "Caloris",
+    "Calypso",
+    "Calzone",
+    "Cambire",
+    "Cambria",
+    "Camellia",
+    "Camenae",
+    "Cameria",
+    "Cancel",
+    "CancelButton_en.png",
+    "Candiru",
+    "Candy",
+    "Canticle",
+    "Caracol",
+    "Carbine",
+    "Carme",
+    "Carp",
+    "Carpo",
+    "Carps",
+    "Casardis",
+    "Cash",
+    "Cassette",
+    "Cassini",
+    "Casta",
+    "Celebrity",
+    "Cerberus",
+    "Cerium",
+    "Cervantes",
+    "Chain",
+    "Challenges",
+    "Channeled Greed",
+    "Chaos",
+    "Charge",
+    "Charger",
+    "Charon",
+    "Charybdis",
+    "Chb",
+    "Cheap",
+    "Cheeks",
+    "Cheese",
+    "Cheesecake",
+    "Cherry",
+    "Chewer",
+    "Chez",
+    "ChickenBar",
+    "Chief",
+    "Chill",
+    "ChillPill",
+    "Chip",
+    "Chocks",
+    "Chocolate",
+    "Cholistan",
+    "Choose Map",
+    "Chop",
+    "Chopper",
+    "Chromium Embedded Framework",
+    "Chunk",
+    "Chunker",
+    "Cinxia",
+    "Circle",
+    "Circulus",
+    "City",
+    "CityOf",
+    "CityOn11",
+    "Clacker",
+    "Clacky",
+    "Clang",
+    "Clear",
+    "Clionadh Honoria",
+    "Clip",
+    "Clobber",
+    "Clown",
+    "ClownTown",
+    "Clueless",
+    "Clustril",
+    "Coba",
+    "Code",
+    "Coffee",
+    "Coffin",
+    "Cold",
+    "Cold Front",
+    "Cold Tundra",
+    "Coldwave",
+    "Colonel",
+    "Combo",
+    "ComeAlive",
+    "CominUp",
+    "Command",
+    "Commander",
+    "Community Art Pack VI",
+    "Community Citrine Glyph",
+    "Community Frost Glyph",
+    "Community Narin Glyph",
+    "Community Octavia Glyph",
+    "Community Sevagoth Glyph",
+    "Completed",
+    "Conand",
+    "Concat",
+    "Concordia",
+    "Config",
+    "Connect",
+    "Connected",
+    "Conquera 2026 Community Display",
+    "Conquera Cateura Frame Display",
+    "Conquera Cateura Signa",
+    "Conquera Glyph X",
+    "Conquera Honoria",
+    "Conquera III Ephemera",
+    "Conquera Valkyr Community Display",
+    "Conquera Voruna Community Display",
+    "Consciousness",
+    "Consume Us",
+    "Contacting Server",
+    "Context Power",
+    "Contrast",
+    "Controller Layout",
+    "Controls",
+    "ConviX",
+    "Cool",
+    "Cooler",
+    "Copernicus",
+    "Corb",
+    "Cordelia",
+    "Core",
+    "Core Containment",
+    "Corey",
+    "Corporal",
+    "Corpus Greed",
+    "Corrosive Damage",
+    "Corrupt",
+    "Corrupted",
+    "Cosis",
+    "Cosmo",
+    "Cougars",
+    "Covert",
+    "Cpl_Facehugger",
+    "Crackle2012",
+    "Crash",
+    "Crash Course",
+    "Crazy",
+    "Crazy Old",
+    "Creation",
+    "Cressida",
+    "Crew",
+    "Crisp",
+    "Crisper",
+    "Cron",
+    "Crop",
+    "Crude",
+    "Cruise",
+    "Crump",
+    "Crunk",
+    "Crust",
+    "Cruster",
+    "Crusty",
+    "Cryin",
+    "Cryobell Sumdali",
+    "Crypt",
+    "Ctrl",
+    "Cuddly",
+    "Cupid",
+    "Curl",
+    "Curse",
+    "Cut Through",
+    "Cute",
+    "Cutlet",
+    "Cyanide",
+    "Cyath",
+    "Cypher",
+    "Cypress",
+    "Cytherean",
+    "D",
+    "D'Arrest",
+    "D1",
+    "D10",
+    "D2",
+    "D3",
+    "D3D12 Mem Alloc",
+    "D4",
+    "D5",
+    "D6",
+    "D7",
+    "D8",
+    "D9",
+    "DANGER",
+    "DARK EXCALIBUR PRIME",
+    "DICIPLINE REWARD PACK",
+    "DIGITAL EXTREMES",
+    "DISCO",
+    "DJ",
+    "DJRom",
+    "DJ_Redwire",
+    "DLAA",
+    "DLSS",
+    "DOUBLE SHOT",
+    "Da",
+    "DaCharts",
+    "DaSystem",
+    "Dakata",
+    "Damage vs Orokin",
+    "Damage vs Scaldra",
+    "Damage vs Techrot",
+    "Damp",
+    "Dance",
+    "Dancin'",
+    "Dancing",
+    "Dandy",
+    "Dark",
+    "Dash",
+    "Dasher",
+    "Dat",
+    "Data",
+    "Datareaper",
+    "Day",
+    "Dead",
+    "Deaf",
+    "Deagle",
+    "Death",
+    "DeathIs",
+    "Debug",
+    "Decibels",
+    "Decrypted",
+    "Deep",
+    "DeepDish",
+    "Deepest Dark",
+    "Default",
+    "Defiance Succesful",
+    "Deimos",
+    "Del",
+    "Deluxe",
+    "Derelicts",
+    "Description",
+    "Desdemona",
+    "Despina",
+    "Dev",
+    "Dev (CY)",
+    "Dhampyre Syandana",
+    "DialUp",
+    "Dice",
+    "Dig",
+    "Digger",
+    "Digital",
+    "Dim",
+    "Dione",
+    "Dip",
+    "Dipper",
+    "DirectX 11",
+    "DirectX 12",
+    "Dirt",
+    "Dirty",
+    "Dirus",
+    "Disaster",
+    "Disc",
+    "Disconnected",
+    "Disconnecting",
+    "Discord",
+    "Display",
+    "Ditch",
+    "Dive",
+    "Diver",
+    "Dizko",
+    "Dizzy",
+    "Dj RoM",
+    "Doc",
+    "DofD",
+    "Dome",
+    "Doodle",
+    "Doomrock20",
+    "Double",
+    "DoubleCheese",
+    "Down",
+    "Downtown",
+    "Draco",
+    "Drama",
+    "Drasiel",
+    "Draw",
+    "Dreadnaught",
+    "Dreamers",
+    "Dreams",
+    "Drifters Respite",
+    "Drillbit",
+    "Drip",
+    "Driver",
+    "Drop",
+    "DropThe",
+    "Dropper",
+    "Drum",
+    "Drumkit",
+    "Drunlo",
+    "Dsc",
+    "Duck",
+    "Dull",
+    "Dunk",
+    "Dust",
+    "Dust's Dominion",
+    "Duster",
+    "Duviri Paradox",
+    "Dynamite",
+    "E",
+    "E Gate",
+    "E Prime",
+    "E1",
+    "E2",
+    "E3",
+    "E4",
+    "E5",
+    "E6",
+    "E7",
+    "E8",
+    "EMBER PRIME ACCESS PACK",
+    "ENFERON GRENADE",
+    "ENFERON SHELLS",
+    "EP",
+    "Eagle",
+    "Eagles",
+    "Ears",
+    "Easing Equations",
+    "Easymac",
+    "Eater",
+    "Eazy",
+    "Echo",
+    "Echoes Of Umbra",
+    "Edge",
+    "Effects Volume",
+    "Effervo",
+    "Egeria",
+    "Eight",
+    "Ejector",
+    "Elara",
+    "Elatha",
+    "Electric",
+    "Electro",
+    "Eleven",
+    "Eligor",
+    "Elion",
+    "EmbraceUs",
+    "Eminescu",
+    "Empyrean",
+    "Enceladus",
+    "EndUs",
+    "Entrati",
+    "Entwined Forever",
+    "Epimetheus",
+    "Epoch Operation Vessel Emblem",
+    "Eris Mortem",
+    "Erpo",
+    "Error=",
+    "Esc",
+    "Eschatos Necramech Helmet",
+    "Eskhatos Ki'Teer Floof",
+    "Eskhatos Necramech Skin",
+    "Eskhatos Parazon Skin",
+    "Eskhatos Pauldrons",
+    "Eskhatos Sekhara",
+    "Eskhatos Sugatra",
+    "Ethniu",
+    "Eurasia",
+    "Everest",
+    "Everybody",
+    "Evil",
+    "EvryBdyRock",
+    "Execution 1",
+    "Execution 2",
+    "Execution 3",
+    "Execution 4",
+    "Executor",
+    "Exequias",
+    "Exo",
+    "Exodess",
+    "Exta",
+    "Eyes",
+    "Eyes That Burn",
+    "F",
+    "F1",
+    "F2",
+    "F3",
+    "F4",
+    "F5",
+    "FAudio",
+    "FIRE POWER",
+    "FIRE RATE",
+    "FM",
+    "FORMA CACHE",
+    "FRAG GRENADES",
+    "FROST COMPLETE PACK",
+    "FROST PRIME ACCESS PACK",
+    "FSR3",
+    "FYI",
+    "Face",
+    "Faking",
+    "Fall",
+    "Falling",
+    "Fame",
+    "Famous",
+    "Fan",
+    "Fancy",
+    "Fans",
+    "Far",
+    "Farris",
+    "Fast",
+    "Fast Float",
+    "Feedback",
+    "FeelIt",
+    "Feet",
+    "Fender",
+    "Fester",
+    "FightingFor",
+    "Filmic Tone Curve",
+    "Final Ascent",
+    "Final Stand",
+    "FinalFinal",
+    "FinalFinal2",
+    "Fire",
+    "Firebase",
+    "Fires",
+    "Firetempest",
+    "Fish",
+    "Fist",
+    "Five",
+    "FiveCheese",
+    "Fix",
+    "Fixer",
+    "Fizzy",
+    "Flailing",
+    "Flareserif",
+    "Flash",
+    "Flat",
+    "Flea",
+    "Flex",
+    "Flimnap",
+    "Flint",
+    "Flip",
+    "Flipping",
+    "Float",
+    "Flow",
+    "Flowers Fall",
+    "Fluffy",
+    "Fluid Mechanics",
+    "Fly",
+    "Follie Coulrophobia Glyph",
+    "Font",
+    "Fool",
+    "For Narmer",
+    "Forever",
+    "Form",
+    "Format",
+    "Formido",
+    "Fortuna",
+    "Fossa",
+    "Four",
+    "Frag",
+    "Fragger",
+    "Frame Fighter",
+    "Freak",
+    "Freaky",
+    "Free",
+    "Fresh",
+    "Fridge",
+    "From The Stars",
+    "FrontMan",
+    "Frost",
+    "Fuel",
+    "Full",
+    "Funk",
+    "Funny Ol'",
+    "Fuse",
+    "Future",
+    "Fuzz",
+    "G",
+    "G1",
+    "G10",
+    "G11",
+    "G12",
+    "G13",
+    "G14",
+    "G15",
+    "G2",
+    "G3",
+    "G4",
+    "G5",
+    "G6",
+    "G7",
+    "G8",
+    "G9",
+    "Gabii",
+    "Gaia",
+    "Gain",
+    "Galatea",
+    "Galilea",
+    "Game",
+    "Game Lobby",
+    "Game Rules Selection",
+    "Game Type",
+    "Games",
+    "Gamygyn",
+    "Ganymede",
+    "Garbage",
+    "Garkulek Syandana",
+    "Garlic",
+    "Garus",
+    "Gary",
+    "Gas",
+    "Gas Damage",
+    "Gasket",
+    "Gasser",
+    "Gastroparesis",
+    "Gate",
+    "Gear",
+    "Gears",
+    "Gefion",
+    "Gene Molds",
+    "Gerbils",
+    "Ghost",
+    "Ghost333",
+    "Ghosts of Void",
+    "Ghosty",
+    "Giardia",
+    "Gift",
+    "Gigatron-Prime",
+    "Giggle",
+    "Gilligan",
+    "Gimme",
+    "GimmeA",
+    "Glacium Sigil",
+    "Glad",
+    "Glam",
+    "Glamorous",
+    "Glaring",
+    "Gleep",
+    "GlitchGhost",
+    "Glitchin",
+    "Glitzy",
+    "Glob",
+    "Global",
+    "Gloopy",
+    "Glory",
+    "Glow",
+    "Glue",
+    "Gnathos",
+    "GoFaster",
+    "GoingFor",
+    "Gold",
+    "Gone",
+    "Gonzo",
+    "Good",
+    "Good Time",
+    "Gore Enabled",
+    "Gorilla",
+    "Gorillas",
+    "Goth",
+    "Grab Something",
+    "Gracias",
+    "Gradivus",
+    "Graeae",
+    "Grakata",
+    "Granum Void",
+    "Graphics",
+    "Grass",
+    "Gravity",
+    "Grease",
+    "Greaser",
+    "Greed",
+    "Green",
+    "Grildrig",
+    "Grim",
+    "Grimaldi",
+    "Grin",
+    "Grineer Onslaught",
+    "Grip",
+    "Gripper",
+    "Grit",
+    "Groan",
+    "Groove",
+    "Groover",
+    "Growl",
+    "Growler",
+    "Grubber",
+    "Grunge",
+    "Guitar",
+    "Gulliver",
+    "Gun",
+    "Guy",
+    "Guys",
+    "H",
+    "H1",
+    "H10",
+    "H16h V0l7463",
+    "H2",
+    "H3",
+    "H4",
+    "H5",
+    "H6",
+    "H7",
+    "H8",
+    "H9",
+    "HAMMER 1895",
+    "HAPPY ZEPHYR",
+    "HIPHOP",
+    "HONOR REWARD PACK",
+    "HYDROID PRIME ACCESS PACK",
+    "Hacker",
+    "Hades",
+    "Haldos",
+    "Half",
+    "Halimede",
+    "Hall",
+    "Hamburger",
+    "Hammer",
+    "Hamster",
+    "Hand",
+    "Handgun Ammo",
+    "Hang",
+    "HangTuff",
+    "Hanger",
+    "Hapke",
+    "Happy",
+    "Happy Zephyr",
+    "Hard",
+    "HardDrive",
+    "Harddrive",
+    "Harmony",
+    "Harrycan",
+    "Harsh",
+    "HaveMercy",
+    "Hawk",
+    "Hawks",
+    "HazDeth",
+    "He Who Waits",
+    "Head",
+    "Headliner",
+    "Headlining",
+    "Hearthrob",
+    "Heavy",
+    "Helene",
+    "Hella",
+    "Hellas",
+    "Hello",
+    "Help",
+    "Hepit",
+    "Herbal",
+    "Hero",
+    "Hi-Fi",
+    "HiNote",
+    "Hieracon",
+    "High",
+    "HighScore",
+    "Hijack",
+    "Hints Enabled",
+    "Hip",
+    "His Light",
+    "Histo",
+    "Hitch",
+    "Hitcher",
+    "Hold",
+    "Hold The Line",
+    "Hook",
+    "Hootie",
+    "Hop",
+    "Hopper",
+    "Horend",
+    "Hortonman",
+    "Host",
+    "Host Game",
+    "Hot",
+    "Hour",
+    "HouseOf",
+    "HowBig",
+    "Howlin'",
+    "Hug",
+    "Hugging",
+    "Huggy",
+    "Hulk",
+    "Humpback",
+    "Humpbacks",
+    "Hunhow",
+    "Husk",
+    "Husker",
+    "Hwb",
+    "Hydra",
+    "Hydro",
+    "Hydron",
+    "Hyf",
+    "Hymeno",
+    "Hyosube",
+    "Hyperion",
+    "Höllvanian",
+    "I",
+    "I - ",
+    "I1",
+    "I2",
+    "I3",
+    "II",
+    "III",
+    "INFINITY EMBLEM",
+    "IV",
+    "IWant",
+    "IWantIt",
+    "Iapetus",
+    "Ice",
+    "Ice Speaker",
+    "Icebound Neote Decoration",
+    "Iceedemon888",
+    "Idle",
+    "Idol",
+    "Iliad",
+    "Imaru12",
+    "Impact",
+    "InTheFloor",
+    "Infamous",
+    "Infected",
+    "Infected Wounds",
+    "Infection",
+    "Infector",
+    "Infernum",
+    "Infested",
+    "Inject",
+    "Input",
+    "Instinction",
+    "Into Madness",
+    "Inux",
+    "Invert Markings",
+    "Invert Y Axis",
+    "Io",
+    "Iron",
+    "Ironclad",
+    "Ishixia",
+    "Ishtar",
+    "Isos",
+    "Ixodes",
+    "J",
+    "JAJAJAJAJA",
+    "JDT",
+    "JPEG Turbo",
+    "Jack",
+    "Jack O'Naut Keychain Sugatra",
+    "Jamescell",
+    "Jammer",
+    "Jammin",
+    "Janus",
+    "Jaws",
+    "Jazz",
+    "Jeahanne",
+    "Jengu",
+    "Jerry",
+    "Jig",
+    "Jiggle",
+    "Jiggy",
+    "Jockey",
+    "JoinUs",
+    "Joining Game",
+    "Judge",
+    "Judgy",
+    "Jugger",
+    "Juggler",
+    "Juliet",
+    "Jump",
+    "Jumper",
+    "Jumpin'",
+    "Jumping",
+    "K",
+    "K1",
+    "K10",
+    "K11",
+    "K12",
+    "K2",
+    "K3",
+    "K4",
+    "K5",
+    "K6",
+    "K7",
+    "K8",
+    "K9",
+    "KOLTrial_5115",
+    "KORBOV TK6",
+    "Kadesh",
+    "Kala-azar",
+    "Kalenath",
+    "Kappa",
+    "Kartumterek",
+    "Keeler",
+    "Kelashin",
+    "Kelpie",
+    "Kenshin98",
+    "Kepler",
+    "Ker",
+    "Kerberos",
+    "Kernel",
+    "Key",
+    "Khadati Sumdali",
+    "Kick",
+    "Kick Out the Guns",
+    "KickItWith",
+    "Kicker",
+    "KilKil",
+    "Kiliken",
+    "Kill Everything",
+    "Killa",
+    "Killer",
+    "Kinemantik",
+    "King",
+    "Kiste",
+    "Kit",
+    "Klokkit",
+    "Knife",
+    "Knuckles",
+    "Kokabiel",
+    "Koro",
+    "Kraze",
+    "KrillMe",
+    "KrillUs",
+    "L",
+    "L1",
+    "L2",
+    "L3",
+    "L4",
+    "L5",
+    "L6",
+    "L7",
+    "L8",
+    "LARGE BOOSTER BUNDLE",
+    "LARGE FORMA CACHE",
+    "LARGE OROKIN CATALYST CACHE",
+    "LARGE OROKIN REACTOR CACHE",
+    "LIMBO PRIME ACCESS PACK",
+    "LOKI PRIME ACCESS PACK",
+    "LOL",
+    "LOTUS PRINCE BUNDLE",
+    "LP",
+    "LZF",
+    "La Cathédrale",
+    "Lab",
+    "Lamenting The Days",
+    "Lane",
+    "Laomedeia",
+    "Lares",
+    "LargeVeggie",
+    "Larissa",
+    "Larzac",
+    "Laser",
+    "Last Laugh Ki'Teer Glyph",
+    "Laughin'",
+    "Lax",
+    "Layout 1",
+    "Layout 2",
+    "Layout 3",
+    "Layout 4",
+    "Lazer",
+    "Lazers",
+    "Leather",
+    "Lefty",
+    "Legs",
+    "Leopard",
+    "Leopards",
+    "Lepis",
+    "Let's Get Into Trouble",
+    "Lets",
+    "Letter13",
+    "Lewt",
+    "Lex",
+    "Li'l",
+    "Liars",
+    "Lies",
+    "Lieutenant",
+    "Life",
+    "Life In Decay",
+    "Lifter",
+    "Light",
+    "Lightnin'",
+    "Lights",
+    "LightsOut",
+    "Lil",
+    "Lillith",
+    "Lime",
+    "Limelight",
+    "Liminus_Star",
+    "Limtoc",
+    "Line",
+    "Linea",
+    "Lineup",
+    "Link",
+    "Linked Transporter",
+    "Linked Transporter Exit",
+    "Lions",
+    "Lipsync",
+    "Liquid",
+    "Liset Calaverita Skin",
+    "Lista",
+    "Lith",
+    "Little",
+    "Live",
+    "Llyssa",
+    "Lo-Fi",
+    "Load",
+    "Loader",
+    "Lock",
+    "Lonesome",
+    "Long",
+    "Long Tall",
+    "Loop",
+    "Lord",
+    "Lose",
+    "Lots",
+    "Loud",
+    "Love",
+    "LoveBug",
+    "Loves",
+    "Low",
+    "Low Yield",
+    "Low-Down",
+    "Lowbrow",
+    "Lt Imperial",
+    "Lua CJSON",
+    "Luau",
+    "Lucky",
+    "Ludi",
+    "Lug",
+    "Lugh",
+    "Lunch",
+    "Lundora Calling",
+    "Luthim",
+    "Lárgate",
+    "M",
+    "M Prime",
+    "M1",
+    "M10",
+    "M2",
+    "M3",
+    "M4",
+    "M5",
+    "M6",
+    "M7",
+    "M8",
+    "M9",
+    "MAG PRIME ACCESS PACK",
+    "MD5",
+    "MESA PRIME ACCESS PACK",
+    "MIRAGE BUNDLE",
+    "MIRAGE PRIME ACCESS PACK",
+    "MK I",
+    "MK II",
+    "MK III",
+    "Mab",
+    "MacGamesAU",
+    "Mace",
+    "Machinegun Ammo",
+    "Macro",
+    "Macros",
+    "Mad",
+    "Magazine Reload While Holstered",
+    "Magic",
+    "Magical",
+    "Magnacidium",
+    "Magnet",
+    "Magnetic Damage",
+    "Main",
+    "Main Menu",
+    "MainStage",
+    "Major",
+    "Majorly",
+    "Malory",
+    "Malva",
+    "Man",
+    "Manager",
+    "Mandonel Chythedra Skin",
+    "Mangler",
+    "Mantle",
+    "Map List",
+    "Map Selection",
+    "Marduk",
+    "Mariana",
+    "Marid",
+    "Marinara",
+    "Mark",
+    "Mark The Frequency",
+    "MarkFitness",
+    "Markings Coverage",
+    "Marthrym",
+    "Martialis",
+    "Matchbox",
+    "Matrix",
+    "Max",
+    "Max Health Damage",
+    "Maximum",
+    "Mayhem",
+    "Me",
+    "Meatball",
+    "Meester",
+    "Megastar",
+    "Melee",
+    "Memory",
+    "Memphis",
+    "Mephesto",
+    "Merci. ",
+    "Merrow",
+    "Metal",
+    "Methone",
+    "Metis",
+    "Mic",
+    "Micro",
+    "Micro Uzi",
+    "Microsoft Store",
+    "Mid",
+    "Mierda",
+    "Migrating With Server",
+    "Millennium",
+    "Mimas",
+    "Mini",
+    "MiniDisc",
+    "Minthe",
+    "Miranda",
+    "Mithra",
+    "Mix",
+    "MixTape",
+    "Mixer",
+    "Mixmaster",
+    "Mixtape",
+    "Mod Config",
+    "Modder",
+    "Model",
+    "MoltenVK",
+    "MomToxicated",
+    "Money",
+    "Monitor",
+    "Monk",
+    "Monolith",
+    "Monster",
+    "Montes",
+    "Moon Devourer Honoria",
+    "Morax",
+    "More",
+    "Mot",
+    "Motor",
+    "Mouth",
+    "Mud",
+    "Multi",
+    "Multiplayer",
+    "Murk",
+    "Murum Vull",
+    "Music Volume",
+    "Must",
+    "My",
+    "MyHeartWants",
+    "MyMachine",
+    "MyP4Vis",
+    "N",
+    "N1",
+    "N10",
+    "N11",
+    "N12",
+    "N13",
+    "N14",
+    "N15",
+    "N16",
+    "N17",
+    "N18",
+    "N19",
+    "N2",
+    "N20",
+    "N21",
+    "N22",
+    "N23",
+    "N24",
+    "N25",
+    "N3",
+    "N4",
+    "N5",
+    "N6",
+    "N7",
+    "N8",
+    "N9",
+    "NDK",
+    "NEKROS COMPLETE PACK",
+    "NEKROS PRIME ACCESS PACK",
+    "NEZHA PACK",
+    "NOVA PRIME ACCESS PACK",
+    "NYX PRIME ACCESS PACK",
+    "Naamah",
+    "Nabuk",
+    "Naeglar",
+    "Naga",
+    "Naiad",
+    "Nail",
+    "Nails",
+    "Nakki",
+    "Narcissus",
+    "Narin Agile Animation Set",
+    "Narin Glyph - Bright",
+    "Narin Glyph - Dark",
+    "Narin Noble Animation Set",
+    "Natural",
+    "NavNow",
+    "Navic Prime Sentinel Accessories",
+    "Neck",
+    "Nemed",
+    "Neo_182",
+    "Neolyst Natah Floof",
+    "Neolyst Natah Glyph",
+    "Neon",
+    "NeonGlow",
+    "NeonLights",
+    "Neote Rapier Skin",
+    "Neote's Dance",
+    "Nereid",
+    "Nertz",
+    "Neruda",
+    "Neso",
+    "Neutron",
+    "New",
+    "NewYears",
+    "Nex",
+    "Night",
+    "Nightmare",
+    "Nimble",
+    "Nimus",
+    "Nine",
+    "Niveus Dark Dagger Skin",
+    "Niveus Dark Split-Sword Skin",
+    "Niveus Dark Sword Skin",
+    "Niveus Glaxion Skin",
+    "Niveus Liset Skin",
+    "Niveus Nepheri Skin",
+    "Niveus Orvius Skin",
+    "Niveus Paracesis Skin",
+    "Niveus Quellor Skin",
+    "Niveus Sumdali",
+    "Nix",
+    "No God Above Knowledge",
+    "No Pets Allowed",
+    "No2rningBack",
+    "Nomad",
+    "Noob",
+    "Not",
+    "Not Ready",
+    "NotExist",
+    "Notch",
+    "Nozzle",
+    "Nuke",
+    "Null",
+    "Null Unit",
+    "Num 1",
+    "Num 2",
+    "Num 3",
+    "Num 4",
+    "Num 5",
+    "Numa",
+    "Numb",
+    "NumberOne",
+    "Nuovo",
+    "Nvidia Aftermath",
+    "Nvidia DLSS",
+    "Nvidia Image Scaling",
+    "O",
+    "O1",
+    "O2",
+    "O3",
+    "O4",
+    "O5",
+    "O6",
+    "O7",
+    "OBERON PRIME ACCESS PACK",
+    "ODIO LA PUTA GUITARRA",
+    "OGG",
+    "OK",
+    "OMEGA SYANDANA PACK",
+    "ON-LYFE",
+    "ORIGINATOR PACK",
+    "OROKIN CATALYST CACHE",
+    "OROKIN REACTOR CACHE",
+    "Oberon",
+    "Oceanum",
+    "Ocfos",
+    "Odd",
+    "Odin",
+    "Oestrus",
+    "Officer",
+    "Oh",
+    "OkButton_en.png",
+    "Old",
+    "Old Mans Regret",
+    "Old War Artillery Base",
+    "Old War Artillery Generator",
+    "Old War Artillery Gun",
+    "Old War Battle Flag",
+    "Old War Communication Relay",
+    "Old War Console",
+    "Old War Drone Battery",
+    "Old War Flood Light",
+    "Old War Grineer Antenna",
+    "Old War Grineer Battery",
+    "Old War Ladder",
+    "Old War Lantern (Handheld)",
+    "Old War Lockbox",
+    "Old War Platform",
+    "Old War Platform Base",
+    "Old War Relay Antenna",
+    "Old War Shield Battery",
+    "Old War Shield Generator",
+    "Old War Standard Pole",
+    "Old War Storage Box",
+    "Old War Storage Crate",
+    "Old War Storage Palette",
+    "Old War Stretcher (Folded)",
+    "Old War Stretcher (Unfolded)",
+    "Old War Stunray (Base)",
+    "Old War Stunray (Emitter)",
+    "Old War Supply Box",
+    "Old War Supply Locker",
+    "Old War Tank Trap",
+    "Old War Thumper Cowl",
+    "Old War Thumper Hammer",
+    "Old War Thumper Leg",
+    "Old War Thumper Piston",
+    "Old War Thumper Shield",
+    "Old War Thumper Stabilizer",
+    "Old War Thumper Turret",
+    "Old War Transport",
+    "Old War Trench Support",
+    "Old War Wall Sconce",
+    "Olives",
+    "Olla",
+    "Olympus",
+    "Omega",
+    "On Corroded Wings",
+    "On-lyne",
+    "OnTheBlok",
+    "One",
+    "Onions",
+    "OnlyPain",
+    "Open698",
+    "OpenSSL",
+    "Opening",
+    "Ophelia",
+    "Opik",
+    "Optimized",
+    "Options",
+    "Opula Armor Bundle",
+    "Opus",
+    "Orange",
+    "Orias",
+    "Origin System",
+    "Oro",
+    "Orthelius",
+    "Ose",
+    "Our Disease",
+    "Outer Terminus",
+    "OwlMan",
+    "Owlski",
+    "Oxomoco",
+    "Oxy",
+    "Ozone",
+    "P",
+    "P1",
+    "P10",
+    "P11",
+    "P12",
+    "P13",
+    "P14",
+    "P15",
+    "P16",
+    "P17",
+    "P2",
+    "P3",
+    "P4",
+    "P5",
+    "P6",
+    "P7",
+    "P8",
+    "P9",
+    "PH_GLYPH",
+    "PLATINUM PROMOTION PACK",
+    "PLAY EMBLEM",
+    "PRESTIGE REWARD PACK",
+    "PROTECTA",
+    "PROXIMITY GRENADE",
+    "PSIV",
+    "PSSR",
+    "PUNCTURE",
+    "Pacific",
+    "Pack",
+    "Packet",
+    "Packlet",
+    "Pago",
+    "Paimon",
+    "Pain",
+    "Paint",
+    "Pallas",
+    "Pallene",
+    "Palus",
+    "Pan",
+    "Panda",
+    "Pandora",
+    "Panic",
+    "Pantheon",
+    "PantsAdvance",
+    "PapaPolar",
+    "Paragrimm Ascending",
+    "Parm",
+    "Party",
+    "PartyOf",
+    "Partying",
+    "PassThe",
+    "Patch",
+    "Pause",
+    "Pavlov",
+    "Pay",
+    "Payload",
+    "Peel",
+    "Penguin",
+    "Penguins",
+    "Pepperoni",
+    "Peppers",
+    "Peppy",
+    "Perdita",
+    "Perditions Coils",
+    "Persto",
+    "Phage",
+    "Phailberry",
+    "Phalan",
+    "Phasedragon",
+    "Phat",
+    "Phile",
+    "Phithale",
+    "Phlegyas",
+    "Phoebe",
+    "Phoenix Coronet Sigil",
+    "Phrack",
+    "Pick a Side",
+    "Pickle",
+    "Pickles",
+    "Pig",
+    "Pill",
+    "Pineapple",
+    "Pink",
+    "Pipe",
+    "Piper",
+    "Pirate",
+    "Piscinas",
+    "Pixel",
+    "Pizza",
+    "PizzaLady",
+    "PizzaSlice",
+    "Pizzaguri",
+    "Pizzzzzzza",
+    "Plane",
+    "Plate",
+    "Platform 7",
+    "Platinum",
+    "Plato",
+    "PlayStation™Store",
+    "Player",
+    "Players",
+    "Please",
+    "Pod",
+    "Point",
+    "Poker",
+    "Poly",
+    "PolyModal",
+    "Ponaturi",
+    "Popping",
+    "Popstar",
+    "Portia",
+    "Pox",
+    "Pray",
+    "Preppy",
+    "Press Start",
+    "Preview Wings",
+    "Primate Sigil",
+    "Prime Grineer Communication Tower",
+    "Prince",
+    "Princess",
+    "Private",
+    "Producer",
+    "Prologue",
+    "Promo",
+    "Prospero",
+    "Proteus",
+    "Proud",
+    "Psamathe",
+    "PsiveAgrsive",
+    "Psoro",
+    "Psycho Killian",
+    "Puck",
+    "Pues, a ver",
+    "Puller",
+    "Pulse Damage",
+    "Punch",
+    "Puncher",
+    "Punk",
+    "Purple",
+    "Push Force",
+    "Pyro",
+    "Python",
+    "Q",
+    "Q&A",
+    "Q1",
+    "Q2",
+    "Q3",
+    "Qorvex Basilica Glyph",
+    "Qorvex Basilica Helmet",
+    "Qorvex Basilica Skin",
+    "Queen",
+    "Quick",
+    "Quiet",
+    "Quirinus",
+    "Quit",
+    "R",
+    "R1",
+    "R2",
+    "R3",
+    "R34LM",
+    "R4",
+    "R5",
+    "R6",
+    "RAM",
+    "RELOAD SPEED",
+    "RESOURCE BOOSTER CY",
+    "RHINO COMPLETE PACK",
+    "RHINO PRIME ACCESS PACK",
+    "RULEZ",
+    "Raccoon",
+    "Raccoons",
+    "Rad",
+    "Radial",
+    "Radiation Damage",
+    "Radical",
+    "Radicals",
+    "Radius",
+    "Rag",
+    "Rage",
+    "Rags",
+    "Railmaker Honoria",
+    "Rainbow",
+    "Raining",
+    "Rajko",
+    "Ramblin'",
+    "Ranger",
+    "Rank",
+    "Ranova",
+    "Ransom",
+    "Rapid Adaptation",
+    "Rash",
+    "Rasp",
+    "Rasper",
+    "Rattle",
+    "Rattler",
+    "Rattlin'",
+    "RawGritz",
+    "Razor",
+    "ReachingFor",
+    "Ready",
+    "Red",
+    "Red Broth",
+    "Regna",
+    "Reldresal",
+    "Remington",
+    "Remix",
+    "Res",
+    "Resident",
+    "Resolution",
+    "Restart Chapter",
+    "Restart Checkpoint",
+    "Resume",
+    "Retributor Honoria",
+    "Retro",
+    "Reverb",
+    "Reward",
+    "Rhea",
+    "Riddle",
+    "Riddler",
+    "Rider",
+    "Rifle Ammo",
+    "Ringer",
+    "Riser",
+    "Roach",
+    "Roboto",
+    "Roche",
+    "Rocket",
+    "Rocking",
+    "Rockstar",
+    "Romula",
+    "Roots And Fruits",
+    "Rosalind",
+    "Roses From The Abyss",
+    "Rot",
+    "Rotor",
+    "Rotten Lives",
+    "Rotuma",
+    "Rough",
+    "Router",
+    "RoxIn",
+    "Ruby_Rose_",
+    "Rudder",
+    "Rude",
+    "Running Late",
+    "Rusalka",
+    "Rush",
+    "RyanRFC12345",
+    "S",
+    "S1",
+    "S10",
+    "S11",
+    "S12",
+    "S13",
+    "S14",
+    "S15",
+    "S16",
+    "S17",
+    "S18",
+    "S2",
+    "S20",
+    "S21",
+    "S3",
+    "S4",
+    "S5",
+    "S6",
+    "S7",
+    "S8",
+    "S9",
+    "SARYN COMPLETE PACK",
+    "SARYN PRIME ACCESS PACK",
+    "SDL2",
+    "SELLING CENTER",
+    "SINGLE STAFF SKIN",
+    "SMAA",
+    "SSD",
+    "SSGI",
+    "STOPPING POWER",
+    "STRIKER",
+    "STUN GRENADE",
+    "Sad",
+    "Safe",
+    "Saint_Tan",
+    "Salacia",
+    "Salem",
+    "Salt",
+    "Sand",
+    "Sangeru",
+    "Sao",
+    "Sasoka",
+    "Saw",
+    "Saxaphone",
+    "Saxis",
+    "Says",
+    "Scaldra",
+    "Scan",
+    "Scar",
+    "Scars",
+    "Scoper",
+    "Scorn",
+    "Scrapper",
+    "Script",
+    "Scum",
+    "Scylla",
+    "Search",
+    "Search Games",
+    "Sebastian",
+    "Sechura",
+    "Second-Chance",
+    "Secret",
+    "Secrets",
+    "Seguro",
+    "Seimeni",
+    "Selkie",
+    "Sentient Tombs",
+    "Sergeant",
+    "Serial",
+    "Server",
+    "Setebos",
+    "Sevagoth Prime Pack",
+    "Seven",
+    "Shackle",
+    "Shackler",
+    "Shade",
+    "Shadow",
+    "Shadows and Summoning",
+    "Shake",
+    "Shaker",
+    "Shakin'",
+    "Shaking",
+    "Sharpless",
+    "Shax",
+    "Shift",
+    "Shiny",
+    "ShipIt",
+    "Shklovsky",
+    "Shodian",
+    "Shooter",
+    "Short",
+    "Shortened Reach",
+    "Shorts",
+    "Shot",
+    "Shotgun Shells",
+    "Show All Possible Splices",
+    "Shunt",
+    "Shunter",
+    "Shut It Down",
+    "Shuttle",
+    "Side",
+    "Sign",
+    "SignalsStrong",
+    "Sikkenz",
+    "Silent",
+    "Silvanus",
+    "Silver",
+    "SilverBones",
+    "Sinai",
+    "SingTogether",
+    "Singer",
+    "Singing",
+    "Single",
+    "Single Player",
+    "Sinwars",
+    "Sirius vs. Orion Poster",
+    "Six",
+    "Ska",
+    "Skate",
+    "Skeezy",
+    "Skeleton (Prone)",
+    "Skeleton (Sitting)",
+    "Skeleton (Supine)",
+    "Skid",
+    "Skill",
+    "Skillet",
+    "Skills",
+    "Skillz",
+    "Skip",
+    "SkoolOf",
+    "Skull",
+    "Skybreak",
+    "Skyresh",
+    "Slag",
+    "Slagger",
+    "Slam",
+    "Slang",
+    "Slap",
+    "Slapper",
+    "Sleepless",
+    "Sleepy",
+    "Slim",
+    "Slip",
+    "Slow",
+    "Sly",
+    "Smash",
+    "SmashHit",
+    "Smasher",
+    "Smile",
+    "Smiley",
+    "Smilin'",
+    "Smiling",
+    "Smoke",
+    "SmokeyJesus",
+    "Smoking",
+    "Smooth",
+    "Smoothie",
+    "Smudge",
+    "Snake",
+    "Snap",
+    "Snapper",
+    "Snarky",
+    "Sneak",
+    "Sneaky",
+    "Sneekrit",
+    "Sneezing",
+    "Snooper",
+    "Snow",
+    "Soft",
+    "Soldja1Shot1kil",
+    "Solium",
+    "Solo",
+    "Sonic",
+    "Sonicz",
+    "Sorath",
+    "Sound",
+    "Sounder",
+    "Sounds",
+    "Sour",
+    "Source",
+    "Space",
+    "Spam",
+    "Spanner",
+    "Sparga",
+    "Spark",
+    "Sparker",
+    "Speaker",
+    "Speakers",
+    "Spear",
+    "Spicy",
+    "Spider",
+    "Spike",
+    "Spin",
+    "Spinner",
+    "Split",
+    "Spoon",
+    "Sporid",
+    "Spotlight",
+    "Spyware",
+    "Squeak",
+    "Squib",
+    "Squid",
+    "Squirell",
+    "Squirrels",
+    "Sreza",
+    "Stack",
+    "Stained Vespers",
+    "StallordD",
+    "Star",
+    "StarsAlign",
+    "Start Game",
+    "Start Match",
+    "Station",
+    "Stattix",
+    "Status Damage",
+    "Stealth",
+    "Steam",
+    "Steel",
+    "Steel Horizon",
+    "Steel Wolf 1989",
+    "Step",
+    "Stephano",
+    "Stick Layout",
+    "Stickney",
+    "Stinger",
+    "Stink",
+    "Stinker",
+    "Stone",
+    "Stopper",
+    "Storage",
+    "Stories",
+    "Storm",
+    "Straight",
+    "Stribog",
+    "Stringer",
+    "Strings",
+    "StuffedCrust",
+    "Stöfler",
+    "Subtitles",
+    "Suisei",
+    "Summer",
+    "Sump",
+    "Sundae",
+    "Super",
+    "Super Power Closed Beta",
+    "Superstar",
+    "Supply",
+    "Surround",
+    "Susie",
+    "Swamp",
+    "Swamper",
+    "Sweet",
+    "Swift",
+    "Swing",
+    "Sycorax",
+    "Sync",
+    "Synchronizing With Server",
+    "Synth",
+    "Syrtis",
+    "Sys",
+    "Sí",
+    "T",
+    "T1",
+    "T10",
+    "T11",
+    "T12",
+    "T13",
+    "T14",
+    "T2",
+    "T3",
+    "T4",
+    "T5",
+    "T6",
+    "T7",
+    "T8",
+    "T9",
+    "TARGIS PRIME ACCESS PACK",
+    "TEKNA 9MM",
+    "TEKNA BURST",
+    "TEST FORMA",
+    "THERMAL SCOPE",
+    "TINY",
+    "TM",
+    "TOKAREV SRD",
+    "TRINITY COMPLETE PACK",
+    "TRINITY PRIME ACCESS PACK",
+    "TRIO SYANDANA PACK",
+    "Tab",
+    "TalkTo",
+    "Tall",
+    "Tally",
+    "Tamu",
+    "Tank",
+    "Tanking",
+    "Tap",
+    "Tape",
+    "Tapes",
+    "Tapper",
+    "Taranis",
+    "Taubound Honoria",
+    "Taubound Sigil",
+    "Taveuni",
+    "Tax",
+    "TayTay",
+    "Tazmanyak",
+    "Tcc",
+    "Team 1",
+    "Team 2",
+    "Tears",
+    "Tech",
+    "Technocyte Coda",
+    "Teeth",
+    "Telephone",
+    "Telesto",
+    "Telluric",
+    "Ten",
+    "Tender",
+    "Tendou_Souji",
+    "TennoCon",
+    "TennoLive",
+    "Terminus",
+    "Terrorem",
+    "Teshub",
+    "Tessera",
+    "Test",
+    "Testudo",
+    "Tethra",
+    "Tethra Jahrak",
+    "Tethys",
+    "Text",
+    "Thalassa",
+    "Tharsis",
+    "ThatAlaskanDude",
+    "ThatWay",
+    "ThatsMy",
+    "The",
+    "The Awakening",
+    "The Call",
+    "The Cardinal Calls",
+    "The Circle",
+    "The Creeping Dark",
+    "The Devil Is Home",
+    "The Evolution Engine",
+    "The Final Verdict Honoria",
+    "The Fragmented",
+    "The Great Despair",
+    "The Haunted Honoria",
+    "The Master Returns",
+    "The Moon Killer Honoria",
+    "The Offering",
+    "The Old Blood",
+    "The Profit",
+    "The Second Dream",
+    "The Unremembered",
+    "The Weave",
+    "The Witches Lair",
+    "TheGreatest",
+    "TheHand",
+    "ThePram",
+    "TheUnsung",
+    "Thebe",
+    "Themisto",
+    "Thermo",
+    "Thick",
+    "Thin",
+    "Thing",
+    "Thinking",
+    "ThisIs",
+    "Thon",
+    "Thrash",
+    "Thrasher",
+    "Thread",
+    "Three",
+    "Thrilla",
+    "Throughline",
+    "Throw",
+    "Thump",
+    "Thumper",
+    "Thunder",
+    "Tiamat",
+    "Tikal",
+    "Tikoloshe",
+    "Time",
+    "Timeline",
+    "Tip",
+    "Tipper",
+    "Titan",
+    "Titania",
+    "Tiwaz",
+    "Tmb",
+    "To-Lyfe",
+    "Tobiah",
+    "Todd",
+    "Tolstoj",
+    "Tombstone",
+    "Tomicycle",
+    "Tonight",
+    "Tools of War",
+    "Tooth",
+    "Toppings",
+    "Totally",
+    "Tough",
+    "Tour",
+    "TourBus",
+    "Town",
+    "Trace",
+    "Track",
+    "Tracker",
+    "Tracksuit",
+    "Trash",
+    "TrashX",
+    "Tread",
+    "Treads",
+    "Treble",
+    "Trigger",
+    "Trinculo",
+    "Trippin",
+    "Triton",
+    "Trojan",
+    "Trout",
+    "Trouts",
+    "True",
+    "Truth",
+    "Tubular",
+    "Tumble",
+    "Turbo",
+    "Twist",
+    "Twitch",
+    "Two",
+    "Tycho",
+    "U",
+    "U-No-It",
+    "UCan",
+    "UEver",
+    "ULTRA SHOPPA",
+    "UMP",
+    "UPGRADE SLOTS",
+    "Uh",
+    "Ukko",
+    "Ultimate",
+    "Ultor",
+    "Ultra",
+    "Umbriel",
+    "Unbound",
+    "Unda",
+    "Undead",
+    "Undine",
+    "Universe",
+    "UntilThe",
+    "UpWith",
+    "Uptown",
+    "Ur",
+    "V",
+    "V Prime",
+    "V1",
+    "V10",
+    "V11",
+    "V12",
+    "V13",
+    "V14",
+    "V15",
+    "V16",
+    "V17",
+    "V2",
+    "V3",
+    "V4",
+    "V5",
+    "V6",
+    "V7",
+    "V8",
+    "V9",
+    "VALKYR COMPLETE PACK",
+    "VALKYR PRIME ACCESS PACK",
+    "VAUBAN PRIME ACCESS PACK",
+    "VEKESK MICRO",
+    "VERYYES",
+    "VICTORY REWARD PACK",
+    "VIP",
+    "VIRTUE REWARD PACK",
+    "VOLT PRIME ACCESS PACK",
+    "VX CARBINE",
+    "Va",
+    "Vac",
+    "Vacis Amp Skin",
+    "Valac",
+    "Valefor",
+    "Valkyr Floof",
+    "Vallis",
+    "Valve",
+    "Vandal",
+    "Vapor",
+    "Vapor Trails",
+    "Varro",
+    "Vashtav",
+    "Vay Hek's Nightmare Honoria",
+    "Vedic",
+    "Veles",
+    "Venera",
+    "Venom",
+    "Vent",
+    "Verdi",
+    "Veryk",
+    "Vesper",
+    "Vesta",
+    "Vibration",
+    "Vidyanoi",
+    "Viggorrah",
+    "Ville",
+    "Vinyl",
+    "Viper",
+    "Viral Damage",
+    "Virus",
+    "Vitamin",
+    "Viver",
+    "Vodyanoi",
+    "Voice Volume",
+    "Void",
+    "Volley Duration",
+    "Vor's Prize",
+    "Vorbis",
+    "Voruna Floof",
+    "Voruna Prime Massacre Glyph",
+    "Vulkan Memory Allocator",
+    "W",
+    "W1",
+    "W2",
+    "W3",
+    "W4",
+    "W5",
+    "W6",
+    "WARFRAME: 1999",
+    "WAZZUP",
+    "WEGAME EMBLEM",
+    "WEGAME SIGIL",
+    "WUKONG PACK",
+    "WYRMIUS",
+    "Wacky",
+    "Wahiba",
+    "Walrus",
+    "Wanderin'",
+    "Wanted",
+    "War",
+    "Warez",
+    "Warframe",
+    "Warframe Save Data",
+    "Wash",
+    "Watch",
+    "Water",
+    "Wax",
+    "We All Lift Together",
+    "WeAre",
+    "WeShould",
+    "Weak Point",
+    "Weak Point Critical Chance",
+    "Weak Point Damage",
+    "Weak Point Multiplier",
+    "Weapon Research",
+    "Web",
+    "Weed",
+    "Weird",
+    "Well",
+    "Wendell",
+    "WestSide",
+    "Whaaaat",
+    "Whale",
+    "Whales",
+    "What",
+    "What Is My Fate",
+    "WhatIs",
+    "WhatTimeIs",
+    "WhatsUpWith",
+    "Wheel",
+    "Wheels",
+    "WhereIs",
+    "WheresThe",
+    "Whisker",
+    "Whistlin'",
+    "WhoWants",
+    "Why",
+    "Wicked",
+    "Wide",
+    "Wild",
+    "Winchester",
+    "Wings",
+    "Wings Of War",
+    "WingsOf",
+    "Winter",
+    "Wintermute667",
+    "Wire",
+    "Wise",
+    "Woofer",
+    "Woogie",
+    "Word2Ur",
+    "Words",
+    "Workin",
+    "Workout",
+    "WorksOn",
+    "World",
+    "Worm",
+    "Wrench",
+    "Wretched Things",
+    "Wynn",
+    "Wyrmius",
+    "X",
+    "X1",
+    "X2",
+    "XArcticPegasus",
+    "X_X;;;",
+    "XandyPants",
+    "Xbox 360",
+    "Xbox One",
+    "Xini",
+    "Xylia",
+    "Y",
+    "Y1",
+    "Y2",
+    "Y2k",
+    "Y3",
+    "YaSox",
+    "Yam",
+    "Yara Jeliira",
+    "Yellow",
+    "Yemaja",
+    "You",
+    "Youngblood",
+    "Your",
+    "Your Creator",
+    "Your New Mission",
+    "Yursa",
+    "Yuvan Peak Scene",
+    "Yuvarium",
+    "Z",
+    "Z1",
+    "Z10",
+    "Z11",
+    "Z2",
+    "Z3",
+    "Z4",
+    "Z5",
+    "Z6",
+    "Z7",
+    "Z8",
+    "Z9",
+    "ZEPHYR PRIME ACCESS PACK",
+    "ZStandard",
+    "Zabala",
+    "Zagan",
+    "Zap",
+    "Zeipel",
+    "Zeke",
+    "Zeke.Onlyne.Virus",
+    "Zero",
+    "Zerohunt",
+    "Zeta",
+    "Zeugma",
+    "Zioa Vessel Glyph",
+    "Zip",
+    "Zit",
+    "Zlib",
+    "Zombie",
+    "Zone",
+    "[DEV] Add Light",
+    "[DEV] Do Trick",
+    "[PH]",
+    "[PH] - Thumper Bounty",
+    "[PH] ACT BOOSTER",
+    "[PH] ACTIVATING OPLINK",
+    "[PH] AH ALLY LEADER",
+    "[PH] ATHENAEUM DESC",
+    "[PH] AVAILABLE",
+    "[PH] Abductor",
+    "[PH] Abductor Desc",
+    "[PH] Adult B",
+    "[PH] Adult D",
+    "[PH] Adult I",
+    "[PH] Adult Infested",
+    "[PH] Adult L",
+    "[PH] Adult N",
+    "[PH] Adult New C",
+    "[PH] Adult O",
+    "[PH] Advantage Melee",
+    "[PH] Advantage Pistol",
+    "[PH] Advantage Rifle",
+    "[PH] Advantage Shotgun",
+    "[PH] Afterburner",
+    "[PH] Airblast",
+    "[PH] Alliance Gilded Sigil",
+    "[PH] Ammo Link",
+    "[PH] Ammo Link Desc",
+    "[PH] Archer",
+    "[PH] Archer Desc",
+    "[PH] Archer Lustratus Desc",
+    "[PH] Archon Chest Plate",
+    "[PH] Archon Leg Plates",
+    "[PH] Archon Shoulder Plates",
+    "[PH] Archon Trident Combo",
+    "[PH] Artillery - Completed",
+    "[PH] Ash Sister",
+    "[PH] Ash Sister Desc",
+    "[PH] Ash Summoner Desc",
+    "[PH] Ash Trap Activator",
+    "[PH] Ash Vendor",
+    "[PH] Auto Detonate Timer",
+    "[PH] Avoid the Lava",
+    "[PH] Aw Configuration",
+    "[PH] Aw Vendor",
+    "[PH] BEACON IGNORED",
+    "[PH] BEACON RECEIVED",
+    "[PH] BEACON SENT",
+    "[PH] Ballistic Hornet Strike",
+    "[PH] Ballistic Point Blank",
+    "[PH] Ballistic Serration",
+    "[PH] Bayonet Jump Attacks",
+    "[PH] Bed",
+    "[PH] Blinding Pulse",
+    "[PH] BlinkSlam",
+    "[PH] BlinkSlam Desc",
+    "[PH] Bloomhead Energy",
+    "[PH] Boss Desc",
+    "[PH] Boss Name",
+    "[PH] Bow Cautious Shot",
+    "[PH] Branch C Defaults",
+    "[PH] CLUE LIST",
+    "[PH] COUNTERMEASURE AMMO",
+    "[PH] CRTShieldBurst",
+    "[PH] CRTShieldBurst Desc",
+    "[PH] CS ALLY",
+    "[PH] CS ALLY LEADER",
+    "[PH] Carrier",
+    "[PH] Carrying",
+    "[PH] Catenach Desc",
+    "[PH] Cephalon Omega",
+    "[PH] Chandelier (Large)",
+    "[PH] Chandelier (Orb)",
+    "[PH] Chandelier (Small)",
+    "[PH] Chat",
+    "[PH] Chem Strike Caustic",
+    "[PH] Chem Strike Firewall",
+    "[PH] Chem Strike Surge",
+    "[PH] Christmas Goalie",
+    "[PH] Christmas Maggot",
+    "[PH] Christmas Moa",
+    "[PH] Christmas Nutcracker",
+    "[PH] Clear Neighborhood",
+    "[PH] Consecutive Pressure Point",
+    "[PH] Convergence Evoker",
+    "[PH] Convoy Drone Desc",
+    "[PH] Corpus Moa Articula",
+    "[PH] Corpus Scrambus Articula",
+    "[PH] Corpus Train Car",
+    "[PH] Corpus Train Engine",
+    "[PH] Corrupted Corpus Desc",
+    "[PH] Crate",
+    "[PH] Crewship Booster",
+    "[PH] Crewship Trooper Desc",
+    "[PH] Criminogenic",
+    "[PH] Cropped 4",
+    "[PH] Cursors",
+    "[PH] CustomLotus",
+    "[PH] Cuthol Aquarium Fish",
+    "[PH] DEFEND THE TRAIN",
+    "[PH] Daily Special Aw",
+    "[PH] Dandy Addict",
+    "[PH] Dandy Addict Desc",
+    "[PH] Dargyn",
+    "[PH] Defend",
+    "[PH] Defend the Engineer",
+    "[PH] Defend the Vehicle",
+    "[PH] Defense Stage Completed",
+    "[PH] Deposit",
+    "[PH] Deposit Threshold",
+    "[PH] Derf Anyo",
+    "[PH] Desc",
+    "[PH] Description",
+    "[PH] Desk Ornament",
+    "[PH] Destroy Shield Generator",
+    "[PH] Disable The Station",
+    "[PH] Divine Spears Augment",
+    "[PH] Dragon Breath",
+    "[PH] Dragon Breath Description",
+    "[PH] Duo-Solo Turret",
+    "[PH] Duviri Target Dummy",
+    "[PH] EMP Countermeasure",
+    "[PH] ENGINE A Description",
+    "[PH] ENGINE B Description",
+    "[PH] ENGINE C Description",
+    "[PH] ENGINE D Description",
+    "[PH] ENGINE E Description",
+    "[PH] ENGINE F Description",
+    "[PH] ENGINE G Description",
+    "[PH] EVIDENCE ANALYSIS",
+    "[PH] Eidolon Trapping A",
+    "[PH] Eidolon Trapping B",
+    "[PH] Eidolon Trapping C",
+    "[PH] Eidolon Trapping D",
+    "[PH] Eidolon Trapping E",
+    "[PH] Electricity Damage",
+    "[PH] Elemental Redirection",
+    "[PH] Endo Boss",
+    "[PH] Engine",
+    "[PH] Engine A",
+    "[PH] Engine B",
+    "[PH] Engine C",
+    "[PH] Engine D",
+    "[PH] Engine E",
+    "[PH] Engine F",
+    "[PH] Engine G",
+    "[PH] Enter Brysko",
+    "[PH] Entrati Artifact",
+    "[PH] Entrati Artifact Description",
+    "[PH] Erra Sentient Description",
+    "[PH] Excalibur 1999 Helmet",
+    "[PH] Exposed Melee",
+    "[PH] Exposed Pistol",
+    "[PH] Exposed Rifle",
+    "[PH] Exposed Shotgun",
+    "[PH] Extended Infested Syringe",
+    "[PH] FIND FATHER DESC",
+    "[PH] FIND FATHER NAME",
+    "[PH] FX SET",
+    "[PH] Find the Vehicle",
+    "[PH] Flak Cannon",
+    "[PH] Fleeing Maw",
+    "[PH] Fleeing Maw Desc",
+    "[PH] Flux Feedback",
+    "[PH] Focus Upgrade Resource",
+    "[PH] Follow",
+    "[PH] Forest",
+    "[PH] Forge",
+    "[PH] Forward Hull Weave",
+    "[PH] Frumentarius 1999 Helmet",
+    "[PH] Functional Entertechment Unit",
+    "[PH] Fuze",
+    "[PH] GENERATOR A Description",
+    "[PH] GENERATOR B Description",
+    "[PH] GENERATOR C Description",
+    "[PH] GENERATOR D Description",
+    "[PH] GENERATOR E Description",
+    "[PH] GENERATOR F Description",
+    "[PH] GENERATOR GDescription",
+    "[PH] GET ACT BOOSTERS",
+    "[PH] Garuda Vendor",
+    "[PH] Generator",
+    "[PH] Generator A",
+    "[PH] Generator B",
+    "[PH] Generator C",
+    "[PH] Generator D",
+    "[PH] Generator E",
+    "[PH] Generator F",
+    "[PH] Generator G",
+    "[PH] Generic Fish Bait",
+    "[PH] Ghoul Fragment N",
+    "[PH] Ghoul Fragment O",
+    "[PH] Ghoul Fragment P",
+    "[PH] Glacial Outburst",
+    "[PH] Glass Shards (Linear)",
+    "[PH] Glass Shards (Radial)",
+    "[PH] Glitch Ephemera",
+    "[PH] Glyphed Alliance Sigil",
+    "[PH] Golden Gun",
+    "[PH] Goopola Aquarium Fish",
+    "[PH] Gravity Shot",
+    "[PH] Grineer Commander Articula",
+    "[PH] Grineer Comms",
+    "[PH] Grineer Guardsman Articula",
+    "[PH] Grineer Trooper Articula",
+    "[PH] GrnQueenGuardDualPistols",
+    "[PH] Gulphagor Desc",
+    "[PH] Hair A",
+    "[PH] Hair B",
+    "[PH] Harpen Gear",
+    "[PH] HeadChargingAttack",
+    "[PH] HeadChargingAttack Desc",
+    "[PH] Health Regeneration Potion",
+    "[PH] Heavy Archgun Unit",
+    "[PH] Heavy Attack Damage",
+    "[PH] Hellion RPG",
+    "[PH] Hellion RPG Ult",
+    "[PH] High Rollers",
+    "[PH] HoloEvasion",
+    "[PH] HoloEvasion Desc",
+    "[PH] HolographicIllusionRing",
+    "[PH] HolographicIllusionRing Desc",
+    "[PH] Horse Eidolon Ephemera",
+    "[PH] Horse Smoky Ephemera",
+    "[PH] Huitzilin Ephemera",
+    "[PH] INTRO SUBTITLES 003",
+    "[PH] Idle",
+    "[PH] Ignite",
+    "[PH] Immolation Dash",
+    "[PH] Index Emblem",
+    "[PH] Infested Ancient Articula",
+    "[PH] Infested Charger Articula",
+    "[PH] Infested Crawler Articula",
+    "[PH] Infested Fish B",
+    "[PH] Infested Gap Closer",
+    "[PH] Infested Space Latcher",
+    "[PH] InfestedLichMagnetize",
+    "[PH] InfestedLichMagnetize Desc",
+    "[PH] Interdictor",
+    "[PH] Interdictor Desc",
+    "[PH] Ivara Navigator Fx",
+    "[PH] Ivara Prowl Fx",
+    "[PH] Ivara Quiver Fx",
+    "[PH] Jeldrin Desc",
+    "[PH] Jetpack Leaper",
+    "[PH] Jetpack Leaper Desc",
+    "[PH] Joyride",
+    "[PH] Jumpiter Basilisk",
+    "[PH] Jupiter Harpi",
+    "[PH] Jupiter Weaver",
+    "[PH] KNOWN FACTS LIST",
+    "[PH] Karkina Aquarium Fish",
+    "[PH] Kill Enemies",
+    "[PH] Kuva Harvest",
+    "[PH] Kuva Path",
+    "[PH] LNY Horse Helmet",
+    "[PH] LOTUS",
+    "[PH] Lake",
+    "[PH] Las Backpack",
+    "[PH] LaserDiscProj",
+    "[PH] LaserDiscProj Desc",
+    "[PH] Latching Maw Desc",
+    "[PH] Leggings Adult B",
+    "[PH] Leggings Adult D",
+    "[PH] Leggings Adult I",
+    "[PH] Leggings Adult Infested",
+    "[PH] Leggings Adult L",
+    "[PH] Leggings Adult N",
+    "[PH] Leggings Adult O",
+    "[PH] Less Impact",
+    "[PH] Less Puncture",
+    "[PH] Less Slash",
+    "[PH] LichParasiticConsumption",
+    "[PH] LichParasiticConsumption Desc",
+    "[PH] LichRhinoCharge",
+    "[PH] LichRhinoCharge Desc",
+    "[PH] Link Completed",
+    "[PH] Link Established",
+    "[PH] Loveseat",
+    "[PH] Lunaro Sugatra",
+    "[PH] MECH ARMOR BOOST",
+    "[PH] MECH DAMAGE BOOST",
+    "[PH] MECH SPEED BOOST",
+    "[PH] MINING AUTO LASER",
+    "[PH] MOBILITY POINTS",
+    "[PH] Mag 1999 Helmet",
+    "[PH] MagneticManipulation",
+    "[PH] MagneticManipulation Desc",
+    "[PH] Marie Aura Farming",
+    "[PH] Marie Companion Sync",
+    "[PH] Marie Empowered Ammo",
+    "[PH] Marie Eternal Motes",
+    "[PH] Marie Floor Supercharge",
+    "[PH] Marie Flying Fortress",
+    "[PH] Marie Hardening Shield",
+    "[PH] Marie Invisible Flight",
+    "[PH] Marie Regeneration",
+    "[PH] Marie Revive",
+    "[PH] Marie Shielding Roll",
+    "[PH] Match Flight",
+    "[PH] Match Flight Desc",
+    "[PH] Medic",
+    "[PH] Medic Desc",
+    "[PH] Medicant Addict",
+    "[PH] Medicant Addict Desc",
+    "[PH] Meet the Agent",
+    "[PH] Mesa Peacemaker Fx",
+    "[PH] MindhackMusic",
+    "[PH] MindhackMusic Desc",
+    "[PH] Moab",
+    "[PH] Mocking Defiance",
+    "[PH] Modular AW Vendor",
+    "[PH] Modular AWs",
+    "[PH] Mountain",
+    "[PH] Mounted Dax",
+    "[PH] Mounted Dax Desc",
+    "[PH] Move On",
+    "[PH] Munit Gear",
+    "[PH] NL ALLY",
+    "[PH] NL ALLY LEADER",
+    "[PH] Name",
+    "[PH] Name Your Aw",
+    "[PH] Narmer Veil Hood",
+    "[PH] Ninja",
+    "[PH] Ninja Desc",
+    "[PH] Nukor Inflation",
+    "[PH] Nyx 1999 Helmet",
+    "[PH] OUTRO SUBTITLES 003",
+    "[PH] OUTRO SUBTITLES 004",
+    "[PH] OUTRO SUBTITLES 005",
+    "[PH] Oasis",
+    "[PH] Old World Excavation",
+    "[PH] Operations Ceramic Dagger",
+    "[PH] Orion Chassis",
+    "[PH] Orion Neuroptics",
+    "[PH] Orion Systems",
+    "[PH] Orokin Fish B",
+    "[PH] Orokin Maw Desc",
+    "[PH] Ottoman",
+    "[PH] PS ALLY",
+    "[PH] PS ALLY LEADER",
+    "[PH] Parry Angle",
+    "[PH] Perita",
+    "[PH] Pig Pen",
+    "[PH] Pilot",
+    "[PH] Platformer",
+    "[PH] Platformer Score",
+    "[PH] Podium",
+    "[PH] Points Collected",
+    "[PH] Predasite Parts",
+    "[PH] Prime Decorations",
+    "[PH] Prism Augment",
+    "[PH] Projectile Damage",
+    "[PH] Protect the Bloomhead",
+    "[PH] Protection",
+    "[PH] Proximity Fuse",
+    "[PH] Pulse Spear",
+    "[PH] Quick Combo",
+    "[PH] RV ALLY",
+    "[PH] RV ALLY LEADER",
+    "[PH] Racket",
+    "[PH] Racket Macguffin",
+    "[PH] Racket Protection",
+    "[PH] Rampart",
+    "[PH] Ranged Mounted Desc",
+    "[PH] Ranged Mounted Unit",
+    "[PH] Reach the Docks",
+    "[PH] Recovered Spectre Shotgun",
+    "[PH] Recovered Tekna Pistol",
+    "[PH] Regenerate On Headshot",
+    "[PH] Reinforced Healing",
+    "[PH] Relay Reconstruction Banner",
+    "[PH] Rename Your Aw",
+    "[PH] Repair",
+    "[PH] Rhino Charge Fx",
+    "[PH] Rhino Roar Fx",
+    "[PH] Rhino Stomp Fx",
+    "[PH] Rime Rounds",
+    "[PH] Ring",
+    "[PH] Ripper Bullets",
+    "[PH] Rubber Duck",
+    "[PH] Rune Emptiness",
+    "[PH] Ryoku Ally Desc",
+    "[PH] Ryoku's Tactical Supplies",
+    "[PH] SEASON ACT BOOSTER",
+    "[PH] SEASON BOOSTER",
+    "[PH] SHIELD REDIRECTION",
+    "[PH] SLASH BUFF",
+    "[PH] SM ALLY",
+    "[PH] SM ALLY LEADER",
+    "[PH] SOLVE PUZZLE",
+    "[PH] SWARM",
+    "[PH] Screen (Privacy)",
+    "[PH] Secure ",
+    "[PH] Seismic Data Coordinates",
+    "[PH] Sentient Artifact",
+    "[PH] Sentient Conregrowthstraight01",
+    "[PH] Sentient Contransitionstraight01",
+    "[PH] Sentient Exit01",
+    "[PH] Sentient Exit02",
+    "[PH] Sentient Intdock",
+    "[PH] Sentient Intecclesia",
+    "[PH] Sentient Intmallofgiants",
+    "[PH] Sentient Intsacrilege",
+    "[PH] Sentient Intunderpass",
+    "[PH] Sentient Pistol",
+    "[PH] Sentient Spawndead",
+    "[PH] Sentient Spawninnerdepths",
+    "[PH] Sentient Spear",
+    "[PH] Sentinel Shield Aura",
+    "[PH] Shards",
+    "[PH] SharedFate",
+    "[PH] SharedFate Desc",
+    "[PH] Shockwave Rounds",
+    "[PH] Sicarus Proto Skin",
+    "[PH] Slam Damage",
+    "[PH] Slamwave",
+    "[PH] Sleep Peculiar",
+    "[PH] Sleeping",
+    "[PH] Solarium",
+    "[PH] Solarium Description",
+    "[PH] Solo-Duo Turret",
+    "[PH] Speed Holster",
+    "[PH] Spinal Tap",
+    "[PH] Splitter Set Bonus",
+    "[PH] Spray and Pray",
+    "[PH] Stabby Toughie",
+    "[PH] Sticker",
+    "[PH] Stool",
+    "[PH] Su Harpoon Launcher",
+    "[PH] Suicide Mutalist",
+    "[PH] SummonTentacles",
+    "[PH] SummonTentacles Desc",
+    "[PH] Support Ward Augment",
+    "[PH] Survive",
+    "[PH] Swordsman",
+    "[PH] Swordsman Desc",
+    "[PH] Swordswoman",
+    "[PH] Swordswoman Desc",
+    "[PH] TECHROT CLOUD",
+    "[PH] THEIR REWARD",
+    "[PH] THRAX FOOTMAN",
+    "[PH] Table",
+    "[PH] Table (Round)",
+    "[PH] Tau Aerolyst ",
+    "[PH] Tau Aerolyst Desc",
+    "[PH] Tau Alkonost",
+    "[PH] Tau Alkonost Desc",
+    "[PH] Tau Brachiolyst",
+    "[PH] Tau Brachiolyst Desc",
+    "[PH] Tau Clotholyst",
+    "[PH] Tau Clotholyst Desc",
+    "[PH] Tau Esoptrolyst ",
+    "[PH] Tau Esoptrolyst Name",
+    "[PH] Tau Fornax Quest",
+    "[PH] Tau Lobalyst",
+    "[PH] Tau Lobalyst Desc",
+    "[PH] Tau Raknolyst",
+    "[PH] Tau Russian Roulette",
+    "[PH] Tau Taknolyst Desc",
+    "[PH] Tau Vomvalyst",
+    "[PH] Tau Vomvalyst Desc",
+    "[PH] Tau Vulchie",
+    "[PH] Tau Vulchie Desc",
+    "[PH] Tau in Sight",
+    "[PH] Technorot",
+    "[PH] Technorot Desc",
+    "[PH] Television Ephemera",
+    "[PH] Teshin Nikana",
+    "[PH] The Twins Desc",
+    "[PH] Thief",
+    "[PH] Thumper Bronze Trophy",
+    "[PH] Thumper Crystal",
+    "[PH] Thumper Crystal Trophy",
+    "[PH] Thumper Event Emblem",
+    "[PH] Thumper Gold Trophy",
+    "[PH] Thumper Silver Trophy",
+    "[PH] Titania Shrine Scene",
+    "[PH] Tridentia",
+    "[PH] Trinity 1999 Helmet",
+    "[PH] Ultimate Invisibility",
+    "[PH] Unified New",
+    "[PH] Upgrades",
+    "[PH] Vampire Melee",
+    "[PH] Vampire Pistol",
+    "[PH] Vampire Rifle",
+    "[PH] Vampire Shotgun",
+    "[PH] Vehicle Repaired",
+    "[PH] Vena's Hoard",
+    "[PH] Vessel",
+    "[PH] Vessel Smash",
+    "[PH] Volt 1999 Helmet",
+    "[PH] Volt Discharge Fx",
+    "[PH] Volt Shock Fx",
+    "[PH] Volt Speed Fx",
+    "[PH] Vulpaphyla Parts",
+    "[PH] Vythelas Desc",
+    "[PH] WAR ASSETS",
+    "[PH] WAVE COMPLETE",
+    "[PH] WEEKLY ACT BOOSTER",
+    "[PH] WING A Description",
+    "[PH] WING B Description",
+    "[PH] WING C Description",
+    "[PH] WING D Description",
+    "[PH] WING E Description",
+    "[PH] WING F Description",
+    "[PH] WING G Description",
+    "[PH] Wake the Bloomhead",
+    "[PH] Weapon Stat Launcher",
+    "[PH] Weapon Stat Melee",
+    "[PH] Weapon Stat Pistol",
+    "[PH] Weapon Stat Rifle",
+    "[PH] Weapon Stat Shotgun",
+    "[PH] Weapon Stat Sniper",
+    "[PH] Wing A",
+    "[PH] Wing B",
+    "[PH] Wing C",
+    "[PH] Wing D",
+    "[PH] Wing E",
+    "[PH] Wing F",
+    "[PH] Wing G",
+    "[PH] Wings",
+    "[PH] YOU'RE TOO SLOW",
+    "[PH] YOUR REWARD",
+    "[PH] Zariman Access Panel",
+    "[PH] Zariman Aerator ",
+    "[PH] Zariman Bowl",
+    "[PH] Zariman Cabin Bookshelf",
+    "[PH] Zariman Cabin Cabinets",
+    "[PH] Zariman Console",
+    "[PH] Zariman Couch",
+    "[PH] Zariman Dresser",
+    "[PH] Zariman Dresser (Tall)",
+    "[PH] Zariman Flood Light",
+    "[PH] Zariman Handbag",
+    "[PH] Zariman Holo Display",
+    "[PH] Zariman Kitchen Cabinets",
+    "[PH] Zariman Light Sconce",
+    "[PH] Zariman Lockers",
+    "[PH] Zariman Magnetic Lift",
+    "[PH] Zariman Matress",
+    "[PH] Zariman Pillow",
+    "[PH] Zariman Planter (Slim)",
+    "[PH] Zariman Planter (Small)",
+    "[PH] Zariman Railing (Straight)",
+    "[PH] Zariman Screen (Damaged)",
+    "[PH] Zariman Statue Base",
+    "[PH] Zariman Statue Ship",
+    "[PH] Zariman Wall Clock",
+    "[PH] Zarman Classroom Chair",
+    "[PH] Zoff Desc",
+    "[PH]Anarch Firbolg Descripton",
+    "[PH]AnemoneFingerPrint",
+    "[PH]Archon Dual Dagger Combo",
+    "[PH]Archon Whip Combo",
+    "[PH]Climb The Cannon",
+    "[PH]Compiled Seismic Data",
+    "[PH]Corpus Scout Ship",
+    "[PH]Finish It",
+    "[PH]Fragmented Seismic Data",
+    "[PH]Ghost Ship Cannon",
+    "[PH]Ghost Ship Cannon Description",
+    "[PH]Go To Mission",
+    "[PH]Kahl Earth",
+    "[PH]Lunaro Goal Ornament",
+    "[PH]Martial Conduit",
+    "[PH]Old World Rusty Pistol",
+    "[PH]Old World Rusty Revolver",
+    "[PH]Old World Rusty Shotgun",
+    "[PH]Old World Rusty Smg",
+    "[PH]Old World Salvage",
+    "[PH]Pistol Ammo Crate",
+    "[PH]Rifle Ammo Crate",
+    "[PH]Ruthless Pressure",
+    "[PH]Shell Ammo Crate",
+    "[PH]Shoot Down Cannon Volley",
+    "[PH]Sniper Ammo Crate",
+    "[PH]Somantic Orb",
+    "[PH]Thumper Hunt",
+    "[PH]Venus Landscape",
+    "[PH} Archer Lustratus",
+    "^_^",
+    "__________",
+    "°",
+    "…",
+    "∞",
+    "�  □",
+]
+
 [name]
 " (OFF)" = "(ВЫКЛ)"
 " (ON)" = "(ВКЛ)"
@@ -195,6 +3348,7 @@
 "+1 Intrinsic" = "+1 модуляр"
 "+1 KILL CODE" = "+1 КОД УНИЧТОЖЕНИЯ"
 "+1 OUTSIDE ZONE" = "+1 ДАЛЬНИЙ БРОСОК"
+"+1 Random Trait" = "+1 случайная характеристика"
 "+1 UNSTABLE LUNARO" = "+1 ЗАРЯЖЕННЫЙ МЯЧ"
 "+100 Overshield" = "+100 Сверхщитов"
 "+100% Rifle Ammo Efficiency" = "+100% к эффективности винтовочных боеприпасов"
@@ -510,10 +3664,12 @@ ACTIVATE = "АКТИВИРОВАТЬ"
 "ACTIVATE THE INJECTOR" = "АКТИВИРУЙТЕ ИНЪЕКТОР"
 "ACTIVATE THE TRAP" = "АКТИВИРУЙТЕ ЛОВУШКУ"
 "ACTIVATE TRAP" = "АКТИВИРОВАТЬ ЛОВУШКУ"
+"ACTIVATE VOID PENDULA" = "АКТИВИРУЙТЕ МАЯТНИК БЕЗДНЫ"
 "ACTIVE CONFLICT" = "АКТИВНЫЙ КОНФЛИКТ"
 "ACTIVE PET" = "ТЕКУЩИЙ ПИТОМЕЦ"
 ACTS = "ДЕЯНИЯ"
 "ADD COMPONENTS" = "ДОБАВИТЬ КОМПОНЕНТЫ"
+"ADD CRYOBELL" = "ДОБАВИТЬ КРИОКОЛОКОЛ"
 "ADD FILTER" = "ДОБАВИТЬ ФИЛЬТР"
 "ADD FRIEND" = "ДОБАВИТЬ В ДРУЗЬЯ"
 "ADD ITEMS TO TRADE" = "ДОБАВИТЬ ВЕЩИ К ПРЕДЛОЖЕНИЮ"
@@ -739,7 +3895,6 @@ AUXILIARY = "ВСПОМОГАТЕЛЬНОЕ"
 "AVAILABLE AUGMENTS" = "ДОСТУПНЫЕ УЛУЧШЕНИЯ"
 "AVAILABLE SESSIONS" = "ДОСТУПНЫЕ СЕССИИ"
 "AVALANCHE OFFENSIVE" = "АТАКУЮЩАЯ ЛАВИНА"
-"AVICHAEA ECHO-LURE" = "ЭХО-МАНОК ДЛЯ АВИЧЕЯ"
 "AVICHAEA PHEROMONE GLAND" = "ФЕРОМОННАЯ ЖЕЛЕЗА АВИЧЕЯ"
 "AVICHAEA SCAT" = "ПОМЕТ АВИЧЕЯ"
 "AVICHAEA TRAIL START POINT" = "СЛЕД АВИЧЕЯ: СТАРТОВАЯ ТОЧКА"
@@ -933,7 +4088,6 @@ Adept = "Адепт"
 Adis = "Адис"
 Adjunct = "адъюнкт,"
 "Adjust HUD Margins" = "Настройка размеров HUD"
-"Adjust Motion Controls" = "Скорректировать контроль движений"
 "Adlet Core" = "Ядро: Адлет"
 Administer = "Распределить"
 "Administer the Cortichrome" = "Распределите кортихром"
@@ -1143,6 +4297,10 @@ Aksomati = "Аксомати"
 "Aksomati Prime Barrel" = "Аксомати Прайм: Ствол"
 "Aksomati Prime Link" = "Аксомати Прайм: Связь"
 "Aksomati Prime Receiver" = "Аксомати Прайм: Приёмник"
+Aksondol = "Аксондол"
+"Aksondol Barrel" = "Ствол Аксондол"
+"Aksondol Link" = "Связь Аксондол"
+"Aksondol Receiver" = "Приёмник Аксондол"
 Akstiletto = "Акстилетто"
 "Akstiletto Conclave Skin" = "Скин Акстилетто: Конклав"
 "Akstiletto Prime" = "Акстилетто Прайм"
@@ -1207,6 +4365,7 @@ All = "Все"
 "All Mad Here Glyph" = "Глиф: Здесь Все Безумны"
 "All Miracles Require Sacrifice" = "Каждое чудо требует жертвы"
 "All Odds" = "Все нечётные"
+"All Possible Evolutions" = "Все возможные эволюции"
 "All Reds" = "Все красные"
 "All for One" = "Все за одного"
 "All-Purpose Antitoxin" = "Универсальный антитоксин"
@@ -1354,6 +4513,7 @@ Amir = "Амир"
 "Amir Pixel Glyph" = "Глиф: Пиксельный Амир"
 "Amir's Hairstyle" = "Причёска: Амир"
 "Amir's Shades" = "Окуляры Амира"
+"Amir's Shockwave" = "Ударная Волна Амира"
 "Amir's Shockwave Cred" = "Доверие: Ударная Волна Амира"
 Amiracle = "Амирчудо"
 "Ammo Case" = "Оружейный ящик"
@@ -1385,8 +4545,12 @@ Amprex = "Ампрекс"
 Amps = "Усилители"
 "An Ancient Tradition" = "Древний обычай"
 "An Ending, A Beginning" = "Конец, начало"
+"An Inauspicious Fate" = "Злополучная судьба"
+"An Intangible Memoir" = "Неосязаемые воспоминания"
 "An Offering of Gratitude" = "В знак признательности"
 "An Olive Branch" = "Оливковая Ветвь"
+"An Unenviable Invitation" = "Незавидное приглашение"
+"An Unexpected Return" = "Неожиданное возвращение"
 "An Unusual Blueprint" = "Необычный чертёж"
 "AnJetCat Glyph" = "Глиф: AnJetCat"
 "Anabolic Pollination" = "Анаболическое Опыление"
@@ -1458,6 +4622,7 @@ Anastasis = "Анастазис"
 "And lo…" = "И смо…"
 "And? " = "И? "
 "Anemic Agility" = "Анемичная ловкость"
+"Anemic Shields" = "Анемичные Щиты"
 Angel = "Ангел"
 "Angel of Death" = "Ангел смерти"
 "Angel of Death Honoria" = "Почесть: Ангел смерти"
@@ -1532,6 +4697,7 @@ Anticipation = "Предвидение"
 Antigen = "Антиген"
 "Antimatter Absorb" = "Поглощающее Антивещество"
 "Antimatter Drop" = "Сброс Антивещества"
+"Antimatter Foes" = "Враги Антивещества"
 "Antimatter Mine" = "Залежь Антивещества"
 "Antimatter Particles" = "Частиц Антиматерии"
 Antiquarian = "Антиквар"
@@ -1553,7 +4719,7 @@ Antivirus = "Антивирус"
 Any = "Любой"
 "Anyo Corp" = "Эньо Корп"
 "Anyo Grey" = "Эньо-серый"
-"Anyo’s Ointment" = "Мазь Эньо"
+"Anyo's Ointment" = "Мазь Эньо"
 "Anything But That" = "Только не это"
 Anytime = "В любое время"
 Aoi = "Аои"
@@ -1769,6 +4935,7 @@ Arcata = "Арката"
 Archaeo-Freighter = """
 Древнее Грузовое Судно\r
 """
+"Archaic Armor" = "Архаичная броня"
 "Archaic Weapons" = "Архаичное оружие"
 Archarbor = "Арочная гавань"
 "Archarbor Scene" = "Сцена: Арочная гавань"
@@ -2372,6 +5539,7 @@ Avex = "Авекс"
 Aviator = "Авиатор"
 Avichaea = "Авичей"
 "Avichaea Call Point" = "Место призывы авичея"
+"Avichaea Echo-Lure" = "ЭХО-МАНОК ДЛЯ АВИЧЕЯ"
 Avionics = "Авионика"
 "Avyrdi Shoulder Armor" = "Наплечники: Авирди"
 "Awaiting Dry Dock Integration" = "Ожидание интеграции в сухой док"
@@ -2458,6 +5626,7 @@ BACK = "НАЗАД"
 BACKDROPS = "ФОНЫ"
 "BACKROOM APPEARANCE" = "ВНЕШНИЙ ВИД СЕКРЕТНОЙ КОМНАТЫ"
 BACKSIDE = "БЭКСАЙД"
+"BANSHEE RETOUCH" = "БАНШИ ОБНОВЛЕНИЕ"
 "BAR 1" = "РЯД 1"
 "BAR 2" = "РЯД 2"
 "BAR 3" = "РЯД 3"
@@ -2496,6 +5665,7 @@ BEGIN = "НАЧАТЬ"
 "BEGIN THE CIRCUIT" = "НАЧАТЬ ЦЕПЬ"
 "BEGIN THE INFUSION" = "НАЧНИТЕ ИНФУЗИЮ"
 "BEGIN TRIAL" = "НАЧАТЬ РЕЙД"
+"BEGIN VOTING" = "НАЧАТЬ ГОЛОСОВАНИЕ"
 "BENEFITS AND CONSEQUENCES" = "ПОЛЬЗА И ПОСЛЕДСТВИЯ"
 "BEST TIME" = "ЛУЧШЕЕ ВРЕМЯ"
 BIOLOGY = "БИОЛОГИЯ"
@@ -2514,6 +5684,7 @@ BLINKPAD = "ТЕРМИНАЛ ТЕЛЕПОРТАЦИИ"
 "BLOOD RELICS" = "КРОВАВЫЕ РЕЛИКВИИ"
 BLUEPRINT = "ЧЕРТЕЖ"
 BLUEPRINTS = "ЧЕРТЕЖИ"
+"BLUTE Glyph" = "Глиф: BLUTE"
 BOARD = "ДОСКА"
 "BOARD RAILJACK" = "ПОДНЯТЬСЯ НА БОРТ РЭЙЛДЖЕКА"
 "BOARD THE GALLEON" = "ВЗЯТЬ ГАЛЕОН НА АБОРДАЖ"
@@ -2564,6 +5735,7 @@ BRACKETS = "ЛАПКИ"
 BRIEFING = "ИНСТРУКТАЖ"
 BRIMON = "БРИМОН"
 "BRING THEM HOME (NARMER)" = "ВЕРНИТЕ ИХ ДОМОЙ (НАРМЕР)"
+"BROKEN… BROKEN…" = "СЛОМАННЫЙ… СЛОМАННЫЙ…"
 "BRONZE BUDDHA STATUE" = "БРОНЗОВАЯ СТАТУЯ: БУДДА"
 "BRONZE DRAGON STATUE" = "БРОНЗОВАЯ СТАТУЯ: ДРАКОН"
 "BRONZE FOO DOG STATUE" = "БРОНЗОВАЯ СТАТУЯ: КОМ-ИНУ"
@@ -2612,6 +5784,7 @@ Back = "Назад"
 "Back to the Future" = "Назад в будущее"
 Backbeat = "Ритм"
 "Backbeat Bonus" = "Бонусы Ритма"
+Backblast = "Обратный удар"
 "Backdraft Helmet Conversion" = "Конверсия шлема: Бэкдрафт"
 Backdrops = "Фоны"
 Background = "Фон"
@@ -2737,6 +5910,8 @@ Banshee = "Банши"
 "Banshee Soprana Skin" = "Скин Банши: Сопрана"
 "Banshee Specter" = "Спектр Банши"
 "Banshee Systems" = "Банши: Система"
+"Banshee Threnodia Collection" = "Коллекция Банши: Тренодия"
+"Banshee Threnodia Helmet" = "Ритуальная шаль Баруука: Шаоши"
 "Banshee Voidshell Armor" = "Броня Банши: Оболочка Бездны"
 "Banshee Voidshell Collection" = "Коллекция Банши «Оболочка Бездны»"
 "Banshee Voidshell Helmet" = "Шлем Банши: Оболочка Бездны"
@@ -2797,7 +5972,6 @@ Baruuk = "Баруук"
 "Baruuk Prime Pack" = "Набор «Баруук Прайм»"
 "Baruuk Prime Skin" = "Скин Баруука Прайм"
 "Baruuk Prime Systems" = "Баруук Прайм: Система"
-"Baruuk Shaoshi" = "Баруук Шаоши"
 "Baruuk Shaoshi Collection" = "Коллекция Баруука: Шаоши"
 "Baruuk Shaoshi Helmet" = "Шлем Баруука: Шаоши"
 "Baruuk Shaoshi Ritual Shawl" = "Ритуальная шаль Баруука: Шаоши"
@@ -2875,7 +6049,7 @@ Beaky = "Клюв"
 Beam = "Луч"
 "Beam (Articulated)" = "Балка (сочлененная)"
 "Beam (Base)" = "Балка (основание)"
-"Beam Range" = "Диапазон луча"
+"Beam Range" = "Дальность луча"
 "Bear Glyph" = "Глиф: Bear"
 "Beard Style" = "Стиль бороды"
 "Beast Slayer" = "Убийца чудовищ"
@@ -3463,6 +6637,7 @@ Bronze = "Бронзовый"
 "Bronze Kavat Bust" = "Бронзовый Бюст - Кават"
 "Bronze Kubrow Bust" = "Бронзовый Бюст: Кубрау"
 "Bronze Skull Emblem" = "Значок: Бронзовый череп"
+"Bronze Taubound Trophy" = "Бронзовый трофей «Связь с Тау»"
 "Brood Mother" = "Мать выводка"
 "Brood Mother Emblem" = "Значок: Мать выводка"
 "Brood Surge" = "Всплеск выводка"
@@ -3513,6 +6688,7 @@ Bronze = "Бронзовый"
 "Browse Weapons" = "Просмотреть оружие"
 "Brozime Glyph" = "Глиф: Brozime"
 "Brrrap! " = "Брррр! "
+"Bruised Shields" = "Повреждённые щиты"
 "Bruja Kubrow Armor" = "Броня кубрау: Бруджа"
 "Bruntspar Necramech Helmet" = "Шлем Некрамеха: Брунтспар"
 "Bruntspar Necramech Skin" = "Скин Некрамеха: Брунтспар"
@@ -3537,6 +6713,7 @@ Buckshot = "Картечь"
 "Buff00n Glyph" = "Глиф: Buff00n"
 "Buffer Limit" = "Предел Накопления"
 Buffs = "Баффы"
+"Bugbreach Glyph" = "Глиф: Bugbreach"
 "Build Kitgun" = "Создать китган"
 "Build Personal Quarters Segment" = "Создайте сегмент Личной Комнаты"
 "Build Umbra" = "Создайте Умбру"
@@ -3816,6 +6993,7 @@ CLANS = "КЛАНЫ"
 "CLEAR SLOT" = "ОЧИСТИТЬ СЛОТ ТОРГОВЛИ"
 "CLEAR THE CAMP" = "ЗАЧИСТИТЕ ЛАГЕРЬ"
 "CLEAR THE RUINS" = "ЗАЧИСТИТЕ РУИНЫ"
+"CLEAR VOID PENDULA PLATFORM" = "ОЧИСТИТЕ ПЛАТФОРМУ МАЯТНИКА БЕЗДНЫ"
 "CLEAR VOTE" = "ОТМЕНИТЬ ВЫБОР"
 "CLEARANCE: AGNESIS" = "ОЧИЩЕНИЕ: АГНЕЗИС"
 "CLEARANCE: MODUS" = "ОЧИЩЕНИЕ: МОДУС"
@@ -4006,9 +7184,9 @@ CRITICAL = "КРИТИЧЕСКИЙ"
 "CRITTER LIBERATION" = "ОСВОБОЖДЕНИЕ СУЩЕСТВ"
 CROSSFIRE = "ПЕРЕСТРЕЛКА"
 "CRUSH THE CULT (NARMER)" = "СОКРУШЕНИЕ КУЛЬТА (НАРМЕР)"
+"CRYOBELLS REGROW" = "РЕГЕНЕРАЦИЯ КРИОКОЛОКОВ"
 "CRYOTIC FRONT" = "КРИОТИЧЕСКИЙ ФРОНТ"
 "CRYOTIC REMAINING" = "ОСТАЛОСЬ КРИОТИКА:"
-"CRYPTILEX ECHO-LURE" = "ЭХО-МАНОК ДЛЯ КРИПТИЛЕКСА"
 "CRYPTILEX PHEROMONE GLAND" = "ФЕРОМОННАЯ ЖЕЛЕЗА КРИПТИЛЕКСА"
 "CRYPTILEX SCAT" = "ПОМЕТ КРИПТИЛЕКСА"
 "CRYPTILEX TRAIL START POINT" = "СЛЕД КРИПТИЛЕКСА: СТАРТОВАЯ ТОЧКА"
@@ -4025,6 +7203,7 @@ CURRENT = "ТЕКУЩИЕ"
 "CUSTOMIZE POSTER" = "НАСТРОЙКА ПОСТЕРА"
 "CUSTOMIZE TENNO" = "ИЗМЕНИТЬ ТЭННО"
 "CUSTOMIZE TEXT" = "ИЗМЕНИТЬ ТЕКСТ"
+"CUSTOMIZE VESSEL" = "???"
 CYCLE = "ИЗМЕНИТЬ"
 "CYCLE SYMBOL KEY" = "ИЗМЕНИТЬ СИМВОЛ КЛЮЧ"
 CYLINDER = "ЦИЛИНДР"
@@ -4361,7 +7540,6 @@ Centurion = "Центурион"
 "Cephalon Cy" = "Цефалон Сай"
 "Cephalon Cy Glyph" = "Глиф: Цефалон Сай"
 "Cephalon Fragment" = "Фрагмент Цефалона"
-"Cephalon Melica" = "Цефалон-учитель"
 "Cephalon Pet Toy" = "Игрушка Питомца: Цефалон"
 "Cephalon Samodeus" = "Цефалон Самодеус"
 "Cephalon Simaris" = "Цефалон Симэрис"
@@ -4482,6 +7660,7 @@ Chamfron = "Шамфрон"
 "Change Room Color" = "Изменить цвет комнаты"
 "Change Room Colors" = "Изменить цвет комнаты"
 "Change Rotation Axis" = "Изменить ось вращения"
+"Change Selected Trait" = "Изменить выбранную характеристику"
 "Change of Engagement" = "Изменение обязательств"
 Channel = "Канал"
 Channels = "Департамента Каналов"
@@ -4602,6 +7781,7 @@ Choose = "Выбрать"
 "Choose Region" = "Выбор региона"
 "Choose Secondary Weapon" = "Выберите вторичное оружие"
 "Choose Specter Army" = "Выберите армию спектров"
+"Choose Trait to Splice" = "Выберите характеристику для сращивания"
 "Choose Vistagraph" = "Выберите вистаграф"
 "Choose Wisely" = "Мудрый выбор"
 "Choose a Companion" = "Выберите компаньона"
@@ -4722,12 +7902,20 @@ Citrine = "Цитрина"
 "Citrine Chassis" = "Цитрина: Каркас"
 "Citrine Glyph - Bright" = "Глиф: Цитрина - светлый"
 "Citrine Glyph - Dark" = "Глиф: Цитрина - тёмный"
+"Citrine Heliotropia Helmet" = "Шлем Цитрины: Гелиотропия"
 "Citrine Helmet" = "Шлем Цитрины"
 "Citrine In Action Glyph" = "Глиф: Цитрина в деле"
 "Citrine Kalite Helmet" = "Шлем Цитрины: Калит"
 "Citrine Neuroptics" = "Цитрина: Нейрооптика"
 "Citrine Noble Animation Set" = "Набор анимаций Цитрины: Статный"
 "Citrine Prex" = "Прекс: Цитрина"
+"Citrine Prime" = "Цитрина Прайм"
+"Citrine Prime Accessories Pack" = "Warframe: Набор Аксессуаров Цитрины Прайм"
+"Citrine Prime Chassis" = "Цитрина Прайм: Каркас"
+"Citrine Prime Helmet" = "Шлем Цитрины Прайм"
+"Citrine Prime Neuroptics" = "Цитрина Прайм: Нейрооптика"
+"Citrine Prime Skin" = "Скин Цитрины Прайм"
+"Citrine Prime Systems" = "Цитрина Прайм: Система"
 "Citrine Sigil" = "Сигил: Цитрина"
 "Citrine Skin" = "Скин Цитрины"
 "Citrine Systems" = "Цитрина: Система"
@@ -4764,6 +7952,7 @@ Clap = "Аплодировать"
 Classic = "Классический"
 "Classic Saturated" = "Классический насыщенный"
 Classification = "Классификатор"
+"Classroom Supplies" = "Учебные принадлежности"
 "Clatharc Planter" = "Растение: Клатарк"
 "Clavatus Heavy Blade Skin" = "Скин тяжёлого клинкового оружия: Клаватус"
 "Clavatus Ignis Skin" = "Скин Игниса: Клаватус"
@@ -4854,6 +8043,7 @@ Clerk = "Клерк"
 Cloud = "Облако"
 "Cloud Of Infested Spores" = "Заражение: Споры (облако)"
 "Cloud Walker" = "Идущий Среди Облаков"
+"Clumsy Munitions" = "Непокладистый снаряды"
 "Co-op Action" = "Совместное действие"
 "Coaction Drift" = "Совместное течение"
 "Coalescent Fusion" = "Коалесцентное слияние"
@@ -4942,6 +8132,7 @@ Colleague = "Коллега"
 "Collect T-Cyte Reseach Samples" = "Собрать Образцы Исследований техноцитов"
 "Collect Vitoplast" = "Соберите витопласт"
 "Collect Void Spark" = "Соберите искры Бездны"
+"Collect What Was Earned" = "Соберите заработанное"
 "Collect Wyrm Residue" = "Соберите Остатки Вирма"
 "Collect and Defend" = "Собирайте и защищайте"
 "Collect the Kubrow Egg" = "Заберите яйцо Кубрау"
@@ -5169,6 +8360,7 @@ Comptroller = "Контролер"
 "Computer Cop" = "Кибер Коп"
 "Computer Terminal" = "Компьютерный терминал"
 "Concealed Explosives" = "Скрытая взрывчатка"
+"Concentrate Fire " = "Концентрируйте огонь "
 "Concentrated Arrow" = "Сфокусированная Стрела"
 "Concept Art" = "Концепт-арт"
 Concepts = "Мастерской Концепций"
@@ -5368,6 +8560,9 @@ Contains = "Содержимое"
 "Contaminate Research Data" = "Фальсифицировать Результаты Исследований"
 "Contamination Casing" = "Заражённая оболочка"
 "Contamination Wave" = "Волна  загрязнения"
+"Contegorus Chest Plate" = "Нагрудник «Контегор»"
+"Contegorus Greaves" = "Наголенники «Контегор»"
+"Contegorus Pauldrons" = "Наплечники «Контегор»"
 Content = "Центра Данных"
 "Contents Unknown" = "Неизвестное содержимое"
 "Context Action" = "Взаимодействие с окружением"
@@ -5391,6 +8586,7 @@ Control = "Контролировать"
 "Control Station" = "Контрольный пункт"
 "Control Station Chair" = "Кресло поста управления"
 "Control Time" = "Время Контроля"
+"Control Void Pendula" = "Контролировать Маятник Бездны"
 "Controlled Glide" = "Контролируемое Скольжение"
 "Controlled Slide" = "Сдержанное Скольжение"
 Controller = "Контроллер"
@@ -5650,6 +8846,10 @@ Cortichrome = "Кортихром"
 Corufell = "Коруфелл"
 "Corufell Barrel" = "Коруфелл: Ствол"
 "Corufell Handle" = "Коруфелл: Рукоять"
+"Corufell Prime" = "Коруфелл Прайм"
+"Corufell Prime Handle" = "Коруфелл Прайм: Рукоять"
+"Corufell Prime Receiver" = "Коруфелл Прайм: Приёмник"
+"Corufell Prime Stock" = "Коруфелл Прайм: Приклад"
 "Corufell Receiver" = "Коруфелл: Приёмник"
 Corvas = "Корвас"
 "Corvas Barrel" = "Корвас: Ствол"
@@ -5718,6 +8918,7 @@ Crafted = "Создано"
 "Crashing Havoc" = "Сокрушающее опустошение"
 "Crashing Timber" = "Сокрушающее бревно"
 "Crashing Wave" = "Разрушающая Волна"
+"Crate Inaccessible" = "Недоступный ящик"
 "Crate Smash" = "Крановщик"
 "Crater Cay Scene" = "Сцена: Кратер"
 Crawler = "Ползун"
@@ -5758,6 +8959,9 @@ Credits = "Кредиты"
 "Crest Full" = "Полный гребень"
 "Crest Spiked" = "Шипастый гребень"
 "Crestbear Glyph" = "Глиф: Crestbear"
+"Crested Chest Key" = "Ключ от гербового сундука"
+"Crested Frozen Chest" = "Гербовый замороженный сундук"
+"Crested Frozen Chests Opened: " = "Открыто гербовых замороженных сундуков: "
 "Cresting Peak" = "Вздымающийся Гребень"
 "Cresting Surf" = "Надвигающийся Прибой"
 Crew = "Экипаж"
@@ -5860,6 +9064,8 @@ Crush = "Сокрушение"
 "Cryo Sentry" = "Крио Страж"
 "Cryo-Tower Impellor" = "Крио-башня: лопасть"
 "Cryo-Tower Pillar" = "Крио-Башня: Столб"
+Cryobell = "Криоколокол"
+"Cryobell Acquired" = "Криоколокол получен"
 "Cryogenic Exodamper" = "Криогенный Экзоподавитель"
 "Cryogenic Leakage" = "Утечка криогена"
 "Cryomancer Honoria" = "Почесть: Криомант"
@@ -5883,6 +9089,7 @@ Cryotra = "Криотра"
 "Cryptic Nostrum" = "Секретное лекарство"
 Cryptilex = "Криптилекс"
 "Cryptilex Call Point" = "Место призыва криптилекса"
+"Cryptilex Echo-Lure" = "ЭХО-МАНОК ДЛЯ КРИПТИЛЕКСА"
 Cryptographer = "Криптограф"
 "Cryptographic Alu" = "Криптографическое Алу"
 Cryptosuctus = "Криптозакт"
@@ -5898,6 +9105,7 @@ Crystals = "Кристаллы"
 "Culpa Syandana" = "Сандана: Кульпа"
 Cultivation = "Блока Культивации"
 "Cumulative Cartridge" = "Кумулятивный картридж"
+Cumulonimbus = "Кумулонимбус"
 "Cumulus Collection" = "Коллекция: Кумулюс"
 "Cumulus Syandana" = "Сандана: Кумулюс"
 "Cunning Aspect" = "Хитрый аспект"
@@ -5948,7 +9156,6 @@ Customer-Facing = "удовлетворения клиентов"
 "Customize Tagfer" = "Изменить Тагфера"
 "Customize UI Layout" = "Настройка пользовательского интерфейса"
 "Customize UI Theme" = "Настройки пользовательского интерфейса"
-"Customize Vessel" = "Кастомизация Сосуда"
 "Customize XInput Controller" = "Настроить контроллер XInput"
 "Custos Arch" = "Арка Кустос"
 "Cut Fish" = "Разделать рыбу"
@@ -6039,6 +9246,7 @@ DATA = "ИСХОДНЫЕ"
 "DATE ADDED" = "ДАТА ДОБАВЛЕНИЯ"
 "DATUM AGGREGATOR" = "АГРЕГАТОР ДАННЫХ"
 "DAUGHTER TOKEN" = "СИМВОЛ: ДОЧЬ"
+"DAUGHTER… HEED ME…" = "ДОЧЬ… УСЛЫШЬ МЕНЯ…"
 "DAY 3" = "ДЕНЬ 3"
 "DAY 7" = "ДЕНЬ 7"
 "DAY 92" = "ДЕНЬ 92"
@@ -6492,6 +9700,7 @@ Dargyn = "Даргин"
 "Dargyn Turret" = "Турель Даргина"
 "DarikaArt Glyph" = "Глиф: DarikaArt"
 "Daring Reverie" = "Дерзкая мечта"
+"Dark Antimatter" = "Тёмное антивещество"
 "Dark Dagger" = "Тёмный кинжал"
 "Dark Light" = "Темный Свет"
 "Dark Lotus" = "Темная Лотос"
@@ -6580,9 +9789,9 @@ Dawn = "Рассвет"
 "Dax Portrait" = "Портрет Дакса"
 "Dax Retribution" = "Возмездие даксов"
 "Dax Syandana" = "Сандана: Дакс"
+"Dax's March" = "Марш даксов"
 "Dax's Shawzin" = "Шазин: Дакс"
 Dax-Inspired = "Вдохновение Даксов"
-"Dax’s March" = "Марш даксов"
 Day = "День"
 "Day Trader" = "Однодневный Спекулянт"
 "DayJoBo Glyph" = "Глиф: DayJoBo"
@@ -6941,6 +10150,7 @@ Deny = "Неприятие"
 "Deploy Specter Army" = "Развернуть армию спектров"
 "Deploy a Crewship! " = "Отправить транспортер!"
 "Deploy a Specter" = "Разверните спектра"
+"Deploy to Eris Surface" = "Развернуть на поверхности Эриды"
 "Deployed by Fusion Moa" = "Запущен Гибридным МОА"
 Deploying = "Установка"
 "Deploying OpLink" = "Сбрасывание ОпСвязи"
@@ -7058,6 +10268,7 @@ Destroy = "Уничтожить"
 "Destroy Tether Nodes" = "Уничтожьте узлы привязи"
 "Destroy Turrets" = "Уничтожьте турели"
 "Destroy the Generators" = "Уничтожьте генераторы"
+"Destroy the Infested" = "Уничтожьте заражённых"
 "Destroy the Makvos Cannon" = "Уничтожьте пушку «Маквос»"
 "Destroy the Medusa Hub" = "Уничтожьте узел «Медуза»"
 "Destroy the Orowyrms" = "Уничтожьте оровирмов"
@@ -7116,8 +10327,8 @@ Development = "Отдела Развития"
 "Development Exec" = "Исполнительный директор по развитию"
 "Device Unavailable" = "Устройство недоступно"
 "Devil's Bargain" = "Сделка с дьяволом"
+"Devil's Cap" = "Адская поганка"
 Devilfingers = "Персты Дьявола"
-"Devil’s Cap" = "Адская поганка"
 "Devolved Namalon" = "Сыпучий намалон"
 Devotee = "Жрец"
 "Devotee Noggle Bundle" = "Набор фигурок: Жрецы"
@@ -7312,6 +10523,7 @@ Distract = "Отвлечь"
 Diversification = "Отдела Диверсификации"
 "Diversified Denial" = "Диверсифицированное отрицание"
 "Diversify our Armaments" = "Разнообразие вооружения"
+"Divided We Fall" = "Разделенные, мы падём"
 "Dividend Ink" = "Татуаж: Дивидент"
 "Dividing Blades" = "Разделяющие лезвия"
 "Divine Retribution" = "Божественное возмездие"
@@ -7333,7 +10545,6 @@ Djo = "Дзё"
 "Do Not Allow" = "Запретить отслеживание"
 "Do What You Must" = "Сделай то, что должен"
 "Do-Jin Cannon" = "Орудие: До-Джин"
-"Dock Worker" = "Докер"
 "Doctor Honoria" = "Почесть: Медик"
 "Doctor Tengus" = "Доктор Тенгус"
 "Doesn't Miss Honoria" = "Почесть: Без промахов"
@@ -7404,6 +10615,7 @@ Domito = "Домито"
 "Don't Blow It" = "Не взрывай"
 "Don't Fear The Reaper" = "Не бойся Жнеца"
 "Don't do it Regor… " = "Не делай этого, Регор..."
+Donate = "Пожертвовать"
 "Donate to the Leverian" = "Пожертвуйте Левериану"
 "Donation Box" = "Ящик для пожертвований"
 "Donnish Decor Pack" = "Набор украшений: Манерный"
@@ -7543,6 +10755,7 @@ Dreg = "Дрег"
 "Drift Maneuver" = "Дрейф-манёвр"
 Drifter = "Скиталец"
 "Drifter Agile Animation Set" = "Набор анимаций Скитальца: Проворный"
+"Drifter Clothing" = "Одежда Скитальца"
 "Drifter Dex Gear" = "Снаряжение скитальца: Декс"
 "Drifter Dex Hood" = "Капюшон скитальца: Декс"
 "Drifter Dex Pants" = "Штаны скитальца: Декс"
@@ -7554,6 +10767,7 @@ Drifter = "Скиталец"
 "Drifter Escuchon Pauldrons" = "Наплечники Скитальца: Эскушон"
 "Drifter Escuchon Suit" = "Костюм Скитальца: Эскушон"
 "Drifter Falcon" = "Скиталец-Сокол"
+"Drifter Features" = "Особенности Скитальца"
 "Drifter Feldune Collection" = "Коллекция скитальца: Фелдюн"
 "Drifter Feldune Gear" = "Снаряжение скитальца: Фелдюн"
 "Drifter Feldune Hood" = "Капюшон скитальца: Фелдюн"
@@ -7716,7 +10930,7 @@ Duality = "Двуликость"
 "Dueling Ryoku Glyph" = "Глиф: Рёку - Дуэль"
 "Dueling Sirius Glyph" = "Глиф: Сириус - Дуэль"
 "Dueling Vena Glyph" = "Глиф: Вена - Дуэль"
-"Duelist’s Advantage" = "Преимущество дуэлянта"
+"Duelist's Advantage" = "Преимущество дуэлянта"
 "Duels Completed" = "Дуэлей Завершено"
 "Duels Lost" = "Дуэлей Проиграно"
 "Duels Tied" = "Дуэлей Вничью"
@@ -7737,6 +10951,7 @@ Duration = "Длительность"
 "Duration Bonus" = "Бонус к длительности"
 Duroid = "Дуроид"
 "Duroid Trophy" = "Трофей: Дуроид"
+"Durumi Syandana" = "Сандана Дуруми"
 Dusk = "Сумерки"
 "Dusk Pink" = "Сумеречно-розовый"
 "Dusklight Sarracenia" = "Сумеречная саррацения"
@@ -7948,6 +11163,7 @@ EFFICIENCY = "ЭФФЕКТИВНОСТЬ"
 "EFV-8 Mars Barrel" = "ЕФВ-8 Марс: Ствол"
 "EFV-8 Mars Receiver" = "ЕФВ-8 Марс: Приёмник"
 "EFV-8 Mars Stock" = "ЕФВ-8 Марс: Приклад"
+"EGirlTenno Glyph" = "Глиф: EGirlTenno"
 "EIDOLON CULL" = "ОТСТРЕЛ ЭЙДОЛОНОВ"
 "EIDOLON HUNT: TERALYST" = "ЭЙДОЛОНСКАЯ ОХОТА: ТЕРАЛИСТ"
 "ELASMUN ANTIGEN" = "АНТИГЕН: ЭЛАЗМУН"
@@ -8005,6 +11221,7 @@ ENEMIES = "ВРАГИ"
 "ENEMIES ELIMINATED" = "ВРАГИ УНИЧТОЖЕНЫ"
 "ENEMY INTERFERENCE" = "ВРАЖЕСКИЕ ПОМЕХИ"
 "ENEMY KILL XP AMOUNT" = "ОПЫТ ЗА УБИЙСТВО"
+"ENEMY LEVEL" = "УРОВЕНЬ ВРАГА"
 "ENEMY MIMEOGRAPHS" = "МЕМЕОГРАФЫ ВРАГОВ"
 "ENEMY RADAR" = "ОБНАРУЖЕНИЕ ПРОТИВНИКА"
 "ENERGIZE MAZE SHRINE" = "ЗАРЯДИТЕ СВЯТЫНЮ ЛАБИРИНТА"
@@ -8056,6 +11273,11 @@ ENTITLE = "ДАТЬ ИМЯ"
 "ENTRATI SUPPLY CACHE" = "ЯЩИК С ПРИПАСАМИ ЭНТРАТИ"
 ENTRIES = "ЗАПИСИ"
 "ENTROPIC ESCALATION" = "ЭНТРОПИЧЕСКАЯ ЭСКАЛАЦИЯ"
+"ENTROPIC OVERLOAD" = "ЭНТРОПИЙНАЯ ПЕРЕГРУЗКА"
+"ENTROPY ORB" = "СФЕРА ЭНТРОПИИ"
+"ENTROPY OVERFLOW" = "ЭНТРОПИЙНОЕ ПЕРЕПОЛНЕНИЕ"
+"ENTROPY SATURATION: MODERATE" = "ЭНТРОПИЙНОЕ НАСЫЩЕНИЕ: УМЕРЕННОЕ"
+"ENTROPY SATURATION: STRONG" = "ЭНТРОПИЙНОЕ НАСЫЩЕНИЕ: СИЛЬНОЕ"
 EPHEMERA = "ЭФЕМЕРА"
 "EPIC GAMES STORE BUNDLES" = "НАБОРЫ EPIC GAMES STORE"
 EPILOGUE = "ЭПИЛОГ"
@@ -8841,6 +12063,7 @@ Enter = "Войти"
 "Enter Vallis Elevator" = "Войдите в подъёмник на Долину"
 "Enter Vent" = "Войдите в вентиляционную шахту"
 "Enter the Comet Mine" = "Войдите в шахту кометы"
+"Enter the Dark Refractory" = "Войдите в Тёмный Рефракторий"
 "Enter the Doors" = "Войдите в двери"
 "Enter the Dry Dock" = "Войдите в сухой док."
 "Enter the Laboratories" = "Войдите в лаборатории"
@@ -8926,7 +12149,11 @@ Entrati = "Энтрати"
 "Entrati Wall Sconce" = "Энтрати: Настенный Бра"
 "Entrati…" = "Энтрати…"
 Entrepreneur = "Предприниматель"
+Entropic = "Энтропийный"
 "Entropic Color Palette" = "Цветовая палитра: Энтропия"
+"Entropic Kuva" = "Энтропийная Кува"
+"Entropic Overload" = "Энтропийная перегрузка"
+"Entropic Wisp" = "Энтропийная Висп"
 Entropy = "Энтропия"
 "Entropy Burst" = "Энтропийный Взрыв"
 "Entropy Designer" = "Конструктор энтропий"
@@ -8957,6 +12184,7 @@ Epitaph = "Эпитаф"
 "Epitaph Prime Receiver" = "Эпитаф Прайм: Приёмник"
 "Epitaph Raya Skin" = "Скин Эпитафа: Райя"
 "Epitaph Receiver" = "Эпитаф: Приёмник"
+"Epoch Operation: Taubound" = "Операция «Эпоха: Связь с Тау»"
 "Epsilon Instruments" = "Инструменты: Эпсилон"
 "Equal Laceration" = "Равносильное Мучение"
 "Equestrian Bond" = "Конная связь"
@@ -9026,6 +12254,8 @@ Erato = "Эрато"
 "Ergo's Boardroom Scene" = "Сцена: Зал Эрго"
 Eris = "Эрида"
 "Eris Black" = "Эрида-чёрный"
+"Eris Dermacrust" = "Покров Эриды"
+"Eris Mortem" = "Гибель Эриды"
 "Eris Surface" = "Поверхность Эриды"
 "Erlang Prime Oculus" = "Окуляры: Эрланг Прайм"
 "Eroded Defenses" = "Коррозия Защиты"
@@ -9058,6 +12288,7 @@ Escape = "Побег"
 "Eskhatos Ki'Teer Glyph" = "Глиф: Ки'Тиир Эскатос"
 "Eskhatos Ki'Teer Knee Guards" = "Наголенники: Ки'Тиир Эсхатос"
 "Eskhatos Ki'Teer Shoulder Guards" = "Наплечники: Ки'Тиир Эсхатос"
+"Eskhatos Mausolon Skin" = "Скин Мосолона: Эсхатос"
 "Eskhatos Necraloid Sigil" = "• Сигил: Некралоид Эсхатос"
 Esophage = "Пищевод"
 "Esp4him Glyph" = "Глиф: Esp4him"
@@ -9527,6 +12758,7 @@ Eyebrows = "Брови"
 "Eyes of Blight Emblem" = "Значок: Глаза гнили"
 "Eyes of the Sentient" = "Глаза Владеющих Разумом"
 "Ezriel Syandana" = "Сандана: Эзриэль"
+"F-04 RINGWAY" = "КОЛЬЦО F-04"
 "F19 Condroc Headphones" = "Наушники: F19 Кондрок"
 FABRICATE = "ИЗГОТОВЛЕНИЕ"
 "FABRICATION REQUIREMENTS" = "ДЛЯ ИЗГОТОВЛЕНИЯ ТРЕБУЕТСЯ"
@@ -9546,6 +12778,7 @@ FAILURE = "ПРОВАЛЕНО"
 "FALSE PROFIT GOLD TROPHY" = "ЗОЛОТОЙ ТРОФЕЙ: ЛОЖНАЯ ПРИБЫЛЬ"
 "FALSE PROFIT SILVER TROPHY" = "СЕРЕБРЯНЫЙ ТРОФЕЙ: ЛОЖНАЯ ПРИБЫЛЬ"
 "FALSE PROFIT TERRACOTTA TROPHY" = "ТЕРРАКОТОВЫЙ ТРОФЕЙ: ЛОЖНАЯ ПРИБЫЛЬ"
+"FALSE PROPHET… BEGONE…" = "ЛЖЕПРОРОК... ИЗЫЙДИ..."
 "FAMILIAL DEBT-BOND" = "ДОЛГОВАЯ ОБЛИГАЦИЯ: НАСЛЕДСТВЕННАЯ"
 FAMILY = "СЕМЬЯ"
 "FAMILY TOKENS" = "ЗНАКИ СЕМЬИ"
@@ -9624,6 +12857,7 @@ FISHMONGER = "РЫБОТОРГОВЕЦ"
 "FITS IN" = "ПОДХОДИТ К"
 FK = "ЧЁРТ"
 "FLAGELLOCANTH TROPHY" = "ТРОФЕЙ: ФЛАГЕЛЛОКАНТ"
+FLAMING = "ПЫЛАЮЩИЙ"
 FLAWED = "ПОВРЕЖДЁННЫЙ"
 "FLAWED MODS" = "ПОВРЕЖДЁННЫЕ МОДЫ"
 FLAWLESS = "БЕСПОДОБНАЯ"
@@ -9655,6 +12889,7 @@ FOCUS = "ФОКУС"
 "FOLLOW TRACKS" = "ИДТИ ПО СЛЕДУ"
 "FOMORIAN THREAT" = "ФОМОРИАНСКАЯ УГРОЗА"
 "FOR THE UNUM (NARMER)" = "ЗА УНУМ (НАРМЕР)"
+"FOR YOU… I SHALL…" = "ДЛЯ ТЕБЯ… Я ГОТОВА…"
 "FORCE SPECTER" = "СИЛОВОЙ СПЕКТР"
 FORFEIT = "ПОКИНУТЬ"
 "FORGE CAPACITY" = "ЕМКОСТЬ КУЗНИЦЫ"
@@ -9666,6 +12901,7 @@ FORGING = "ИЗГОТОВЛЕНИЕ"
 "FORM A CLAN" = "СОЗДАТЬ КЛАН"
 "FORMA COUNT" = "КОЛ-ВО ФОРМ"
 "FORMAL NOTICE OF PARTNERSHIP" = "ОФИЦИАЛЬНОЕ УВЕДОМЛЕНИЕ О ПАРТНЕРСТВЕ"
+FORNAX = "ФОРНАКС"
 FORTUNA = "ФОРТУНА"
 FORWARD = "ВПЕРЁД"
 FOUNDER = "ОСНОВАТЕЛЬ"
@@ -9828,6 +13064,7 @@ Father = "Отец"
 "Father Token Ornament" = "Орнамент: Символ Отца"
 "Father's Lesson" = "Отцовский Урок"
 "Fathom Narta" = "Нарта: Фатом"
+"Fatigued Companions" = "Уставшие компаньоны"
 "FattShane Glyph" = "Глиф: FattShane"
 "Fatuous Nymph Honoria" = "Почесть: Безрассудная нимфа"
 "Fault Finder" = "Дефектодетектор"
@@ -10113,6 +13350,7 @@ Flameblade = "Солдат с огненным клинком"
 "Flaming Juggernauts" = "Пылающие Джаггернауты"
 "Flaming Sigil" = "Сигил: Пылающий"
 "Flaming Tongue" = "Пылающий Язык"
+Flankable = "Открытые Фланги"
 "Flankon Signa" = "Сигна: Фланг"
 Flare = "Флэр"
 "Flare Gemini Emote" = "Жест Флэр: Близнецы"
@@ -10358,9 +13596,9 @@ Fortuna = "Фортуна"
 "Fortuna Poster Pack" = "Набор постеров: Фортуна"
 "Fortuna Scene" = "Сцена: Фортуна"
 "Fortuna Theme" = "Тема: Фортуна"
+"Fortuna's Folley" = "Шалость Фортуны"
 "Fortuna-Model Coolant Pod Decoration" = "Украшение: Резервуар С Хладагентом С Фортуны"
 "Fortuna: The Profit-Taker" = "Фортуна: Извлекатель Прибыли"
-"Fortuna’s Folley" = "Шалость Фортуны"
 Forums = "Форумы"
 Forward = "Вперёдсмотрящий"
 "Forward Edge" = "Передняя Грань"
@@ -10461,6 +13699,7 @@ Fragor = "Фрагор"
 Fraud = "Обманщик"
 "FreddyCaps Glyph" = "Глиф: FreddyCaps"
 "Free Allied Brachiolysts" = "Освободите союзных брахиолистов"
+"Free Banshee and More" = "Бесплатный варфрейм Банши и многое другое"
 "Free Brothers" = "Освободите братьев"
 "Free Flight" = "Свободный Полёт"
 "Free Placement" = "Свободное размещение"
@@ -10603,6 +13842,9 @@ Frostleaf = "Хладнолист"
 "Frostleaf Extract" = "Экстракт хладнолиста"
 "FrostyNovaPrime Glyph" = "Глиф: FrostyNovaPrime"
 Frozen = "Изморозный"
+"Frozen Chest" = "Замороженный сундук"
+"Frozen Chest Key" = "Ключ от замороженного сундука"
+"Frozen Chests Opened: " = "Открыто замороженных сундуков: "
 "Frozen Fortress" = "Ледяная Крепость"
 "Frozen Guardians Eximus Cabal" = "Эксимус Кабал: Морозный Страж"
 "Frozen Infested Hive" = "Замороженный Улей Заражённых"
@@ -10733,6 +13975,7 @@ GILDED = "УЛУЧШЕНО"
 "GIVE ME A MINUTE" = "ДАЙТЕ МНЕ МИНУТУ"
 "GIVE SAMPLES" = "ОТДАЙТЕ ОБРАЗЦЫ"
 "GIVE UP" = "СДАТЬСЯ"
+"GLACIAL DEFIANCE" = "ЛЕДЯНОЕ СОПРОТИВЛЕНИЕ"
 GLINTY = "БЛЕСТЯШКА"
 GLYPH = "ГЛИФ"
 "GLYPH BUNDLES" = "НАБОРЫ ГЛИФОВ"
@@ -10870,6 +14113,7 @@ Gammacor = "Гаммакор"
 "Gammacor Solstice Skin" = "Скин Гаммакора: Солнцестояние"
 "Ganalen's Grave" = "Могила Ганалена"
 Ganglion = "Ганглий"
+"Gangrim Ephemera" = "Эфемера Гангрим"
 "Gantulyst Sigil" = "Сигил: Гантулист"
 Gara = "Гара"
 "Gara Adora Helmet" = "Шлем Гары: Адора"
@@ -10970,7 +14214,13 @@ Gas = "Газ"
 "Gas City Regulators Scene" = "Сцена: Газовый город - Распределители"
 "Gas City Walkway Scene" = "Сцена: Газовый город - Аллея"
 "Gas Infested Hive" = "Газовый Улей Заражённых"
+"Gaseous Quake" = "Резонирующий Взрыв"
 Gash = "Разрез"
+"Gast Sentinel Mask" = "Скин Воруны: Медина"
+"Gast Sentinel Skin" = "Скин Воруны: Медина"
+"Gast Sentinel Skin Bundle" = "Набор Скинов Стража: Гаст"
+"Gast Sentinel Tail" = "Скин Воруны: Медина"
+"Gast Sentinel Wings" = "Скин Воруны: Медина"
 "Gastel Glyph" = "Глиф: Gastel"
 Gastro = "Гастро"
 "Gate Crash" = "Зеркало"
@@ -11147,6 +14397,7 @@ Giottica = "Джоттика"
 "Glacia Syandana" = "Сандана: Глация"
 "Glacial Blue" = "Ледяной-синий"
 "Glacial Edge" = "Ледяная грань"
+"Glacial Laboratory Scene" = "Сцена: Реликварный привод Заримана"
 "Glacik Commander" = "Капитан Глацик"
 Gladiator = "Гладиатор"
 "Gladiator Aegis" = "Щит Гладиатора"
@@ -11186,6 +14437,7 @@ Glare = "Сияние"
 "Glassmaker Sigil" = "Сигил: Стеклодув"
 "Glaukus Halyard" = "Фал Главкуса"
 Glaxion = "Глаксион"
+"Glaxion Battlekit" = "Боевой набор: Глаксион"
 "Glaxion Festive Skin" = "Праздничный скин: Глаксион"
 "Glaxion Polar Skin" = "Скин Глаксиона: Полярный Глаксион"
 "Glaxion Vandal" = "Глаксион Вандал"
@@ -11255,7 +14507,6 @@ Go = "Вперёд"
 "Go to Vena" = "Отправляйтесь к Вене"
 "Go to the Garage" = "Направляйтесь в гараж"
 "Go to the Vault" = "Перейдите в хранилище"
-"Go to the Zariman" = "Отправляйтесь на «Зариман»"
 "Go up to Fortuna" = "В Фортуну"
 Goals = "Забито"
 Goblite = "Гоблит"
@@ -11279,6 +14530,7 @@ Gold = "Золотой"
 "Gold Sage Mastery Slate" = "Сланец Мастерства: Золотой Мудрец"
 "Gold Seeker Mastery Slate" = "Сланец Мастерства: Золотой Искатель"
 "Gold Skull Emblem" = "Значок: Золотой череп"
+"Gold Taubound Trophy" = "Трофей: Связь с Тау - Золотой"
 "Gold Tiger Mastery Slate" = "Сланец Мастерства: Золотой Тигр"
 "Gold Trim (Damaged)" = "Золотая отделка (повреждена)"
 "Golden Era Stencil" = "Обои: Золотая Эра"
@@ -11328,6 +14580,7 @@ Gorvakk = "Горвакк"
 "Goth Leggings" = "Леггинсы: Гот"
 "Goth Piercings" = "Пирсинг: Гот"
 "Goth Sleeves" = "Рукава: Гот"
+"Gothica Signa" = "Сигна: Готика"
 "Gothica Syandana" = "Сандана: Готика"
 "Gotva Prime" = "Готва Прайм"
 "Gouging Lance" = "Пронзающее копьё"
@@ -11941,6 +15194,7 @@ Hacker = "Хакер"
 "Hades Touch" = "Касание Аида"
 "Haemadys Mask" = "Маска: Хэмадис"
 "Hakara Plant" = "Растение: Хакара"
+Hakchum = "Хакчум"
 "Halako Perimeter" = "Периметр Халако"
 "Halberd Standard Holster" = "Стандартный Крепеж Алебарды"
 "Half Landing Pad" = "Половина посадочной площадки"
@@ -12082,6 +15336,7 @@ Hard-boiled = "Крепкий орешек"
 "Harden Up" = "Закалённый"
 "Hardened Casing" = "Закаленная Обшивка"
 "Hardened Wellspring" = "Усиленный источник"
+"Harder They Fall" = "Чем сильнее они падают"
 "Harka Kubrow Armor" = "Броня кубрау: Харка"
 "Harkonar Armor Set" = "Набор Брони: Харконар"
 "Harkonar Chest Guard" = "Нагрудник: Харконар"
@@ -12424,7 +15679,6 @@ Herder = "Гердер"
 Hereditary = "Потомственный"
 "Hermit's Landing" = "Пристань отшельника"
 "Hermit's Landing Scene" = "Сцена: Пристань отшельника"
-"Hermit’s Landing" = "Пристань отшельника"
 "Hero of Duviri Display" = "Дисплей: Герой Дувири"
 Heroics = "Героизм"
 Heron = "Цапля"
@@ -12600,7 +15854,7 @@ Hold = "Удерживать"
 "Holo Screen (Top Accounts)" = "Голографический экран: лучшие аккаунты"
 "Holographic Banner Fist" = "Голограмма: Кулак"
 "Holographic Banner Parvos Granum" = "Голограмма: Парвос Грэнум"
-"Holographic Projection of Asteriods" = "Голографическая проекция астериодов"
+"Holographic Projection of Asteroids" = "Голографическая проекция астериодов"
 "Holographic Projection of Saturn" = "Голографическая проекция Сатурна"
 "Holokey Blur" = "Пятно голоключа"
 "Holsom Yurr's Armor" = "Броня Холсома Юрра"
@@ -12856,6 +16110,7 @@ I = "Я"
 "I'm the Captain Now" = "Теперь я капитан"
 "I... " = "Я…"
 "IBEXAN ANTIGEN" = "АНТИГЕН: ИБЕКСАН"
+"ICEBLADE OF NARIN" = "ЛЕДЯНОЙ КЛИНОК НАРИН"
 ICON = "ИКОНКА"
 IKNOW = "ЯЗНАЮ"
 IMMUNITIES = "ИММУНИТЕТ"
@@ -12882,6 +16137,8 @@ INCUBATOR = "ИНКУБАТОР"
 "INCURSION COMPLETE" = "НАБЕГ ЗАВЕРШЕН"
 "INCURSION FAILED" = "НАБЕГ ПРОВАЛЕН"
 INDIFFERENT = "БЕЗРАЗЛИЧИЕ"
+"INDOMITABLE ICE" = "НЕСОКРУШИМЫЙ ЛЁД"
+"INDUSTRIAL PLANTUX" = "ПРОМЫШЛЕННЫЙ ПЛАНТУКС"
 INFESTATION = "ЗАРАЖЕННЫЕ"
 "INFESTATION Subsiding" = "Снижение Заражения"
 INFESTED = "ЗАРАЖЕННЫЕ"
@@ -13015,6 +16272,7 @@ ITEMS = "ПРЕДМЕТЫ"
 "Ice Wall (Large)" = "Стена из льда: Большая"
 "Ice Wave" = "Ледяная Волна"
 "Ice Wave Impedance" = "Ледяная Волна Сопротивления"
+"Iceblade of Narin" = "Ледяной клинок Нарин"
 "Iced Vallis" = "Ледяная Долина"
 "Icefields of Riddah" = "Ледяные поля Ридды"
 "Icemire Hyena" = "Гиена-ледотопь"
@@ -13164,6 +16422,7 @@ Inaros = "Инарос"
 Incarnon = "Инкарнон"
 "Incarnon Catalyst" = "Инкарнонский катализатор"
 "Incarnon Challenges" = "Испытания: Инкарнон"
+"Incarnon Decay" = "Инкарнонский распад"
 "Incarnon Efficiency" = "Эффективность Инкарнона"
 "Incarnon Genesis" = "Генезис Инкарнона"
 "Incarnon Imago" = "Инкарнонский образ"
@@ -13222,6 +16481,7 @@ Incubated = "Инкубирован(а)"
 Indifference = "Безразличие"
 "Indifferent Facade" = "Фасад Безразличия"
 "Individual Parameters" = "Индивидуальные параметры"
+"Indomitable Ice Crystal" = "Несокрушимый ледяной кристалл"
 "Indomitable Kaithe Floof" = "Пушистик: Неукротимый кайт"
 "Indomitable Matrix" = "Матрица Неукротимости"
 "Industria Water Garden" = "Водяной cад: Индустрия"
@@ -13621,6 +16881,7 @@ Ironwood = "Железодревесник"
 "Irya Oculus" = "Окуляры: Ирья"
 Isaah = "Исаа"
 "Isabeau Prime Syandana" = "Сандана: Изабо Прайм"
+"Isageum Signa" = "Сигна: Исагеум"
 Isleweaver = "Плетельщица островов"
 "Isleweaver Cloud Islet Scene" = "Сцена: Плетельщица островов — Облачный островок"
 "Isleweaver Drift Atoll Scene" = "Сцена: Плетельщица островов — Дрейфовый атолл"
@@ -13760,6 +17021,8 @@ Jackal = "Шакал"
 "Jade Chorus Pack" = "Набор Джейд: Хор"
 "Jade Clem Emblem" = "Значок Клема: Нефрит"
 "Jade Collection" = "Коллекция Джейд"
+"Jade Coven Helmet" = "Шлем Джейд: Ковен"
+"Jade Coven Skin" = "Скин Джейд: Ковен"
 "Jade Daedalus Chest Plate" = "Нагрудник: Дедал Нефрит"
 "Jade Daedalus Knee Plates" = "Наголенники: Дедал Нефрит"
 "Jade Daedalus Shoulder Plates" = "Наплечники: Дедал Нефрит"
@@ -14072,6 +17335,7 @@ Kaithe = "Кайт"
 Kal = "Клм"
 Kaleet = "Калет"
 "Kalon75 Glyph" = "Глиф: Kalon75"
+"Kalsawi Emote" = "Жест: Калсави"
 Kalum = "Калум"
 Kalymos = "Калимос"
 "Kalymos Cone Glyph" = "Глиф: Калимос - Конус"
@@ -14159,6 +17423,7 @@ Keepsakes = "Сувениры"
 "Kela De Thaym Sigil" = "Сигил: Кела Де Тэйм"
 "Kela Defeated" = "Кела побеждена"
 "Kela de Thaym Glyph" = "Глиф: Кела де Тэйм"
+"Kela's Revenge" = "Месть Келы"
 "Kengineer Glyph" = "Глиф: Kengineer"
 "KenshinWF Glyph" = "Глиф: KenshinWF"
 "Kerata Prime Syandana" = "Сандана: Керата Прайм"
@@ -14255,6 +17520,8 @@ Khut-Khut = "Кхут-кхут"
 "Ki'Teer Foros Chest Plate" = "Нагрудник: Ки'Тиир Форос"
 "Ki'Teer Foros Leg Plates" = "Наголенники: Ки'Тиир Форос"
 "Ki'Teer Foros Shoulder Plates" = "Наплечники: Ки'Тиир Форос"
+"Ki'Teer Greth Chest Plate" = "Нагрудник: Ки'Тиир - Грет"
+"Ki'Teer Greth Leg Plates" = "Наголенники: Ки'Тиир - Грет"
 "Ki'Teer Greth Shoulder Plates" = "Наплечники: Ки'Тиир - Грет"
 "Ki'Teer Grey" = "Ки'Тиир-серый"
 "Ki'Teer Kavat Armor" = "Броня кавата: Ки'Тиир"
@@ -14316,8 +17583,8 @@ Kill = "Убийство"
 "Killed By" = "Убит Игроком"
 Killer = "Убийца"
 "Killer Generator" = "Генератор убийц"
-"Killer’s Confidence" = "Уверенность убийцы"
-"Killer’s Rush" = "Напор убийцы"
+"Killer's Confidence" = "Уверенность убийцы"
+"Killer's Rush" = "Напор убийцы"
 "Killian Shoulder Pad" = "Наплечник: Киллиан"
 "Killing Blow" = "Смертельный удар"
 Kills = "Убийств"
@@ -14360,8 +17627,6 @@ Kitgun = "Китган"
 "Kitgun: " = "Китган: "
 Kitguns = "Китганы"
 "Kiwad Glyph" = "Глиф: Kiwad"
-"Ki’Teer Greth Chest Plate" = "Нагрудник: Ки'Тиир - Грет"
-"Ki’Teer Greth Leg Plates" = "Наголенники: Ки'Тиир - Грет"
 "Klamora Prism" = "Призма: Кламора"
 "Klebrik Scaffold" = "Подложка: Клебрик"
 Kleptomaniac = "Клептоман"
@@ -14566,7 +17831,6 @@ Kullervo = "Куллерво"
 "Kullervo's Bane" = "Проклятие Куллерво"
 "Kullervo's Hold" = "Темница Куллерво"
 "Kullervo's Hold Scene" = "Сцена: Темница Куллерво"
-"Kullervo’s Hold" = "Темница Куллерво"
 Kulstar = "Кулстар"
 Kumihimo = "Кумихимо"
 "Kumihimo Loading" = "Загрузка Кумихимо"
@@ -14819,6 +18083,7 @@ LOADOUTS = "КОНФИГУРАЦИИ"
 "LOCATE THE VOID KEY" = "НАЙДИТЕ КЛЮЧ БЕЗДНЫ"
 LOCATION = "ЛОКАЦИЯ"
 "LOCK PATTERN" = "ЗАБЛОКИРОВАТЬ ШАБЛОН"
+LOCKBOX = "КОНТЕЙНЕР"
 "LOCKDOWN LIFTED" = "БЛОКИРОВКА СНЯТА"
 "LOCKED SLOT" = "НЕДОСТУПНЫЙ СЛОТ"
 LOG = "ЛОГ"
@@ -14841,6 +18106,7 @@ LOSING = "ПРОИГРЫВАЕТЕ"
 LOST = "ПРОИГРАЛИ"
 LOTUS = "ЛОТОС"
 LOW = "НИЗК."
+"LOW ENTROPY" = "НИЗКАЯ ЭНТРОПИЯ"
 "LOW RISK INVESTMENT" = "ИНВЕСТИЦИИ НИЗКОГО РИСКА"
 "LOWER CARGO" = "ОПУСТИТЬ ГРУЗОВУЮ ПЛАТФОРМУ"
 "LOWER TORSO" = "ПОЯСНИЦА"
@@ -14848,6 +18114,7 @@ LOYALTY = "ЛОЯЛЬНОСТЬ"
 LUA = "ЛУА"
 "LUA JUNCTION" = "УЗЕЛ ЛУА"
 "LUA RUINS" = "РУИНЫ ЛУА"
+"LUA, ORIGIN SYSTEM" = "ЛУА, ИЗНАЧАЛЬНАЯ СИСТЕМА"
 LUNARO = "ЛУНАРО"
 "LUNARO ARENA" = "АРЕНА ЛУНАРО"
 LUSCINIA = "ЛЮСИНИЯ"
@@ -15226,6 +18493,7 @@ Lettie = "Лэтти"
 "Lettie Pixel Glyph" = "Глиф: Пиксельная Лэтти"
 "Lettie's Hairstyle" = "Причёска: Лэтти"
 Level = "Уровень"
+"Level Three" = "Третий уровень"
 "Level Up Notification" = "Уведомление о новом уровне"
 Leverage = "Отдела Воздействия"
 Leveraged = "учёта роста"
@@ -15433,6 +18701,7 @@ Locales = "Локации"
 "Localized Air Purifier Decoration" = "Украшение: Локализованный Очиститель Воздуха"
 Locate = "Обнаружить цель"
 "Locate Belric's Crystal" = "Найдите кристалл Белрика"
+"Locate Cyphers: " = "Найдите шифровальщики: "
 "Locate Makvos Cannon" = "Найдите пушку «Маквос»"
 "Locate Narmer Veil Factory" = "Найдите фабрику Нармера по производству вуалей"
 "Locate Rania's Crystal" = "Найдите кристалл Рании"
@@ -15455,9 +18724,11 @@ Lock = "Заблокировать"
 "Lock Doors" = "Блокировать двери"
 "Lock Map Rotation" = "Отключить вращение миникарты"
 "Lock Room Editing" = "Заблокировать изменения помещения"
+"Lock Trait" = "Заблокировать характеристику"
 "Lock and Load" = "Заряжен и Готов"
 "Lock on to Dax" = "Выберите дакса в качестве цели"
 Lockbox = "Контейнер"
+"Lockbox Cypher" = "Зашифрованный контейнер"
 "Lockbox Key" = "Ключ контейнера"
 Locker = "Шкафчик"
 "Locker (Single, Open)" = "Шкафчик (отдельный, открытый)"
@@ -15701,6 +18972,7 @@ Lua = "Луа"
 "Lucky Medic" = "Везучий Медик"
 "Lucky Opener" = "Везучая отмычка"
 "Lucky Shot" = "Удачный Выстрел"
+"LuckyGoblin Glyph" = "Глиф: LuckyGoblin"
 "Lucra Syandana" = "Сандана: Люкра"
 "Lucretia Ephemera" = "Эфемера: Лукретия"
 "Luda the Hangnail" = "Люда «Заусеница»"
@@ -15761,7 +19033,7 @@ Lunaro = "Лунаро"
 Lurch = "Крен"
 "Lure the Assassination Target" = "Приманите цель для убийства"
 "Lurking Cougar" = "Притаившаяся Пантера"
-"Luscinia’s Suffering" = "Страдания Люсинии"
+"Luscinia's Suffering" = "Страдания Люсинии"
 "Lustratus Conquest Syandana" = "Сандана: Завоевание — Люстратус"
 "Lustratus Warbanner Syandana" = "Сандана: Боевое Знамя — Люстратус"
 "Lustrous Lunar Renewal Collection" = "Лучезарная коллекция: Лунный Новый год"
@@ -15813,6 +19085,9 @@ MAN = "ЧЕЛОВЕК"
 MANAGEMENT = "УПРАВЛЕНИЕ"
 MANEUVER = "ПРЕСЛЕДОВАНИЕ"
 MANIFESTS = "МАНИФЕСТЫ"
+"MARA LOHK NE RIS" = "МАРА ЛОК НЕ РИЗ"
+"MARAHU KALOHK KAIVBOK SHOKARIS" = "МАРАХУ КАЛОК КАИВБОК ШОКАРИС"
+"MARAHU KALOHK NE TAV" = "МАРАХУ КАЛОК НЕ ТАВ"
 MARGULIS = "МАРГУЛИС"
 "MARKED FOR DEATH BY" = "МЕТКИ СМЕРТИ"
 MARKET = "МАГАЗИН"
@@ -15857,6 +19132,7 @@ MEDIA = "МЕДИА"
 "MEET JADE" = "ЗНАКОМЬТЕСЬ С ДЖЕЙД"
 "MEET KOUMEI" = "ВСТРЕЧАЙТЕ КОМЕЮ"
 "MEET KULLERVO" = "ПОЗНАКОМЬТЕСЬ С КУЛЛЕРВО"
+"MEET NARIN" = "ЗНАКОМЬТЕСЬ С НАРИН"
 "MEET QORVEX" = "ВСТРЕЧАЙТЕ КОРВЕКСА"
 "MEET SIRIUS & ORION" = "НОВЫЙ ВАРФРЕЙМ: СИРИУС И ОРИОН"
 "MEHRA TUNNELS, HÖLLVANIA" = "ТОННЕЛИ МЕРЫ, ХЁЛЬВАНИЯ"
@@ -15875,6 +19151,7 @@ MEDIA = "МЕДИА"
 "MELEE UPGRADE SEGMENT" = "СЕГМЕНТ УЛУЧШЕНИЯ БЛИЖНЕГО БОЯ"
 "MELEE WEAPON" = "ОРУЖИЕ БЛИЖНЕГО БОЯ"
 "MELEE WEAPONS" = "ОРУЖИЕ БЛИЖНЕГО БОЯ"
+MELTDOWN = "РАСПЛАВЛЕНИЕ"
 MEMBERS = "ТОВАРИЩИ"
 MERCHANDISE = "ТОВАРЫ"
 "MERCURY JUNCTION" = "УЗЕЛ МЕРКУРИЯ"
@@ -15958,6 +19235,7 @@ MODDING = "УЛУЧШЕНИЯ"
 "MODE SWITCH SPEED" = "СКОРОСТЬ СМЕНЫ РЕЖИМА"
 MODEL = "МОДЕЛЬ"
 MODELS = "МОДЕЛИ"
+MODERATE = "УМЕРЕННЫЙ"
 MODIFIER = "МОДИФИКАТОР"
 "MODIFY PARAZON" = "ИЗМЕНИТЬ ПАРАЗОН"
 "MODIFY THE BACKROOM'S COLORS" = "ИЗМЕНИТЕ ЦВЕТА СЕКРЕТНОЙ КОМНАТЫ"
@@ -16021,6 +19299,7 @@ Machinery = "Оборудование"
 Machinist = "Машинист"
 "Macro Arcroid" = "Макро Аркроид"
 "Macro Thymoid" = "Макро Тимоид"
+"Mactics Glyph" = "Глиф: Mactics"
 "Maculatia Kavat Skin" = "Скин Кавата: Макулатья"
 "Maculatia Venari Skin" = "Скин Венари: Макулатья"
 "Mad Lab" = "Лаборатория чокнутого"
@@ -16130,7 +19409,7 @@ Maggot = "Личинка"
 "Magic and Mystery" = "Магия и тайна"
 "Maginav Prime Signa" = "Сигна: Магинав Прайм"
 Magistar = "Магистр"
-"Magistar Daybreak Skin" = "Скин Магистара: Рассвет"
+"Magistar Daybreak Skin" = "Скин Магистра: Рассвет"
 "Magistar Incarnon Bundle" = "Комплект Инкарнона: Магистр"
 "Magistar Incarnon Genesis" = "Генезис Инкарнона: Магистр"
 "Magistar Obsidian Skin" = "Скин Магистра: Обсидиан"
@@ -16202,6 +19481,8 @@ Magnus = "Магнус"
 "Main Light" = "Основное освещение"
 "Main Quests" = "Основные квесты"
 "Mainland Hamlets Scene" = "Сцена: Материковые деревушки"
+"Maintain Chain: " = "Поддерживайте непрерывность: "
+"Maintain Fire: " = "Поддерживайте огонь: "
 "Maintain Ideal Pressure Range" = "Поддерживайте идеальный диапазон давления"
 Maintained = "поддержания"
 Maintenance = "Специалист обслуживания"
@@ -16212,8 +19493,8 @@ Major = "Мажорный"
 "Major Grineer Outpost" = "Главный форпост Гринир"
 "Major Neci Rusalka" = "Майор Нэси Русалка"
 "Major Rusalka" = "Майор Русалка"
-"Major Rusalka’s Hat Memento" = "Памятная шляпа майора Русалки"
-"Major Rusalka’s Medals Memento" = "Памятные медали майора Русалки"
+"Major Rusalka's Hat Memento" = "Памятная шляпа майора Русалки"
+"Major Rusalka's Medals Memento" = "Памятные медали майора Русалки"
 "MakariMorph Glyph" = "Глиф: MakariMorph"
 "Make Active School" = "Сделать школу активной"
 "Make It Personal" = "Это Личное"
@@ -16418,7 +19699,7 @@ Master = "Мастер"
 "Matchmaking Ping Limit" = "Ограничение пинга для отрядов"
 "Material Structure" = "Материальная структура"
 Materials = "Центра Изучения Материалов"
-"Mathila’s Farm" = "Ферма Матилы"
+"Mathila's Farm" = "Ферма Матилы"
 Mathon = "Студент"
 Matisse = "Матисс"
 "Matriarch Honoria" = "Почесть: Матриарх"
@@ -16447,6 +19728,7 @@ Mawfish = "Рыба-пасть"
 "Max Charges" = "Макс. зарядов"
 "Max Charm Radius" = "Макс. Радиус Чар"
 "Max Choralysts" = "Макс. хоралистов"
+"Max Damage Iterations" = "Максимум итераций урона"
 "Max Damage Mult" = "Множитель Макс. Урона"
 "Max Duration" = "Макс. длительность"
 "Max Framerate" = "Максимальная частота кадров"
@@ -16473,6 +19755,7 @@ Maxima = "Максима"
 Maximized = "максимизации"
 "Maximized Arsenal" = "Максимальный Арсенал"
 "Maximum Capacity" = "Максимальная Вместимость"
+"Maximum Duration" = "Макс. длительность"
 "Maximum Health and Multishot" = "Максимальное здоровье и мультивыстрел"
 "Maximum Room Count Reached" = "Достигнут лимит комнат"
 "Maximum Supporters Paid" = "Максимально Оплачено Сторонниками"
@@ -16555,6 +19838,7 @@ Meditate = "Медитация"
 "Melee Vortex" = "Вихрь ближнего боя"
 "Melee Weapon" = "Оружие ближнего боя"
 "Melia Sugatra" = "Сугатра: Мелия"
+"Melica's Laboratory Scene" = "Сцена: Реликварный привод Заримана"
 Meltdown = "Прожигатель"
 "Meltdown Imminent" = "Взрыв Реактора Неизбежен"
 Mem-Foil = "Мем-Фольга"
@@ -16634,6 +19918,7 @@ Mesa = "Миса"
 "Mesa Graxx Helmet" = "Шлем Мисы: Граксс"
 "Mesa Graxx Skin" = "Скин Мисы: Граксс"
 "Mesa Heirloom" = "Миса: Наследие"
+"Mesa Heirloom Collection" = "Коллекция Мисы: Наследие"
 "Mesa Heirloom Duster" = "Накидка Мисы: Наследие"
 "Mesa Heirloom Glyph" = "Глиф Мисы: Наследие"
 "Mesa Heirloom Helmet" = "Шлем Мисы: Наследие"
@@ -16719,6 +20004,7 @@ Mewan = "Меван"
 "Mezzo Hamlet" = "Деревня Меццо"
 "Miabyte Glyph" = "Глиф: Miabyte"
 Miasma = "Миазма"
+"Miasmic Militia" = "Миазмическое ополчение"
 "Miasmite Mash" = "Смесь миазмитов"
 "Miasmite Swarm" = "Рой миазмитов"
 "Mic Cutoff" = "Граница чувств. микрофона"
@@ -16733,6 +20019,7 @@ Mid-term = "среднесрочности"
 "Midlength Sidepart" = "Средний с боком"
 "Midnight Cloud" = "Полуночное Облако"
 "Midnight Thrush" = "Полуночный Дрозд"
+"Might of the Lotus" = "Мощь Лотос"
 "Mighty Blows" = "Дуновение Мощи"
 "MikeTheBard Glyph" = "Глиф: MikeTheBard"
 Milati = "Милэти"
@@ -17034,6 +20321,10 @@ Monotonal = "монотонности"
 "MoonCake Festival Glyph" = "Глиф: Лунный Фестиваль"
 "Moondance Kavat Armor" = "Броня Кавата: Лунный Танец"
 "Moondance Kubrow Armor" = "Броня кубрау: лунный танец"
+Moonflesh = "Лунная плоть"
+"Moonflesh Collected" = "Собранная лунная плоть"
+"Moonflesh Harvesting Progress" = "Прогресс сбора лунной плоти"
+"Moonflesh Locus Detected" = "Обнаружена лунная плоть"
 "Moonless Kavat Gene-Masking Kit" = "Генно-маскирующий набор каватов: Безлунный"
 "Moonless Kavat Pattern" = "Шаблон меха кавата: Безлунный"
 "Moonlight Dragonlily" = "Лунная драконья лилия"
@@ -17335,7 +20626,6 @@ NEW = "НОВИНКА"
 "NEW WEAPON" = "НОВОЕ ОРУЖИЕ"
 "NEW WEAPON TYPE: BAYONET" = "НОВЫЙ ТИП ОРУЖИЯ: ШТЫК"
 NEWS = "НОВОСТИ"
-"NEXIFERA ECHO-LURE" = "ЭХО-МАНОК ДЛЯ НЕКСИФЕРЫ"
 "NEXIFERA PHEROMONE GLAND" = "ФЕРОМОННАЯ ЖЕЛЕЗА НЕКСИФЕРЫ"
 NEXT = "СЛЕДУЮЩЕЕ"
 "NEXT EXOLIZER" = "СЛЕДУЮЩИЙ ЭКЗОЛАЙЗЕР"
@@ -17459,6 +20749,7 @@ Nanoblood = "Нанокровь"
 Napalm = "Огнемётчик"
 "Napalm Grenades" = "Гранаты с Напалмом"
 Nar = "Нар"
+Naraemagi = "Нараэмаги"
 Naramon = "Нарамон"
 "Naramon Animation Set" = "Набор анимаций: Нарамон"
 "Naramon Badge" = "Бейдж: Нарамон"
@@ -17473,6 +20764,16 @@ Naramon = "Нарамон"
 "Naramon Transmute Core" = "Ядро трансмутации: Нарамон"
 "Naramon Vanguard Honoria" = "Почесть: Авангард Нарамона"
 "Naramon Vosphene" = "Восфен: Нарамон"
+Narin = "Нарин"
+"Narin Baridegi Helmet" = "Шлем Нарин Баридеги"
+"Narin Bundle" = "Комплект: Нарин"
+"Narin Chassis" = "Нарин: Каркас"
+"Narin Helmet" = "Шлем Нарин"
+"Narin Neuroptics" = "Нарин: Нейрооптика"
+"Narin Prex" = "Прекс: Нарин"
+"Narin Skin" = "Скин Нарин"
+"Narin Systems" = "Нарин: Система"
+"Narin Warframe" = "Варфрейм «Нарин»"
 Narmer = "Нармер"
 "Narmer All Seeing Eye" = "Всевидящее око Нармера"
 "Narmer Arid Bombard" = "Пустынный Бомбардировщик Нармера"
@@ -17754,7 +21055,7 @@ Negative = "Негатив"
 Negotiated = "ведения переговоров"
 Negotiation = "Отдела Переговоров"
 Negotiator = "Переговорщик"
-"Neighbor’s Outlook" = "Соседский пункт"
+"Neighbor's Outlook" = "Соседский пункт"
 "Nekrokrim Glyph" = "Глиф: Nekrokrim"
 Nekros = "Некрос"
 "Nekros Agile Animation Set" = "Набор анимаций Некроса: Проворный"
@@ -17811,9 +21112,11 @@ Neo = "Нео"
 "Neo Pink" = "Нео-розовый"
 "Neo Relic" = "Реликвия: Нео"
 "NeoNess007 Glyph" = "Глиф: NeoNess007"
+Neolyst = "Неолист"
 Neon = "Неон"
 "Neon Nights Livery" = "Ливрея: Неоновые ночи"
 "Neon Pride Wings" = "Неоновые Крылья Прайда"
+Neote = "Неоте"
 Nepheri = "Нефери"
 "Nephil Vasca Kavat" = "Васка кават: Нефил"
 "Nephil Vasca Kavat Floof" = "Пушистик: Нефил васка кават"
@@ -17862,6 +21165,7 @@ Neutralize = "Нейтрализация"
 "Neutralize Narmer Outpost" = "Нейтрализуйте форпост Нармера"
 Neutralizer = "Нейтрализатор"
 "Neutralizing Justice" = "Нейтрализующая Справедливость"
+"Neutralizing Reactor Core: " = "Нейтрализация ядра реактора: "
 "Neutron Star" = "Нейтронная Звезда"
 "Never do" = "Не надо"
 "Neviti Ephemera" = "Эфемера: Нэвити"
@@ -17870,6 +21174,7 @@ Neutralizer = "Нейтрализатор"
 "New Downloadable Content Installed" = "Установлен новый контент"
 "New Items Available" = "Доступны новые предметы"
 "New Leverian" = "Новый Левериан"
+"New Log Revealed" = "Обнаружена новая запись"
 "New Loka" = "Новая Лока"
 "New Loka Combat Emote" = "Жест: Новая Лока - Бой"
 "New Loka Endurance Emote" = "Жест: Новая Лока - Выносливость"
@@ -17892,6 +21197,7 @@ Newcomers = "Новички"
 "Newspaper Vending Machine" = "Автомат по продаже газет"
 "Newspaper Vending Machine (Small)" = "Автомат по продаже газет (маленький)"
 Nexifera = "Нексифера"
+"Nexifera Echo-Lure" = "ЭХО-МАНОК ДЛЯ НЕКСИФЕРЫ"
 "Next Camera Target" = "Следующая позиция камеры"
 "Next Infernum Opening Soon" = "Скоро следующее открытие Инферно"
 "Next Mission" = "Следующая миссия"
@@ -18096,6 +21402,7 @@ No = "Нет"
 "No Active Pledge" = "Нет активной присяги"
 "No Antiserum For Injection" = "Нет Антисерума для инъекции"
 "No Brainer" = "Легкая задача"
+"No Compatible Traits" = "Нет совместимых характеристик"
 "No Contracts" = "Нет контрактов"
 "No Current Leap" = "Потоковый Прыжок"
 "No Data" = "Нет данных"
@@ -18413,6 +21720,12 @@ Nunchaku = "Нунчаки"
 "Nunchaku Hip Holster" = "Набедренный Крепеж Нунчак"
 "Nunchaku Shoulder Holster" = "Плечевой Крепеж Нунчак"
 "Nunchaku Standard Holster" = "Стандартный Крепеж Нунчак"
+Nunchasa = "Нунчаса"
+"Nunchasa Grip" = "Рукоять Нунчаса"
+"Nunchasa Lower Limb" = "Нунчаса нижнее плечо"
+"Nunchasa String" = "Тетива Нунчаса"
+"Nunchasa Upper Limb" = "Нунчаса верхнее плечо"
+Nurinarim = "Нуринарим"
 "Nusku Dual Pistol Skin" = "Скин Парных Пистолетов: Нуску"
 "Nusku Pistol Skin" = "Скин Пистолета: Нуску"
 "Nutrio Incubator Upgrade Segment" = "Сегмент Улучшения Инкубатора: Нутрио"
@@ -18848,7 +22161,7 @@ Olemedi = "Олемеди"
 Ollie = "Олли"
 "Ollie Floof" = "Пушистик: Олли"
 "Ollie's Biggest Fan Honoria" = "Почесть: Фанат Олли"
-"Ollie’s Rocket Livery" = "Ливрея: Ракета Олли"
+"Ollie's Rocket Livery" = "Ливрея: Ракета Олли"
 "Oloro Moa" = "МОА: Олоро"
 Olvar-D = "Ольвар-Д"
 "Olympus Blue" = "Олимп-синий"
@@ -18880,7 +22193,6 @@ On = "Вкл."
 "On Burst Headshots" = "При серии попаданий в голову"
 "On Call" = "На дежурстве"
 "On Call Crew" = "Экипаж по вызову"
-"On Consecutive Weakpoint Hits" = "При последовательных попаданиях в слабые точки."
 "On Critical Hit" = "При критическом попадании"
 "On Damaged" = "При получении урона"
 "On Enemy Frozen" = "При заморозке врага"
@@ -18910,7 +22222,6 @@ On = "Вкл."
 "On Melee Kill" = "При убийстве в ближнем бою"
 "On Operator Ability" = "При использовании способности оператора"
 "On Pistol Headshot" = "При попадании в голову из пистолета"
-"On Pistol Headshot Kill" = "Убийство выстрелом в голову из пистолета"
 "On Precision Headshot Kill" = "При убийстве прицельным выстрелом в голову"
 "On Predeath" = "При истекании кровью"
 "On Primary Kill" = "При убийстве основным оружием"
@@ -19029,6 +22340,7 @@ Operative = "Оперативник"
 Operator = "Оператор"
 "Operator Abilities" = "Способности Оператора"
 "Operator Atmosphor" = "Оператор Атмосфор"
+"Operator Clothing" = "Одежда Оператора"
 "Operator Cut 002" = "Причёска оператора 002"
 "Operator Cut 003" = "Причёска оператора 003"
 "Operator Dex Apparel" = "Набедренник оператора: Декс"
@@ -19041,6 +22353,7 @@ Operator = "Оператор"
 "Operator Escuchon Hood" = "Капюшон Оператора: Эскушон"
 "Operator Escuchon Pauldrons" = "Наплечники Оператора: Эскушон"
 "Operator Escuchon Suit" = "Костюм Оператора: Эскушон"
+"Operator Features" = "Особенности Оператора"
 "Operator Feldune Apparel" = "Набедренник оператора: Фелдюн"
 "Operator Feldune Hood" = "Капюшон оператора: Фелдюн"
 "Operator Feldune Pants" = "Штаны оператора: Фелдюн"
@@ -19101,7 +22414,10 @@ Optio = "Оптио"
 "Optional: Sister Beacons" = "Дополнительно: Маячки Сестёр"
 "Optional: Switch Loadout" = "Смена Снаряжения (не обязательно)"
 Options = "Настройки"
+"Opula Chest Armor" = "Нагрудник «Опула»"
 "Opula Ephemera" = "Эфемера: Опула"
+"Opula Leg Armor" = "Наголенники «Опула»"
+"Opula Shoulder Armor" = "Наплечники «Опула»"
 "Opulas Robe" = "Роба Опулас"
 Oracle = "Оракул"
 "Oracle Sigil" = "Сигил: Оракул"
@@ -19297,6 +22613,7 @@ Orokin = "Орокин"
 "Orokin Entrati Wall (Small)" = "Стена Энтрати Орокин (малая)"
 "Orokin Entrati Wall Screen" = "Настенный экран Энтрати Орокин"
 "Orokin Entrati Zarinas Symbol" = "Символ Энтрати Орокин: Заринас"
+"Orokin Era" = "Эра Орокин"
 "Orokin Eye" = "Око Орокин"
 "Orokin Filigree" = "Филигрань Орокин"
 "Orokin Filigree (Large)" = "Филигрань Орокин: Большая"
@@ -19391,9 +22708,9 @@ Orokin-derived = "основ Орокин"
 Orowyrm = "Оровирм"
 "Orowyrm Arena Scene" = "Сцена: Арена Оровирма"
 "Orowyrm Arena Simulacrum" = "Симулякрум: Арена Оровирма"
+"Orowyrm's Breath" = "Дыхание Оровирма"
 "Orowyrm's Rage Sigil" = "Сигил: Ярость Оровирма"
 "Orowyrm's Sanctum Display" = "Дисплей: Святилище Оровирма"
-"Orowyrm’s Breath" = "Дыхание Оровирма"
 Orphaned = "Сирота"
 "Orpheus Deluxe Glyph" = "Глиф: Orpheus Deluxe"
 "Orphid Husks" = "Шелуха Орхидеи"
@@ -19716,6 +23033,7 @@ PERMANENT = "ПОСТОЯННО"
 "PERRIN SEQUENCE ARENA" = "АРЕНА ПОСЛЕДОВАТЕЛЬНОСТИ ПЕРРИНА"
 "PERRIN SEQUENCE PHILOSOPHY" = "ФИЛОСОФИЯ ПОСЛЕДОВАТЕЛЬНОСТИ ПЕРРИНА"
 PERSONAL = "ЛИЧНЫЕ"
+"PERSONAL BURDEN" = "ЛИЧНОЕ БРЕМЯ"
 "PERSONAL DECORATIONS" = "ПЕРСОНАЛЬНЫЕ УКРАШЕНИЯ"
 "PERSONAL PROGRESS" = "ЛИЧНЫЙ ПРОГРЕСС"
 "PERSONAL RESERVE" = "ЛИЧНОЕ ХРАНИЛИЩЕ"
@@ -19878,6 +23196,7 @@ PROGRESS = "ПРОГРЕСС"
 PROJECTILE = "СНАРЯД"
 "PROJECTILE EXPLOSION CHANCE" = "ШАНС ВЗРЫВА СНАРЯДА"
 "PROJECTILE FLIGHT SPEED" = "СКОРОСТЬ ПОЛЕТА"
+"PROLOGUE TO TAU" = "ПРОЛОГ К ТАУ"
 PROMISE = "ДАЮ СЛОВО"
 "PROMOTE TO LEADER" = "НАЗНАЧИТЬ ЛИДЕРА"
 "PROOF OF LIFE" = "ДОКАЗАТЕЛЬСТВО ЖИЗНИ"
@@ -20033,9 +23352,9 @@ Paradigms = "Службы Парадигм"
 "Paradox Visage Ink Collection" = "Коллекция татуажа: Парадокс"
 "Paragon Essence" = "Эссенция Парагона"
 Paragrimm = "Парагримм"
+"Paragrimm's Burrow" = "Нора Парагримма"
+"Paragrimm's Wisdom" = "Мудрость Парагримма"
 Paragrimms = "Парагриммы"
-"Paragrimm’s Burrow" = "Нора Парагримма"
-"Paragrimm’s Wisdom" = "Мудрость Парагримма"
 Parallax = "Параллакс"
 "Parallax Albodix Skin" = "Скин Параллакса: Альбодикс"
 "Parallax Avionics" = "Параллакс: Авионика"
@@ -20060,6 +23379,7 @@ Paranoid = "Параноик"
 Parasitic = "Паразит"
 "Parasitic Armor" = "Паразитическая Броня"
 "Parasitic Echo" = "Паразитическое Эхо"
+"Parasitic Light" = "Паразитический свет"
 "Parasitic Link" = "Паразитическая Связь"
 "Parasitic Tethermaw" = "Паразитирующий Пузырь"
 "Parasitic Towers" = "Паразитические башни"
@@ -20204,6 +23524,7 @@ Perfect = "Отлично"
 "Perfect Shot" = "Безупречный выстрел"
 "Perfect Shot Radial Attack" = "Безупречный выстрел c атакой по площади"
 Performance = "Производительность"
+"Performance Anxiety" = "Беспокойство по поводу производительности"
 Perigale = "Перигаль"
 "Perigale Barrel" = "Перигаль: Ствол"
 "Perigale Prime" = "Перигаль Прайм"
@@ -20297,6 +23618,7 @@ Phenmor = "Фенмор"
 "Pherliac Pods" = "Капсулы Ферлиака"
 Pherogland = "Ферогланд"
 Pheromones = "Феромоны"
+"Pherp Lancer Glyph" = "Глиф: Pherp Lancer"
 Philosopher = "Философ"
 Phobos = "Фобос"
 "Phobos Brown" = "Фобос-коричневый"
@@ -20550,6 +23872,8 @@ Play = "Воспроизвести"
 "Player 2 Medium Attack" = "Игрок 2 - обычный удар"
 "Player 2 Special" = "Игрок 2 - способность"
 Players = "Игроки"
+"Players Required to Revive" = "Для возрождения необходимы игроки"
+"Playful Pickups" = "Забавные находки"
 Playing = "Играет"
 "Playing Solo" = "Играет соло"
 Playwright = "Драматург"
@@ -20573,12 +23897,12 @@ Pluto = "Плутон"
 Pobber = "Поббер"
 "Pobber Call Point" = "Место Призыва Поббера"
 "Pobber Trail Start Point" = "След Поббера: Стартовая Точка"
+"Pobber's Drop" = "Прыжок поббера"
 "Pobbers Echo-Lure" = "Эхо-Манок Для Поббера"
 "Pobbers Pheromone Synthesizer" = "Синтезатор Феромонов Поббера"
 "Pobbers Series 1 Scrawl" = "Мазня: Побберы 1"
 "Pobbers Series 2 Scrawl" = "Мазня: Побберы 2"
-"Pobber’s Drop" = "Прыжок поббера"
-"Poet’s Perch" = "Карниз поэта"
+"Poet's Perch" = "Карниз поэта"
 "Point Blank" = "В упор"
 "Point Strike" = "Точечный удар"
 "Point(s)" = "Очки"
@@ -20709,6 +24033,7 @@ Practice = "Практиковаться"
 Praedos = "Прадос"
 "Praesidum Mask" = "Маска: Президум"
 Prageshta = "Прагешта"
+Praghasa = "Прагаса"
 "Praghasa Throne Room Scene" = "Сцена: Тронный зал Прагаса"
 "Pragka Pet Bed" = "Лежак Питомца: Прагка"
 "Pragmatica Signa" = "Сигна: Прагматика"
@@ -20810,6 +24135,7 @@ Pride = "Гордость"
 "Prime Finish" = "Покрытие Прайм"
 "Prime Glyph Pack" = "Набор глифов: Прайм"
 "Prime Gold" = "Прайм-Золотой"
+"Prime Grineer" = "Гринир Прайм"
 "Prime Grineer Bolkor" = "Болкор Гринир Прайм"
 "Prime Grineer Lancer" = "Солдат Гринир Прайм"
 "Prime Grineer Resource Cache" = "Тайник ресурсов Гринир Прайм"
@@ -20960,6 +24286,7 @@ Prism = "Призма"
 "Prismatic Beam" = "Призматический луч"
 "Prismatic Companion" = "Призматический компаньон"
 "Prismatic Gem" = "Призматический самоцвет"
+"Prismatic Gem Prime Decoration" = "Украшение: Призматический самоцвет Прайм"
 "Prison Break" = "Побег из тюрьмы"
 Prisoner = "Заключённый"
 "Privacy Notice" = "Уведомление о конфиденциальности"
@@ -21030,6 +24357,8 @@ Propaganda = "Кабинета Пропаганды"
 "Propagation Drone" = "Дрон распространения"
 "Propagation Manager" = "Менеджер распространения"
 Prophecy = "пророчеств"
+"Prophecy Fulfilled" = "Пророчество выполнено"
+"Prophecy Unfulfilled" = "Нереализованное пророчество"
 "Proportional Resistance" = "Пропорциональное сопротивление"
 Proprietary = "проприетарности"
 "Propulsion Engineer" = "Инженер силовых установок"
@@ -21153,6 +24482,7 @@ Prova = "Прова"
 "Prova Shock-Camo Skin" = "Скин Провы: Шоковый камуфляж"
 "Prova Vandal" = "Прова Вандал"
 "Provide Fish" = "Отдать рыбу"
+"Provide Moonflesh" = "Передать лунную плоть"
 "Provide Servofish" = "Отдать серворыбу"
 Provoke = "Провокация"
 "Provoke Assault" = "Спровоцировать нападение"
@@ -21176,7 +24506,6 @@ Public = "Публично"
 "Puffin' Pastures" = "Гоним по полям"
 Pugil = "Хваты"
 "Pulchranopsis Syandana" = "Сандана: Пальчранопc"
-Pull = "Притяжение"
 Pulmonars = "Пульмонары"
 Pulsar = "Пульсар"
 "Pulsar MK I" = "Пульсар MK I"
@@ -21448,13 +24777,14 @@ RATING = "РЕЙТИНГ"
 "REACH THE STADIUM" = "ДОБЕРИТЕСЬ ДО СТАДИОНА"
 "REACH THE SURFACE" = "ДОБЕРИТЕСЬ ДО ПОВЕРХНОСТИ"
 "REACH THE VOID PORTAL" = "ДОБЕРИТЕСЬ ДО ПОРТАЛА БЕЗДНЫ"
+"REACH VOID PENDULA" = "ДОБЕРИТЕСЬ ДО МАЯТНИКА БЕЗДНЫ"
 REACTANT = "РЕАГЕНТ"
 "REACTANT COLLECTED" = "СОБРАНО РЕАГЕНТА"
 REACTOR = "РЕАКТОР"
 "REACTOR CONTROL ROOM " = "КОМНАТА УПРАВЛЕНИЯ РЕАКТОРОМ "
 "REACTOR DECAY" = "РАЗРУШЕНИЕ РЕАКТОРА"
 "REACTOR MELTDOWN" = "РАСПЛАВЛЕНИЕ РЕАКТОРА"
-"REACTOR WEAKPOINT" = "СЛАБАЯ ТОЧКА РЕАКТОРА"
+"REACTOR WEAK POINT" = "СЛАБАЯ ТОЧКА РЕАКТОРА"
 REACTORS = "РЕАКТОРЫ"
 READ = "ЧИТАТЬ"
 READY = "ГОТОВ"
@@ -21599,6 +24929,7 @@ RESET = "СБРОС"
 "RESET ROTATION" = "СБРОСИТЬ ВРАЩЕНИЕ"
 "RESET SUIT" = "СБРОС КОСТЮМА"
 "RESET TO DEFAULT" = "СБРОС НА СТАНДАРТНЫЕ"
+RESIGN = "ОТКАЗАТЬСЯ"
 RESISTANCES = "СОПРОТИВЛЯЕМОСТЬ"
 "RESOURCE CAPTURE" = "ЗАХВАТ РЕСУРСОВ"
 "RESOURCE DROP CHANCE" = "ШАНС ВЫПАДЕНИЯ РЕСУРСОВ"
@@ -21695,6 +25026,7 @@ RISES = "ВОЗВЫШАЕТСЯ"
 RIVEN = "РАЗЛОМЫ"
 "RIVEN DISPOSITION" = "СИНЕРГИЯ С РАЗЛОМОМ"
 "RIVEN MOD SLOTS" = "СЛОТЫ МОДОВ РАЗЛОМА"
+"RIVEN TRAIT LOCKING" = "БЛОКИРОВКА ХАРАКТЕРИСТИК МОДОВ РАЗЛОМА"
 "RIVEN TRANSMUTE" = "ТРАНСМУТАЦИЯ МОДОВ РАЗЛОМА"
 "RIVEN UNVEILED" = "МОД РАЗЛОМА ОТКРЫТ"
 "RLCGaming Glyph" = "Глиф: RLCGaming"
@@ -21738,7 +25070,7 @@ RUPTURE = "РАЗЛОМ"
 Rabbit = "Кролик"
 "Rabbleback Hyena" = "Гиена-спинобут"
 Rablit = "Кроблик"
-"Rablit’s Eye Outpost" = "Форпост «Глаз Кроблика»"
+"Rablit's Eye Outpost" = "Форпост «Глаз Кроблика»"
 Rabvee = "Рабви"
 Race = "Гонка"
 "Race Ace" = "Мастер гонок"
@@ -21990,6 +25322,9 @@ Reach = "Размах"
 Reactor = "Реактор"
 "Reactor Containment Cage" = "Защитный кожух реактора"
 "Reactor Core" = "Ядро реактора"
+"Reactor Core Neutralization Failed" = "Нейтрализация ядра реактора не удалась"
+"Reactor Core Neutralized" = "Ядро реактора нейтрализовано"
+"Reactor Detonation" = "Детонация реактора"
 "Reactor Level" = "Уровень реактора"
 "Read Archimedean Record" = "Прочитать запись Архимедиан"
 "Read Page" = "Прочитать страницу"
@@ -22039,6 +25374,7 @@ Recaster = "Рекастер"
 "Receive Friend Requests From" = "Получать заявки в друзья от"
 "Receive Gifts From" = "Получать подарки от"
 Received = "Получен(а)"
+"Received a Frozen Key" = "Получен замороженный ключ"
 "Received: " = "Получено: "
 "Recent Players" = "Недавние игроки"
 Receptions = "Получено"
@@ -22242,6 +25578,7 @@ Relics = "Реликвии"
 "Relics & Arcanes" = "Реликвии и мистификаторы"
 "Relics Are Changing" = "Реликвии изменяются"
 "Relinquish Adversaries" = "Забвение противников"
+"Reliquia Syandana" = "Сандана: Реликвия"
 Rell = "Рэлл"
 "Rell's Anger Emotile" = "Эмоция Рэлла: Гнев"
 "Rell's Anxiety Emotile" = "Эмоция Рэлла: Беспокойство"
@@ -22422,7 +25759,6 @@ Resolution = "Отдела Разрешений"
 Resolutions = "Резолюции"
 "Resonant Restore" = "Резонансное восстановление"
 "Resonating Arc" = "Резонирующая Арка"
-"Resonating Quake" = "Резонирующий Взрыв"
 Resonator = "Резонатор"
 "Resounding Fear" = "Звук Страха"
 Resource = "Ресурс"
@@ -22722,6 +26058,7 @@ Right = "Вправо"
 "Rime Vault" = "Морозный кувырок"
 "Ring (Damaged)" = "Кольцо (повреждено)"
 "Ring Bell" = "Позвонить в колокол"
+"Ring a Cryobell" = "Позвонить в Криоколокол"
 "Ringers Skin" = "Скин звонарей"
 "Riot Moas" = "МОА правопорядка"
 Riot-848 = "Мятеж-848"
@@ -22778,6 +26115,8 @@ Ris = "Риз"
 "Riven Mod" = "Мод Разлома"
 "Riven Only" = "Только Разломы"
 "Riven Sliver" = "Осколок разлома"
+"Riven Splicer" = "Комбинаторы Разлома"
+"Riven Splicing" = "Сращивание модов разлома"
 "Riven Transmuter" = "Трансмутатор Разлома"
 "Riven Unveiling" = "Открытие Модов Разлома"
 "River Blue" = "Река-синий"
@@ -22804,6 +26143,7 @@ Roathe = "Роут"
 "Roathe's Oblivion Arena" = "Арена: Забвение Роута"
 "Roathe's Orokin Ruins Date" = "Сцена: Свидание с Роутом на руинах Орокин"
 "Roathe's Zariman Park Date" = "Сцена: Свидание с Роутом в парке Заримана"
+"RoboMythos Glyph" = "Глиф: RoboMythos"
 "Robotic Onslaught" = "Робо-резня"
 Robotics = "Робототехника"
 "Robotics Lockbox" = "Контейнер с робототехникой"
@@ -22833,7 +26173,7 @@ Rogg-417 = "Рогг-417"
 "Rogue Readiness" = "Плутовская готовность"
 "Rogue Voidrig" = "Дикий Войдриг"
 Roky = "Роки"
-"Roky’s Roll" = "Кувырок Роки"
+"Roky's Roll" = "Кувырок Роки"
 Rolizor = "Ролизор"
 "Rolizor Infested Cyst" = "Заражённая Киста: Ролизор"
 "Roll Dice" = "Бросить кости"
@@ -22870,8 +26210,8 @@ Rollers = "Роллеры"
 "Roots (Rounded)" = "Корни (округлые)"
 "Roots (Tree Formation)" = "Корни (древовидное образование)"
 "Roots (Wall)" = "Корни (стена)"
+"Roots n' Fruits" = "Вершки и корешки"
 "Roots n' Fruits Poster" = "Постер: Вершки и корешки"
-"Roots n’ Fruits" = "Вершки и корешки"
 "Ropaka Planter" = "Растение: Ропака"
 Ropalolyst = "Ропалолист"
 "Ropalolyst Articula" = "Модель Ропалолиста"
@@ -23044,6 +26384,7 @@ SCARED = "ИСПУГАННО"
 SCENE = "СЦЕНА"
 "SCORCHED BEACON" = "ОПАЛЕННЫЙ МАЯК"
 "SCORCHED EARTH" = "ВЫЖЖЕННАЯ ЗЕМЛЯ"
+SCORCHING = "ОБЖИГАЮЩИЙ"
 "SCRAMBLE PATTERN" = "ШИФРОВАТЬ ГЕНЫ"
 SCRAMBLER = "ГЕНЕТИЧЕСКИЙ ШИФР"
 "SCRAP AVIONICS" = "УТИЛИЗАЦИЯ АВИОНИКИ"
@@ -23119,6 +26460,7 @@ SEEKING = "ИЩЕТ"
 "SELECT ARTIFACT" = "ВЫБЕРИТЕ АРТЕФАКТ"
 "SELECT BACKDROP" = "ВЫБЕРИТЕ ФОН"
 "SELECT CATEGORY" = "ВЫБЕРИТЕ КАТЕГОРИЮ"
+"SELECT CRYOBELL" = "ВЫБРАТЬ КРИОКОЛОКОЛ"
 "SELECT EXTRACTORS TO REDEPLOY" = "ВЫБЕРИТЕ ЭКСТРАКТОРЫ ДЛЯ РАЗМЕЩЕНИЯ"
 "SELECT FISH" = "ВЫБЕРИТЕ РЫБУ"
 "SELECT FORMA" = "ВЫБРАТЬ ФОРМУ"
@@ -23237,6 +26579,7 @@ SIGILS = "СИГИЛЫ"
 SIGMA = "СИГМА"
 "SIGN UP" = "Регистрация"
 "SIGN UP NOW" = "ЗАРЕГИСТРИРОВАТЬСЯ"
+"SIGNAL CHAIN" = "СИГНАЛЬНАЯ ЦЕПЬ"
 "SIGNAL DISRUPTED" = "СИГНАЛ ПРЕРВАН"
 SILENT = "БЕСШУМНОЕ"
 "SILLY AMIR" = "ГЛУПЫЙ АМИР"
@@ -23272,6 +26615,7 @@ SLING-STONE = "ПРАЩА"
 SLIPPERY = "СКОЛЬЗКО"
 SLOTS = "СЛОТЫ"
 "SLOW DURATION" = "ПРОДОЛЖИТЕЛЬНОСТЬ ЗАМЕДЛЕНИЯ"
+"SLUM LOCORDA" = "ЛОКОРДОВЫ ТРУЩОБЫ"
 "SMAA (Medium)" = "SMAA (Сред.)"
 SMALL = "МАЛЕНЬКУЮ"
 SMG = "Пистолет-пулемет"
@@ -23427,7 +26771,6 @@ STRIKES = "ЛЕЗВИЯ"
 "STRIP MINING (ENDLESS)" = "ГОРНЫЕ РАЗРАБОТКИ (БЕСКОНЕЧНЫЕ)"
 STRONG = "СИЛЬНЫЙ"
 "STUN TIME" = "ВРЕМЯ ОГЛУШЕНИЯ"
-"STYANAX PRIME" = "СТИНАКС ПРАЙМ"
 "SUBJECT: An Unbelievable Offer" = "ТЕМА: Невероятное предложение"
 SUBMERSIBLE = "ПОДВОДНЫЙ"
 "SUBSUME WARFRAME" = "ПОГЛОТИТЬ ВАРФРЕЙМ"
@@ -23459,6 +26802,7 @@ SURVIVAL = "ВЫЖИВАНИЕ"
 "SURVIVAL EVENT SILVER TROPHY" = "СЕРЕБРЯНЫЙ ТРОФЕЙ: ВЫЖИВАНИЕ"
 SWAP = "ПОМЕНЯТЬ"
 "SWAP BASS" = "СМЕНИТЬ БАС"
+"SWAP CRYOBELL" = "СМЕНИТЬ КРИОКОЛОКОЛ"
 "SWAP ENERGY BARRIERS" = "ПЕРЕКЛЮЧИТЬ ЭНЕРГЕТИЧЕСКИЙ БАРЬЕР"
 "SWAP EVOLUTIONS" = "ИЗМЕНЕНИЕ ЭВОЛЮЦИИ"
 "SWAP MELODY" = "СМЕНИТЬ МЕЛОДИЮ"
@@ -23585,6 +26929,7 @@ Sanctum = "Санктум"
 "Sands of Mars Ephemera" = "Эфемера: Пески Марса"
 Sandstorm = "Песчаная буря"
 "Sandstorm Brown" = "Песочная Буря-Коричневый"
+Sangodae = "Сангодэ"
 "Sanguina Kallisti Glyph" = "Глиф: Сангвина Каллисти"
 "Sanguina Kallisti Poster" = "Постер: Сангвина Каллисти"
 "Sanguinax Prime Ephemera" = "Эфемера: Сангвинакс Прайм"
@@ -23820,8 +27165,8 @@ Scenarios = "Мастерской Разработки Сценариев"
 "Scene Light Intensity" = "Интенсивность освещения сцены"
 Schemas = "Центра Разработки Схематозов"
 "Scholar's Artifacts Found" = "Артефакты Учёного найдены"
+"Scholar's Landing" = "Лагерь учёного"
 "Scholar's Landing Scene" = "Сцена: Лагерь учёного"
-"Scholar’s Landing" = "Лагерь учёного"
 "School's Out" = "Школа закрыта"
 "Sciathin Syandana" = "Сандана: Скиатин"
 Scimitar = "Скимитар"
@@ -24148,7 +27493,6 @@ Sentient = "Владеющие Разумом"
 "Sentient Bone Effigy (Large)" = "Образ Владеющих Разумом из кости (большого размера)"
 "Sentient Bone Effigy (Medium)" = "Образ Владеющих Разумом из кости (среднего размера)"
 "Sentient Bridge Structure" = "Мост Владеющих Разумом"
-"Sentient Child" = "Дитя Владеющих Разумом"
 "Sentient Concourse Scene" = "Сцена: Главный зал Владеющих Разумом"
 "Sentient Dark Grey Fang" = "Клык Владеющих Разумом: Тёмно-серый"
 "Sentient Door Frame (Closed)" = "Дверная рама Владеющих Разумом: Закрытая"
@@ -24219,6 +27563,7 @@ Sentinels = "Стражи"
 Sentirum = "Сентирум"
 "Sentry Gun" = "Автоматическая турель"
 "Senvictis Syandana" = "Сандана: Сэнвиктис"
+"Seonang Ephemera" = "Эфемера: Сеонанг"
 Seonn = "Сеонн"
 "Separate Aim+Shoot Button" = "Разделить кнопки Прицела и Выстрела"
 "Separate Heavy Attack Button" = "Отдельная кнопка Тяжёлой атаки"
@@ -24397,7 +27742,7 @@ Sharpening = "Чёткость"
 Sharpshooter = "Снайпер"
 "Sharpshooter Ink" = "Татуаж: Снайпер"
 "Sharpshooter's Benediction" = "Благословение снайпера"
-"Sharpshooter’s Bounty" = "Заказ снайпера"
+"Sharpshooter's Bounty" = "Заказ снайпера"
 Sharrac = "Шаррака"
 "Sharrac Teeth" = "Зубы Шарраки"
 "Sharrac Trophy" = "Трофей: Шаррака"
@@ -24463,6 +27808,7 @@ Shield = "Щит"
 "Shield Osprey" = "Дрон-щитогенератор"
 "Shield Osprey Specter" = "Спектр: Дрон-щитогенератор"
 "Shield Overload" = "Перегрузка Щита"
+"Shield Per Cold Status" = "щитов за врага"
 "Shield Per Enemy" = "щитов за врага"
 "Shield Radius" = "Радиус Щита"
 "Shield Range" = "Радиус Щита"
@@ -24512,6 +27858,7 @@ Shiny = "Блестяшка"
 "Ship Window Spar (3m)" = "Окно корабля: стойка (3м)"
 "Ship Window Spar (6m)" = "Окно корабля: стойка (6м)"
 Ships = "Корабли"
+"ShiroKosha Glyph" = "Глиф: ShiroKosha"
 "Shiroku Syandana" = "Сандана: Широку"
 Shit = "Вот дерьмо"
 "Shitbox Convoy" = "Дерьмовый конвой"
@@ -24532,6 +27879,7 @@ Shit = "Вот дерьмо"
 "Shock and Awe" = "Шок и трепет"
 "Shock-Camo Pack" = "Набор: Шоковый камуфляж"
 "Shocking Claws" = "Шокирующие Когти"
+"Shocking Leaps" = "Шокирующие прыжки"
 "Shocking Leech Eximus Cabal" = "Эксимус Кабал: Шоковая Пиявка"
 "Shocking Speed" = "Шокирующее Ускорение"
 "Shocking Step Ephemera" = "Эфемера: Шокирующая поступь"
@@ -24762,6 +28110,7 @@ Silver = "Серебряный"
 "Silver Sage Mastery Slate" = "Сланец Мастерства: Серебряный Мудрец"
 "Silver Seeker Mastery Slate" = "Сланец Мастерства: Серебряный Искатель"
 "Silver Skull Emblem" = "Значок: Серебряный череп"
+"Silver Taubound Trophy" = "Трофей: Связь с Тау - Серебряный"
 "Silver Tiger Mastery Slate" = "Сланец Мастерства: Серебряный Тигр"
 "SilverShadowFR Glyph" = "Глиф: SilverShadowFR"
 "Silvervale Glyph" = "Глиф: Silvervale"
@@ -24823,7 +28172,7 @@ Skateweed = "Скаторняк"
 "Skaut Engines" = "Скаут: двигатели"
 "Skaut Fuselage" = "Скаут: Фюзеляж"
 "Skaut Skin" = "Скин: Скаут"
-"Skeggin’ Out" = "Скеггуем"
+"Skeggin' Out" = "Скеггуем"
 Skeletal = "Скелетистый"
 "Skeletons in the Closet" = "Скелеты в шкафу"
 "Ski Gauss Glyph" = "Глиф: Гаусс На Лыжах"
@@ -24850,6 +28199,7 @@ Slam = "Удар"
 "Slam Capacitor" = "Ударный Конденсатор"
 "Slam Damage" = "Ударный Урон"
 "Slam Range" = "Дальность Удара"
+"Slam Spikes" = "Ударные шипы"
 Slap = "Слап"
 Slapneedle = "Слапнидл"
 "SlapstickLogic Glyph" = "Глиф: SlapStickLogic"
@@ -25215,7 +28565,7 @@ Songs = "Песни"
 "Sonic Boom" = "Звуковой Удар"
 "Sonic Boost" = "Звуковое Ускорение"
 "Sonic Dash" = "Звуковой Рывок"
-"Sonic Fracture" = "Акустический Разрыв"
+"Sonic Siphon" = "Акустический Разрыв"
 Sonicor = "Соникор"
 "Sonicor Cliona Skin" = "Скин Соникора: Клиона"
 "Sonicor Elixis Skin" = "Скин Соникора: Эликсис"
@@ -25353,6 +28703,7 @@ Spektaka = "Спектака"
 Spellbind = "Очаровывание"
 "Spellbound Harvest" = "Завороженный Урожай"
 "Spent Radium Barrel" = "Бочка с отработанным радием"
+"Sphatika Prime Syandana" = "Сандана: Сфатика Прайм"
 "Spicularis Mandible Mask" = "Маска: Жвалы Спикулярис"
 "Spicularis Oculus" = "ОКУЛЯРЫ: СПИКУЛЯРИС"
 "Spicularis Spurs" = "Шпоры: Спикулярис"
@@ -25364,6 +28715,9 @@ Spilosect = "Спилосект"
 Spin = "Спин"
 "Spinal Core Section" = "Основная Часть Хребта"
 "Spine Splitter" = "Рассекатель Позвоночника"
+"Spinele Prime Earpiece" = "Серьги: Спинель Прайм"
+"Spinele Prime Facial Accessory" = "Украшения для лица: Спинель Прайм"
+"Spinele Prime Oculus" = "Окуляры: Спинель Прайм"
 "Spinklat Plant" = "Растение: Спинклет"
 "Spinneret Ephemera" = "Эфемера: Прядильщик"
 Spinnerex = "Спиннерекс"
@@ -25616,6 +28970,7 @@ Stasis = "Стазис"
 "Static Discharge" = "Статический Разрядник"
 "Static Purge" = "Статическая Очистка"
 "Static Reactor Prime Sigil" = "Прайм Сигил: Статический Реактор"
+"Static Siphon" = "Статический сифон"
 Staticor = "Статикор"
 Stats = "Статистика"
 Statues = "Статуи"
@@ -25689,13 +29044,16 @@ Steeba = "Стиба"
 "Steel Soldier Honoria" = "Почесть: Стальной солдат"
 Steflos = "Стефлос"
 "Steflos Barrel" = "Стефлос: Ствол"
+"Steflos Prime" = "Стефлос Прайм"
+"Steflos Prime Barrel" = "Стефлос Прайм: Ствол"
+"Steflos Prime Receiver" = "Стефлос Прайм: Приёмник"
+"Steflos Prime Stock" = "Стефлос Прайм: Приклад"
 "Steflos Receiver" = "Стефлос: Приёмник"
 "Steflos Stock" = "Стефлос: Приклад"
 Stela = "Стела"
 "Stelflare Syandana" = "Сандана: Стелфлер"
 "Stellated Necrathene" = "Звездчатый некратин"
 "Step Tens" = "Десятишаг"
-Stevidact = "Стивдакт"
 Steward = "Хранитель"
 "Stezia Sumbha Syandana" = "Сандана: Сумбха Стезия"
 "Sticky Ink" = "Липкие чернила"
@@ -25722,6 +29080,7 @@ Stolen = "Похищено"
 "Stone Sand Garden" = "Водяной cад: Каменный"
 "Stone Shape" = "Форма Камня"
 "Stone Skin" = "Каменная Кожа"
+"Stone Soldiers" = "Каменные Солдаты"
 "Stop Camera" = "Остановить камеру"
 "Stop Tyl Regor" = "Остановите Тила Регора"
 "Stop the Gruzzlings" = "Остановите грузлингов"
@@ -25851,6 +29210,7 @@ Stun = "Оглушение"
 "Stunna Fishing Spear" = "Рыболовный Гарпун Станна"
 "Stunning Brutality" = "Оглушающая жестокость"
 "Stunning Speed" = "Оглушающая скорость"
+"Stunted Shields" = "Замедленные щиты"
 Styanax = "Стинакс"
 "Styanax Agile Animation Set" = "Набор анимаций Стинакса: Проворный"
 "Styanax Agogean Helmet" = "Шлем Стинакса: Агоген"
@@ -26229,8 +29589,8 @@ Systematization = "Отдела Систематизации"
 Systemization = "Специалист по систематизации"
 "Systems Edge" = "Край Системы"
 "Systole Narta" = "Нарта: Систоль"
-"Sythel’s Haven" = "Убежище Сител"
-"Sythel’s Outburst" = "Вспышка Сител"
+"Sythel's Haven" = "Убежище Сител"
+"Sythel's Outburst" = "Вспышка Сител"
 "Syzygy Attack Drone" = "Штурмовой дрон Сизигий"
 "Syzygy Denial Bursa" = "Бурса-нуллификатор Сизигий"
 "Syzygy Harvest " = "Жатва сизигий"
@@ -26348,6 +29708,7 @@ THANKYOOOU = "СПАСИБООООО"
 "THE 'ACTUARY'S PRIDE'" = "«ВОЗНОШЕНИЕ АКТУАРИЯ»"
 "THE ABSCESS" = "АБСЦЕСС"
 "THE BUSINESS" = "БИЗНЕС"
+"THE CHATTERING MASSES SWARM…" = "ГАЛДЯЩИЕ МАССЫ РОЯТСЯ…"
 "THE CIRCUIT" = "ЦЕПЬ"
 "THE DARK REFRACTORY" = "ТЁМНЫЙ РЕФРАКТОРИЙ"
 "THE DESCENDIA" = "СПУСК"
@@ -26357,6 +29718,7 @@ THANKYOOOU = "СПАСИБООООО"
 "THE FULGUROUS FABLEMASTER" = "ГРОМАДНЫЙ МАСТЕР РАССКАЗЫВАТЬ БАЙКИ"
 "THE GIFTING SYSTEM" = "СИСТЕМА ПОДАРКОВ"
 "THE GLASSMAKER" = "СТЕКЛОДУВ"
+"THE HUNRA'S NEST" = "ГНЕЗДО ХУНРЫ"
 "THE INDEX" = "ИНДЕКС"
 "THE INDEX: Bonus" = "ИНДЕКС: Бонус"
 "THE INDEX: ENDURANCE" = "ИНДЕКС: ВЫНОСЛИВОСТЬ"
@@ -26459,6 +29821,7 @@ TOTAL = "ВСЕГО"
 "TOTAL CRYOTIC EXCAVATED" = "ДОБЫТО КРИОТИКА"
 "TOTAL DAMAGE" = "ОБЩИЙ УРОН"
 "TOTAL IGNIA EXCAVATED" = "ДОБЫТО ИГНИЙ ВСЕГО"
+"TOTAL INFERNO" = "ТОТАЛЬНОЕ ИНФЕРНО"
 "TOTAL TIME" = "ОБЩЕЕ ВРЕМЯ"
 "TOTAL VALUE SALE" = "ОБЩАЯ СУММА ПРОДАЖИ"
 TOUCH = "ПРИКОСНУТЬСЯ"
@@ -26563,6 +29926,7 @@ Tail = "Хвост"
 "Take Avex" = "Взять Авекс"
 "Take Big Gun" = "Возьмите пушку побольше"
 "Take Board" = "Возьмите плату"
+"Take Cryobell" = "Взять Криоколокол"
 "Take Figurine Part" = "Взять часть фигурки"
 "Take Floof" = "Получить пушистика"
 "Take Grakata" = "Взять Гракату"
@@ -26913,6 +30277,7 @@ Tenno = "Тэнно"
 "Tenno Chronicler Sigil" = "Сигил: Летописец Тэнно"
 "Tenno Defton Glyph" = "Глиф: Tenno Defton"
 "Tenno Distress Signal" = "Сигнал бедствия Тэнно"
+"Tenno Drydock" = "Сухой Док Тэнно"
 "Tenno Energy Orb Light" = "Световой Энергошар Тэнно"
 "Tenno Energy Relay" = "Энергореле Тэнно"
 "Tenno Energy Turbine" = "Энерготурбина Тэнно"
@@ -26966,6 +30331,7 @@ Tenno = "Тэнно"
 "Tenno of all Trades" = "Тэнно, на все руки мастер"
 "Tenno's Awakening" = "Пробуждение Тэнно"
 Tenno-Prioritized = "Тэнно-приоритетный"
+"TennoBen Glyph" = "Глиф: TennoBen"
 "TennoCon 2016 Sigil" = "Сигил: TennoCon-2016"
 "TennoCon 2016 Syandana" = "Сандана: TennoCon-2016"
 "TennoCon 2017 Glyph" = "Глиф: TennoCon-2017"
@@ -27129,6 +30495,8 @@ TennoGen = "ТэнноГен"
 "TennoGen Frontiers Bundle" = "Набор: ТэнноГен - Просторы"
 "TennoGen Glyph" = "Глиф: TennoGen"
 "TennoGen Glyph Pack" = "Набор глифов: ТэнноГен"
+"TennoGen IceBlade Bundle 1" = "Комплект: ТэнноГен - Ледяной Клинок 1"
+"TennoGen IceBlade Bundle 2" = "Комплект: ТэнноГен - Ледяной Клинок 2"
 "TennoGen Isleweaver Bundle 1" = "Комплект: ТэнноГен - Плетельщица островов 1"
 "TennoGen Isleweaver Bundle 2" = "Комплект: ТэнноГен - Плетельщица островов 2"
 "TennoGen Shadowgrapher Bundle 1" = "Комплект: ТэнноГен - Тенеграф 1"
@@ -27224,6 +30592,7 @@ Terolee = "Тероли"
 "Terra Trencher" = "Траншейник Терры"
 "Terra Turret Osprey" = "Дрон-Турель Терры"
 Terracotta = "Терракотовый"
+"Terracotta Taubound Trophy" = "Трофей: Связь с Тау - Терракотовый"
 "Terraformer Style" = "Стиль Терраформера"
 "Terraforming Engineer" = "Инженер по терраформированию"
 "Terrapin's Rebuke" = "Укор Черепахи"
@@ -27275,6 +30644,7 @@ Tether = "Привязь"
 "Tethra's Doom Gold Trophy" = "Золотой трофей: Кара Тетры"
 "Tethra's Doom Quantum Emblem" = "Квантовый значок: Кара Тетры"
 "Tethra's Doom Silver Trophy" = "Серебряный трофей: Кара Тетры"
+"Tethyan Parchment Tatter" = "Лоскут тетийского пергамента"
 Tetra = "Тетра"
 "Tetra Shock-Camo Skin" = "Скин Тетры: Шоковый камуфляж"
 "Tetuon Bell" = "Колокол: Тэтуон"
@@ -27359,6 +30729,7 @@ Thaumica = "Таумик"
 "The Fearful Conspirator" = "Робкий заговорщик"
 "The Fiftieth: Styanax" = "Пятидесятый: Стинакс"
 "The Final Test" = "Заключительный тест"
+"The First Dream" = "Первый сон"
 "The Flame of Revolution" = "Пламя Революции"
 "The Fragmented Anchorite" = "Фрагментированный Анахорит"
 "The Fragmented One" = "Фрагментированный"
@@ -27393,6 +30764,7 @@ Thaumica = "Таумик"
 "The Hunt is On" = "Охота начата"
 "The Huntress" = "Охотница"
 "The Hyena Pack" = "Стая Гиен"
+"The Iceblade Everlasting" = "Вековечный Ледяной Клинок"
 "The Illusionist" = "Иллюзионист"
 "The Impossible" = "Невозможное"
 "The Index" = "Индекс"
@@ -27408,7 +30780,7 @@ Thaumica = "Таумик"
 "The Jordas Precept" = "Протокол Джордаса"
 "The Jovian Concord" = "Юпитерианское Соглашение"
 "The Keyglyph" = "Ключевой глиф"
-"The King’s Palace" = "Королевский дворец"
+"The King's Palace" = "Королевский дворец"
 "The Kiss of Oblivion" = "Поцелуй забвения"
 "The Kuva Wytch" = "Ведьма Кувы"
 "The Lair" = "Логово"
@@ -27448,7 +30820,7 @@ Thaumica = "Таумик"
 "The Orodragon Glyph" = "Глиф: Ородракон"
 "The Ostrons" = "Остронцы"
 "The Pacifism Defect Emblem" = "Значок: Дефект миролюбия"
-"The Pack’s Heart Bundle" = "Набор «Сердце стаи»"
+"The Pack's Heart Bundle" = "Набор «Сердце стаи»"
 "The Paradox" = "Парадокс"
 "The Partnership Fragment" = "Фрагмент: Партнёрство"
 "The Path Imponderable" = "Путь невесомости"
@@ -27464,8 +30836,9 @@ Thaumica = "Таумик"
 "The Price of Freedom" = "Цена Cвободы"
 "The Prince" = "Принц"
 "The Prince Cave Art" = "Наскальная живопись: Принц"
-"The Prince’s Isles" = "Острова принца"
+"The Prince's Isles" = "Острова принца"
 "The Prodmen" = "Продмены"
+"The Proposed Intervention" = "Предлагаемое Вмешательство"
 "The Queens" = "Королевы"
 "The Quills" = "Перья"
 "The Quills of Cetus" = "Перья Цетуса"
@@ -27600,6 +30973,7 @@ Thermatic = "Терматик"
 "Thick Skin" = "Толстая Кожа"
 "Thief's Wit" = "Чутье вора"
 "Thin Beam" = "Балка: узкая"
+"Thin Boundary" = "Тонкая граница"
 "Thin Skylight Arch (8x2m)" = "Тонкая арка светового люка (8x2 м)"
 "Things…" = "Предметам..."
 Thinking = "Кабинета Мышления"
@@ -27701,6 +31075,9 @@ Ticker = "Тикер"
 "Tidal Impunity" = "Прилив Безнаказанности"
 "Tidal Surge" = "Приливная Волна"
 "Tide of Lohk" = "Прилив Лока"
+"Tidon Chest Medallion" = "Нагрудный медальон «Тидон»"
+"Tidon Leg Medallion" = "Наголенный медальон «Тидон»"
+"Tidon Shoulder Medallion" = "Наплечный медальон «Тидон»"
 "Tied Back Dual" = "Завязано назад"
 "Tied Back Full Kaithetail" = "Пышный хвостик, зачёсанный назад"
 "Tied Back High Kaithetail" = "Высокий хвостик"
@@ -27970,6 +31347,7 @@ Tips = "Подсказки"
 "Titan Extractor" = "Титановый экстрактор"
 "Titan Extractor Prime" = "Титановый экстрактор Прайм"
 "Titan Extractor Prime Blueprint" = "Чертеж: Титановый Экстрактор Прайм"
+"Titan's Rest" = "Покой Титана"
 Titania = "Титания"
 "Titania Agile Animation Set" = "Набор анимаций Титании: Проворный"
 "Titania Aurai Helmet" = "Шлем Титании: Аураи"
@@ -28012,7 +31390,6 @@ Titania = "Титания"
 "Titanic Rumbler" = "Титанический Рокотун"
 Titanium = "Титан"
 "Titanium Sheen" = "Титановый блеск"
-"Titan’s Rest" = "Покой Титана"
 Tmn = "Прч"
 Tn2 = "Тн2"
 Tno = "Тно"
@@ -28021,13 +31398,13 @@ Tno = "Тно"
 "To Dark Sector" = "К Тёмному Сектору"
 "To The City" = "В город"
 "Toasted TV Glyph" = "Глиф: Toasted TV"
+"Toasty Toes" = "Горячие пятки"
 "Today's Special" = "Предложение дня"
 "Today’s Deal" = "Сегодняшняя сделка"
 "Together Poster" = "Постер: Вместе"
 "Toggle Advance Time" = "Вкл. управление временем"
 "Toggle Crouch" = "Присесть вкл/выкл"
 "Toggle Difficulty" = "Переключить сложность"
-"Toggle Motion Controls" = "Включить контроль движений"
 "Toggle Music" = 'Вкл.\выкл. музыку'
 "Toggle Railjack Camera" = "Активировать Камеру Рэйлджека"
 "Toggle Sprint" = "Переключить на бег"
@@ -28573,7 +31950,6 @@ UNAVAILABLE = "НЕДОСТУПЕН"
 "UNBOUND SUBSUME" = "НЕОГРАНИЧЕННОЕ ПОГЛОЩЕНИЕ"
 "UNCLAIMED REWARD" = "НЕВОСТРЕБОВАННАЯ НАГРАДА"
 UNCOMMON = "НЕОБЫЧНЫЙ"
-"UNDAZOA ECHO-LURE" = "ЭХО-МАНОК ДЛЯ УНДАЗОИ"
 "UNDAZOA PHEROMONE GLAND" = "ФЕРОМОННАЯ ЖЕЛЕЗА УНДАЗОИ"
 "UNDAZOA SCAT" = "ПОМЕТ УНДАЗОА"
 "UNDAZOA TRAIL START POINT" = "СЛЕД УНДАЗОИ: СТАРТОВАЯ ТОЧКА"
@@ -28582,6 +31958,7 @@ UNCOMMON = "НЕОБЫЧНЫЙ"
 UNDO = "ОТМЕНИТЬ"
 UNDULATUM = "УНДУЛЯТУМ"
 UNEQUIP = "СНЯТЬ"
+"UNEQUIP CRYOBELL" = "СНЯТЬ КРИОКОЛОКОЛ"
 "UNEQUIP ITEM" = "СНЯТЬ ПРЕДМЕТ"
 "UNEQUIP SCANNER" = "УБРАТЬ СКАНЕР"
 "UNINSTALL MOD" = "СНЯТЬ МОДЫ"
@@ -28709,6 +32086,7 @@ Uncommon = "Необычный"
 "Unda Prime Sentinel Wings" = "Крылья стража: Унда Прайм"
 Undazoa = "Ундазоа"
 "Undazoa Call Point" = "Место призыва ундазоа"
+"Undazoa Echo-Lure" = "ЭХО-МАНОК ДЛЯ УНДАЗОИ"
 "Underbrush Kubrow Gene-Masking Kit" = "Генно-маскирующий набор кубрау: Андербрашский"
 "Underbrush Kubrow Pattern" = "Шаблон меха кубрау: Андербрашский"
 Undercroft = "Подземелье"
@@ -28776,6 +32154,7 @@ Unlock = "Разблокировать"
 "Unlock Requirements" = "Требования для разблокировки"
 "Unlock Room Editing" = "Разблокировать изменения помещения"
 Unlocked = "Разблокировано"
+"Unlocking: " = "Разблокировка: "
 Unmount = "Спрыгнуть"
 Unranked = "Без Ранга"
 "Unranked Mastery Slate" = "Сланец Мастерства: Без Ранга"
@@ -28965,6 +32344,7 @@ VIGNETTES = "ВИНЬЕТКИ"
 "VISIBILITY RANGE" = "РАДИУС ОБНАРУЖЕНИЯ"
 "VISIBLE WHEN HOLSTERED" = "ОТОБРАЖАТЬ В КОБУРЕ"
 "VISIT MAROO" = "ПОСЕТИТЬ МЭРУ"
+"VISIT MELICA" = "ПОСЕТИТЕ МЕЛИКУ"
 VISITOR = "ПРИЕЗЖИЙ"
 VITREUM = "ВИТРЕУМ"
 "VM: ADAPTATION" = "ГС: АДАПТАЦИЯ"
@@ -29017,7 +32397,6 @@ VOLT = "ВОЛЬТ"
 VOTES = "ГОЛОСОВ"
 VS = "ПРОТИВ"
 VULPAPHYLA = "ВУЛЬПАФИЛА"
-"VULPAPHYLA ECHO-LURE" = "ЭХО-МАНОК ДЛЯ ВУЛЬПАФИЛЫ"
 "VULPAPHYLA PHEROMONE GLAND" = "ФЕРОМОННАЯ ЖЕЛЕЗА ВУЛЬПАФИЛЫ"
 "VULPAPHYLA REVIVIFICATION" = "ВОЗРОЖДЕНИЕ ВУЛЬПАФИЛЫ"
 "VULPAPHYLA SCAT" = "ПОМЕТ ВУЛЬПАФИЛЫ"
@@ -29511,6 +32890,7 @@ Verify = "Проверка"
 "Vermillion Kavat Armor" = "Броня кавата: Вермиллион"
 "Vermillion Storm" = "Багровый шторм"
 "Verminia Cosplay Community Display" = "Дисплей сообщества: Косплей Верминии"
+"Vermis Signa" = "Сигна: Вермис"
 Vermisplicer = "Вермисплицер"
 "Vernoc Glyph" = "Глиф: Vernoc"
 "Veroz73 Glyph" = "Глиф: Veroz73"
@@ -29579,6 +32959,7 @@ Vexoric = "Вексорик"
 "Via the In-Game Market" = "Через внутриигровой магазин"
 "Vial Rush" = "Кристальный Рывок"
 "Viasna Water Garden" = "Водяной cад: Виасна"
+"ViceroyCyndr Glyph" = "Глиф: ViceroyCyndr"
 "Vicious Approach" = "Порочное нападение"
 "Vicious Barb" = "Злобный шип"
 "Vicious Bond" = "Порочная связь"
@@ -29706,7 +33087,7 @@ Vinquibus = "Винквибус"
 Violence = "Жестокость"
 "Violent Tempest" = "Яростный Шторм"
 "Violet Archon Shard" = "Фиолетовый осколок архонта"
-"Violet’s Bane" = "Виолетова погибель"
+"Violet's Bane" = "Виолетова погибель"
 Viper = "Гадюка"
 "Viper Conclave Skin" = "Скин Гадюки: Конклав"
 "Viper Desert-Camo Skin" = "Скин Гадюки: Пустынный камуфляж"
@@ -29780,6 +33161,7 @@ Visionholder = "визионер,"
 "Visit Clem and Popcorn" = "Навестить Клема и Попкорна"
 "Visit Dojo" = "Посетить Додзё"
 "Visit Eudico in Fortuna" = "Посетите Юдико в Фортуне"
+"Visit KRONIA RELAY" = "Посетите РЕЛЕ KRONIA"
 "Visit Roky in Fortuna" = "Посетите Роки в Фортуне"
 "Visit The Lotus" = "Посетите Лотос"
 "Visit Ticker" = "Посетить Тикер"
@@ -29843,6 +33225,7 @@ Vivace = "Виваче"
 "Voice Output Device" = "Устройство вывода: голос"
 "Voice Receive Volume" = "Громкость приема речи"
 "Voice Transmit Volume" = "Громкость передачи речи"
+"Voice of the Lotus" = "Голос Лотос"
 "Void Adept" = "Адепт бездны"
 "Void Adornment Bundle" = "Набор Украшений Бездны"
 "Void Adornment Bundle II" = "Комплект украшений Бездны II"
@@ -29886,6 +33269,7 @@ Vivace = "Виваче"
 "Void Regen" = "Восстановление Бездны"
 "Void Relic" = "Реликвия Бездны"
 "Void Rift" = "Разлом Бездны"
+"Void Shackles" = "Кандалы Бездны"
 "Void Shade" = "Тень Бездны"
 "Void Shadow" = "Тень Бездны"
 "Void Singularity" = "Сингулярность Бездны"
@@ -29897,6 +33281,7 @@ Vivace = "Виваче"
 "Void Stalker" = "Преследователь Из Бездны"
 "Void Static" = "Помехи Бездны"
 "Void Strike" = "Удар из Бездны"
+"Void Surge" = "Всплеск Бездны"
 "Void Surplus" = "Излишки Бездны"
 "Void Torrent" = "Поток Бездны"
 "Void Trace Pack" = "Набор: Отголоски Бездны"
@@ -30105,7 +33490,6 @@ Voruna = "Воруна"
 "Voruna Noble Animation Set" = "Набор анимаций Воруны: Статный"
 "Voruna Prex" = "Прекс: Воруна"
 "Voruna Prime" = "Воруна Прайм"
-"Voruna Prime Accessories Pack" = "Набор аксессуаров Воруны Прайм"
 "Voruna Prime Armor" = "Броня Воруны Прайм"
 "Voruna Prime Chassis" = "Воруна Прайм: Каркас"
 "Voruna Prime Helmet" = "Шлем Воруны Прайм"
@@ -30148,6 +33532,7 @@ Vulklok = "Вулклок"
 "Vulnerability Serum" = "Сыворотка уязвимости"
 Vulpaphyla = "Вульпафила"
 "Vulpaphyla Call Point" = "Место призыва вульпафилы"
+"Vulpaphyla Echo-Lure" = "ЭХО-МАНОК ДЛЯ ВУЛЬПАФИЛЫ"
 "Vulpaphyla Revivification" = "Возрождение Вульпафилы"
 "Vulpine Mask" = "Лисья ухмылка"
 "Vuoto Oculus" = "Окуляры: Вуото"
@@ -30180,6 +33565,7 @@ WAISTBAND = "ПОЯС"
 WARFRAMES = "ВАРФРЕЙМЫ"
 "WARFRAME®: STARTER BUNDLE" = "WARFRAME®: СТАРТОВЫЙ КОМПЛЕКТ"
 "WARFRAME®: STARTER PACK" = "WARFRAME®: СТАРТОВЫЙ НАБОР"
+WARM = "ТЕПЛО"
 WARNING = "ВНИМАНИЕ"
 "WARNING: RETURN TO MISSION" = "ВНИМАНИЕ: ВЕРНИТЕСЬ К МИССИИ"
 "WATCH STYANAX ANIME NOW" = "ПОСМОТРИТЕ АНИМЕ ПРО СТИНАКСА СЕЙЧАС"
@@ -30390,8 +33776,8 @@ Warrior = "Воитель"
 Waste = "Отброс"
 "Watch All" = "Смотреть все"
 Watcher = "Хранитель"
-"Watcher’s Eye" = "Око Наблюдателя"
-"Watcher’s Island" = "Остров Наблюдателей"
+"Watcher's Eye" = "Око Наблюдателя"
+"Watcher's Island" = "Остров Наблюдателей"
 "Watchful Paragrimm" = "Бдительный парагримм"
 "Watchful Swarm" = "Зрящий рой"
 "Water Drips" = "Капли воды"
@@ -30436,6 +33822,7 @@ Waypoint = "Точка"
 "WeGame 2nd Anniversary Glyph" = "Глиф: Вторая годовщина WeGame"
 "WeGame TennoCon 2022 Glyph" = "- Глиф «WeGame: TennoCon-2022»"
 "Weak Point Damage" = "Урон по слабым местам"
+"Weak Point Horde" = "Слабое место Орды"
 "Weak Signal" = "Слабый сигнал"
 "Weaken Shielding" = "Ослабление щитов"
 "Weakened Crescent Vulpaphyla" = "Ослабленная серповидная вульпафила"
@@ -30446,7 +33833,6 @@ Waypoint = "Точка"
 "Weakened Sly Vulpaphyla" = "Ослабленная пронырливая вульпафила"
 "Weakened Vizier Predasite" = "Ослабленный придазит-визирь"
 "Weakened Vulpaphyla" = "Ослабленная Вульпафила"
-"Weakpoint Horde" = "Слабое место Орды"
 "WealWest Glyph" = "Глиф: WealWest"
 Weapon = "Оружие"
 "Weapon Accuracy" = "Точность оружия"
@@ -30664,6 +34050,7 @@ Wisp = "Висп"
 "Wisp Zamariu Helmet" = "Шлем Висп: Замарью"
 "Wisp Zamariu Skin" = "Скин Висп: Замарью"
 "Wistfall Coronet" = "Венец: Хандра"
+"Wit's End" = "Тупик разума"
 "With Armor Over 450" = "С бронёй более 450"
 "With Channeled Ability Active" = "С активной потоковой способностью"
 "With Melee Weapon Equipped" = "С экипированным оружием ближнего боя"
@@ -30671,7 +34058,6 @@ Wisp = "Висп"
 "With Overshields" = "Со сверхщитами"
 "Without a Hitch" = "Без сучка, без задоринки"
 "Withstanding Platform" = "Платформа сопротивления"
-"Wit’s End" = "Тупик разума"
 "Wobbzie Glyph" = "Глиф: Wobbzie"
 "Wolf Beacon" = "Маячок: Волк"
 "Wolf Cred" = "Доверие волка"
@@ -30782,6 +34168,7 @@ Wyrm = "Вирм"
 "Wyrm Prime Systems" = "Вирм Прайм: Система"
 "Wyrm Skin" = "Скин Вирма"
 "Wyrm Tether" = "Привязь змея"
+"Wyrm's Eye Outpost" = "Форпост «Око Вирма»"
 "Wyrm-Based Serum" = "Сыворотка на основе Вирма"
 "Wyrmius Ludoplex Rom" = "ПЗУ Лудоплекса: Wyrmius"
 "Wyrmius Poster" = "Постер: Wyrmius"
@@ -30789,7 +34176,6 @@ Wyrm = "Вирм"
 Wyrmling = "Вирмлинг"
 "Wyrmling's Aid" = "Помощь вирмлинга"
 "Wyrmlings Destroyed" = "Уничтожено вирмлингов"
-"Wyrm’s Eye Outpost" = "Форпост «Око Вирма»"
 "Wysar Kavat Armor" = "Броня кавата: Вайсар"
 "X Button" = "Кнопка X"
 "X OFFSET" = "СДВИГ ОСИ Х"
@@ -30849,6 +34235,7 @@ Xata = "Ксета"
 "Xenogelion Glyph" = "Глиф: Xenogelion"
 Xenorhast = "Ксенохраст"
 "Xianglong Ephemera" = "Эфемера: Сянлун"
+"XiaoGuang Glyph" = "Глиф: XiaoGuang"
 "Xiarose Glyph" = "Глиф: Xiarose"
 "Xiel Helmet" = "Шлем: Ксиэль"
 "Xikonos Syandana" = "Сандана: Ксиконос"
@@ -30977,6 +34364,7 @@ Yogwun = "Йогвун"
 "You…" = "Ты…"
 Yunem = "Йунем"
 "Yureilyst Oculus" = "Окуляры: Юрейлист"
+"Yuvan Peak" = "Вершина Юван"
 "Yuvan Rising Honoria" = "Почесть: Восходящий Юван"
 "Z OFFSET" = "СДВИГ ОСИ Z"
 "ZARIM MUTAGEN" = "МУТАГЕН: ЗАРИМ"
@@ -31419,6 +34807,7 @@ Zioa = "Зиоа"
 Zip = "Зип"
 Zipfire = "Зипфайр"
 Zipneedle = "Зипнидл"
+"ZliDe Glyph" = "Глиф: ZliDe"
 "Zobov Shotgun Skin" = "Скин Дробовика: Зобов"
 "Zodiac Shred" = "Зодиакальное Кромсание"
 Zodian = "Зодиан"
@@ -31426,6 +34815,7 @@ Zoff = "Зофф"
 "Zoff & Jeldrin" = "Зофф и Желдрин"
 Zones = "Зоны"
 Zoning = "Центра Зонирования"
+"Zoological Gardens Scene" = "Сцена: Игровая площадка Лаво"
 "Zoom In" = "Приблизить"
 "Zopney Glyph" = "Глиф: Zopney"
 "Zotbot Glyph" = "Глиф: Zotbot"
@@ -31473,7 +34863,7 @@ Zymos = "Зимос"
 "{T}HOST VISITOR" = "{T}ПРИНЯТЬ ПОСЕТИТЕЛЯ"
 "{T}MOVE DECORATION" = "{T}ПЕРЕМЕСТИТЬ УКРАШЕНИЕ"
 "{T}MOVE VISITOR" = "{T}ПЕРЕМЕСТИТЬ ПОСЕТИТЕЛЯ"
-"‘Techrot’" = "«Техрот»"
+"‘Techrot'" = "«Техрот»"
 
 [ambiguous]
 "(Exhales)" = [
@@ -31603,10 +34993,6 @@ Alliance = [
 Ambitious = [
     "Амбициозная",
     "Амбициозность",
-]
-"Amir's Shockwave" = [
-    "«Ударная Волна» Амира",
-    "Ударная Волна Амира",
 ]
 Analytical = [
     "Аналитический",
@@ -31824,6 +35210,10 @@ Cautious = [
 Centered = [
     "Эгоцентрист",
     "Эгоцентристка",
+]
+"Cephalon Melica" = [
+    "Цефалон Мелика",
+    "Цефалон-учитель",
 ]
 "Cerulean Fungus" = [
     "Лазурная Плесень",
@@ -32045,6 +35435,10 @@ Customization = [
     "Внешний Вид",
     "Изменить",
     "Мастерской Кастомизаций",
+]
+"Customize Vessel" = [
+    "Кастомизация Сосуда",
+    "Кастомизация Судна",
 ]
 Cutter = [
     "Резчик",
@@ -32528,6 +35922,10 @@ Generous = [
 Gentle = [
     "Мягкая",
     "Мягкий",
+]
+"Go to the Zariman" = [
+    "Отправляйтесь на «Зариман»",
+    "Отправляйтесь на Зариман",
 ]
 "Gold Disciple" = [
     "Золотой Адепт",
@@ -33125,10 +36523,6 @@ Merciful = [
     "Милосердная",
     "Милосердный",
 ]
-"Mesa Heirloom Collection" = [
-    "Коллекция Мисы «Наследие»",
-    "Коллекция Мисы: Наследие",
-]
 Meticulous = [
     "Тщательная",
     "Тщательный",
@@ -33538,9 +36932,17 @@ Protector = [
     "Защитник",
     "Покровитель",
 ]
+Pull = [
+    "Вытащить",
+    "Притяжение",
+]
 Pushy = [
     "Напористая",
     "Напористый",
+]
+"Qorvex Basilica Collection" = [
+    "Коллекция Корвекса «Базилика»",
+    "Коллекция Корвекса: Базилика",
 ]
 "Quaking Touch" = [
     "Сотрясающее Касание",
@@ -34074,6 +37476,10 @@ Sprint = [
 "Status: Clear" = [
     "Статус: Спокойно",
     "Статус: чисто",
+]
+Stevidact = [
+    "Стивдакт",
+    "Стивидакт",
 ]
 Stingy = [
     "Скупая",

@@ -209,6 +209,14 @@ pub fn relic_grade(printed: &str) -> Option<(&str, &'static str)> {
     Some((name, refinement))
 }
 
+/// Rewards the game hands over without ever putting an item in the inventory: a booster runs
+/// for a while and a resource bundle is spent the moment it lands. DE exports neither, so
+/// they answer to no catalog item and never will.
+pub fn is_a_service(printed: &str) -> bool {
+    let text = printed.trim();
+    text.ends_with(" Booster") || text.ends_with(" Resource Bundle")
+}
+
 /// Rewards printed as an amount of something rather than as a catalog item.
 pub fn is_amount(printed: &str) -> bool {
     let text = printed.trim();
@@ -388,5 +396,14 @@ mod tests {
     #[test]
     fn normalizes_case_and_spacing() {
         assert_eq!(normalize("Volt  Prime   Chassis"), "volt prime chassis");
+    }
+
+    #[test]
+    fn a_booster_and_a_bundle_are_not_items() {
+        assert!(is_a_service("3 Day Affinity Booster"));
+        assert!(is_a_service("Resource Drop Chance Booster"));
+        assert!(is_a_service("Earth Resource Bundle"));
+        assert!(!is_a_service("Boosters"));
+        assert!(!is_a_service("Legendary Core"));
     }
 }

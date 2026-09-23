@@ -1,18 +1,19 @@
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 use sources::notation::{Block, Value};
 
 /// What one manifest sells, as the game wrote it.
-#[derive(Debug, Serialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct Stall {
     pub manifest: String,
     /// The game rolls this stall's prices, so what it lists is a range and not a price.
-    #[serde(skip_serializing_if = "is_false")]
+    #[serde(default, skip_serializing_if = "is_false")]
     pub floating: bool,
     pub offer: Vec<Offer>,
 }
 
 /// One thing a stall hands over, and what it asks for it.
-#[derive(Debug, Default, Serialize, PartialEq)]
+#[derive(Debug, Default, Serialize, Deserialize, PartialEq)]
+#[serde(default)]
 pub struct Offer {
     pub item: String,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -48,7 +49,7 @@ pub struct Offer {
 }
 
 /// One item a price is counted in.
-#[derive(Debug, Serialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct Price {
     pub item: String,
     pub count: i64,

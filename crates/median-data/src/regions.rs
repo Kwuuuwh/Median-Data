@@ -150,8 +150,8 @@ impl Labels {
     }
 }
 
-/// The map a node is played on, with whatever Russian was written for it. The wiki names
-/// tilesets in English only, so Russian can only be hand-written.
+/// The map a node is played on, with whatever Russian names it: the client names most
+/// tilesets itself, and the rest are written by hand.
 fn tileset(name: Option<&str>, terms: &crate::curation::Terms) -> Label {
     match name {
         Some(name) => with_term(
@@ -171,7 +171,7 @@ fn tileset(name: Option<&str>, terms: &crate::curation::Terms) -> Label {
 /// wiki names but DE gives no index for has nowhere else to be keyed by.
 fn with_term(mut label: Label, kind: &str, terms: &crate::curation::Terms) -> Label {
     if let Some(en) = &label.en
-        && let Some(ru) = terms.get(kind, en)
+        && let Some(ru) = terms.of(kind, en, en)
     {
         label.ru = Some(ru.to_string());
     }
@@ -231,15 +231,13 @@ pub fn link(
         let region = Region {
             node: r.node.clone(),
             name: r.name.clone(),
-            name_ru: terms.or(
-                "region",
-                &r.node,
+            name_ru: terms.of("region", &r.node, &r.name).or_else(|| {
                 labels.node_ru(&r.node).or_else(|| {
                     translated
                         .map(|t| t.name.clone())
                         .filter(|name| *name != r.name)
-                }),
-            ),
+                })
+            }),
             verbatim: translated.is_some_and(|t| t.name == r.name),
             location: r.location.clone(),
             mission: r.mission,
@@ -277,7 +275,9 @@ pub fn link(
         let region = Region {
             node: w.key.clone(),
             name: w.name.clone(),
-            name_ru: terms.or("region", &w.key, labels.node_ru(&w.key)),
+            name_ru: terms
+                .of("region", &w.key, &w.name)
+                .or_else(|| labels.node_ru(&w.key)),
             verbatim: false,
             location: w.location.clone(),
             mission: -1,

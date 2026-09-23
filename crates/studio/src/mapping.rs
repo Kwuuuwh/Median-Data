@@ -16,11 +16,44 @@ pub const DROPS: &str = "drops";
 /// The sources that print names, in the order the screen lists them.
 const SOURCES: [&str; 4] = ["market", DROPS, "vendor", "dojo"];
 
-/// Which source's orphans the screen is showing.
+/// After this many days a name is no longer a source catching up with a patch.
+const STALE: i64 = 7;
+
+/// Names worth a person's time: the ones that have gone unanswered past the wait. A patch
+/// fills the sources with things the export has not caught up with, and those tie themselves.
+pub fn outstanding(snap: &Snapshot) -> usize {
+    snap.unresolved.iter().filter(|u| waited_out(u)).count()
+}
+
+/// Whether a name has waited longer than a source takes to catch up.
+fn waited_out(u: &Unresolved) -> bool {
+    u.since_ms <= 0 || days_since(u.since_ms) >= STALE
+}
+
+/// Whole days since a moment.
+fn days_since(since_ms: i64) -> i64 {
+    let now = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map(|d| d.as_millis() as i64)
+        .unwrap_or(0);
+    (now - since_ms).max(0) / 86_400_000
+}
+
+/// Which source's orphans the screen is showing, and whether it is showing the ones still
+/// waiting on a source rather than the ones waiting on a person.
 #[derive(Debug, Default, Clone, Deserialize)]
 pub struct Filter {
     #[serde(default)]
     pub source: String,
+    /// Empty for what a person should look at, `fresh` for what a source may still answer.
+    #[serde(default)]
+    pub show: String,
+}
+
+impl Filter {
+    fn fresh(&self) -> bool {
+        self.show == "fresh"
+    }
 }
 
 /// Every name a source prints that no catalog item answers to, whatever the source. One
@@ -30,14 +63,19 @@ pub fn render(snap: &Snapshot, names: &Names, filter: &Filter, q: &Query) -> Mar
     let rows: Vec<&Unresolved> = snap
         .unresolved
         .iter()
+        .filter(|u| waited_out(u) != filter.fresh())
         .filter(|u| filter.source.is_empty() || u.source == filter.source)
         .filter(|u| q.matches(&format!("{} {} {}", u.name, u.key, u.hint)))
         .collect();
     let page = q.page(rows);
-    let hidden: Vec<(&str, &str)> = match filter.source.is_empty() {
-        true => Vec::new(),
-        false => vec![("source", filter.source.as_str())],
-    };
+    let mut hidden: Vec<(&str, &str)> = Vec::new();
+    if !filter.source.is_empty() {
+        hidden.push(("source", filter.source.as_str()));
+    }
+    if filter.fresh() {
+        hidden.push(("show", "fresh"));
+    }
+    let waiting = snap.unresolved.iter().filter(|u| !waited_out(u)).count();
 
     shell(
         "Маппинг",
@@ -50,8 +88,8 @@ pub fn render(snap: &Snapshot, names: &Names, filter: &Filter, q: &Query) -> Mar
                         span.sep { "›" } span.cur { (words::origin(&filter.source)) }
                     }
                 },
-                Some(html! { span.chip.hot[!snap.unresolved.is_empty()] {
-                    (number(snap.unresolved.len() as i64)) " без предмета"
+                Some(html! { span.chip.hot[outstanding(snap) > 0] {
+                    (number(outstanding(snap) as i64)) " без предмета"
                 } }),
             ))
             .wrap {
@@ -62,17 +100,38 @@ pub fn render(snap: &Snapshot, names: &Names, filter: &Filter, q: &Query) -> Mar
                     "делает сама и сюда не попадают. Процент — только подсказка, записывается "
                     "точная связь."
                 }
+                p.why {
+                    "Патч добавляет в таблицы дропа и в прилавки то, чего экспорт DE ещё не "
+                    "отдал, и такие имена связываются сами через день-другой. Их видно "
+                    "отдельно — здесь только то, что ждёт дольше недели. Пометка про словарь "
+                    "клиента — подсказка, а не приговор: имена реликвий и чертежей игра "
+                    "собирает из кусков, поэтому целой строки в словаре может и не быть."
+                }
 
                 .chips {
-                    a class=@if filter.source.is_empty() { "pick on" } @else { "pick" }
+                    @let all = snap.unresolved.iter().filter(|u| waited_out(u)).count();
+                    a class=@if filter.source.is_empty() && !filter.fresh() { "pick on" } @else { "pick" }
                       href="/mapping" {
-                        "все " span.num { (number(snap.unresolved.len() as i64)) }
+                        "все " span.num { (number(all as i64)) }
                     }
                     @for source in SOURCES {
-                        @let n = snap.from_source(source).count();
+                        @let n = snap
+                            .from_source(source)
+                            .filter(|u| waited_out(u) != filter.fresh())
+                            .count();
+                        @let href = match filter.fresh() {
+                            true => format!("/mapping?show=fresh&source={}", encode(source)),
+                            false => format!("/mapping?source={}", encode(source)),
+                        };
                         a class=@if filter.source == source { "pick on" } @else { "pick" }
-                          href={ "/mapping?source=" (encode(source)) } {
+                          href=(href) {
                             (words::origin(source)) " " span.num { (number(n as i64)) }
+                        }
+                    }
+                    @if waiting > 0 {
+                        a class=@if filter.fresh() { "pick on" } @else { "pick" }
+                          href="/mapping?show=fresh" {
+                            "ждут источник " span.num { (number(waiting as i64)) }
                         }
                     }
                 }
@@ -111,13 +170,47 @@ pub fn row(snap: &Snapshot, names: &Names, u: &Unresolved) -> Markup {
                         " "
                     }
                     span.tag.kind { (words::origin(&u.source)) }
+                    (waited(u.since_ms))
                 }
             }
             .path { (u.key) }
+            (unknown_to_the_game(snap, u))
             (sighting(snap, u))
             (search(&u.source, &u.key, &u.name))
             div id={ "cand-" (id) } { (candidates(snap, names, &u.source, &u.key, &u.name)) }
             (not_an_item(&u.source, &u.key))
+        }
+    }
+}
+
+/// Whether the client's own string table holds this name. Stated as the fact it is: the
+/// client builds some names out of pieces — a relic reads as its era plus its code — so a
+/// missing string is a hint that the thing is gone from the game, not a verdict.
+fn unknown_to_the_game(snap: &Snapshot, u: &Unresolved) -> Markup {
+    if snap.spoken.is_empty() || snap.spoken.contains(&u.name.to_lowercase()) {
+        return html! {};
+    }
+    html! { p.note { span.tag { "в словаре клиента такой строки нет" } } }
+}
+
+/// How long this name has been waiting for an item. A patch day fills the sources with
+/// things DE has not exported yet and they tie themselves within days, so what matters is
+/// not that a name is unresolved but that it has stayed that way.
+fn waited(since_ms: i64) -> Markup {
+    if since_ms <= 0 {
+        return html! {};
+    }
+    let days = days_since(since_ms);
+    html! {
+        " "
+        span class=@if days >= STALE { "tag hot" } @else { "tag" } {
+            @match days {
+                0 => "замечено сегодня",
+                days => {
+                    "ждёт " (days) " "
+                    (words::plural(days as usize, "день", "дня", "дней"))
+                }
+            }
         }
     }
 }

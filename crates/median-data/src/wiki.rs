@@ -159,117 +159,40 @@ pub struct Store {
     /// The wiki page the entry belongs to, and with it who the vendor actually is: one person
     /// can keep several counters, each filed under its own name.
     pub link: Option<String>,
-    /// What they charge in.
-    pub currency: Option<String>,
-    /// How the wiki files them: `Store`, `Syndicate`, an event.
-    pub kind: Option<String>,
-    pub offers: Vec<StoreOffer>,
+    /// The printed names the wiki lists them selling. Nothing of this reaches the catalog —
+    /// the stock comes from the game's manifests — but it is what says which person keeps
+    /// the counter a manifest describes.
+    pub offers: Vec<String>,
 }
 
-/// One line of a vendor's stock.
-pub struct StoreOffer {
-    pub name: String,
-    /// The wiki's own label for what the thing is.
-    pub kind: String,
-    pub cost: i64,
-    /// What the cost is in, where the line names it instead of the vendor.
-    pub currency: Option<String>,
-    /// Credits charged on top of the cost.
-    pub credits: Option<i64>,
-    pub count: i64,
-    /// Standing rank required.
-    pub rank: Option<i64>,
-    /// Seconds the offer stays up, where it rotates.
-    pub timer: Option<i64>,
-}
-
-/// Every vendor of `Module:Vendors/data`: the syndicates, the hub NPCs, the event stores and
-/// the in-game market. Baro is not among them — he has his own module with a visit history.
+/// Who the wiki illustrates: the syndicates, the hub NPCs, the event stores. Only their
+/// pages are read — what they sell comes from the game's own manifests.
 pub fn vendors(raw: &[u8]) -> Result<Vec<Store>> {
     let src = String::from_utf8_lossy(raw);
     let root = lua::returned(&src).context("read Module:Vendors/data")?;
-    let mut out = Vec::new();
     let Some(vendors) = root.table("Vendors") else {
-        return Ok(out);
+        return Ok(Vec::new());
     };
-
-    for (key, entry) in &vendors.fields {
-        let Some(t) = entry.table() else { continue };
-        let offers = t
-            .table("Offerings")
-            .map(|list| {
-                list.items
-                    .iter()
-                    .filter_map(|row| {
-                        let row = row.table()?;
-                        let price = price(row.items.get(2));
-                        Some(StoreOffer {
-                            name: row.items.first()?.str()?.to_string(),
-                            kind: row
-                                .items
-                                .get(1)
-                                .and_then(|v| v.str())
-                                .unwrap_or_default()
-                                .to_string(),
-                            cost: price.cost,
-                            currency: price.currency,
-                            credits: price.credits,
-                            count: row.items.get(3).and_then(|v| v.num()).unwrap_or(1.0) as i64,
-                            rank: row.int("Prereq"),
-                            timer: row.int("Timer"),
-                        })
-                    })
-                    .collect()
-            })
-            .unwrap_or_default();
-
-        out.push(Store {
-            name: t.str("Name").unwrap_or(key).to_string(),
-            link: text(t, "Link"),
-            currency: text(t, "Currency"),
-            kind: text(t, "Type"),
-            offers,
-        });
-    }
-    Ok(out)
-}
-
-/// What a stock line charges.
-#[derive(Debug, Default, PartialEq)]
-struct Price {
-    cost: i64,
-    currency: Option<String>,
-    credits: Option<i64>,
-}
-
-/// A stock line's cost: a number in the vendor's currency, or a table naming each currency.
-fn price(value: Option<&lua::Value>) -> Price {
-    let Some(value) = value else {
-        return Price::default();
-    };
-    if let Some(cost) = value.num() {
-        return Price {
-            cost: cost as i64,
-            ..Price::default()
-        };
-    }
-    let Some(table) = value.table() else {
-        return Price::default();
-    };
-    let mut out = Price {
-        credits: table.int("Credits"),
-        ..Price::default()
-    };
-    if let Some((currency, cost)) = table
+    Ok(vendors
         .fields
         .iter()
-        .filter(|(key, _)| *key != "Credits")
-        .find_map(|(key, cost)| cost.num().map(|cost| (key, cost)))
-    {
-        out.cost = cost as i64;
-        out.currency = Some(currency.clone());
-    }
-    out
+        .filter_map(|(key, entry)| {
+            let listed = entry.table()?;
+            Some(Store {
+                name: listed.str("Name").unwrap_or(key).to_string(),
+                link: text(listed, "Link"),
+                offers: listed
+                    .table("Offerings")
+                    .map(|rows| {
+                        rows.items
+                            .iter()
+                            .filter_map(|row| Some(row.table()?.items.first()?.str()?.to_string()))
+                            .collect()
+                    })
+                    .unwrap_or_default(),
+            })
+        })
+        .collect())
 }
 
 /// A blueprint the in-game market sells for credits.
@@ -596,20 +519,19 @@ mod tests {
     }
 
     #[test]
-    fn a_cost_table_names_its_currency_and_credits_apart() {
+    fn a_vendor_entry_gives_the_page_and_what_it_was_listed_selling() {
         let src = "return { Vendors = { [\"Operational Supply\"] = {\n\
-            Currency = { \"Standing\", \"Credits\" }, Name = \"Operational Supply\",\n\
+            Name = \"Operational Supply\", Link = \"Cephalon Simaris#Supply\",\n\
             Offerings = {\n\
-            { \"Forma\", \"Resource\", { Credits = 5000, Standing = 3000 }, 1, Prereq = 0 },\n\
-            { \"Kuva\", \"Resource\", 50, 10000 },\n\
+            { \"Forma\", \"Resource\", 3000, 1 },\n\
+            { \"Kuva\", \"Resource\", 50, 10 },\n\
             } } } }";
+
         let stores = vendors(src.as_bytes()).unwrap();
-        let offers = &stores[0].offers;
-        assert_eq!(stores[0].currency, None);
-        assert_eq!(offers[0].cost, 3000);
-        assert_eq!(offers[0].currency.as_deref(), Some("Standing"));
-        assert_eq!(offers[0].credits, Some(5000));
-        assert_eq!((offers[1].cost, offers[1].currency.as_deref()), (50, None));
+
+        assert_eq!(stores[0].name, "Operational Supply");
+        assert_eq!(stores[0].link.as_deref(), Some("Cephalon Simaris#Supply"));
+        assert_eq!(stores[0].offers, ["Forma", "Kuva"]);
     }
 
     #[test]

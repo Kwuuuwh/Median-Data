@@ -12,7 +12,7 @@ mod silence;
 pub use anchor::{Anchors, load as load_anchors};
 pub use coverage::{DROP_NOT_IN_CATALOG, Gaps};
 pub use cross::{DropClaim, RelicClaim};
-pub use diff::{Diff, State, compare, snapshot};
+pub use diff::{Diff, Moved, State, compare, snapshot, waiting};
 pub use finding::{Finding, Layer, blocking};
 pub use report::{Report, Totals};
 pub use run::{Input, run};

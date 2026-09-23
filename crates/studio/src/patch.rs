@@ -103,6 +103,13 @@ fn apply(snap: &mut Snapshot, item: &str, prop: &str, value: &str) {
 }
 
 /// A Russian word written for something that is not an item.
+/// A vendor now points at the wiki page that pictures them.
+pub fn pictured(snap: &mut Snapshot, vendor: &str, page: &str) {
+    if let Some(seller) = snap.sellers.iter_mut().find(|s| s.key == vendor) {
+        seller.page = (!page.trim().is_empty()).then(|| page.trim().to_string());
+    }
+}
+
 pub fn termed(snap: &mut Snapshot, kind: &str, key: &str, ru: &str) {
     let terms = &mut snap.decided.terms;
     terms.retain(|(k, id, _)| k != kind || id != key);
@@ -151,6 +158,9 @@ fn write_term(snap: &mut Snapshot, kind: &str, key: &str, ru: &str) {
             }
         }
         "vendor" => {
+            if let Some(seller) = snap.sellers.iter_mut().find(|seller| seller.key == key) {
+                seller.name_ru = Some(ru.to_string());
+            }
             if let Some(Node::Vendor(v)) = snap.graph.get_mut(&graph::vendor_id(key)) {
                 v.name_ru = word();
             }

@@ -1,4 +1,4 @@
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, BTreeSet};
 
 use consensus::Source;
 use sources::wfm::WfmItem;
@@ -43,7 +43,12 @@ impl<'a> Bridge<'a> {
     /// Tie every listing to the catalog item it prices. A curated decision wins; otherwise
     /// the market's own reference is used when the catalog holds it, and failing that the
     /// listing's name, but only where exactly one catalog item answers to it.
-    pub fn new(items: &'a [WfmItem], paths: &Paths, curated: &BTreeMap<&str, &str>) -> Self {
+    pub fn new(
+        items: &'a [WfmItem],
+        paths: &Paths,
+        curated: &BTreeMap<&str, &str>,
+        recipes: &[crate::extract::DeRecipe],
+    ) -> Self {
         let mut by_ref = BTreeMap::new();
         let mut matched = BTreeMap::new();
 
@@ -66,14 +71,48 @@ impl<'a> Bridge<'a> {
             .filter_map(|w| w.slug.strip_suffix("_set"))
             .collect();
 
+        // What the assembled thing is built from, so a set whose slug the market does not
+        // repeat in its parts can still find them: `broken_war_set` is made of `war_blade`
+        // and `war_hilt`, and only the recipe says so. Counted first: an ingredient several
+        // recipes call for is raw material, not a part of any one of them — a Duviri sword
+        // takes two cut gems that five other crafts take too, and the market sells them on
+        // their own.
+        let mut used: BTreeMap<&str, usize> = BTreeMap::new();
+        for recipe in recipes {
+            for (item, _) in &recipe.ingredients {
+                *used.entry(item.as_str()).or_default() += 1;
+            }
+        }
+        let mut needs: BTreeMap<&str, BTreeSet<&str>> = BTreeMap::new();
+        for recipe in recipes {
+            needs.entry(recipe.result.as_str()).or_default().extend(
+                recipe
+                    .ingredients
+                    .iter()
+                    .map(|(item, _)| item.as_str())
+                    .filter(|item| used.get(item) == Some(&1)),
+            );
+        }
+
         let mut sets = Vec::new();
         for item in items.iter().filter(|w| w.has_tag("set")) {
             let Some(base) = item.slug.strip_suffix("_set") else {
                 continue;
             };
+            let built = item
+                .game_ref
+                .as_deref()
+                .and_then(|assembled| needs.get(assembled));
             let members = items
                 .iter()
-                .filter(|m| !m.has_tag("set") && owner(&bases, &m.slug) == Some(base))
+                .filter(|m| {
+                    let named_by_recipe = m
+                        .game_ref
+                        .as_deref()
+                        .is_some_and(|r| built.is_some_and(|parts| parts.contains(r)));
+                    !m.has_tag("set")
+                        && (named_by_recipe || (is_part(m) && owner(&bases, &m.slug) == Some(base)))
+                })
                 .collect();
             sets.push(SetInfo { item, members });
         }
@@ -106,6 +145,15 @@ impl<'a> Bridge<'a> {
     pub fn sets(&self) -> &[SetInfo<'a>] {
         &self.sets
     }
+}
+
+/// Whether a listing looks like something a set is assembled from, for when only the slug
+/// ties it to the set. A set's slug is a prefix, and a mod named after the same weapon
+/// carries it too: `parallax_set` is the Zariman landing craft and `parallax_scope` an
+/// archwing mod. The market tags every part it sells as a component or a blueprint. A
+/// listing the recipe itself names needs no such guess.
+fn is_part(listing: &WfmItem) -> bool {
+    listing.has_tag("component") || listing.has_tag("blueprint")
 }
 
 /// The set a listing belongs to: the **longest** base its slug carries, and nothing when it
@@ -235,7 +283,7 @@ mod tests {
                 &["component"],
             ),
         ];
-        let bridge = Bridge::new(&items, &paths, &BTreeMap::new());
+        let bridge = Bridge::new(&items, &paths, &BTreeMap::new(), &[]);
 
         assert_eq!(
             bridge.get("/R/VoltPrimeBlueprint").unwrap().slug,
@@ -286,7 +334,7 @@ mod tests {
                 &["component"],
             ),
         ];
-        let bridge = Bridge::new(&items, &paths, &BTreeMap::new());
+        let bridge = Bridge::new(&items, &paths, &BTreeMap::new(), &[]);
 
         let members = |slug: &str| -> Vec<String> {
             bridge
@@ -330,7 +378,7 @@ mod tests {
             "Amesha Wings",
             &["archwing", "component"],
         )];
-        let bridge = Bridge::new(&items, &paths, &BTreeMap::new());
+        let bridge = Bridge::new(&items, &paths, &BTreeMap::new(), &[]);
         assert_eq!(
             bridge.matched()["amesha_wings_blueprint"].0,
             "/R/Archwing/SupportWingsBlueprint"
@@ -348,7 +396,7 @@ mod tests {
             "Braton Prime Barrel",
             &["component"],
         )];
-        let bridge = Bridge::new(&items, &paths, &BTreeMap::new());
+        let bridge = Bridge::new(&items, &paths, &BTreeMap::new(), &[]);
         assert_eq!(
             bridge.matched()["braton_prime_barrel"].0,
             "/R/Weapons/BratonPrimeBarrel"
@@ -365,7 +413,7 @@ mod tests {
             "Quick Thinking",
             &["mod"],
         )];
-        let bridge = Bridge::new(&items, &paths, &BTreeMap::new());
+        let bridge = Bridge::new(&items, &paths, &BTreeMap::new(), &[]);
         assert_eq!(
             bridge.get("/Mods/QuickThinking").unwrap().slug,
             "quick_thinking"
@@ -378,7 +426,7 @@ mod tests {
         let catalog = [de("/A/Sunder", "Sunder"), de("/B/Sunder", "Sunder")];
         let paths = Paths::build(&catalog, &[]);
         let items = vec![item("sunder", "", "Sunder", &["mod"])];
-        let bridge = Bridge::new(&items, &paths, &BTreeMap::new());
+        let bridge = Bridge::new(&items, &paths, &BTreeMap::new(), &[]);
         assert!(bridge.matched().is_empty());
     }
 
@@ -392,7 +440,7 @@ mod tests {
             "Companion Weapon Riven Mod (Veiled)",
             &["mod", "riven"],
         )];
-        let bridge = Bridge::new(&items, &paths, &BTreeMap::new());
+        let bridge = Bridge::new(&items, &paths, &BTreeMap::new(), &[]);
         assert_eq!(
             bridge.get("/Mods/CompanionRiven").unwrap().slug,
             "companion_weapon_riven_mod_(veiled)"
@@ -405,7 +453,7 @@ mod tests {
         let paths = Paths::build(&catalog, &[]);
         let items = vec![item("thing", "/B/Other", "Other", &["mod"])];
         let curated = BTreeMap::from([("thing", "/A/Real")]);
-        let bridge = Bridge::new(&items, &paths, &curated);
+        let bridge = Bridge::new(&items, &paths, &curated, &[]);
         assert_eq!(bridge.matched()["thing"].0, "/A/Real");
         assert_eq!(bridge.matched()["thing"].1, How::Curated);
     }

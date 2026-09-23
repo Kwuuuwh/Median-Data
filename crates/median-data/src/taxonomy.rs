@@ -84,7 +84,8 @@ impl Policy {
     }
 
     /// Rules that decide nothing in this data. A rule that never fires is either wrong or
-    /// left over from a manifest DE has changed.
+    /// left over from a manifest DE has changed — except a fallback, which exists to catch
+    /// what no rule recognised, so catching nothing is the point of it.
     pub fn unused<'f>(&self, facts: impl IntoIterator<Item = Facts<'f>>) -> Vec<&Rule> {
         let mut fired = vec![false; self.rules.len()];
         for f in facts {
@@ -95,7 +96,7 @@ impl Policy {
         self.rules
             .iter()
             .zip(fired)
-            .filter(|(_, hit)| !hit)
+            .filter(|(rule, hit)| !hit && !rule.fallback)
             .map(|(rule, _)| rule)
             .collect()
     }

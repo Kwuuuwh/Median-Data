@@ -22,6 +22,11 @@ pub struct Gaps {
     pub verbatim: BTreeSet<String>,
     /// Kinds only a catch-all rule assigns: they read like a decision and are not one.
     pub provisional: BTreeSet<String>,
+    /// Names the game client translates more than one way, so none of them can be picked.
+    pub ambiguous: BTreeSet<String>,
+    /// Set slugs the game itself knows the name of. The export lists a Prime Vault set days
+    /// after the market does, and a set the game knows is waiting on the export, not on us.
+    pub in_the_game: BTreeSet<String>,
 }
 
 /// Find what the catalog is missing, both from the build's own gaps and from the graph.
@@ -111,10 +116,31 @@ pub fn check(graph: &Graph, gaps: &Gaps) -> Vec<Finding> {
         }
     }
 
+    for node in graph.nodes() {
+        let Node::Enemy(enemy) = node else { continue };
+        if enemy.name_ru.is_some() {
+            continue;
+        }
+        // Only a name the client does translate, and translates more than one way, is work
+        // for a person: they pick which reading the catalog keeps. A name the client never
+        // prints — a drop table's own heading, like `Orb Vallis - Spaceport Enemies` — has no
+        // Russian anywhere to be found, so asking for one would never be answered.
+        if !gaps.ambiguous.contains(&enemy.name) {
+            continue;
+        }
+        out.push(Finding::new(
+            Layer::Coverage,
+            "enemy-name-missing",
+            &enemy.name,
+            "the client translates the name more than one way".to_string(),
+        ));
+    }
+
     out.extend(dead_recipes(graph));
 
     for node in graph.nodes() {
         if let Node::Set(set) = node
+            && !gaps.in_the_game.contains(&set.slug)
             && !graph
                 .from(&node.id())
                 .iter()

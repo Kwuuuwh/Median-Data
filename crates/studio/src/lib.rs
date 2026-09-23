@@ -12,6 +12,7 @@ mod localize;
 mod mapping;
 mod page;
 mod patch;
+mod sellers;
 mod serve;
 mod sources;
 mod state;
@@ -19,4 +20,4 @@ mod terms;
 mod words;
 
 pub use serve::run;
-pub use state::{Decided, Icon, Snapshot, Store, Unresolved};
+pub use state::{Client, Decided, Icon, Seller, Snapshot, Store, Unresolved};

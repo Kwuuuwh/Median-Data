@@ -21,6 +21,7 @@ pub fn find(wfm: &[WfmItem], matched: &BTreeMap<String, String>) -> Vec<Unresolv
                 None => "рынок не называет предмет".to_string(),
             },
             count: 1,
+            since_ms: 0,
         })
         .collect();
     out.sort_by(|a, b| a.name.cmp(&b.name).then_with(|| a.key.cmp(&b.key)));

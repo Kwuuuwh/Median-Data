@@ -1,4 +1,4 @@
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, BTreeSet};
 
 use consensus::Status;
 use graph::{Graph, Taxonomy};
@@ -17,6 +17,7 @@ pub fn check(
     taxonomy: &Taxonomy,
     dead_rules: &[String],
     unread_headings: &[String],
+    provisional: &BTreeSet<String>,
 ) -> Vec<Finding> {
     let mut alone: BTreeMap<(&str, &str), usize> = BTreeMap::new();
     let mut confirmed: BTreeMap<(&str, &str), usize> = BTreeMap::new();
@@ -65,7 +66,12 @@ pub fn check(
     }
     for class in taxonomy.classes() {
         for leaf in &class.kind {
-            if leaf.slug != graph::Kind::UNKNOWN && !filled.contains(leaf.slug.as_str()) {
+            // A kind only a fallback assigns is meant to stay empty: whatever lands in it is
+            // unclassified either way, and the funnel already says so item by item.
+            if leaf.slug != graph::Kind::UNKNOWN
+                && !provisional.contains(&leaf.slug)
+                && !filled.contains(leaf.slug.as_str())
+            {
                 out.push(Finding::new(
                     Layer::Silence,
                     "kind-holds-nothing",

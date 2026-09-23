@@ -728,6 +728,11 @@ standing = 25000
 rank = 5
 
 [[vendor.offer]]
+item = "/Lotus/StoreItems/Powersuits/Frost/IceShieldAugmentTwoCard"
+standing = 25000
+rank = 5
+
+[[vendor.offer]]
 item = "/Lotus/StoreItems/Powersuits/Frost/AvalancheAugmentCard"
 standing = 25000
 rank = 5
@@ -874,6 +879,11 @@ rank = 5
 
 [[vendor.offer]]
 item = "/Lotus/StoreItems/Powersuits/Bard/BardCharmAugmentCard"
+standing = 25000
+rank = 5
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Powersuits/Oraxia/BroodAugmentCard"
 standing = 25000
 rank = 5
 
@@ -4763,6 +4773,11 @@ standing = 25000
 rank = 5
 
 [[vendor.offer]]
+item = "/Lotus/StoreItems/Powersuits/Oraxia/BroodAugmentCard"
+standing = 25000
+rank = 5
+
+[[vendor.offer]]
 item = "/Lotus/StoreItems/Powersuits/Fairy/FairyDustAugmentCard"
 standing = 25000
 rank = 5
@@ -6334,6 +6349,11 @@ standing = 25000
 rank = 5
 
 [[vendor.offer]]
+item = "/Lotus/StoreItems/Powersuits/DemonFrame/DemonFrameFireBallAugmentCard"
+standing = 25000
+rank = 5
+
+[[vendor.offer]]
 item = "/Lotus/StoreItems/Powersuits/Berserker/GrappleAugmentCard"
 standing = 25000
 rank = 5
@@ -6723,6 +6743,11 @@ rank = 5
 
 [[vendor.offer]]
 item = "/Lotus/StoreItems/Powersuits/Devourer/DevourerRegurgitateAugmentCard"
+standing = 25000
+rank = 5
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Powersuits/Devourer/DevourerPassiveAugmentCard"
 standing = 25000
 rank = 5
 
@@ -8539,6 +8564,11 @@ standing = 25000
 rank = 5
 
 [[vendor.offer]]
+item = "/Lotus/StoreItems/Powersuits/Frost/IceShieldAugmentTwoCard"
+standing = 25000
+rank = 5
+
+[[vendor.offer]]
 item = "/Lotus/StoreItems/Powersuits/Frost/AvalancheAugmentCard"
 standing = 25000
 rank = 5
@@ -8580,6 +8610,11 @@ rank = 5
 
 [[vendor.offer]]
 item = "/Lotus/StoreItems/Powersuits/Devourer/DevourerRegurgitateAugmentCard"
+standing = 25000
+rank = 5
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Powersuits/Devourer/DevourerPassiveAugmentCard"
 standing = 25000
 rank = 5
 
@@ -8765,6 +8800,11 @@ rank = 5
 
 [[vendor.offer]]
 item = "/Lotus/StoreItems/Powersuits/Saryn/WeaponPoisonAugmentCard"
+standing = 25000
+rank = 5
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Powersuits/DemonFrame/DemonFrameFireBallAugmentCard"
 standing = 25000
 rank = 5
 
@@ -57554,6 +57594,466 @@ bin = "BIN_0"
 always = true
 
 [[vendor]]
+manifest = "/Lotus/Types/Game/VendorManifests/Hubs/MelicaVendorManifest"
+floating = true
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Recipes/WarframeRecipes/NarinBlueprint"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 400
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Recipes/WarframeRecipes/NarinChassisBlueprint"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 130
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Recipes/WarframeRecipes/NarinHelmetBlueprint"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 130
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Recipes/WarframeRecipes/NarinSystemsBlueprint"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 130
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Recipes/Weapons/DuelistBowBlueprint"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 200
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Recipes/Weapons/WeaponParts/DuelistBowUpperLimbBlueprint"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 50
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Recipes/Weapons/WeaponParts/DuelistBowStringBlueprint"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 50
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Recipes/Weapons/WeaponParts/DuelistBowGripBlueprint"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 50
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Recipes/Weapons/WeaponParts/DuelistBowLowerLimbBlueprint"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 50
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Recipes/Weapons/DuelistPistolsBlueprint"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 200
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Recipes/Weapons/WeaponParts/DuelistPistolsBarrelBlueprint"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 30
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Recipes/Weapons/WeaponParts/DuelistPistolsReceiverBlueprint"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 30
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Recipes/Weapons/WeaponParts/DuelistPistolsLinkBlueprint"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 60
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Sigils/FrozenSigil"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 250
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Items/Titles/NarinTitle"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 500
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Effects/DuelistSpiritEphemera"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 500
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Items/ShipDecos/TarotCardNarin"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 500
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Liset/DuelistHoodOrnament"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 500
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Items/MiscItems/PhotoboothTileTWWMountainPeakHub"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 500
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Items/PhotoBooth/Zariman/PhotoboothTileZarMelicaLab"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 500
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Items/SongItems/NeotesDanceSongItem"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 50
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Items/SongItems/IceSpeakerSongItem"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 50
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/DuelistArmour/DuelistArmourA"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 80
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/DuelistArmour/DuelistArmourC"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 80
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/DuelistArmour/DuelistArmourL"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 80
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Weapons/Daggers/ArchonDaggerDuelistSkin"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 150
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Weapons/Swords/DarkSplitSwordDuelistSkin"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 150
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Weapons/Swords/DarkDaggerDuelistSkin"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 150
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Weapons/Swords/DarkSwordDuelistSkin"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 150
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Weapons/GreatSword/BallasSwordDuelistSkin"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 150
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Weapons/Glaives/TeshinGlaiveDuelistSkin"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 150
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Weapons/LongGuns/CrpFreezeRayDuelistSkin"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 150
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Weapons/LongGuns/RailjackRifleDuelistSkin"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 150
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Liset/LisetDuelistSkin"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 150
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Items/MiscItems/Kuva"
+count = 10500
+limit = 4
+hours = [
+    168,
+    168,
+]
+bin = "BIN_0"
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 150
+
+[[vendor]]
 manifest = "/Lotus/Types/Game/VendorManifests/Hubs/PerrinSequenceWeaponVendorManifest"
 floating = true
 
@@ -58730,6 +59230,34 @@ affiliation = "/Lotus/Syndicates/Kahl/KahlSyndicate"
 [[vendor.offer.price]]
 item = "/Lotus/Types/Items/MiscItems/KahlCreds"
 count = 45
+
+[[vendor]]
+manifest = "/Lotus/Types/Game/VendorManifests/KuvaKeys/KuvaKeysVendorManifest"
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Items/KuvaKeys/KuvaKeyOne"
+credits = [
+    10,
+    10,
+]
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Items/KuvaKeys/KuvaKeyTest"
+credits = [
+    10,
+    10,
+]
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
 
 [[vendor]]
 manifest = "/Lotus/Types/Game/VendorManifests/Ostron/ConservationRewardsManifest"
@@ -63219,6 +63747,30 @@ bin = "BIN_0"
 [[vendor.offer.price]]
 item = "/Lotus/Types/Gameplay/Venus/Resources/ArachnoidWraithItem"
 count = 15
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Items/Titles/RoatheTitles/QorvexDeluxeTitle"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/ZarimanMiscItemB"
+count = 200
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Items/Titles/RoatheTitles/BansheeDeluxeTitle"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Items/MiscItems/GrnFlameSpearPart"
+count = 50
 
 [[vendor]]
 manifest = "/Lotus/Types/Game/VendorManifests/Tau/Prequel/TriadAntiqueVendorManifest"

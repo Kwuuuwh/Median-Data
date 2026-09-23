@@ -61,7 +61,7 @@ fn collect(dir: &Path, files: &mut Vec<PathBuf>) -> Result<()> {
 }
 
 /// The bytes with every `\r\n` read as `\n`.
-fn unix(bytes: &[u8]) -> Vec<u8> {
+pub fn unix(bytes: &[u8]) -> Vec<u8> {
     let mut out = Vec::with_capacity(bytes.len());
     for (at, byte) in bytes.iter().enumerate() {
         if *byte == b'\r' && bytes.get(at + 1) == Some(&b'\n') {

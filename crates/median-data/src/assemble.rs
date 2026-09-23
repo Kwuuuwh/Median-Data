@@ -24,6 +24,8 @@ pub struct Built {
     pub gaps: Gaps,
     /// Drop-table relic rewards resolved to catalog paths, to check DE against.
     pub relic_witness: Vec<RelicClaim>,
+    /// Relics whose contents the export does not carry yet, filled from the drop tables.
+    pub relics_from_tables: usize,
     /// What checking relic contents against the wiki came to.
     pub witnessed: crate::relic::Witnessed,
     pub places: usize,
@@ -87,8 +89,10 @@ pub struct Input {
     pub baro: Vec<crate::wiki::Offered>,
     /// The dojo labs and their research.
     pub dojo: crate::wiki::Dojo,
-    /// Every vendor the wiki lists by stock.
-    pub stores: Vec<crate::wiki::Store>,
+    /// What each of the game's own vendor manifests sells.
+    pub stalls: Vec<crate::offers::Stall>,
+    /// Who the wiki says keeps which counter, for putting a person behind a manifest.
+    pub keepers: Vec<crate::wiki::Store>,
     /// Blueprints the market sells for credits.
     pub market: Vec<crate::wiki::Priced>,
     pub wfm: Vec<WfmItem>,
@@ -98,8 +102,8 @@ pub struct Input {
     pub vaulting: Vec<crate::wiki::Vaulting>,
     /// What the wiki says every relic awards, to check DE's own account against.
     pub composition: Vec<crate::wiki::Slot>,
-    /// The Russian the game client shows for a name it prints in English.
-    pub spoken: BTreeMap<String, String>,
+    /// What the game client calls things, distilled out of its cache.
+    pub spoken: crate::game::Names,
 }
 
 /// Merge every source into the knowledge graph, honouring curated decisions.
@@ -113,14 +117,14 @@ pub fn assemble(
     curated: &Curation,
 ) -> Built {
     let links = curated.market_links();
-    let terms = curated.terms(&input.spoken);
+    let terms = curated.terms(&input.spoken.name);
     for (kind, key, ru) in curated.term.iter().map(|t| (&t.kind, &t.key, &t.ru)) {
         if kind == "class" || kind == "kind" {
             taxonomy.tree.relabel(key, ru);
         }
     }
     let paths = Paths::build(&input.de, &input.recipes);
-    let bridge = Bridge::new(&input.wfm, &paths, &links);
+    let bridge = Bridge::new(&input.wfm, &paths, &links, &input.recipes);
     let matched = bridge
         .matched()
         .iter()
@@ -207,7 +211,8 @@ pub fn assemble(
     );
 
     let stock = crate::vendors::Stock {
-        stores: &input.stores,
+        stalls: &input.stalls,
+        keepers: &input.keepers,
         baro: &input.baro,
         market: &input.market,
     };
@@ -215,6 +220,7 @@ pub fn assemble(
     crate::areas::link(&mut graph, areas);
     let dojo = crate::labs::link(&mut graph, &input.dojo, &index, &terms);
     let relic_witness = witness(&index, &input.relic_rows);
+    let relics_from_tables = relic::from_tables(&mut graph, &input.relic_rows, &index);
     let witnessed = relic::witnessed(&graph, &index, &input.composition, &mut conflicts);
     let drop_witness =
         crate::witness::drops(&graph, &input.chart.nodes, &input.wiki_tables, &index);
@@ -238,6 +244,8 @@ pub fn assemble(
             dangling_craft: dangling_craft.into_iter().collect(),
             unknown_drop_items: missed.unknown.keys().cloned().collect(),
             provisional: taxonomy.provisional(),
+            ambiguous: input.spoken.ambiguous.keys().cloned().collect(),
+            in_the_game: known_sets(&graph, &input.spoken),
             verbatim: curated
                 .verbatim()
                 .into_iter()
@@ -247,6 +255,7 @@ pub fn assemble(
         },
         orphans,
         relic_witness,
+        relics_from_tables,
         witnessed,
         places: dropped.places,
         enemies: dropped.enemies,
@@ -276,6 +285,30 @@ pub fn assemble(
 
 /// Resolve printed drop-table relic rows to catalog paths. Rows naming something the
 /// catalog lacks are dropped: coverage already reports those.
+/// Sets the game client knows by name. A set is the market's word for a bundle of parts, so
+/// the client never prints `Citrine Prime Set` — but it does print `Citrine Prime`, and that
+/// is enough to say the thing exists in the game and the export is merely behind.
+fn known_sets(
+    graph: &graph::Graph,
+    spoken: &crate::game::Names,
+) -> std::collections::BTreeSet<String> {
+    let printed: std::collections::BTreeSet<String> =
+        spoken.name.keys().map(|name| name.to_lowercase()).collect();
+    graph
+        .nodes()
+        .filter_map(|node| match node {
+            graph::Node::Set(set) => Some(set),
+            _ => None,
+        })
+        .filter(|set| {
+            let name = set.names.en.value.to_lowercase();
+            let base = name.strip_suffix(" set").unwrap_or(&name);
+            printed.contains(base)
+        })
+        .map(|set| set.slug.clone())
+        .collect()
+}
+
 fn witness(index: &Index, rows: &[RelicRow]) -> Vec<RelicClaim> {
     let mut out = Vec::new();
     for row in rows {

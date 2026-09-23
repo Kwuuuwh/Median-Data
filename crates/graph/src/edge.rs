@@ -44,6 +44,10 @@ pub struct Offer {
     pub currency: Option<String>,
     /// The catalog item the cost is paid in; none for standing and platinum.
     pub pays: Option<String>,
+    /// Everything else the offer asks for at the same time. A conservation stall takes five
+    /// common tags and five rare ones for one thing, and a single cost cannot say that, so
+    /// the whole ask is kept here whenever it runs to more than one item.
+    pub also: Vec<Cost>,
     /// The counter the offer stands on, where the vendor keeps more than one.
     pub store: Option<String>,
     /// Credits the offer charges: on top of its own currency, or alone where it has none.
@@ -52,6 +56,12 @@ pub struct Offer {
     pub count: i64,
     /// Standing rank the vendor requires, where they have ranks.
     pub rank: Option<i64>,
+    /// The top of the price, where the stall rolls it within a range.
+    pub cost_max: Option<i64>,
+    /// How many one account may ever buy, where the stall caps it.
+    pub limit: Option<i64>,
+    /// The stall rolls this price on every rotation, so `cost` is where the roll starts.
+    pub floating: bool,
     /// Seconds the offer stays up, where it rotates on a timer.
     pub timer: Option<i64>,
     /// How many visits it has been offered on, where the source counts them.
@@ -60,6 +70,14 @@ pub struct Offer {
     pub always: bool,
     /// Offered once but no longer.
     pub gone: bool,
+}
+
+/// One item an offer asks for, where it asks for several at once.
+#[derive(Debug, Clone, PartialEq)]
+pub struct Cost {
+    /// The catalog item handed over.
+    pub item: String,
+    pub count: i64,
 }
 
 /// What a clan pays to research something in a dojo lab. The research unlocks the blueprint;

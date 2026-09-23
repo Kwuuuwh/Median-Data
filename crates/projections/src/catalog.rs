@@ -15,7 +15,7 @@ pub struct Catalog;
 /// application reads it to decide whether it can open the file at all — so it lives here,
 /// beside the schema it describes, and is written both as `PRAGMA user_version` and as a row
 /// of `meta`.
-pub const SCHEMA: u32 = 13;
+pub const SCHEMA: u32 = 15;
 
 pub const SETUP: &str = "\
 CREATE TABLE meta (
@@ -186,10 +186,13 @@ CREATE TABLE vendor_offers (
   vendor   TEXT NOT NULL,
   item     TEXT NOT NULL,
   cost     INTEGER,
+  cost_max INTEGER,
+  floating INTEGER NOT NULL,
   currency TEXT,
   pays     TEXT,
   store    TEXT,
   credits  INTEGER,
+  purchase_limit INTEGER,
   count   INTEGER NOT NULL,
   rank    INTEGER,
   timer   INTEGER,
@@ -197,6 +200,16 @@ CREATE TABLE vendor_offers (
   always  INTEGER NOT NULL,
   gone    INTEGER NOT NULL,
   PRIMARY KEY (vendor, item)
+) WITHOUT ROWID;
+-- Every item an offer asks for, where it asks for more than one at a time: a conservation
+-- stall takes five common tags and five rare ones for one badge. `vendor_offers.cost` holds
+-- the first of them, so an offer listed here is priced by these rows together.
+CREATE TABLE offer_costs (
+  vendor TEXT NOT NULL,
+  item   TEXT NOT NULL,
+  pays   TEXT NOT NULL,
+  count  INTEGER NOT NULL,
+  PRIMARY KEY (vendor, item, pays)
 ) WITHOUT ROWID;
 CREATE TABLE regions (
   node         TEXT PRIMARY KEY,
@@ -285,6 +298,7 @@ CREATE INDEX idx_recipe_requires_item ON recipe_requires(item);
 CREATE INDEX idx_relic_rewards_reward ON relic_rewards(reward);
 CREATE INDEX idx_places_region ON places(region);
 CREATE INDEX idx_vendor_offers_item ON vendor_offers(item);
+CREATE INDEX idx_offer_costs_item ON offer_costs(vendor, item);
 CREATE INDEX idx_research_blueprint ON research(blueprint);
 CREATE INDEX idx_regions_location ON regions(location);
 CREATE INDEX idx_set_members_item ON set_members(item);
@@ -610,11 +624,14 @@ fn edges(tx: &Transaction<'_>, graph: &Graph) -> Result<()> {
     let mut research_cost = tx.prepare(
         "INSERT OR IGNORE INTO research_costs (blueprint, resource, count) VALUES (?1, ?2, ?3)",
     )?;
+    let mut offer_cost = tx.prepare(
+        "INSERT OR IGNORE INTO offer_costs (vendor, item, pays, count) VALUES (?1, ?2, ?3, ?4)",
+    )?;
     let mut offers = tx.prepare(
         "INSERT OR IGNORE INTO vendor_offers \
-         (vendor, item, cost, currency, pays, store, credits, count, rank, timer, times, always, \
-          gone) \
-         VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13)",
+         (vendor, item, cost, cost_max, floating, currency, pays, store, credits, purchase_limit, \
+          count, rank, timer, times, always, gone) \
+         VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15, ?16)",
     )?;
 
     for edge in sorted(graph) {
@@ -681,10 +698,13 @@ fn edges(tx: &Transaction<'_>, graph: &Graph) -> Result<()> {
                     strip(&edge.from, "vendor:"),
                     &edge.to,
                     offer.cost,
+                    offer.cost_max,
+                    offer.floating as i64,
                     offer.currency.as_deref(),
                     offer.pays.as_deref(),
                     offer.store.as_deref(),
                     offer.credits,
+                    offer.limit,
                     offer.count,
                     offer.rank,
                     offer.timer,
@@ -692,6 +712,14 @@ fn edges(tx: &Transaction<'_>, graph: &Graph) -> Result<()> {
                     offer.always as i64,
                     offer.gone as i64,
                 ])?;
+                for cost in &offer.also {
+                    offer_cost.execute((
+                        strip(&edge.from, "vendor:"),
+                        &edge.to,
+                        &cost.item,
+                        cost.count,
+                    ))?;
+                }
             }
             // Produces, Represents, Yields and At are read back from a node column, and the
             // refinement chain is already in `relics` as base plus refinement.

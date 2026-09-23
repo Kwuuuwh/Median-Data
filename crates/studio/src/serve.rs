@@ -13,7 +13,7 @@ use crate::css::SHEET;
 use crate::fuzzy::Names;
 use crate::list;
 use crate::state::{Snapshot, Store};
-use crate::{act, anomalies, catalog, conflicts, entity, home, localize, mapping};
+use crate::{act, anomalies, catalog, conflicts, entity, home, localize, mapping, sellers};
 
 /// The vendored copy of htmx, served from here so no page ever asks a CDN for anything.
 const HTMX: &str = include_str!("../static/htmx.min.js");
@@ -76,6 +76,7 @@ pub async fn run(addr: &str, store: Box<dyn Store>) -> Result<()> {
         .route("/catalog", get(shelf))
         .route("/localize", get(translation))
         .route("/mapping", get(names_without_items))
+        .route("/sellers", get(who_sells))
         .route("/conflicts", get(disagreements))
         .route("/anomalies", get(findings))
         .route("/entity", get(one_entity))
@@ -86,6 +87,7 @@ pub async fn run(addr: &str, store: Box<dyn Store>) -> Result<()> {
         .route("/undismiss", post(act::undismiss))
         .route("/name", post(act::name))
         .route("/term", post(act::term))
+        .route("/portrait", post(act::portrait))
         .route("/verbatim", post(act::verbatim))
         .route("/unverbatim", post(act::unverbatim))
         .route("/pick", post(act::pick))
@@ -201,8 +203,16 @@ async fn translation(State(studio): State<Shared>, Query(s): Query<Screen>) -> M
 async fn names_without_items(State(studio): State<Shared>, Query(s): Query<Screen>) -> Markup {
     let filter = mapping::Filter {
         source: s.source.clone(),
+        show: s.show.clone(),
     };
     mapping::render(&studio.read(), &studio.names(), &filter, &s.list())
+}
+
+async fn who_sells(State(studio): State<Shared>, Query(s): Query<Screen>) -> Markup {
+    let filter = sellers::Filter {
+        show: s.show.clone(),
+    };
+    sellers::render(&studio.read(), &filter, &s.list())
 }
 
 async fn disagreements(State(studio): State<Shared>, Query(s): Query<Screen>) -> Markup {

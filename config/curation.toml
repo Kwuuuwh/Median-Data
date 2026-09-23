@@ -133,36 +133,6 @@ prop = "tradable"
 value = "false"
 
 [[pick]]
-item = "/Lotus/Types/Recipes/ArchwingRecipes/SupportArchwing/SupportArchwingChassisBlueprint"
-prop = "tradable"
-value = "false"
-
-[[pick]]
-item = "/Lotus/Types/Recipes/ArchwingRecipes/SupportArchwing/SupportArchwingChassisComponent"
-prop = "tradable"
-value = "true"
-
-[[pick]]
-item = "/Lotus/Types/Recipes/ArchwingRecipes/SupportArchwing/SupportArchwingSystemsBlueprint"
-prop = "tradable"
-value = "false"
-
-[[pick]]
-item = "/Lotus/Types/Recipes/ArchwingRecipes/SupportArchwing/SupportArchwingSystemsComponent"
-prop = "tradable"
-value = "true"
-
-[[pick]]
-item = "/Lotus/Types/Recipes/ArchwingRecipes/SupportArchwing/SupportArchwingWingsBlueprint"
-prop = "tradable"
-value = "false"
-
-[[pick]]
-item = "/Lotus/Types/Recipes/ArchwingRecipes/SupportArchwing/SupportArchwingWingsComponent"
-prop = "tradable"
-value = "true"
-
-[[pick]]
 item = "/Lotus/Types/Recipes/Weapons/WeaponParts/AmbassadorBarrelBlueprint"
 prop = "tradable"
 value = "false"
@@ -503,66 +473,6 @@ prop = "tradable"
 value = "true"
 
 [[term]]
-kind = "enemy"
-key = "002-Er"
-ru = "002-Эр"
-[[term]]
-kind = "enemy"
-key = "Councilor Vay Hek"
-ru = "Советник Вэй Хек"
-[[term]]
-kind = "enemy"
-key = "Crewman"
-ru = "Солдат Корпуса"
-[[term]]
-kind = "enemy"
-key = "Fusion Moa"
-ru = "Гибридный МОА"
-[[term]]
-kind = "enemy"
-key = "M-W.A.M."
-ru = "МШ-МОА"
-[[term]]
-kind = "enemy"
-key = "Mimic"
-ru = "Мимик"
-[[term]]
-kind = "enemy"
-key = "Moa"
-ru = "МОА"
-[[term]]
-kind = "enemy"
-key = "Narmer Heavy Gunner"
-ru = "Тяжёлый Пулемётчик Нармера"
-[[term]]
-kind = "enemy"
-key = "Prosecutor"
-ru = "Каратель"
-[[term]]
-kind = "enemy"
-key = "Raptor Rx"
-ru = "Раптор RX"
-[[term]]
-kind = "enemy"
-key = "Scaldra Ti-92"
-ru = "Скальдра TI-92"
-[[term]]
-kind = "enemy"
-key = "Scorch"
-ru = "Выжигатель"
-[[term]]
-kind = "enemy"
-key = "Ven'Kra Tel"
-ru = "Вен'Кра Тел"
-[[term]]
-kind = "enemy"
-key = "Verd-Ie"
-ru = "ВЕРД-ИЭ"
-[[term]]
-kind = "enemy"
-key = "Wolf Of Saturn Six"
-ru = "Волк Сатурна 6"
-[[term]]
 kind = "activity"
 key = "Cambion Drift Bounty"
 ru = "Заказы Камбионского Дрейфа"
@@ -601,6 +511,81 @@ ru = "Заказы Хёльвании"
 kind = "activity"
 key = "Zariman Bounty"
 ru = "Заказы Заримана"
+
+[[term]]
+kind = "enemy"
+key = "002-Er"
+ru = "002-Эр"
+
+[[term]]
+kind = "enemy"
+key = "Councilor Vay Hek"
+ru = "Советник Вэй Хек"
+
+[[term]]
+kind = "enemy"
+key = "Crewman"
+ru = "Солдат Корпуса"
+
+[[term]]
+kind = "enemy"
+key = "Fusion Moa"
+ru = "Гибридный МОА"
+
+[[term]]
+kind = "enemy"
+key = "M-W.A.M."
+ru = "МШ-МОА"
+
+[[term]]
+kind = "enemy"
+key = "Mimic"
+ru = "Мимик"
+
+[[term]]
+kind = "enemy"
+key = "Moa"
+ru = "МОА"
+
+[[term]]
+kind = "enemy"
+key = "Narmer Heavy Gunner"
+ru = "Тяжёлый Пулемётчик Нармера"
+
+[[term]]
+kind = "enemy"
+key = "Prosecutor"
+ru = "Каратель"
+
+[[term]]
+kind = "enemy"
+key = "Raptor Rx"
+ru = "Раптор RX"
+
+[[term]]
+kind = "enemy"
+key = "Scaldra Ti-92"
+ru = "Скальдра TI-92"
+
+[[term]]
+kind = "enemy"
+key = "Scorch"
+ru = "Выжигатель"
+
+[[term]]
+kind = "enemy"
+key = "Ven'Kra Tel"
+ru = "Вен'Кра Тел"
+
+[[term]]
+kind = "enemy"
+key = "Verd-Ie"
+ru = "ВЕРД-ИЭ"
+
+[[term]]
+kind = "enemy"
+key = "Wolf Of Saturn Six"
+ru = "Волк Сатурна 6"
 
 [[term]]
 kind = "lab"
@@ -754,6 +739,16 @@ ru = "Маячок Бездны Баро"
 
 [[term]]
 kind = "place"
+key = "Derelict Vault"
+ru = "Хранилище Орокин"
+
+[[term]]
+kind = "place"
+key = "Duviri Circuit"
+ru = "Цепь"
+
+[[term]]
+kind = "place"
 key = "Duviri Full Experience"
 ru = "Дувирийский путь"
 
@@ -773,6 +768,21 @@ key = "Duviri Lone Story (Steel Path)"
 ru = "Одинокий путь (Стальной путь)"
 
 [[term]]
+kind = "place"
+key = "Kuva Siphon"
+ru = "Сбор Кувы"
+
+[[term]]
+kind = "place"
+key = "Nightmare Mode"
+ru = "Кошмар"
+
+[[term]]
+kind = "place"
+key = "Weed The Gardens"
+ru = "Прополка"
+
+[[term]]
 kind = "region"
 key = "/Lotus/Types/Keys/SyndicateCacheHuntBaseKeyItem"
 ru = "Абиссальная Зона"
@@ -786,6 +796,11 @@ ru = "Торговый Центр Хёльвании"
 kind = "region"
 key = "CetusHub4"
 ru = "Цетус"
+
+[[term]]
+kind = "region"
+key = "CrewBattleNode556"
+ru = "Свободный Полёт"
 
 [[term]]
 kind = "tileset"
@@ -864,6 +879,11 @@ ru = "Фортуна"
 
 [[term]]
 kind = "tileset"
+key = "Free Space"
+ru = "Открытый космос"
+
+[[term]]
+kind = "tileset"
 key = "Grineer Asteroid"
 ru = "Астероид Гринир"
 
@@ -939,6 +959,11 @@ ru = "Реле"
 
 [[term]]
 kind = "tileset"
+key = "Solar Rail"
+ru = "Солнечный монорельс"
+
+[[term]]
+kind = "tileset"
 key = "Stalker's Lair"
 ru = "Логово Сталкера"
 
@@ -961,6 +986,11 @@ ru = "Акритис"
 kind = "vendor"
 key = "amir"
 ru = "Амир Беккет"
+
+[[term]]
+kind = "vendor"
+key = "amir-nightwave"
+ru = "Ночная Волна Амира"
 
 [[term]]
 kind = "vendor"
@@ -1019,6 +1049,16 @@ ru = "Дочь"
 
 [[term]]
 kind = "vendor"
+key = "debt-token"
+ru = "Тикер"
+
+[[term]]
+kind = "vendor"
+key = "deimos-halloween"
+ru = "Ночи Наберуса"
+
+[[term]]
+kind = "vendor"
 key = "dog-days"
 ru = "Знойные дни"
 
@@ -1026,6 +1066,11 @@ ru = "Знойные дни"
 kind = "vendor"
 key = "eleanor"
 ru = "Элеонора Найтингейл"
+
+[[term]]
+kind = "vendor"
+key = "entrati-event"
+ru = "Операция: Плач Горгульи"
 
 [[term]]
 kind = "vendor"
@@ -1049,8 +1094,18 @@ ru = "Флэр"
 
 [[term]]
 kind = "vendor"
+key = "fortuna-fishmonger"
+ru = "Бизнес"
+
+[[term]]
+kind = "vendor"
 key = "grandmother"
 ru = "Бабушка"
+
+[[term]]
+kind = "vendor"
+key = "hivemind-commisions-manifest-necromech"
+ru = "Некралоид"
 
 [[term]]
 kind = "vendor"
@@ -1061,6 +1116,11 @@ ru = "Хок"
 kind = "vendor"
 key = "hombask"
 ru = "Хомбаск"
+
+[[term]]
+kind = "vendor"
+key = "ironwake-flawed-mod"
+ru = "Повреждённые моды"
 
 [[term]]
 kind = "vendor"
@@ -1099,8 +1159,18 @@ ru = "Магазин"
 
 [[term]]
 kind = "vendor"
+key = "mask-salesman"
+ru = "Накак"
+
+[[term]]
+kind = "vendor"
 key = "master-teasonai"
 ru = "Мастер Тисонай"
+
+[[term]]
+kind = "vendor"
+key = "melica"
+ru = "Цефалон Мелика"
 
 [[term]]
 kind = "vendor"
@@ -1129,6 +1199,11 @@ ru = "Ночная Волна"
 
 [[term]]
 kind = "vendor"
+key = "nova1999-conquest-shop"
+ru = "Кайя Веласко"
+
+[[term]]
+kind = "vendor"
 key = "old-man-suumbaat"
 ru = "Старик Суумбаат"
 
@@ -1136,6 +1211,11 @@ ru = "Старик Суумбаат"
 kind = "vendor"
 key = "operation-ambulas-reborn"
 ru = "Операция: Возрождение Амбулас"
+
+[[term]]
+kind = "vendor"
+key = "operation-belly-of-the-beast"
+ru = "Операция: Чрево Зверя"
 
 [[term]]
 kind = "vendor"
@@ -1189,8 +1269,18 @@ ru = "Роут"
 
 [[term]]
 kind = "vendor"
+key = "roathe-honoria"
+ru = "Роут"
+
+[[term]]
+kind = "vendor"
 key = "rude-zuud"
 ru = "Грубиянка Зууд"
+
+[[term]]
+kind = "vendor"
+key = "sentient-invasion"
+ru = "Уточка"
 
 [[term]]
 kind = "vendor"
@@ -1231,6 +1321,21 @@ ru = "Перья"
 kind = "vendor"
 key = "the-steel-path"
 ru = "Стальной Путь"
+
+[[term]]
+kind = "vendor"
+key = "triad-decorations"
+ru = "Отец Лион Аллард"
+
+[[term]]
+kind = "vendor"
+key = "triad-exchange"
+ru = "Мари Леру"
+
+[[term]]
+kind = "vendor"
+key = "triad-pity"
+ru = "Роут"
 
 [[term]]
 kind = "vendor"
@@ -1276,43 +1381,6 @@ note = ""
 kind = "region"
 key = "ClanNode16"
 note = ""
-
-[[vendor]]
-key = "teshin-s-cave"
-name = "Teshin's Cave"
-ru = "Пещера Тешина"
-currency = "Pathos Clamp"
-note = "Drifter weapon racks; the wiki prices them in prose on the Pathos Clamp page"
-
-[[offer]]
-vendor = "teshin-s-cave"
-item = "Syam Blueprint"
-cost = 50
-note = "Pathos Clamp page store table"
-
-[[offer]]
-vendor = "teshin-s-cave"
-item = "Azothane Blueprint"
-cost = 50
-note = "Pathos Clamp page store table"
-
-[[offer]]
-vendor = "teshin-s-cave"
-item = "Edun Blueprint"
-cost = 50
-note = "Pathos Clamp page store table"
-
-[[offer]]
-vendor = "teshin-s-cave"
-item = "Sampotes Blueprint"
-cost = 60
-note = "Pathos Clamp page store table"
-
-[[offer]]
-vendor = "teshin-s-cave"
-item = "Argo & Vel Blueprint"
-cost = 60
-note = "Pathos Clamp page store table"
 
 [[offer]]
 vendor = "ordis"
@@ -1361,3 +1429,182 @@ place = "Duviri Lone Story (Steel Path)"
 item = "Pathos Clamp"
 count = 15
 note = "Handed over at the end of the Lone Story on the Steel Path"
+
+[[portrait]]
+vendor = "acrithis"
+page = "Acrithis"
+
+[[term]]
+kind = "vendor"
+key = "shadowgrapher-event"
+ru = "Аспирант Зорба"
+
+[[term]]
+kind = "vendor"
+key = "zariman-weaponsmith-incarnon-shop"
+ru = "Кавальеро"
+
+# The in-game market sells these and the wiki's Blueprints module leaves them out, so the
+# build had no source saying where the blueprint comes from. Prices read off the wiki pages
+# for each item (Neural Sensors, Neurodes, Orokin Cell, Greater Lens, Health Restore).
+
+[[offer]]
+vendor = "market"
+item = "Neural Sensors Blueprint"
+cost = 100
+currency = "Platinum"
+note = "Market, reusable blueprint — wiki.warframe.com/w/Neural_Sensors"
+
+[[offer]]
+vendor = "market"
+item = "Neurodes Blueprint"
+cost = 100
+currency = "Platinum"
+note = "Market, reusable blueprint — wiki.warframe.com/w/Neurodes"
+
+[[offer]]
+vendor = "market"
+item = "Orokin Cell Blueprint"
+cost = 100
+currency = "Platinum"
+note = "Market, reusable blueprint — wiki.warframe.com/w/Orokin_Cell"
+
+[[offer]]
+vendor = "market"
+item = "Greater Madurai Lens Blueprint"
+cost = 200000
+currency = "Credits"
+note = "Market, unlocked by The Second Dream — wiki.warframe.com/w/Greater_Lens"
+
+[[offer]]
+vendor = "market"
+item = "Greater Naramon Lens Blueprint"
+cost = 200000
+currency = "Credits"
+note = "Market, unlocked by The Second Dream — wiki.warframe.com/w/Greater_Lens"
+
+[[offer]]
+vendor = "market"
+item = "Greater Unairu Lens Blueprint"
+cost = 200000
+currency = "Credits"
+note = "Market, unlocked by The Second Dream — wiki.warframe.com/w/Greater_Lens"
+
+[[offer]]
+vendor = "market"
+item = "Greater Vazarin Lens Blueprint"
+cost = 200000
+currency = "Credits"
+note = "Market, unlocked by The Second Dream — wiki.warframe.com/w/Greater_Lens"
+
+[[offer]]
+vendor = "market"
+item = "Greater Zenurik Lens Blueprint"
+cost = 200000
+currency = "Credits"
+note = "Market, unlocked by The Second Dream — wiki.warframe.com/w/Greater_Lens"
+
+[[offer]]
+vendor = "market"
+item = "Health Restore (Large) Blueprint"
+cost = 1500
+currency = "Credits"
+note = "Market, gear section — wiki.warframe.com/w/Health_Restore"
+
+# Findings checked against the wiki and judged not to be gaps: DE exports a recipe, but what
+# it builds is not an item a player ever holds, or the content is long gone from the game.
+
+[[accept]]
+rule = "craft-not-in-catalog"
+entity = "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetAPowerSuit"
+note = "собранная гончая — компаньон, а не предмет; каталог держит её части"
+
+[[accept]]
+rule = "craft-not-in-catalog"
+entity = "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetBPowerSuit"
+note = "собранная гончая — компаньон, а не предмет; каталог держит её части"
+
+[[accept]]
+rule = "craft-not-in-catalog"
+entity = "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetCPowerSuit"
+note = "собранная гончая — компаньон, а не предмет; каталог держит её части"
+
+[[accept]]
+rule = "craft-not-in-catalog"
+entity = "/Lotus/Types/Keys/CorpusCaptureKey"
+note = "Ключ Бездны Корпуса из операции Arid Fear 2013 года; DE его предметом не отдаёт"
+
+[[accept]]
+rule = "craft-not-in-catalog"
+entity = "/Lotus/Types/Keys/NightmareKeyShipyardsRetrieval"
+note = "Tethra Shield Cipher из события 2014 года, контент из игры убран"
+
+[[accept]]
+rule = "craft-not-in-catalog"
+entity = "/Lotus/Types/Recipes/Components/BrandRemovalFakeItem"
+note = "снятие болта Грустраг — действие в Кузне, предмета после него не остаётся"
+
+[[accept]]
+rule = "craft-not-in-catalog"
+entity = "/Lotus/Types/Recipes/Components/VorBoltRemoverFakeItem"
+note = "Ascaris Negator из Vor's Prize: в инвентаре остаётся чертёж, не сам предмет"
+
+[[accept]]
+rule = "craft-not-in-catalog"
+entity = "/Lotus/Weapons/Sentients/OperatorAmplifiers/SentTrainingAmplifier/OperatorTrainingAmpWeapon"
+note = "Mote Amp — собранный модульный амп; каталог держит его части, как у китганов"
+
+[[accept]]
+rule = "dead-recipe"
+entity = "/Lotus/Types/Recipes/Components/ControlModuleResourceBlueprint"
+note = "вики такого чертежа не знает: Control Module только покупается ресурсом за платину"
+
+[[accept]]
+rule = "dead-recipe"
+entity = "/Lotus/Types/Recipes/Components/GalliumResourceBlueprint"
+note = "вики такого чертежа не знает: Gallium только покупается ресурсом за платину"
+
+[[accept]]
+rule = "dead-recipe"
+entity = "/Lotus/Types/Recipes/Components/MorphicsResourceBlueprint"
+note = "вики такого чертежа не знает: Morphics только покупается ресурсом за платину"
+
+[[accept]]
+rule = "dead-recipe"
+entity = "/Lotus/Types/Recipes/RailjackResourceRecipes/AucruxBlueprint"
+note = "Aucrux Capacitors в игре не крафтятся — только дроп в Empyrean"
+
+[[accept]]
+rule = "dead-recipe"
+entity = "/Lotus/Types/Recipes/RailjackResourceRecipes/CarbidesBlueprint"
+note = "Carbides в игре не крафтятся — только дроп в Empyrean"
+
+[[accept]]
+rule = "dead-recipe"
+entity = "/Lotus/Types/Recipes/RailjackResourceRecipes/CubicsBlueprint"
+note = "Cubic Diodes в игре не крафтятся — только дроп в Empyrean"
+
+[[accept]]
+rule = "dead-recipe"
+entity = "/Lotus/Types/Recipes/RailjackResourceRecipes/GallosBlueprint"
+note = "Gallos Rods в игре не крафтятся — только дроп в Empyrean"
+
+[[accept]]
+rule = "dead-recipe"
+entity = "/Lotus/Types/Recipes/RailjackResourceRecipes/IsosBlueprint"
+note = "Isos в игре не крафтятся — только дроп в Empyrean"
+
+[[accept]]
+rule = "dead-recipe"
+entity = "/Lotus/Types/Recipes/RailjackResourceRecipes/KommsBlueprint"
+note = "Komms в игре не крафтятся — только дроп в Empyrean"
+
+[[accept]]
+rule = "set-without-item"
+entity = "damaged_necramech_set"
+note = "повреждённые части чинят у Лойда в целые; сам набор ничего не собирает"
+
+[[accept]]
+rule = "set-without-item"
+entity = "damaged_necramech_weapon_set"
+note = "повреждённые части чинят у Лойда в целые; сам набор ничего не собирает"

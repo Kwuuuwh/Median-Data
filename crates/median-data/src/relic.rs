@@ -3,6 +3,8 @@ use std::collections::{BTreeMap, BTreeSet};
 use consensus::{Claim, Conflict, Source, claims, resolve};
 use graph::{Edge, Extra, Graph, Node, Rel};
 
+use sources::drops::RelicRow;
+
 use crate::extract::DeReward;
 use crate::names::Index;
 use crate::wiki::Slot;
@@ -56,6 +58,47 @@ pub fn link(graph: &mut Graph, rewards: &[DeReward]) -> BTreeSet<String> {
         });
     }
     unresolved
+}
+
+/// Fill in what a relic awards from the drop tables, for the relics the export has not
+/// caught up with. A Prime Vault relic is in the tables the day it returns and in
+/// `ExportRelicArcane` days later, and until then the catalog would show it as holding
+/// nothing at all. Only relics DE says nothing about are touched, so the export stays the
+/// authority wherever it speaks.
+pub fn from_tables(graph: &mut Graph, rows: &[RelicRow], index: &Index) -> usize {
+    let described: BTreeSet<String> = graph
+        .edges()
+        .filter(|e| matches!(e.rel, Rel::Rewards { .. }))
+        .map(|e| e.from.clone())
+        .collect();
+
+    let mut filled: BTreeSet<String> = BTreeSet::new();
+    let mut links = Vec::new();
+    for row in rows {
+        let (count, printed) = crate::names::quantity(&row.reward);
+        let Some(reward) = index.get(printed) else {
+            continue;
+        };
+        for relic in index.relics(&row.relic, &row.refinement) {
+            if described.contains(relic) || !graph.has(relic) {
+                continue;
+            }
+            filled.insert(relic.clone());
+            links.push(Edge {
+                from: relic.clone(),
+                to: reward.to_string(),
+                rel: Rel::Rewards {
+                    rarity: row.rarity.clone(),
+                    count: count.unwrap_or(1),
+                    chance: Some(row.chance),
+                },
+            });
+        }
+    }
+    for link in links {
+        graph.link(link);
+    }
+    filled.len()
 }
 
 /// What checking DE's account of relic contents against the wiki's came to.

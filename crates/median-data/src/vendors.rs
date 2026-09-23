@@ -4,8 +4,10 @@ use graph::{Edge, Graph, Node, Offer, Rel, Vendor, vendor_id};
 
 use crate::curation::{Curation, Terms};
 use crate::names::{self, Index};
+use crate::normalize;
+use crate::offers::Stall;
 use crate::orphans::{self, Missing};
-use crate::wiki::{Offered, Priced, Store};
+use crate::wiki::{Offered, Priced};
 
 /// Baro Ki'Teer, whose whole stock changes every visit. He is the one vendor with his own
 /// module, because the wiki keeps the history of what he brought and when.
@@ -17,18 +19,85 @@ pub const BARO_PAGE: (&str, &str) = ("baro", "Baro Ki'Teer");
 /// The wiki page of the in-game market.
 const MARKET: &str = "Market";
 
-/// The one name of Nightwave's currency, whatever season prints on it.
-const CRED: &str = "Cred";
+/// Where the game keeps a vendor's manifest, and the area of the catalog that is. The
+/// directory is the hub the counter stands in: Ostron manifests are Cetus, Solaris ones are
+/// Fortuna, Deimos ones the Necralisk, and Albrecht's labs are the Sanctum beneath it.
+const HUBS: [(&str, &str); 8] = [
+    ("Deimos", "necralisk"),
+    ("Duviri", "duviri"),
+    ("EntratiLab", "sanctum"),
+    ("EntratiLabs", "sanctum"),
+    ("Hex", "hollvania"),
+    ("Ostron", "cetus"),
+    ("Solaris", "fortuna"),
+    ("TheHex", "hollvania"),
+];
 
-/// The kind of counter whose stock rotates on a schedule.
-const ROTATING: &str = "Rotating Store";
+/// Zariman keeps the same name as its area.
+const ZARIMAN: &str = "Zariman";
 
-/// Kinds of counter whose stock comes and goes: a rotation, an event, a Nightwave season.
-const FLEETING: [&str; 3] = [ROTATING, "Event", "Nightwave"];
+/// Where the game keeps the adapters a stall sells as a package, and the word the package
+/// ends with. `…/Packages/IncarnonPackages/BoarIncarnonBundle` is the package around
+/// `…/IncarnonAdapters/Primary/BoarIncarnonUnlocker`, and nothing but the leaf ties them.
+const ADAPTERS: &str = "/IncarnonAdapters/";
+const PACKAGED: (&str, &str) = ("Bundle", "Unlocker");
+
+/// Offers whose nature is not an item at all. The stall takes payment for every one of them,
+/// but what changes hands is a job, an exchange, a crew member or several items at once, so
+/// no single catalog item can stand in for it. Read in order: the bundle rule at the end
+/// only speaks for packages the ones above it did not name.
+const NOT_AN_ITEM: [(&str, &str); 10] = [
+    ("/Packages/Tasks/", "a job the family's stall arranges"),
+    ("/Packages/DebtTokenBundles/", "a debt-token exchange"),
+    ("/CrewShip/CrewMember/", "a railjack crew member"),
+    ("/CrewMembers/", "a crew member"),
+    ("/Types/Items/Guild/GuildAdvertisement", "a clan advert"),
+    ("/Types/BoosterPacks/", "a pack of random things"),
+    ("/StoreItems/CreditBundles/", "credits"),
+    ("/StoreItems/SlotItems/", "a slot"),
+    ("/Mods/FusionBundles/", "endo"),
+    ("/StoreItems/Packages/", "several items sold as one"),
+];
+
+/// Trades the game files a counter under. One person keeps them all: the Cetus syndicate
+/// counter tagged `Fishmonger` and the Ostron `FishmongerVendorManifest` are both Hai-Luk.
+const TRADES: [&str; 6] = [
+    "Weaponsmith",
+    "Fishmonger",
+    "Prospector",
+    "PetVendor",
+    "MoaVendor",
+    "ConservationRewards",
+];
+
+/// How much of a counter's stock has to match a wiki vendor's before it is the same person.
+const SURE_SHARE: f64 = 0.9;
+const SURE_SHARED: usize = 3;
+
+/// The two currencies that are not items.
+const STANDING: &str = "Standing";
+const PLATINUM: &str = "Platinum";
+const CREDITS: &str = "Credits";
+
+/// Where the game keeps the syndicates, whose stalls are filed as such.
+const SYNDICATES: &str = "/Lotus/Syndicates/";
+
+/// What a stall is, where nothing finer is known.
+const STORE: &str = "Store";
+const SYNDICATE: &str = "Syndicate";
+
+/// Nightwave keeps a manifest per season; they are all the same counter.
+const NIGHTWAVE: (&str, &str) = ("nightwave", "Nightwave");
+
+/// The path every Nightwave season's manifest starts its name with.
+const SEASON: &str = "radio-legion";
 
 /// Everything the vendor sources hand a build.
 pub struct Stock<'a> {
-    pub stores: &'a [Store],
+    /// What the game's own manifests sell.
+    pub stalls: &'a [Stall],
+    /// Who the wiki says keeps which counter, by what it lists them selling.
+    pub keepers: &'a [crate::wiki::Store],
     pub baro: &'a [Offered],
     /// Blueprints the market sells for credits.
     pub market: &'a [Priced],
@@ -40,6 +109,8 @@ pub struct Linked {
     pub offers: usize,
     /// Names no catalog item answers to: bundles, boosters, armour sets sold as one thing.
     pub unresolved: Missing,
+    /// Offers that answer to no item because they are not one, by what they are instead.
+    pub not_items: BTreeMap<&'static str, usize>,
 }
 
 impl Linked {
@@ -48,12 +119,16 @@ impl Linked {
             vendors: 0,
             offers: 0,
             unresolved: Missing::new(),
+            not_items: BTreeMap::new(),
         }
     }
 
     fn absorb(&mut self, other: Linked) {
         self.vendors += other.vendors;
         self.offers += other.offers;
+        for (why, count) in other.not_items {
+            *self.not_items.entry(why).or_default() += count;
+        }
         for (name, seen) in other.unresolved {
             let mine = self.unresolved.entry(name).or_default();
             mine.count += seen.count;
@@ -74,108 +149,213 @@ pub fn link(
     terms: &Terms,
 ) -> Linked {
     let prices = curated.prices();
+    let named = keepers(stock.stalls, stock.keepers, index);
     let mut out = Linked::new();
-    out.absorb(stores_of(graph, stock.stores, index, terms, &prices));
+    out.absorb(stalls_of(graph, stock.stalls, terms, &prices, &named));
     out.absorb(baro(graph, stock.baro, index, terms));
     out.absorb(market(graph, stock.market, index, terms));
-    out.absorb(curated_of(graph, stock.stores, index, curated));
+    out.absorb(curated_of(graph, stock.stalls, index, curated));
     out
 }
 
-/// The vendors of `Module:Vendors/data`. The module is keyed by counter, not by person — Yonta
-/// keeps two, one taking Thrax Plasm and one taking Voidplume Pinions — so entries are grouped
-/// by the wiki page they link to, which is who the vendor is. The counter and its currency move
-/// onto the offer, where they belong. An edge says the vendor hands the item over; a `timer` is
-/// what rotates, and nothing here claims what is in stock at this moment.
-fn stores_of(
+/// What the game's own manifests sell. A manifest names no person, so a vendor is the
+/// manifest itself — or, where offers stand on named counters, the manifest and the counter:
+/// Cetus keeps four, and the game calls them Weaponsmith, Fishmonger, Prospector, PetVendor.
+fn stalls_of(
     graph: &mut Graph,
-    stores: &[Store],
-    index: &Index,
+    stalls: &[Stall],
     terms: &Terms,
     prices: &BTreeMap<(&str, &str), i64>,
+    named: &BTreeMap<String, String>,
 ) -> Linked {
     let mut out = Linked::new();
-    for (page, group) in counters(stores) {
-        let key = slug(&page);
-        let kind = group.iter().find_map(|s| s.kind.clone());
-        let fleeting = kind.as_deref().is_some_and(|kind| FLEETING.contains(&kind));
-        let currencies: BTreeSet<String> = group
-            .iter()
-            .filter_map(|s| s.currency.as_deref())
-            .map(currency)
-            .collect();
-        if graph.insert(Node::Vendor(Vendor {
-            key: key.clone(),
-            name: page.clone(),
-            name_ru: terms.get("vendor", &key).map(str::to_string),
-            currency: match currencies.len() {
-                1 => currencies.into_iter().next(),
-                _ => None,
-            },
-            rotates: kind.as_deref() == Some(ROTATING),
-            kind,
-        })) {
-            out.vendors += 1;
-        }
-        let from = vendor_id(&key);
+    let keys = keys(stalls);
+    let current = current_season(stalls);
+    // A season that has closed sells what the running one sells, so the running one is read
+    // first and the closed ones only add what nobody offers any more.
+    let mut ordered: Vec<&Stall> = stalls.iter().collect();
+    ordered.sort_by_key(|stall| season(&stall.manifest).is_some_and(|s| Some(s) != current));
+    let mut linked: BTreeSet<(String, String)> = BTreeSet::new();
+    let mut standing: BTreeSet<(String, &str)> = BTreeSet::new();
+    let agreed = agreed_keepers(stalls, &keys, named);
+    let same = same_person(stalls, &keys, &agreed, terms);
+    let adapters = adapters(graph);
 
-        let mut edges = Vec::new();
-        for store in &group {
-            let counter = (store.name != page).then(|| store.name.clone());
-            for offer in &store.offers {
-                let (_, printed) = names::quantity(&offer.name);
-                let Some(item) = resolve(index, printed, &offer.kind) else {
-                    orphans::note(&mut out.unresolved, printed, || from.clone());
-                    continue;
-                };
-                let cost = prices
-                    .get(&(key.as_str(), printed))
-                    .copied()
-                    .unwrap_or(offer.cost);
-                let currency = offer
-                    .currency
-                    .as_deref()
-                    .or(store.currency.as_deref())
-                    .map(currency);
-                edges.push(Edge {
-                    from: from.clone(),
-                    to: item.to_string(),
-                    rel: Rel::Sells(Offer {
-                        cost: Some(cost).filter(|c| *c > 0),
-                        pays: paid_in(index, currency.as_deref()),
-                        currency,
-                        store: counter.clone(),
-                        credits: offer.credits,
-                        count: offer.count,
-                        rank: offer.rank,
-                        timer: offer.timer,
-                        times: 0,
-                        always: offer.timer.is_none() && !fleeting,
-                        gone: false,
-                    }),
-                });
+    for stall in ordered {
+        let base = &keys[stall.manifest.as_str()];
+        let gone = season(&stall.manifest).is_some_and(|season| Some(season) != current);
+        for offer in &stall.offer {
+            let item = normalize::path(&offer.item).into_owned();
+            let item = match graph.has(&item) {
+                true => item,
+                false => match packaged(&item, &adapters) {
+                    Some(item) => item,
+                    None => {
+                        match not_an_item(&item) {
+                            Some(why) => *out.not_items.entry(why).or_default() += 1,
+                            None => {
+                                orphans::note(&mut out.unresolved, &offer.item, || vendor_id(base))
+                            }
+                        }
+                        continue;
+                    }
+                },
+            };
+            let counter = counter_key(base, offer, &stall.manifest);
+            // A person keeps every counter of theirs under one key: Hai-Luk takes bait on one
+            // tab of her stall and fishing gear on another, and she is one vendor.
+            let (key, name) = match agreed.get(&counter) {
+                Some(keeper) => (slug(keeper), keeper.clone()),
+                None => (counter.clone(), title(&counter)),
+            };
+            let (key, name) = match same.get(&key) {
+                Some(main) => (main.clone(), title(main)),
+                None => (key, name),
+            };
+            if !linked.insert((key.clone(), item.clone())) {
+                continue;
             }
-        }
-        out.offers += edges.len();
-        for edge in edges {
-            graph.link(edge);
+            let kind = match stall.manifest.starts_with(SYNDICATES) {
+                true => SYNDICATE,
+                false => STORE,
+            };
+            if let Some(area) = hub_of(&stall.manifest) {
+                standing.insert((key.clone(), area));
+            }
+            if graph.insert(Node::Vendor(Vendor {
+                name_ru: terms.of("vendor", &key, &name),
+                name,
+                currency: None,
+                rotates: stall.floating,
+                kind: Some(kind.to_string()),
+                key: key.clone(),
+            })) {
+                out.vendors += 1;
+            }
+            let asked = asked(graph, offer);
+            let cost = prices
+                .get(&(key.as_str(), item.as_str()))
+                .copied()
+                .or(asked.cost);
+            out.offers += 1;
+            graph.link(Edge {
+                from: vendor_id(&key),
+                to: item,
+                rel: Rel::Sells(Offer {
+                    cost,
+                    cost_max: asked.cost_max,
+                    floating: stall.floating || asked.floating,
+                    currency: asked.currency,
+                    pays: asked.pays,
+                    also: asked.also,
+                    store: offer.store.clone(),
+                    credits: offer.credits.map(|credits| credits[0]).filter(|c| *c > 1),
+                    limit: offer.limit,
+                    count: offer.count.unwrap_or(1),
+                    rank: offer.rank,
+                    timer: offer.hours.map(|hours| hours[0] * 3600),
+                    times: 0,
+                    always: offer.always,
+                    gone,
+                }),
+            });
         }
     }
+    for (vendor, area) in standing {
+        graph.link(Edge {
+            from: vendor_id(&vendor),
+            to: graph::area_id(area),
+            rel: Rel::Within,
+        });
+    }
+    name_currencies(graph);
     out
 }
 
-/// Counters grouped by the person who keeps them.
-fn counters(stores: &[Store]) -> BTreeMap<String, Vec<&Store>> {
-    let mut counters: BTreeMap<String, Vec<&Store>> = BTreeMap::new();
-    for store in stores {
-        counters.entry(person(store)).or_default().push(store);
+/// The area a manifest's directory names, where it names one.
+fn hub_of(manifest: &str) -> Option<&'static str> {
+    let folder = manifest.rsplit_once('/')?.0.rsplit('/').next()?;
+    if folder == ZARIMAN {
+        return Some("zariman");
     }
-    counters
+    HUBS.iter()
+        .find(|(directory, _)| *directory == folder)
+        .map(|(_, area)| *area)
 }
 
-/// Who a counter belongs to: the wiki page it links to, without the section anchor and without
-/// the disambiguator the wiki adds to a page title (`Vox Solaris (Syndicate)`, `Loid (Original)`).
-pub fn person(store: &Store) -> String {
+/// A vendor takes one currency where every offer of theirs is counted in the same thing.
+fn name_currencies(graph: &mut Graph) {
+    let mut taken: BTreeMap<String, BTreeSet<String>> = BTreeMap::new();
+    for edge in graph.edges() {
+        let Rel::Sells(offer) = &edge.rel else {
+            continue;
+        };
+        let Some(currency) = &offer.currency else {
+            continue;
+        };
+        taken
+            .entry(edge.from.clone())
+            .or_default()
+            .insert(currency.clone());
+    }
+    for (id, currencies) in taken {
+        if currencies.len() != 1 {
+            continue;
+        }
+        let only = currencies.into_iter().next().expect("one currency");
+        if let Some(Node::Vendor(vendor)) = graph.get_mut(&id) {
+            vendor.currency = Some(only);
+        }
+    }
+}
+
+/// The counter an offer stands on, as the game files it.
+fn raw_key(base: &str, offer: &crate::offers::Offer) -> String {
+    match &offer.store {
+        Some(counter) => format!("{base}-{}", dashed(counter)),
+        None => base.to_string(),
+    }
+}
+
+/// The vendor an offer belongs to: the manifest's keeper, and the counter where there is one.
+/// A counter named after a trade belongs to whoever plies that trade in the hub, however many
+/// manifests the game splits their wares across.
+fn counter_key(base: &str, offer: &crate::offers::Offer, manifest: &str) -> String {
+    let trade = offer
+        .store
+        .as_deref()
+        .and_then(trade_of)
+        .or_else(|| manifest_trade(manifest));
+    match (trade, hub_of(manifest)) {
+        (Some(trade), Some(hub)) => format!("{hub}-{}", dashed(trade)),
+        (Some(trade), None) => format!("{base}-{}", dashed(trade)),
+        (None, _) => match &offer.store {
+            Some(counter) => format!("{base}-{}", dashed(counter)),
+            None => base.to_string(),
+        },
+    }
+}
+
+/// The trade a counter's name is, where it is one.
+fn trade_of(name: &str) -> Option<&'static str> {
+    TRADES
+        .iter()
+        .find(|trade| name.eq_ignore_ascii_case(trade) || name.ends_with(*trade))
+        .copied()
+}
+
+/// The trade a manifest is named after. The game ends these names two ways — `PetVendor`
+/// plus `Manifest`, `Fishmonger` plus `VendorManifest` — so both readings are tried.
+fn manifest_trade(manifest: &str) -> Option<&'static str> {
+    let tail = manifest.rsplit('/').next()?;
+    let full = tail.strip_suffix("Manifest").unwrap_or(tail);
+    trade_of(split(manifest).1).or_else(|| trade_of(full))
+}
+
+/// Who a counter belongs to: the wiki page it links to, without the section anchor and
+/// without the disambiguator the wiki adds to a page title (`Vox Solaris (Syndicate)`).
+/// The page is who the person is, and it is what illustrates them.
+pub fn person(store: &crate::wiki::Store) -> String {
     let link = store.link.as_deref().unwrap_or(&store.name);
     let page = link.split('#').next().unwrap_or(link).replace('_', " ");
     match page.split_once(" (") {
@@ -184,19 +364,319 @@ pub fn person(store: &Store) -> String {
     }
 }
 
+/// Counters that answer to the same Russian name. A manifest splits a vendor by tab — Biz
+/// takes fish at one counter and sells gear at another, and no shared stock ties the two —
+/// so the name is what says they are one person. The first key alphabetically keeps them.
+fn same_person(
+    stalls: &[Stall],
+    keys: &BTreeMap<&str, String>,
+    agreed: &BTreeMap<String, String>,
+    terms: &Terms,
+) -> BTreeMap<String, String> {
+    let mut named: BTreeMap<String, BTreeSet<String>> = BTreeMap::new();
+    for stall in stalls {
+        let base = &keys[stall.manifest.as_str()];
+        for offer in &stall.offer {
+            let counter = counter_key(base, offer, &stall.manifest);
+            let (key, name) = match agreed.get(&counter) {
+                Some(keeper) => (slug(keeper), keeper.clone()),
+                None => (counter.clone(), title(&counter)),
+            };
+            if let Some(ru) = terms.of("vendor", &key, &name) {
+                named.entry(ru).or_default().insert(key);
+            }
+        }
+    }
+    named
+        .into_values()
+        .filter(|keys| keys.len() > 1)
+        .flat_map(|keys| {
+            let main = keys.iter().next().cloned().expect("a key");
+            keys.into_iter().map(move |key| (key, main.clone()))
+        })
+        .collect()
+}
+
+/// The keeper of each merged counter, where every counter merged into it names the same
+/// person. Two people never share a key, so a disagreement leaves the counter unnamed.
+fn agreed_keepers(
+    stalls: &[Stall],
+    keys: &BTreeMap<&str, String>,
+    named: &BTreeMap<String, String>,
+) -> BTreeMap<String, String> {
+    let mut claims: BTreeMap<String, BTreeSet<&str>> = BTreeMap::new();
+    for stall in stalls {
+        let base = &keys[stall.manifest.as_str()];
+        for offer in &stall.offer {
+            let Some(keeper) = named.get(&raw_key(base, offer)) else {
+                continue;
+            };
+            claims
+                .entry(counter_key(base, offer, &stall.manifest))
+                .or_default()
+                .insert(keeper.as_str());
+        }
+    }
+    claims
+        .into_iter()
+        .filter(|(_, keepers)| keepers.len() == 1)
+        .map(|(counter, keepers)| {
+            let keeper = keepers.into_iter().next().expect("one keeper");
+            (counter, keeper.to_string())
+        })
+        .collect()
+}
+
+/// Who keeps each counter. A manifest names no person, so the person is the wiki vendor
+/// whose listed stock the manifest sells: the wiki knows Hok keeps the anvil in Cetus, the
+/// cache knows what the anvil sells today, and the two meet on the items themselves.
+fn keepers(
+    stalls: &[Stall],
+    listed: &[crate::wiki::Store],
+    index: &Index,
+) -> BTreeMap<String, String> {
+    let keys = keys(stalls);
+    let mut sold: BTreeMap<String, BTreeSet<String>> = BTreeMap::new();
+    for stall in stalls {
+        let base = &keys[stall.manifest.as_str()];
+        for offer in &stall.offer {
+            sold.entry(raw_key(base, offer))
+                .or_default()
+                .insert(normalize::path(&offer.item).into_owned());
+        }
+    }
+
+    let mut wiki: BTreeMap<String, BTreeSet<String>> = BTreeMap::new();
+    for store in listed {
+        let items: BTreeSet<String> = store
+            .offers
+            .iter()
+            .filter_map(|printed| index.get(names::quantity(printed).1))
+            .map(str::to_string)
+            .collect();
+        if !items.is_empty() {
+            wiki.entry(person(store)).or_default().extend(items);
+        }
+    }
+    let wiki: Vec<(&str, BTreeSet<String>)> = wiki
+        .iter()
+        .map(|(page, items)| (page.as_str(), items.clone()))
+        .collect();
+
+    let mut out = BTreeMap::new();
+    for (key, items) in &sold {
+        let best = wiki
+            .iter()
+            .map(|(name, theirs)| (*name, items.intersection(theirs).count()))
+            .filter(|(_, shared)| *shared >= SURE_SHARED)
+            .max_by_key(|(name, shared)| (*shared, std::cmp::Reverse(*name)));
+        let Some((name, shared)) = best else { continue };
+        let theirs = wiki
+            .iter()
+            .find(|(n, _)| *n == name)
+            .expect("the match")
+            .1
+            .len();
+        if shared as f64 / items.len().min(theirs) as f64 >= SURE_SHARE {
+            out.insert(key.to_string(), name.to_string());
+        }
+    }
+    out
+}
+
+/// What one offer asks for, in the one currency an offer can carry.
+struct Asked {
+    cost: Option<i64>,
+    cost_max: Option<i64>,
+    currency: Option<String>,
+    pays: Option<String>,
+    /// Every item the offer asks for, where it asks for more than one.
+    also: Vec<graph::Cost>,
+    floating: bool,
+}
+
+impl Asked {
+    /// An ask in a currency rather than in items.
+    fn paid(cost: i64, currency: &str, floating: bool, cost_max: Option<i64>) -> Self {
+        Self {
+            cost: Some(cost),
+            cost_max,
+            currency: Some(currency.to_string()),
+            pays: None,
+            also: Vec::new(),
+            floating,
+        }
+    }
+}
+
+/// The price of an offer: items first, then standing, then platinum. A stall that asks for
+/// several items at once — five common tags and five rare ones — names the first as the cost
+/// and keeps the whole ask beside it, since no single number can stand for it.
+fn asked(graph: &Graph, offer: &crate::offers::Offer) -> Asked {
+    if let [price, rest @ ..] = offer.price.as_slice() {
+        let pays = normalize::path(&price.item).into_owned();
+        let also = match rest.is_empty() {
+            true => Vec::new(),
+            false => offer
+                .price
+                .iter()
+                .map(|price| graph::Cost {
+                    item: normalize::path(&price.item).into_owned(),
+                    count: price.count,
+                })
+                .collect(),
+        };
+        return Asked {
+            cost: Some(price.count),
+            cost_max: None,
+            currency: printed(graph, &pays),
+            pays: Some(pays),
+            also,
+            floating: false,
+        };
+    }
+    if let Some(standing) = offer.standing {
+        return Asked::paid(standing, STANDING, false, None);
+    }
+    if let Some([low, high]) = offer.platinum {
+        return Asked::paid(low, PLATINUM, high != low, (high != low).then_some(high));
+    }
+    Asked {
+        cost: None,
+        cost_max: None,
+        currency: None,
+        pays: None,
+        also: Vec::new(),
+        floating: offer.credits.is_some_and(|[low, high]| low != high),
+    }
+}
+
+/// What the catalog calls the item a price is counted in.
+fn printed(graph: &Graph, item: &str) -> Option<String> {
+    match graph.get(item) {
+        Some(Node::Item(item)) => Some(item.names.en.value.clone()),
+        _ => None,
+    }
+}
+
+/// A key per manifest, short where the last segment is enough and qualified where two
+/// manifests end the same way. One person often keeps several manifests — Acrithis has one
+/// per menu she offers — so a manifest named after another in the same directory is filed
+/// under that one.
+fn keys(stalls: &[Stall]) -> BTreeMap<&str, String> {
+    let mut taken: BTreeMap<String, usize> = BTreeMap::new();
+    for stall in stalls {
+        *taken.entry(short_key(&stall.manifest)).or_default() += 1;
+    }
+    stalls
+        .iter()
+        .map(|stall| {
+            let keeper = keeper_of(stall, stalls);
+            let short = short_key(keeper);
+            let key = match season(keeper) {
+                Some(_) => NIGHTWAVE.0.to_string(),
+                None if taken[&short] > 1 => qualified_key(keeper),
+                None => short,
+            };
+            (stall.manifest.as_str(), key)
+        })
+        .collect()
+}
+
+/// The manifest that names the person a stall belongs to: its own, or the shorter one beside
+/// it whose name this one extends.
+fn keeper_of<'a>(stall: &'a Stall, stalls: &'a [Stall]) -> &'a str {
+    let (folder, name) = split(&stall.manifest);
+    stalls
+        .iter()
+        .map(|other| other.manifest.as_str())
+        .filter(|other| {
+            let (their_folder, their_name) = split(other);
+            their_folder == folder && their_name.len() < name.len() && name.starts_with(their_name)
+        })
+        .min_by_key(|other| split(other).1.len())
+        .unwrap_or(&stall.manifest)
+}
+
+/// A manifest's directory and its own name, without the word every manifest ends with.
+fn split(manifest: &str) -> (&str, &str) {
+    let (folder, tail) = manifest.rsplit_once('/').unwrap_or(("", manifest));
+    let name = tail
+        .strip_suffix("VendorManifest")
+        .or_else(|| tail.strip_suffix("Manifest"))
+        .unwrap_or(tail);
+    (folder, name)
+}
+
+/// The manifest's own name, without the word every manifest ends with.
+fn short_key(manifest: &str) -> String {
+    dashed(split(manifest).1)
+}
+
+/// A key from the name the game writes in one word: `TeshinHardMode` reads as
+/// `teshin-hard-mode`.
+fn dashed(name: &str) -> String {
+    let mut out = String::with_capacity(name.len() + 4);
+    for (at, letter) in name.char_indices() {
+        if letter.is_uppercase() && at > 0 && !out.ends_with('-') {
+            out.push('-');
+        }
+        out.extend(letter.to_lowercase());
+    }
+    slug(&out)
+}
+
+/// The manifest's name behind the directory it sits in, for the few that collide.
+fn qualified_key(manifest: &str) -> String {
+    let mut parts = manifest.rsplit('/');
+    let tail = short_key(manifest);
+    parts.next();
+    match parts.next() {
+        Some(parent) => format!("{}-{tail}", dashed(parent)),
+        None => tail,
+    }
+}
+
+/// The season a Nightwave manifest belongs to, where it is one.
+fn season(manifest: &str) -> Option<u32> {
+    let key = short_key(manifest);
+    if !key.starts_with(SEASON) {
+        return None;
+    }
+    let number: String = key.chars().filter(char::is_ascii_digit).collect();
+    Some(number.parse().unwrap_or(0))
+}
+
+/// The season Nightwave is running now: the highest one the cache holds.
+fn current_season(stalls: &[Stall]) -> Option<u32> {
+    stalls
+        .iter()
+        .filter_map(|stall| season(&stall.manifest))
+        .max()
+}
+
+/// A key read back as a name, for a vendor the game never names.
+fn title(key: &str) -> String {
+    if key == NIGHTWAVE.0 {
+        return NIGHTWAVE.1.to_string();
+    }
+    key.split('-')
+        .map(|word| {
+            let mut letters = word.chars();
+            match letters.next() {
+                Some(first) => first.to_uppercase().collect::<String>() + letters.as_str(),
+                None => String::new(),
+            }
+        })
+        .collect::<Vec<_>>()
+        .join(" ")
+}
+
 /// The catalog item a currency is, where it is one: standing and platinum are not.
 fn paid_in(index: &Index, currency: Option<&str>) -> Option<String> {
     currency
         .and_then(|currency| index.get(currency))
         .map(str::to_string)
-}
-
-/// A currency under the name the game gives it everywhere.
-fn currency(printed: &str) -> String {
-    match printed.ends_with(" Cred") {
-        true => CRED.to_string(),
-        false => printed.to_string(),
-    }
 }
 
 /// Baro and everything he has ever brought. The edge says the item has been offered, not that
@@ -232,14 +712,11 @@ fn baro(graph: &mut Graph, offered: &[Offered], index: &Index, terms: &Terms) ->
                 cost: it.ducats,
                 currency: Some("Ducats".to_string()),
                 pays: paid_in(index, Some("Ducats")),
-                store: None,
                 credits: it.credits,
-                count: 1,
-                rank: None,
-                timer: None,
                 times: it.times,
                 always: it.always,
                 gone: it.gone,
+                ..offer()
             }),
         });
     }
@@ -285,7 +762,7 @@ fn market(graph: &mut Graph, priced: &[Priced], index: &Index, terms: &Terms) ->
 
 /// Vendors and offers written by hand, for what no source lists; each is a stall that stays.
 /// A hand-written price for a line a source does list is applied where that line is read.
-fn curated_of(graph: &mut Graph, stores: &[Store], index: &Index, curated: &Curation) -> Linked {
+fn curated_of(graph: &mut Graph, stalls: &[Stall], index: &Index, curated: &Curation) -> Linked {
     let mut out = Linked::new();
     for seller in &curated.vendor {
         if graph.insert(Node::Vendor(Vendor {
@@ -300,40 +777,53 @@ fn curated_of(graph: &mut Graph, stores: &[Store], index: &Index, curated: &Cura
         }
     }
 
-    let listed: BTreeSet<(String, &str)> = counters(stores)
-        .into_iter()
-        .flat_map(|(page, group)| {
-            let key = slug(&page);
-            group
-                .into_iter()
-                .flat_map(|store| &store.offers)
-                .map(move |offer| (key.clone(), names::quantity(&offer.name).1))
+    let keys = keys(stalls);
+    let listed: BTreeSet<(&str, String)> = stalls
+        .iter()
+        .flat_map(|stall| {
+            let key = &keys[stall.manifest.as_str()];
+            stall
+                .offer
+                .iter()
+                .map(move |offer| (key.as_str(), normalize::path(&offer.item).into_owned()))
         })
         .collect();
     for sale in &curated.offer {
-        if listed.contains(&(sale.vendor.clone(), sale.item.as_str())) {
+        let Some(item) = index.get(&sale.item) else {
+            orphans::note(&mut out.unresolved, &sale.item, || vendor_id(&sale.vendor));
+            continue;
+        };
+        if listed.contains(&(sale.vendor.as_str(), item.to_string())) {
             continue;
         }
         let from = vendor_id(&sale.vendor);
-        let (Some(item), Some(Node::Vendor(vendor))) = (index.get(&sale.item), graph.get(&from))
-        else {
+        let Some(Node::Vendor(vendor)) = graph.get(&from) else {
             orphans::note(&mut out.unresolved, &sale.item, || from.clone());
             continue;
         };
-        let (item, currency) = (
-            item.to_string(),
-            vendor.currency.clone().unwrap_or_default(),
-        );
+        let currency = match sale.currency.is_empty() {
+            true => vendor.currency.clone().unwrap_or_default(),
+            false => sale.currency.clone(),
+        };
         out.offers += 1;
-        graph.link(Edge {
-            from: from.clone(),
-            to: item,
-            rel: Rel::Sells(Offer {
+        // Credits are their own column: a counter that charges them charges them beside
+        // whatever else it takes, and the market charges nothing else.
+        let priced = match currency == CREDITS {
+            true => Offer {
+                credits: Some(sale.cost),
+                ..offer()
+            },
+            false => Offer {
                 cost: Some(sale.cost),
                 pays: paid_in(index, Some(&currency)),
                 currency: Some(currency),
                 ..offer()
-            }),
+            },
+        };
+        graph.link(Edge {
+            from: from.clone(),
+            to: item.to_string(),
+            rel: Rel::Sells(priced),
         });
     }
     out
@@ -343,10 +833,14 @@ fn curated_of(graph: &mut Graph, stores: &[Store], index: &Index, curated: &Cura
 fn offer() -> Offer {
     Offer {
         cost: None,
+        cost_max: None,
         currency: None,
         pays: None,
+        also: Vec::new(),
         store: None,
         credits: None,
+        limit: None,
+        floating: false,
         count: 1,
         rank: None,
         timer: None,
@@ -354,17 +848,6 @@ fn offer() -> Offer {
         always: true,
         gone: false,
     }
-}
-
-/// A stock line resolved to a catalog path. The wiki names a relic without the word and says
-/// what it is in its own kind column, so the kind is what puts the word back.
-fn resolve<'a>(index: &'a Index, printed: &str, kind: &str) -> Option<&'a str> {
-    if kind == "Relic"
-        && let Some(path) = index.get(&format!("{printed} Relic"))
-    {
-        return Some(path);
-    }
-    index.get(printed)
 }
 
 /// A node key from a vendor's name: lower case, spaces and punctuation folded to dashes.
@@ -380,10 +863,38 @@ pub fn slug(name: &str) -> String {
     out.trim_matches('-').to_string()
 }
 
+/// Incarnon adapters by the leaf of their path, so a package can find the adapter it wraps.
+fn adapters(graph: &Graph) -> BTreeMap<String, String> {
+    graph
+        .items()
+        .filter(|item| item.unique_name.contains(ADAPTERS))
+        .filter_map(|item| {
+            let leaf = item.unique_name.rsplit_once('/')?.1;
+            Some((leaf.to_string(), item.unique_name.clone()))
+        })
+        .collect()
+}
+
+/// The item a package hands over, where the package is named after it.
+fn packaged(path: &str, adapters: &BTreeMap<String, String>) -> Option<String> {
+    let (_, leaf) = path.rsplit_once('/')?;
+    let (kind, made) = PACKAGED;
+    let stem = leaf.strip_suffix(kind)?;
+    adapters.get(&format!("{stem}{made}")).cloned()
+}
+
+/// What an offer is, when what it is is not an item.
+fn not_an_item(path: &str) -> Option<&'static str> {
+    NOT_AN_ITEM
+        .iter()
+        .find(|(part, _)| path.contains(part))
+        .map(|(_, what)| *what)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::wiki::StoreOffer;
+    use crate::offers::{self, Price};
     use consensus::{Claim, Resolved, Source, resolve};
     use graph::{Extra, Item, Names};
 
@@ -423,22 +934,11 @@ mod tests {
         graph
     }
 
-    fn selling(name: &str, kind: &str, currency: &str, item: &str, timer: Option<i64>) -> Store {
-        Store {
-            name: name.to_string(),
-            link: Some(name.to_string()),
-            currency: Some(currency.to_string()),
-            kind: Some(kind.to_string()),
-            offers: vec![StoreOffer {
-                name: item.to_string(),
-                kind: "Weapon".to_string(),
-                cost: 50,
-                currency: None,
-                credits: None,
-                count: 1,
-                rank: None,
-                timer,
-            }],
+    fn stall(manifest: &str, floating: bool, offer: Vec<offers::Offer>) -> Stall {
+        Stall {
+            manifest: manifest.to_string(),
+            floating,
+            offer,
         }
     }
 
@@ -455,42 +955,201 @@ mod tests {
     }
 
     #[test]
-    fn an_offer_names_the_item_its_currency_is_and_stays_on_a_plain_counter() {
+    fn an_offer_names_what_it_is_paid_in_and_who_keeps_the_counter() {
         let mut graph = catalog(&[
-            ("/Clamp", "Pathos Clamp"),
-            ("/SyamBlueprint", "Syam Blueprint"),
+            ("/Lotus/Types/Items/MiscItems/SteelEssence", "Steel Essence"),
+            ("/Lotus/Weapons/Syam", "Syam"),
+            ("/Lotus/Weapons/Hok", "Hok Special"),
         ]);
-        let index = Index::build(&graph, &BTreeMap::new());
-        let stores = [
-            selling("Teshin", "Store", "Pathos Clamp", "Syam Blueprint", None),
-            selling(
-                "Acrithis",
-                "Store",
-                "Pathos Clamp",
-                "Syam Blueprint",
-                Some(604_800),
+        let stalls = [
+            stall(
+                "/Lotus/Types/Game/VendorManifests/Hubs/TeshinHardModeVendorManifest",
+                false,
+                vec![offers::Offer {
+                    item: "/Lotus/StoreItems/Weapons/Syam".to_string(),
+                    price: vec![Price {
+                        item: "/Lotus/Types/Items/MiscItems/SteelEssence".to_string(),
+                        count: 15,
+                    }],
+                    hours: Some([24, 24]),
+                    limit: Some(1),
+                    always: true,
+                    ..offers::Offer::default()
+                }],
             ),
-            selling("Palladino", ROTATING, "Standing", "Syam Blueprint", None),
+            stall(
+                "/Lotus/Syndicates/Ostron/CetusManifest",
+                false,
+                vec![offers::Offer {
+                    item: "/Lotus/StoreItems/Weapons/Hok".to_string(),
+                    standing: Some(1000),
+                    rank: Some(2),
+                    store: Some("Weaponsmith".to_string()),
+                    ..offers::Offer::default()
+                }],
+            ),
         ];
 
-        stores_of(
+        stalls_of(
             &mut graph,
-            &stores,
-            &index,
+            &stalls,
             &Curation::default().terms(&BTreeMap::new()),
+            &BTreeMap::new(),
             &BTreeMap::new(),
         );
 
-        let teshin = sold(&graph, "teshin");
-        assert_eq!(teshin.pays.as_deref(), Some("/Clamp"));
-        assert!(teshin.always);
-        assert!(!sold(&graph, "acrithis").always);
-        let palladino = sold(&graph, "palladino");
-        assert_eq!(palladino.pays, None);
-        assert!(!palladino.always);
+        let teshin = sold(&graph, "teshin-hard-mode");
+        assert_eq!(teshin.cost, Some(15));
+        assert_eq!(
+            teshin.pays.as_deref(),
+            Some("/Lotus/Types/Items/MiscItems/SteelEssence")
+        );
+        assert_eq!(teshin.currency.as_deref(), Some("Steel Essence"));
+        assert_eq!((teshin.timer, teshin.limit), (Some(86_400), Some(1)));
+        assert!(teshin.always && !teshin.floating);
+
+        let hok = sold(&graph, "cetus-weaponsmith");
+        assert_eq!(
+            (hok.cost, hok.currency.as_deref()),
+            (Some(1000), Some("Standing"))
+        );
+        assert_eq!(
+            (hok.rank, hok.store.as_deref()),
+            (Some(2), Some("Weaponsmith"))
+        );
+    }
+
+    #[test]
+    fn a_floating_stall_says_so_instead_of_naming_a_price() {
+        let mut graph = catalog(&[("/Lotus/Types/Items/MiscItems/Ferrite", "Ferrite")]);
+        let stalls = [stall(
+            "/Lotus/Types/Game/VendorManifests/Duviri/AcrithisVendorManifest",
+            true,
+            vec![offers::Offer {
+                item: "/Lotus/StoreItems/Types/Items/MiscItems/Ferrite".to_string(),
+                hours: Some([1, 3]),
+                ..offers::Offer::default()
+            }],
+        )];
+
+        stalls_of(
+            &mut graph,
+            &stalls,
+            &Curation::default().terms(&BTreeMap::new()),
+            &BTreeMap::new(),
+            &BTreeMap::new(),
+        );
+
+        let offer = sold(&graph, "acrithis");
+        assert!(offer.floating);
+        assert_eq!((offer.cost, offer.currency), (None, None));
+    }
+
+    #[test]
+    fn a_price_of_several_items_is_kept_whole() {
+        let mut graph = catalog(&[
+            ("/Lotus/Types/Items/Tag/Common", "Common Tag"),
+            ("/Lotus/Types/Items/Tag/Rare", "Rare Tag"),
+            ("/Lotus/Upgrades/Plushy", "Plushy"),
+        ]);
+        let stalls = [stall(
+            "/Lotus/Types/Game/VendorManifests/Deimos/ConservationRewardsManifest",
+            false,
+            vec![offers::Offer {
+                item: "/Lotus/StoreItems/Upgrades/Plushy".to_string(),
+                price: vec![
+                    Price {
+                        item: "/Lotus/Types/Items/Tag/Common".to_string(),
+                        count: 5,
+                    },
+                    Price {
+                        item: "/Lotus/Types/Items/Tag/Rare".to_string(),
+                        count: 5,
+                    },
+                ],
+                ..offers::Offer::default()
+            }],
+        )];
+
+        stalls_of(
+            &mut graph,
+            &stalls,
+            &Curation::default().terms(&BTreeMap::new()),
+            &BTreeMap::new(),
+            &BTreeMap::new(),
+        );
+
+        let offer = sold(&graph, "necralisk-conservation-rewards");
+        assert_eq!(
+            (offer.cost, offer.pays.as_deref()),
+            (Some(5), Some("/Lotus/Types/Items/Tag/Common"))
+        );
+        assert_eq!(
+            offer.also,
+            [
+                graph::Cost {
+                    item: "/Lotus/Types/Items/Tag/Common".to_string(),
+                    count: 5,
+                },
+                graph::Cost {
+                    item: "/Lotus/Types/Items/Tag/Rare".to_string(),
+                    count: 5,
+                },
+            ]
+        );
+    }
+
+    #[test]
+    fn a_closed_season_only_adds_what_nobody_sells_any_more() {
+        let mut graph = catalog(&[
+            ("/Lotus/Weapons/Nora", "Nora Special"),
+            ("/Lotus/Weapons/Retired", "Retired Glyph"),
+        ]);
+        let season = |manifest: &str, items: &[&str]| {
+            stall(
+                manifest,
+                false,
+                items
+                    .iter()
+                    .map(|item| offers::Offer {
+                        item: format!("/Lotus/StoreItems{item}"),
+                        ..offers::Offer::default()
+                    })
+                    .collect(),
+            )
+        };
+        let stalls = [
+            season(
+                "/Lotus/Types/Game/VendorManifests/RadioLegionIntermission15VendorManifest",
+                &["/Weapons/Nora", "/Weapons/Retired"],
+            ),
+            season(
+                "/Lotus/Types/Game/VendorManifests/RadioLegionIntermission16VendorManifest",
+                &["/Weapons/Nora"],
+            ),
+        ];
+
+        stalls_of(
+            &mut graph,
+            &stalls,
+            &Curation::default().terms(&BTreeMap::new()),
+            &BTreeMap::new(),
+            &BTreeMap::new(),
+        );
+
+        let sold: BTreeMap<&str, bool> = graph
+            .from(&vendor_id("nightwave"))
+            .into_iter()
+            .filter_map(|edge| match &edge.rel {
+                Rel::Sells(offer) => Some((edge.to.as_str(), offer.gone)),
+                _ => None,
+            })
+            .collect();
+        assert!(!sold["/Lotus/Weapons/Nora"]);
+        assert!(sold["/Lotus/Weapons/Retired"]);
         assert!(matches!(
-            graph.get(&vendor_id("palladino")),
-            Some(Node::Vendor(Vendor { rotates: true, .. }))
+            graph.get(&vendor_id("nightwave")),
+            Some(Node::Vendor(vendor)) if vendor.name == "Nightwave"
         ));
     }
 
@@ -515,14 +1174,95 @@ mod tests {
         assert!(offer.currency.is_none() && offer.pays.is_none() && offer.always);
     }
 
-    fn store(name: &str, link: &str) -> Store {
-        Store {
-            name: name.to_string(),
-            link: Some(link.to_string()),
-            currency: None,
-            kind: None,
-            offers: Vec::new(),
-        }
+    #[test]
+    fn a_package_sells_the_adapter_it_wraps_and_a_job_sells_nothing() {
+        let mut graph = catalog(&[(
+            "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Primary/BoarIncarnonUnlocker",
+            "Boar Incarnon Genesis",
+        )]);
+        let stalls = [stall(
+            "/Lotus/Types/Game/VendorManifests/Zariman/ZarimanWeaponsmithIncarnonShopManifest",
+            false,
+            vec![
+                offers::Offer {
+                    item: "/Lotus/Types/StoreItems/Packages/IncarnonPackages/BoarIncarnonBundle"
+                        .to_string(),
+                    platinum: Some([120, 120]),
+                    ..offers::Offer::default()
+                },
+                offers::Offer {
+                    item: "/Lotus/Types/StoreItems/Packages/Tasks/Deimos/Daughter/DaughterTaskA"
+                        .to_string(),
+                    ..offers::Offer::default()
+                },
+            ],
+        )];
+
+        let linked = stalls_of(
+            &mut graph,
+            &stalls,
+            &Curation::default().terms(&BTreeMap::new()),
+            &BTreeMap::new(),
+            &BTreeMap::new(),
+        );
+
+        let sells: Vec<&str> = graph
+            .from(&vendor_id("zariman-weaponsmith-incarnon-shop"))
+            .into_iter()
+            .filter(|edge| matches!(edge.rel, Rel::Sells(_)))
+            .map(|edge| edge.to.as_str())
+            .collect();
+        assert_eq!(
+            sells,
+            ["/Lotus/Types/Items/MiscItems/IncarnonAdapters/Primary/BoarIncarnonUnlocker"]
+        );
+        assert!(linked.unresolved.is_empty());
+        assert_eq!(linked.not_items["a job the family's stall arranges"], 1);
+    }
+
+    #[test]
+    fn two_counters_named_the_same_are_one_vendor() {
+        let mut graph = catalog(&[
+            ("/Lotus/Types/Items/MiscItems/Fish", "Fish"),
+            ("/Lotus/Types/Items/MiscItems/Bait", "Bait"),
+        ]);
+        let stalls = [
+            stall(
+                "/Lotus/Types/Game/VendorManifests/Solaris/FortunaFishmongerVendorManifest",
+                false,
+                vec![offers::Offer {
+                    item: "/Lotus/StoreItems/Types/Items/MiscItems/Fish".to_string(),
+                    ..offers::Offer::default()
+                }],
+            ),
+            stall(
+                "/Lotus/Types/Game/VendorManifests/Solaris/TheBusinessVendorManifest",
+                false,
+                vec![offers::Offer {
+                    item: "/Lotus/StoreItems/Types/Items/MiscItems/Bait".to_string(),
+                    ..offers::Offer::default()
+                }],
+            ),
+        ];
+        let mut curated = Curation::default();
+        curated.set_term("vendor", "fortuna-fishmonger", "Бизнес");
+        curated.set_term("vendor", "the-business", "Бизнес");
+
+        let linked = stalls_of(
+            &mut graph,
+            &stalls,
+            &curated.terms(&BTreeMap::new()),
+            &BTreeMap::new(),
+            &BTreeMap::new(),
+        );
+
+        assert_eq!(linked.vendors, 1);
+        let sells = graph
+            .from(&vendor_id("fortuna-fishmonger"))
+            .into_iter()
+            .filter(|edge| matches!(edge.rel, Rel::Sells(_)))
+            .count();
+        assert_eq!(sells, 2);
     }
 
     #[test]
@@ -530,18 +1270,5 @@ mod tests {
         assert_eq!(slug("Cephalon Simaris"), "cephalon-simaris");
         assert_eq!(slug("Kahl's Garrison"), "kahl-s-garrison");
         assert_eq!(slug("The Perrin Sequence"), "the-perrin-sequence");
-    }
-
-    #[test]
-    fn a_lone_counter_is_filed_under_its_keeper() {
-        let stores = [store("Release Vestigal Motes", "Ordis#Jade Shadows")];
-        let grouped = counters(&stores);
-        assert_eq!(grouped.keys().collect::<Vec<_>>(), ["Ordis"]);
-    }
-
-    #[test]
-    fn every_nightwave_season_pays_in_cred() {
-        assert_eq!(currency("Nora's Mix Vol. 6 Cred"), "Cred");
-        assert_eq!(currency("Standing"), "Standing");
     }
 }

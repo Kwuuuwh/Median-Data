@@ -54,11 +54,29 @@ impl Row {
     }
 }
 
+/// What the build says about a name the client never translates.
+const AS_PRINTED: &str = "игра пишет так же по-русски";
+
+/// What the build says about a heading no part of the game ever prints.
+const UNSPOKEN: &str = "игра такого текста не пишет";
+
 /// Everything of one kind that needs a Russian name, in a stable order, each carrying the
-/// verdict that it stays English where one was written.
+/// verdict that it stays English — written by hand, or read off the client itself.
 pub fn rows(snap: &Snapshot, target: &str) -> Vec<Row> {
     let mut rows = gather(snap, target);
     for row in &mut rows {
+        if row.ru.is_none() && snap.kept.contains(&row.en) {
+            row.verbatim = Some(AS_PRINTED.to_string());
+        }
+        // A drop table names its own rows — `Orb Vallis - Spaceport Enemies` — and the game
+        // never prints those words anywhere. There is no translation to look up and none is
+        // owed, so they are not work.
+        if row.ru.is_none() && row.verbatim.is_none() && !snap.spoken.is_empty() {
+            let printed = row.en.to_lowercase();
+            if !snap.spoken.contains(&printed) {
+                row.verbatim = Some(UNSPOKEN.to_string());
+            }
+        }
         // A hand decision replaces whatever the sources implied; where there is none, a
         // verdict the build worked out itself stands.
         if let Some((_, _, note)) = snap
@@ -368,9 +386,13 @@ pub fn node_id(target: &str, key: &str) -> Option<String> {
 /// for the sidebar. The tree's own labels are declared with both languages, so they never
 /// count as missing.
 pub fn pending(snap: &Snapshot) -> usize {
-    let judged = snap.decided.verbatim.len();
-    let missing = snap
-        .graph
+    let judged: std::collections::BTreeSet<&str> = snap
+        .decided
+        .verbatim
+        .iter()
+        .map(|(_, key, _)| key.as_str())
+        .collect();
+    snap.graph
         .nodes()
         .filter(|n| {
             matches!(
@@ -388,6 +410,13 @@ pub fn pending(snap: &Snapshot) -> usize {
             && !matches!(n, Node::Region(r) if r.verbatim)
             && !matches!(n, Node::Place(p) if p.table.is_some())
         })
-        .count();
-    missing.saturating_sub(judged)
+        // Nothing is owed for a name the game writes the same way, for one it never writes at
+        // all, or for one somebody has already ruled on.
+        .filter(|n| {
+            let printed = n.label();
+            !snap.kept.contains(printed)
+                && !judged.contains(printed)
+                && (snap.spoken.is_empty() || snap.spoken.contains(&printed.to_lowercase()))
+        })
+        .count()
 }

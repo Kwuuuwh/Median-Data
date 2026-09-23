@@ -57,7 +57,7 @@ pub fn link(
 
     for row in rows {
         let (count, printed) = names::quantity(&row.item);
-        if names::is_amount(printed) {
+        if names::is_amount(printed) || names::is_a_service(printed) {
             out.missed.not_an_item += 1;
             continue;
         }
@@ -79,7 +79,7 @@ pub fn link(
                 let (name, levels) = split_levels(&row.place);
                 if graph.insert(Node::Enemy(Enemy {
                     name: name.to_string(),
-                    name_ru: terms.get("enemy", name).map(str::to_string),
+                    name_ru: terms.of("enemy", name, name),
                 })) {
                     out.enemies += 1;
                 }
@@ -87,13 +87,16 @@ pub fn link(
             }
             false => {
                 let kind = kind_of(&row.section);
+                let bounty = settlements
+                    .read(&row.section, &row.place)
+                    .map(|b| localize(b, terms));
                 if graph.insert(Node::Place(Place {
                     name: row.place.clone(),
-                    name_ru: terms.get("place", &row.place).map(str::to_string),
+                    name_ru: terms
+                        .of("place", &row.place, &row.place)
+                        .or_else(|| crate::headings::russian(&row.place, bounty.as_ref(), terms)),
                     kind,
-                    bounty: settlements
-                        .read(&row.section, &row.place)
-                        .map(|b| localize(b, terms)),
+                    bounty,
                     table: match kind {
                         PlaceKind::Node => crate::rules::heading(&row.place),
                         _ => None,
@@ -154,7 +157,7 @@ pub fn curated(
         };
         graph.insert(Node::Enemy(Enemy {
             name: line.enemy.clone(),
-            name_ru: terms.get("enemy", &line.enemy).map(str::to_string),
+            name_ru: terms.of("enemy", &line.enemy, &line.enemy),
         }));
         graph.link(Edge {
             from,
@@ -190,7 +193,9 @@ pub fn paid(
         };
         graph.insert(Node::Place(Place {
             name: payout.place.clone(),
-            name_ru: terms.get("place", &payout.place).map(str::to_string),
+            name_ru: terms
+                .of("place", &payout.place, &payout.place)
+                .or_else(|| crate::headings::russian(&payout.place, None, terms)),
             kind: PlaceKind::Transient,
             bounty: None,
             table: None,

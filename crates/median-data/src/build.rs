@@ -41,6 +41,16 @@ pub fn run(vault: &Vault, out: &Path) -> Result<()> {
          {} rows printed twice kept once",
         built.amounts, built.ambiguous, built.repeated
     );
+    // Counted here rather than reported per recipe: DE exports a lich weapon and a market
+    // purchase as recipes with an empty ingredient list, and one line says that plainly.
+    let (recipes, barren) = recipe_tally(&built.graph);
+    eprintln!("craft    {recipes} recipes, {barren} of them require nothing");
+    if built.relics_from_tables > 0 {
+        eprintln!(
+            "relics   {} relics the export does not describe yet, filled from the drop tables",
+            built.relics_from_tables
+        );
+    }
     let vaulted = &built.vaulted;
     eprintln!(
         "vault    {} relics stated, {} items derived ({} withdrawn — obtainable elsewhere), \
@@ -98,11 +108,16 @@ pub fn run(vault: &Vault, out: &Path) -> Result<()> {
     }
     let sold = &built.vendors;
     eprintln!(
-        "vendors  {} vendors, {} offerings tied, {} names no item answers to",
+        "vendors  {} vendors, {} offerings tied, {} names no item answers to, {} offers are \
+         not an item",
         sold.vendors,
         sold.offers,
-        sold.unresolved.len()
+        sold.unresolved.len(),
+        sold.not_items.values().sum::<usize>()
     );
+    for (what, count) in &sold.not_items {
+        eprintln!("         {count:>6}  {what}");
+    }
     let dojo = &built.dojo;
     eprintln!(
         "dojo     {} labs, {} researches tied to a blueprint, {} names no item answers to",
@@ -282,8 +297,22 @@ pub fn judge(vault: &Vault, built: &Built, curated: &Curation) -> Result<(Report
         .ok()
         .and_then(|raw| serde_json::from_slice::<State>(&raw).ok());
     let was = previous.as_ref().and_then(|s| s.version.clone());
+    let waited = previous
+        .as_ref()
+        .map(|s| s.waiting.clone())
+        .unwrap_or_default();
     let made_by = previous.as_ref().and_then(|s| s.recipe.clone());
     let recipe = crate::recipe::fingerprint(Path::new("."))?;
+    let dismissed = curated.dismissed();
+    // Worked out before the funnel runs, because how long a name has gone unanswered decides
+    // whether it is a gap or a source that has not caught up with a patch yet.
+    let waiting = funnel::waiting(
+        &waited,
+        unresolved(built)
+            .into_iter()
+            .filter(|(source, key)| !dismissed.contains(&(source.as_str(), key.as_str()))),
+        now_ms(),
+    );
     let _ = vault;
     let scope = projections::apply(&built.graph, &projections::load(Path::new(crate::SCOPE))?);
 
@@ -300,8 +329,19 @@ pub fn judge(vault: &Vault, built: &Built, curated: &Curation) -> Result<(Report
             gaps: funnel::Gaps {
                 unresolved_rewards: built.gaps.unresolved_rewards.clone(),
                 dangling_craft: built.gaps.dangling_craft.clone(),
-                unknown_drop_items: built.gaps.unknown_drop_items.clone(),
+                // A drop table names what a patch added days before the export does, and
+                // that gap closes itself. Only a name that has gone unanswered for longer
+                // than that is something a person can act on.
+                unknown_drop_items: built
+                    .gaps
+                    .unknown_drop_items
+                    .iter()
+                    .filter(|name| settled(&waiting, crate::curation::DROPS, name))
+                    .cloned()
+                    .collect(),
                 provisional: built.gaps.provisional.clone(),
+                ambiguous: built.gaps.ambiguous.clone(),
+                in_the_game: built.gaps.in_the_game.clone(),
                 verbatim: curated
                     .verbatim()
                     .into_iter()
@@ -358,12 +398,84 @@ pub fn judge(vault: &Vault, built: &Built, curated: &Curation) -> Result<(Report
         made_by.as_deref() != Some(recipe.as_str()),
     ));
     state.recipe = Some(recipe);
+    state.waiting = waiting;
     Ok((report, state))
+}
+
+/// How long a name may go unanswered before it stops being a source catching up and starts
+/// being a gap. DE publishes its export within a day or two of a patch; a week is slack.
+const SETTLE_DAYS: i64 = 7;
+
+/// Whether a name has been unanswered long enough to be worth a person's time.
+fn settled(waiting: &BTreeMap<String, BTreeMap<String, i64>>, source: &str, key: &str) -> bool {
+    match waiting.get(source).and_then(|keys| keys.get(key)) {
+        Some(since) => now_ms() - since > SETTLE_DAYS * 86_400_000,
+        None => true,
+    }
+}
+
+/// Every name no item answers to, as the pair a decision about it is keyed by. The market's
+/// are worked out here rather than kept, because nothing else in the build needs them.
+fn unresolved(built: &Built) -> Vec<(String, String)> {
+    built
+        .orphans
+        .iter()
+        .map(|u| (u.source.clone(), u.key.clone()))
+        .chain(
+            crate::unmatched::find(&built.wfm, &built.matched)
+                .into_iter()
+                .map(|u| (u.source, u.key)),
+        )
+        // A disagreement between sources ages the same way: the market flags a relic as
+        // vaulted days after the wiki does, and until then they simply disagree.
+        .chain(
+            built
+                .conflicts
+                .iter()
+                .map(|c| (CONFLICT.to_string(), conflict_key(&c.entity, c.prop))),
+        )
+        .collect()
+}
+
+/// The source name the state file files a disagreement under.
+pub const CONFLICT: &str = "conflict";
+
+/// What a disagreement is keyed by while it waits to be settled or to go away.
+pub fn conflict_key(entity: &str, prop: &str) -> String {
+    format!("{prop} {entity}")
+}
+
+/// Now, as the state file counts time.
+fn now_ms() -> i64 {
+    std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map(|d| d.as_millis() as i64)
+        .unwrap_or(0)
+}
+
+/// How many recipes the graph holds, and how many of them name no ingredient at all.
+fn recipe_tally(graph: &graph::Graph) -> (usize, usize) {
+    let mut all = 0;
+    let mut barren = 0;
+    for node in graph.nodes() {
+        let graph::Node::Recipe(_) = node else {
+            continue;
+        };
+        all += 1;
+        if !graph
+            .from(&node.id())
+            .iter()
+            .any(|e| matches!(e.rel, graph::Rel::Requires { .. }))
+        {
+            barren += 1;
+        }
+    }
+    (all, barren)
 }
 
 /// What this build is, for the `meta` table: the version it carries and the pinned snapshot
 /// every source came from, so a catalog can always say what it was made of.
-fn stamps(vault: &Vault, state: &State) -> Vec<(String, String)> {
+fn stamps(vault: &Vault, state: &State) -> Result<Vec<(String, String)>> {
     let mut out = vec![(
         "version".to_string(),
         state.version.clone().unwrap_or_default(),
@@ -374,7 +486,15 @@ fn stamps(vault: &Vault, state: &State) -> Vec<(String, String)> {
     for (source, id) in sources(vault) {
         out.push((format!("source.{source}"), id));
     }
-    out
+    out.push((
+        "source.game".to_string(),
+        crate::game::stamp(Path::new(crate::GAME))?,
+    ));
+    out.push((
+        "game.build".to_string(),
+        crate::game::client(Path::new(crate::GAME))?.build,
+    ));
+    Ok(out)
 }
 
 /// The pinned snapshot every source is at. Published with a release too, so the next run can
@@ -424,7 +544,7 @@ fn project(vault: &Vault, out: &Path, built: &Built, report: &Report, state: &St
             scope: &scope,
             report,
             conflicts: &built.conflicts,
-            meta: &stamps(vault, state),
+            meta: &stamps(vault, state)?,
             out: out_dir.unwrap_or_else(|| Path::new(".")),
             icons: pinned.as_ref().map(|p| p as &dyn projections::IconSource),
         },
@@ -498,7 +618,6 @@ pub fn graph_with(vault: &Vault, curated: &Curation) -> Result<Built> {
     let wiki_tables = wiki::tables(&blob(vault, &wiki_snap, spec::WIKI_DROPS)?)?;
     let baro = wiki::baro(&blob(vault, &wiki_snap, spec::WIKI_BARO)?)?;
     let dojo = wiki::dojo(&blob(vault, &wiki_snap, spec::WIKI_RESEARCH)?)?;
-    let stores = wiki::vendors(&blob(vault, &wiki_snap, spec::WIKI_VENDORS)?)?;
     let market = wiki::market_blueprints(&blob(vault, &wiki_snap, spec::WIKI_BLUEPRINTS)?)?;
 
     let drop_snap = vault.latest(spec::DROPS)?;
@@ -528,7 +647,8 @@ pub fn graph_with(vault: &Vault, curated: &Curation) -> Result<Built> {
             wiki_tables,
             baro,
             dojo,
-            stores,
+            stalls: crate::game::sold(Path::new(crate::GAME))?,
+            keepers: wiki::vendors(&blob(vault, &wiki_snap, spec::WIKI_VENDORS)?)?,
             market,
             wfm,
             drops: tables.drops,

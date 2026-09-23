@@ -161,6 +161,7 @@ kind = [
   { slug = "archwing-component", en = "Archwing component", ru = "Компонент арчвинга" },
   { slug = "ship-component", en = "Ship component", ru = "Компонент корабля" },
   { slug = "pet-component", en = "Pet component", ru = "Компонент питомца" },
+  { slug = "necramech-component", en = "Necramech component", ru = "Компонент некрамеха" },
 ]
 
 [[class]]
@@ -185,6 +186,9 @@ kind = [
   { slug = "helminth-secretion", en = "Helminth secretion", ru = "Секреция гельминта" },
   { slug = "ayatan", en = "Ayatan treasure", ru = "Сокровище Аятан" },
   { slug = "research-sample", en = "Research sample", ru = "Образец исследования" },
+  { slug = "currency", en = "Currency", ru = "Валюта" },
+  { slug = "upgrade", en = "Upgrade", ru = "Улучшение" },
+  { slug = "companion-supply", en = "Companion supply", ru = "Припасы питомца" },
   { slug = "misc-resource", en = "Misc resource", ru = "Прочий ресурс" },
 ]
 
@@ -194,6 +198,7 @@ en = "Gear"
 ru = "Снаряжение"
 kind = [
   { slug = "gear", en = "Gear", ru = "Снаряжение" },
+  { slug = "extractor", en = "Extractor", ru = "Экстрактор" },
   { slug = "restorative", en = "Restorative", ru = "Восстановитель" },
   { slug = "fish-bait", en = "Fish bait", ru = "Приманка для рыбы" },
   { slug = "conservation-gear", en = "Conservation gear", ru = "Снаряжение для охоты" },
@@ -257,6 +262,8 @@ ru = "Прочее"
 kind = [
   { slug = "lore", en = "Lore fragment", ru = "Фрагмент лора" },
   { slug = "simulacrum", en = "Simulacrum", ru = "Симулякрум" },
+  { slug = "quest-item", en = "Quest item", ru = "Квестовый предмет" },
+  { slug = "bundle", en = "Bundle", ru = "Набор" },
   { slug = "misc", en = "Miscellaneous", ru = "Прочее" },
 ]
 
@@ -686,6 +693,24 @@ parent_starts = [
 ]
 
 [[rule]]
+kind = "necramech-component"
+reason = "path: DE files mech parts under resources, but they assemble a Necramech"
+path_contains = [
+  "/Resources/Mechs/NecromechPart",
+  "/Resources/Mechs/ThanomechPart",
+  "/Resources/Mechs/DamagedMechPart",
+]
+
+[[rule]]
+kind = "weapon-component"
+reason = "path: the mech weapons DE files under resources"
+path_contains = [
+  "/Resources/Mechs/DamagedMechWeapon",
+  "/Resources/Mechs/ThanotechArchGun",
+  "/Resources/Mechs/ThanotechGrenadeLauncher",
+]
+
+[[rule]]
 kind = "resource"
 reason = "parentName"
 parent = [
@@ -889,6 +914,138 @@ array = ["ExportCustoms"]
 kind = "glyph"
 reason = "manifest: everything left in the flavour manifest is a picture or a badge"
 array = ["ExportFlavour"]
+
+# --- things DE exports with no parent of their own --------------------------------------------
+# DE gives these no `parentName` at all, so nothing but the path says what they are. Each list
+# below names the items themselves, not a family: a new one DE adds shows up in the funnel
+# rather than landing here by accident.
+
+[[rule]]
+kind = "currency"
+reason = "path: spent at a counter, never used on its own"
+path_contains = [
+  "/Types/Items/MiscItems/Nora",
+  "/Types/Items/MiscItems/PrimeBucks",
+  "/Types/Items/Tokens/GreedTokens/",
+  "/Types/Items/MiscItems/KahlCreds",
+  "/Types/Items/MiscItems/1999ConquestBucks",
+  "/Types/Items/MiscItems/WaterFightBucks",
+  "/Types/Items/MiscItems/ShrineFragment",
+  "/Types/Items/MiscItems/MechSurvivalEventCreds",
+  "/Types/Items/MiscItems/CodaWeaponBucks",
+  "/Types/Items/MiscItems/GranumBucks",
+  "/Types/Items/MiscItems/SchismKey",
+  "/Types/Items/MiscItems/PremiumSchismKey",
+  "/Types/Gameplay/Shadowgrapher/Resources/",
+  "/Types/Gameplay/JadeShadows/Resources/AscensionResourceItem",
+  "/Types/JadeShadowsPart2Mission/Gameplay/Resources/GarudaFavor",
+  "/Types/JadeShadowsPart2Mission/Gameplay/Resources/AshFavor",
+]
+
+[[rule]]
+kind = "upgrade"
+reason = "path: spent once to make an item permanently better"
+path_contains = [
+  "/Types/Items/MiscItems/OrokinCatalyst",
+  "/Types/Items/MiscItems/OrokinReactor",
+  "/Types/Items/MiscItems/UtilityUnlocker",
+  "/Types/Items/MiscItems/WeaponUtilityUnlocker",
+  "/Types/Items/MiscItems/HeavyWeaponCatalyst",
+  "/Types/Items/MiscItems/ValenceAdapter",
+  "/Types/Items/MiscItems/ModSlotUnlocker",
+  "/Types/Items/MiscItems/CustomizationSlotUnlocker",
+  "/Types/Items/MiscItems/FoilModUnlocker",
+  "/Types/Items/MiscItems/RivenIdentifier",
+  "/Types/Items/MiscItems/LibraryScanner",
+  "/Types/Items/MiscItems/SolarisMiningTool",
+  "/Types/Items/MiscItems/DuviriGuidingHandPuzzleUpgrade",
+  "/Types/Items/MiscItems/UmbraEchoes",
+  "/Types/Gameplay/Eidolon/Resources/SentientSecretItem",
+  "ArcaneUnlocker",
+]
+
+[[rule]]
+kind = "archon-shard"
+reason = "path: the shards the Archons drop carry no parent"
+path_contains = [
+  "/Types/Gameplay/NarmerSorties/ArchonCrystal",
+  "/Types/Items/MiscItems/TNWArchonItem",
+]
+
+[[rule]]
+kind = "companion-supply"
+reason = "path: kept for a companion rather than owned as one"
+path_contains = [
+  "/Types/Game/KubrowPet/KubrowPetFood",
+  "/Types/Game/KubrowPet/EggHatcher",
+  "/Types/Game/KubrowPet/Eggs/",
+  "/Types/Game/KubrowPet/KubrowPetCollarItem",
+  "/Types/Game/KubrowPet/BlankTraitPrint",
+]
+
+[[rule]]
+kind = "quest-item"
+reason = "path: handed out by a quest and useless outside it"
+path_contains = [
+  "/Types/Keys/BardQuest/BardQuestSequencer",
+  "/Types/Gameplay/EntratiLab/Quest/GargoyleMiscItem",
+  "/Types/Gameplay/1999Wf/Quest/LoanerWeaponsItem",
+]
+
+[[rule]]
+kind = "key"
+reason = "path: unlocks a mission or a room"
+path_contains = [
+  "/Types/Items/MiscItems/DangerRoomKey",
+  "/Types/Items/UnlockArbitrationKeyItem",
+]
+
+[[rule]]
+kind = "forma"
+reason = "path: the Forma item itself, which carries no parent"
+path_contains = ["/Types/Items/MiscItems/Forma"]
+
+[[rule]]
+kind = "gear"
+reason = "path: used from the gear wheel"
+path_contains = ["/Types/Items/MiscItems/InstantSalvageRepairItem"]
+
+[[rule]]
+kind = "bundle"
+reason = "path: a storefront sells it as one thing, the catalog holds the parts"
+path_contains = [
+  "/Types/Items/MiscItems/1999FixedStickersPack",
+  "/Types/Items/MiscItems/1999FreeStickersPack",
+  "/Types/StoreItems/Packages/MegaPrimeVault/LastChanceItemB",
+  "/Types/StoreItems/Packages/MegaPrimeVault/LastChanceItemC",
+]
+
+[[rule]]
+kind = "resource"
+reason = "path: spent on crafting like any other resource"
+path_contains = [
+  "/Types/Items/MiscItems/Juggernaut",
+  "/Types/Items/MiscItems/LastWishItems/",
+  "/Types/Items/MiscItems/GrnFlameSpearPart",
+  "/Types/Items/MiscItems/MushroomFood",
+  "/Types/Items/Events/AmbulasDataFragment",
+  "/Types/Items/Research/CipherPlus",
+  "/Types/Items/Research/DataMassPlus",
+  "/Types/Items/RelayRebuild/",
+  "/Types/Items/Eidolon/",
+  "/Types/Gameplay/Tau/Resources/",
+  "/Types/Gameplay/JadeShadows/Resources/BioplasmaItem",
+  "/Types/Gameplay/JadeShadows/Resources/JuggernautBehemothItem",
+  "/Types/Gameplay/EntratiLab/Resources/VesselCapillaries",
+  "/Types/Gameplay/EntratiLab/Resources/EntratiLanthornBundle",
+  "/Types/JadeShadowsPart2Mission/Gameplay/Resources/HunhowTrinketMiscItem",
+  "/Types/PickUps/Nightwave/CephalonFissureTimePointItem",
+]
+
+[[rule]]
+kind = "extractor"
+reason = "manifest: the drone manifest holds nothing but extractors"
+array = ["ExportDrones"]
 
 # --- fallback ------------------------------------------------------------------------------
 

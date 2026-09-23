@@ -1,6 +1,6 @@
 use std::collections::BTreeMap;
 
-use graph::{Graph, Node, Rel};
+use graph::{Graph, Node, Rel, Taxonomy};
 
 use crate::finding::{Finding, Layer};
 
@@ -18,14 +18,14 @@ const MIN_GROUP: usize = 8;
 const SUM_TOLERANCE: f64 = 0.005;
 
 /// Flag values unlike their siblings, across every measured series.
-pub fn check(graph: &Graph) -> Vec<Finding> {
+pub fn check(graph: &Graph, taxonomy: &Taxonomy) -> Vec<Finding> {
     let mut out = Vec::new();
     out.extend(judge(
         &relic_rewards(graph),
         "relic-reward-count",
         "rewards",
     ));
-    out.extend(judge(&set_sizes(graph), "set-size", "parts"));
+    out.extend(judge(&set_sizes(graph, taxonomy), "set-size", "parts"));
     out.extend(judge(
         &ingredients(graph),
         "ingredient-count",
@@ -122,7 +122,9 @@ fn relic_rewards(graph: &Graph) -> Vec<Sample> {
         .collect()
 }
 
-fn set_sizes(graph: &Graph) -> Vec<Sample> {
+/// How many parts a set sells, judged against sets of the same kind of thing. A warframe is
+/// four parts and a melee weapon two, so one number for every set would call half of them odd.
+fn set_sizes(graph: &Graph, taxonomy: &Taxonomy) -> Vec<Sample> {
     graph
         .nodes()
         .filter_map(|n| match n {
@@ -130,11 +132,23 @@ fn set_sizes(graph: &Graph) -> Vec<Sample> {
             _ => None,
         })
         .map(|(id, s)| Sample {
-            group: "set".to_string(),
+            group: format!("set/{}", assembles(graph, taxonomy, &id).unwrap_or("mixed")),
             entity: s.slug.clone(),
             value: count(graph.from(&id), |e| matches!(e.rel, Rel::Member)),
         })
         .collect()
+}
+
+/// The class of the thing a set assembles, where the catalog holds it.
+fn assembles<'a>(graph: &'a Graph, taxonomy: &'a Taxonomy, set: &str) -> Option<&'a str> {
+    let built = graph
+        .from(set)
+        .into_iter()
+        .find(|e| matches!(e.rel, Rel::Represents))?;
+    match graph.get(&built.to)? {
+        Node::Item(item) => Some(taxonomy.class_slug(&item.kind.value)),
+        _ => None,
+    }
 }
 
 fn ingredients(graph: &Graph) -> Vec<Sample> {
@@ -149,14 +163,36 @@ fn ingredients(graph: &Graph) -> Vec<Sample> {
                 .from(&id)
                 .into_iter()
                 .find(|e| matches!(e.rel, Rel::Produces))?;
-            let category = match graph.get(&built.to)? {
-                Node::Item(i) => i.category.value.clone(),
+            // Grouped by what the recipe builds, not by the manifest DE filed it under: one
+            // manifest holds an alternate helmet swap with a single ingredient and a weapon
+            // with five, and neither says anything about the other.
+            let kind = match graph.get(&built.to)? {
+                Node::Item(i) => i.kind.value.as_str().to_string(),
                 _ => return None,
             };
+            let needs: Vec<&str> = graph
+                .from(&id)
+                .into_iter()
+                .filter(|e| matches!(e.rel, Rel::Requires { .. }))
+                .map(|e| e.to.as_str())
+                .collect();
+            // A recipe with nothing to give is not a small recipe: a lich weapon is carried
+            // over rather than built, so it has no ingredient list to compare.
+            if needs.is_empty() {
+                return None;
+            }
+            // A swap — one thing handed over for another of the same kind, as an alternate
+            // helmet is — is its own kind of recipe and says nothing about a build.
+            let swap = needs
+                .iter()
+                .all(|need| matches!(graph.get(need), Some(Node::Item(i)) if i.kind.value.as_str() == kind));
             Some(Sample {
-                group: category,
+                group: match swap {
+                    true => format!("{kind}/swap"),
+                    false => kind,
+                },
                 entity: r.blueprint.clone(),
-                value: count(graph.from(&id), |e| matches!(e.rel, Rel::Requires { .. })),
+                value: needs.len() as f64,
             })
         })
         .collect()
