@@ -15,7 +15,7 @@ pub struct Catalog;
 /// application reads it to decide whether it can open the file at all — so it lives here,
 /// beside the schema it describes, and is written both as `PRAGMA user_version` and as a row
 /// of `meta`.
-pub const SCHEMA: u32 = 15;
+pub const SCHEMA: u32 = 16;
 
 pub const SETUP: &str = "\
 CREATE TABLE meta (
@@ -219,6 +219,7 @@ CREATE TABLE regions (
   mission      INTEGER NOT NULL,
   mission_en   TEXT,
   mission_ru   TEXT,
+  mission_code TEXT,
   faction      INTEGER NOT NULL,
   faction_en   TEXT,
   faction_ru   TEXT,
@@ -412,11 +413,11 @@ fn nodes(tx: &Transaction<'_>, ctx: &Context<'_>) -> Result<usize> {
     )?;
     let mut regions = tx.prepare(
         "INSERT INTO regions (node, name, name_ru, location, mission, mission_en, \
-         mission_ru, faction, faction_en, faction_ru, faction_icon, node_type, node_type_en, \
-         node_type_ru, mastery_req, mastery_xp, min_level, max_level, tileset, tileset_ru, \
-         origin, railjack, hidden, area) \
+         mission_ru, mission_code, faction, faction_en, faction_ru, faction_icon, node_type, \
+         node_type_en, node_type_ru, mastery_req, mastery_xp, min_level, max_level, tileset, \
+         tileset_ru, origin, railjack, hidden, area) \
          VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15, ?16, ?17, \
-         ?18, ?19, ?20, ?21, ?22, ?23, ?24)",
+         ?18, ?19, ?20, ?21, ?22, ?23, ?24, ?25)",
     )?;
 
     let mut count = 0;
@@ -555,6 +556,7 @@ fn nodes(tx: &Transaction<'_>, ctx: &Context<'_>) -> Result<usize> {
                     r.mission,
                     r.mission_label.en.as_deref(),
                     r.mission_label.ru.as_deref(),
+                    r.mission_code.as_deref(),
                     r.faction,
                     r.faction_label.en.as_deref(),
                     r.faction_label.ru.as_deref(),

@@ -11,6 +11,9 @@ pub struct Chart {
     /// DE's `missionIndex` and every name the wiki gives it in `MissionTypes` — it files more
     /// than one type under some indices (`Defense` and `Stage Defense` share 8).
     pub mission_names: BTreeMap<i64, Vec<String>>,
+    /// DE's `missionIndex` and every code the wiki gives it, as the world state prints a
+    /// mission type (`MT_CAPTURE`).
+    pub mission_codes: BTreeMap<i64, Vec<String>>,
     /// One record per node of `MissionDetails`, keyed by DE's own node key.
     pub nodes: Vec<Node>,
     /// Records the wiki writes with an empty `InternalName`. A node with no key cannot be
@@ -370,14 +373,18 @@ pub fn chart(raw: &[u8]) -> Result<Chart> {
     let root = lua::table_of(&src, ROOT).context("read Module:Missions/data")?;
 
     let mut mission_names = BTreeMap::new();
+    let mut mission_codes = BTreeMap::new();
     if let Some(types) = root.table("MissionTypes") {
         for entry in types.fields.values() {
             let Some(t) = entry.table() else { continue };
-            if let (Some(index), Some(name)) = (t.int("Index"), t.str("Name")) {
-                let names: &mut Vec<String> = mission_names.entry(index).or_default();
-                if !names.iter().any(|n| n == name) {
-                    names.push(name.to_string());
-                }
+            let Some(index) = t.int("Index") else {
+                continue;
+            };
+            if let Some(name) = t.str("Name") {
+                add(&mut mission_names, index, name);
+            }
+            if let Some(code) = text(t, "InternalName") {
+                add(&mut mission_codes, index, &code);
             }
         }
     }
@@ -415,9 +422,37 @@ pub fn chart(raw: &[u8]) -> Result<Chart> {
 
     Ok(Chart {
         mission_names,
+        mission_codes,
         nodes,
         keyless,
     })
+}
+
+impl Chart {
+    /// The code of a mission type, where the wiki gives its index exactly one.
+    pub fn code(&self, index: i64) -> Option<&str> {
+        match self.mission_codes.get(&index)?.as_slice() {
+            [only] => Some(only),
+            _ => None,
+        }
+    }
+
+    /// The code of a mission type the wiki names.
+    pub fn code_named(&self, name: &str) -> Option<&str> {
+        let (index, _) = self
+            .mission_names
+            .iter()
+            .find(|(_, names)| names.iter().any(|n| n.eq_ignore_ascii_case(name)))?;
+        self.code(*index)
+    }
+}
+
+/// Add a value under an index once.
+fn add(map: &mut BTreeMap<i64, Vec<String>>, index: i64, value: &str) {
+    let held = map.entry(index).or_default();
+    if !held.iter().any(|v| v == value) {
+        held.push(value.to_string());
+    }
 }
 
 /// A field that is present but empty says nothing.
@@ -441,7 +476,8 @@ mod tests {
     /// under a key whose line starts with a space before the tab.
     const SRC: &str = "local MissionData = {\n\
         \t[\"MissionTypes\"] = {\n\
-        \t\tSurvival = { Name = \"Survival\", Index = 2, IsEndless = true },\n\
+        \t\tSurvival = { Name = \"Survival\", Index = 2, InternalName = \"MT_SURVIVAL\", \
+             IsEndless = true },\n\
         \t\t[\"Conclave\"] = { Name = \"Conclave\", Index = 12 },\n\
         \t},\n\
         \t[\"MissionModifiers\"] = { [\"Void Storm\"] = { Name = \"Void Storm\" } },\n\
@@ -468,6 +504,38 @@ mod tests {
         let c = chart(SRC.as_bytes()).unwrap();
         assert_eq!(c.mission_names[&2], vec!["Survival".to_string()]);
         assert_eq!(c.mission_names[&12], vec!["Conclave".to_string()]);
+    }
+
+    #[test]
+    fn reads_the_code_of_a_mission_type() {
+        let c = chart(SRC.as_bytes()).unwrap();
+        assert_eq!(c.code(2), Some("MT_SURVIVAL"));
+        assert_eq!(c.code_named("survival"), Some("MT_SURVIVAL"));
+        assert_eq!(c.code(12), None);
+    }
+
+    #[test]
+    fn a_code_written_before_the_index_is_read_the_same() {
+        let src = "local MissionData = { [\"MissionTypes\"] = {\n\
+            Harvest = { Name = \"Legacyte Harvest\", InternalName = \"MT_ENDLESS_CAPTURE\", \
+            Index = 40 },\n\
+            } }";
+        assert_eq!(
+            chart(src.as_bytes()).unwrap().code(40),
+            Some("MT_ENDLESS_CAPTURE")
+        );
+    }
+
+    #[test]
+    fn an_index_given_two_codes_has_none() {
+        let src = "local MissionData = { [\"MissionTypes\"] = {\n\
+            Defense = { Name = \"Defense\", Index = 8, InternalName = \"MT_DEFENSE\" },\n\
+            [\"Stage Defense\"] = { Name = \"Stage Defense\", Index = 8, \
+            InternalName = \"MT_STAGE\" },\n\
+            } }";
+        let c = chart(src.as_bytes()).unwrap();
+        assert_eq!(c.mission_codes[&8].len(), 2);
+        assert_eq!(c.code(8), None);
     }
 
     #[test]

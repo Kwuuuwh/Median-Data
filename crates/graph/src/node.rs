@@ -220,6 +220,8 @@ pub struct Region {
     pub location: String,
     pub mission: i64,
     pub mission_label: Label,
+    /// The mission type as the world state prints it, e.g. `MT_CAPTURE`.
+    pub mission_code: Option<String>,
     pub faction: i64,
     pub faction_label: Label,
     pub node_type: i64,

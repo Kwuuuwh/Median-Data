@@ -215,10 +215,11 @@ pub fn link(
     graph: &mut Graph,
     de: &[DeRegion],
     ru: &BTreeMap<String, DeRegion>,
-    wiki: &[crate::wiki::Node],
+    chart: &crate::wiki::Chart,
     labels: &Labels,
     terms: &crate::curation::Terms,
 ) -> Linked {
+    let wiki = &chart.nodes;
     let mut by_name: BTreeMap<(String, String), String> = BTreeMap::new();
     let mut by_node_name: BTreeMap<String, String> = BTreeMap::new();
     // DE exports neither flag nor the tileset, so all three always come from the wiki.
@@ -242,6 +243,7 @@ pub fn link(
             location: r.location.clone(),
             mission: r.mission,
             mission_label: with_term(labels.mission(r.mission), "mission", terms),
+            mission_code: chart.code(r.mission).map(str::to_string),
             faction: r.faction,
             faction_label: with_term(labels.faction(r.faction), "faction", terms),
             node_type: r.node_type,
@@ -289,6 +291,11 @@ pub fn link(
                 "mission",
                 terms,
             ),
+            mission_code: w
+                .mission
+                .as_deref()
+                .and_then(|m| chart.code_named(m))
+                .map(str::to_string),
             faction: -1,
             faction_label: with_term(
                 w.faction
@@ -517,6 +524,12 @@ pub fn witness(de: &[DeRegion], chart: &crate::wiki::Chart, labels: &Labels) -> 
                 theirs.join(" / ")
             )),
             _ => {}
+        }
+        if let Some(codes) = chart.mission_codes.get(&index).filter(|c| c.len() > 1) {
+            out.disagree.push(format!(
+                "mission {index}: the wiki gives it codes {}, so it carries none",
+                codes.join(" / ")
+            ));
         }
     }
 

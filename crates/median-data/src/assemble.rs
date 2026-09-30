@@ -205,7 +205,7 @@ pub fn assemble(
         &mut graph,
         &input.regions,
         &input.regions_ru,
-        &input.chart.nodes,
+        &input.chart,
         labels,
         &terms,
     );
