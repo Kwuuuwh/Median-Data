@@ -14780,6 +14780,186 @@ bin = "BIN_0"
 item = "/Lotus/Types/Items/Deimos/EntratiFragmentUncommonB"
 count = 90
 
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Liset/LisetDOTDSkin"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Items/Deimos/EntratiFragmentUncommonB"
+count = 125
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/StoreItems/AvatarImages/Seasonal/AvatarImageHalloween2026FollieGlyph"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Items/Deimos/EntratiFragmentUncommonB"
+count = 20
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/StoreItems/AvatarImages/Seasonal/AvatarImageHalloween2026VorunaGlyph"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Items/Deimos/EntratiFragmentUncommonB"
+count = 20
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Items/ShipDecos/Halloween2026SiriusOrionPoster"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Items/Deimos/EntratiFragmentUncommonB"
+count = 25
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Halloween/DOTD2025SheduSkin"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Items/Deimos/EntratiFragmentUncommonB"
+count = 90
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Halloween/DOTD2025OkinaSkin"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Items/Deimos/EntratiFragmentUncommonB"
+count = 90
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Halloween/DOTD2025AtomosSkin"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Items/Deimos/EntratiFragmentUncommonB"
+count = 90
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Halloween/DOTD2025TaxonSkin"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Items/Deimos/EntratiFragmentUncommonB"
+count = 90
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Liset/GrineerShip/LisetGrineerShipDOTD"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Items/Deimos/EntratiFragmentUncommonB"
+count = 125
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Halloween/DOTD2025OperatorMask"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Items/Deimos/EntratiFragmentUncommonB"
+count = 100
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Scarves/DOTD2025MonarchSyandana"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Items/Deimos/EntratiFragmentUncommonB"
+count = 125
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Halloween/DOTD2025SentinelMask"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Items/Deimos/EntratiFragmentUncommonB"
+count = 35
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Halloween/DOTD2025SentinelTail"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Items/Deimos/EntratiFragmentUncommonB"
+count = 35
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Halloween/DOTD2025SentinelWings"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Items/Deimos/EntratiFragmentUncommonB"
+count = 35
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/StoreItems/AvatarImages/Seasonal/DOTD2025NoraGlyph"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Items/Deimos/EntratiFragmentUncommonB"
+count = 20
+
 [[vendor]]
 manifest = "/Lotus/Types/Game/VendorManifests/Events/DuviriMurmurInvasionVendorManifest"
 floating = true
@@ -37744,6 +37924,129 @@ hours = [
     24,
 ]
 bin = "BIN_0"
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Items/MiscItems/NoraIntermissionSixteenCreds"
+count = 30
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Halloween/DOTD2025OkinaSkin"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Items/MiscItems/NoraIntermissionSixteenCreds"
+count = 50
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Halloween/DOTD2025AtomosSkin"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Items/MiscItems/NoraIntermissionSixteenCreds"
+count = 50
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Liset/GrineerShip/LisetGrineerShipDOTD"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_3"
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Items/MiscItems/NoraIntermissionSixteenCreds"
+count = 100
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Halloween/DOTD2025OperatorMask"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_3"
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Items/MiscItems/NoraIntermissionSixteenCreds"
+count = 50
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Halloween/DOTD2025TaxonSkin"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Items/MiscItems/NoraIntermissionSixteenCreds"
+count = 50
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Scarves/DOTD2025MonarchSyandana"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_3"
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Items/MiscItems/NoraIntermissionSixteenCreds"
+count = 75
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Halloween/DOTD2025SentinelMask"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_3"
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Items/MiscItems/NoraIntermissionSixteenCreds"
+count = 35
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Halloween/DOTD2025SentinelTail"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_3"
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Items/MiscItems/NoraIntermissionSixteenCreds"
+count = 35
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Halloween/DOTD2025SentinelWings"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_3"
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Items/MiscItems/NoraIntermissionSixteenCreds"
+count = 35
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/StoreItems/AvatarImages/Seasonal/DOTD2025NoraGlyph"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_3"
 
 [[vendor.offer.price]]
 item = "/Lotus/Types/Items/MiscItems/NoraIntermissionSixteenCreds"

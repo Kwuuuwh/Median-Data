@@ -22,7 +22,7 @@ impl Change {
 }
 
 /// Name the recipe is reported under.
-const RECIPE: &str = "recipe";
+pub const RECIPE: &str = "recipe";
 
 /// Whether any source or the recipe moved since the last build, reported line by line.
 pub fn changed(
@@ -30,6 +30,17 @@ pub fn changed(
     released: Option<&std::path::Path>,
     state_file: &std::path::Path,
 ) -> Result<bool> {
+    Ok(changes(vault, released, state_file)?
+        .iter()
+        .any(Change::moved))
+}
+
+/// Every source and the recipe beside what the last build was made of, reported line by line.
+pub fn changes(
+    vault: &Vault,
+    released: Option<&std::path::Path>,
+    state_file: &std::path::Path,
+) -> Result<Vec<Change>> {
     let was: BTreeMap<String, String> = match released {
         Some(path) => {
             let raw = std::fs::read(path).with_context(|| format!("read {}", path.display()))?;
@@ -62,17 +73,15 @@ pub fn changed(
         current: crate::recipe::fingerprint(std::path::Path::new("."))?,
     });
 
-    let mut moved = false;
-    for change in changes {
+    for change in &changes {
         let state = match (change.moved(), &change.pinned) {
             (false, _) => "unchanged".to_string(),
             (true, None) => format!("new — {}", change.current),
             (true, Some(was)) => format!("moved — {was} -> {}", change.current),
         };
         eprintln!("{:<8} {state}", change.source);
-        moved |= change.moved();
     }
-    Ok(moved)
+    Ok(changes)
 }
 
 /// Ask every source whether it has anything new, as cheaply as each can be asked. DE answers

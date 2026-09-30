@@ -12,16 +12,7 @@ verbatim = [
     "(っᵔ◡ᵔ)っ(˶ᵔ ᵕ ᵔ˶)",
     "+1",
     "+1, 19",
-    "+100% Range",
-    "+1000 Armor",
-    "+1000 Health",
-    "+200% Duration",
-    "+200% Strength",
-    "+300% Damage",
-    "+300% Status Chance",
-    "+300% Weak Point Multiplier",
     "+4",
-    "+40 Melee Starting Combo",
     "+5, +4",
     ", ",
     "-",
@@ -162,7 +153,6 @@ verbatim = [
     "AllMy",
     "AllThat",
     "Alpha",
-    "Alumeti Prime Sugatra",
     "Am1rb0t",
     "Amalthea",
     "Amarna",
@@ -251,10 +241,7 @@ verbatim = [
     "Balor",
     "Band",
     "BandOf",
-    "Banshee Sonatus Glyph",
     "Banshee Threnodia Glyph",
-    "Banshee Threnodia Shoulder Armor",
-    "Banshee Threnodia Skin",
     "Bard",
     "Barkin'",
     "Barrel",
@@ -268,7 +255,6 @@ verbatim = [
     "Beeper",
     "Belenus",
     "Beleth",
-    "Belfri Ephemera",
     "BelieveIn",
     "Bell",
     "Belladonna ~{@",
@@ -397,6 +383,7 @@ verbatim = [
     "CPU",
     "CRC32C Adler",
     "CREDITS BOOSTER CY",
+    "CRYOTHERMIA",
     "Cables",
     "Caduceus",
     "Caelus",
@@ -437,7 +424,6 @@ verbatim = [
     "Cervantes",
     "Chain",
     "Challenges",
-    "Channeled Greed",
     "Chaos",
     "Charge",
     "Charger",
@@ -496,7 +482,6 @@ verbatim = [
     "CominUp",
     "Command",
     "Commander",
-    "Community Art Pack VI",
     "Community Citrine Glyph",
     "Community Frost Glyph",
     "Community Narin Glyph",
@@ -509,14 +494,9 @@ verbatim = [
     "Config",
     "Connect",
     "Connected",
-    "Conquera 2026 Community Display",
-    "Conquera Cateura Frame Display",
     "Conquera Cateura Signa",
     "Conquera Glyph X",
     "Conquera Honoria",
-    "Conquera III Ephemera",
-    "Conquera Valkyr Community Display",
-    "Conquera Voruna Community Display",
     "Consciousness",
     "Consume Us",
     "Contacting Server",
@@ -563,7 +543,10 @@ verbatim = [
     "Cruster",
     "Crusty",
     "Cryin",
-    "Cryobell Sumdali",
+    "Cryo Core",
+    "Cryo Core Detonation",
+    "Cryo Core Neutralization Failed",
+    "Cryo Core Neutralized",
     "Crypt",
     "Ctrl",
     "Cuddly",
@@ -633,7 +616,6 @@ verbatim = [
     "DeepDish",
     "Deepest Dark",
     "Default",
-    "Defiance Succesful",
     "Deimos",
     "Del",
     "Deluxe",
@@ -751,12 +733,11 @@ verbatim = [
     "Entwined Forever",
     "Epimetheus",
     "Epoch Operation Vessel Emblem",
-    "Eris Mortem",
     "Erpo",
     "Error=",
     "Esc",
     "Eschatos Necramech Helmet",
-    "Eskhatos Ki'Teer Floof",
+    "Eskhatos Infinitas Ephemera",
     "Eskhatos Necramech Skin",
     "Eskhatos Parazon Skin",
     "Eskhatos Pauldrons",
@@ -904,7 +885,6 @@ verbatim = [
     "Gamygyn",
     "Ganymede",
     "Garbage",
-    "Garkulek Syandana",
     "Garlic",
     "Garus",
     "Gary",
@@ -1106,8 +1086,6 @@ verbatim = [
     "IWantIt",
     "Iapetus",
     "Ice",
-    "Ice Speaker",
-    "Icebound Neote Decoration",
     "Iceedemon888",
     "Idle",
     "Idol",
@@ -1117,7 +1095,6 @@ verbatim = [
     "InTheFloor",
     "Infamous",
     "Infected",
-    "Infected Wounds",
     "Infection",
     "Infector",
     "Infernum",
@@ -1127,7 +1104,6 @@ verbatim = [
     "Instinction",
     "Into Madness",
     "Inux",
-    "Invert Markings",
     "Invert Y Axis",
     "Io",
     "Iron",
@@ -1195,7 +1171,6 @@ verbatim = [
     "Kerberos",
     "Kernel",
     "Key",
-    "Khadati Sumdali",
     "Kick",
     "Kick Out the Guns",
     "KickItWith",
@@ -1314,7 +1289,6 @@ verbatim = [
     "LoveBug",
     "Loves",
     "Low",
-    "Low Yield",
     "Low-Down",
     "Lowbrow",
     "Lt Imperial",
@@ -1370,7 +1344,6 @@ verbatim = [
     "Malva",
     "Man",
     "Manager",
-    "Mandonel Chythedra Skin",
     "Mangler",
     "Mantle",
     "Map List",
@@ -1382,7 +1355,6 @@ verbatim = [
     "Mark",
     "Mark The Frequency",
     "MarkFitness",
-    "Markings Coverage",
     "Marthrym",
     "Martialis",
     "Matchbox",
@@ -1502,17 +1474,16 @@ verbatim = [
     "Neck",
     "Nemed",
     "Neo_182",
-    "Neolyst Natah Floof",
     "Neolyst Natah Glyph",
     "Neon",
     "NeonGlow",
     "NeonLights",
     "Neote Rapier Skin",
-    "Neote's Dance",
     "Nereid",
     "Nertz",
     "Neruda",
     "Neso",
+    "Neutralizing Cryo Core: ",
     "Neutron",
     "New",
     "NewYears",
@@ -1534,7 +1505,6 @@ verbatim = [
     "Niveus Sumdali",
     "Nix",
     "No God Above Knowledge",
-    "No Pets Allowed",
     "No2rningBack",
     "Nomad",
     "Noob",
@@ -1642,7 +1612,6 @@ verbatim = [
     "Opik",
     "Optimized",
     "Options",
-    "Opula Armor Bundle",
     "Opus",
     "Orange",
     "Orias",
@@ -1805,8 +1774,6 @@ verbatim = [
     "Q2",
     "Q3",
     "Qorvex Basilica Glyph",
-    "Qorvex Basilica Helmet",
-    "Qorvex Basilica Skin",
     "Queen",
     "Quick",
     "Quiet",
@@ -1936,6 +1903,7 @@ verbatim = [
     "STOPPING POWER",
     "STRIKER",
     "STUN GRENADE",
+    "SWIPE LEFT",
     "Sad",
     "Safe",
     "Saint_Tan",
@@ -1995,11 +1963,9 @@ verbatim = [
     "Shodian",
     "Shooter",
     "Short",
-    "Shortened Reach",
     "Shorts",
     "Shot",
     "Shotgun Shells",
-    "Show All Possible Splices",
     "Shunt",
     "Shunter",
     "Shut It Down",
@@ -2387,10 +2353,8 @@ verbatim = [
     "VX CARBINE",
     "Va",
     "Vac",
-    "Vacis Amp Skin",
     "Valac",
     "Valefor",
-    "Valkyr Floof",
     "Vallis",
     "Valve",
     "Vandal",
@@ -2424,7 +2388,6 @@ verbatim = [
     "Volley Duration",
     "Vor's Prize",
     "Vorbis",
-    "Voruna Floof",
     "Voruna Prime Massacre Glyph",
     "Vulkan Memory Allocator",
     "W",
@@ -2939,6 +2902,7 @@ verbatim = [
     "[PH] Relay Reconstruction Banner",
     "[PH] Rename Your Aw",
     "[PH] Repair",
+    "[PH] Requires: ",
     "[PH] Rhino Charge Fx",
     "[PH] Rhino Roar Fx",
     "[PH] Rhino Stomp Fx",
@@ -3034,6 +2998,7 @@ verbatim = [
     "[PH] Technorot Desc",
     "[PH] Television Ephemera",
     "[PH] Teshin Nikana",
+    "[PH] Test Key",
     "[PH] The Twins Desc",
     "[PH] Thief",
     "[PH] Thumper Bronze Trophy",
@@ -3351,10 +3316,19 @@ verbatim = [
 "+1 Random Trait" = "+1 случайная характеристика"
 "+1 UNSTABLE LUNARO" = "+1 ЗАРЯЖЕННЫЙ МЯЧ"
 "+100 Overshield" = "+100 Сверхщитов"
+"+100% Range" = "+100% к зоне поражения"
 "+100% Rifle Ammo Efficiency" = "+100% к эффективности винтовочных боеприпасов"
+"+1000 Armor" = "+1000 к защите"
+"+1000 Health" = "+1000 к Здоровью"
 "+20 Initial Combo Count" = "+20 к стартовому счётчику комбо"
+"+200% Duration" = "+200% к продолжительности"
+"+200% Strength" = "+200% к силе"
 "+250% Melee Damage" = "+250% к урону в ближнем бою"
 "+30 Initial Combo Count" = "+30 к стартовому счётчику комбо"
+"+300% Damage" = "+300% к урону"
+"+300% Status Chance" = "+300% к шансу статуса"
+"+300% Weak Point Multiplier" = "+300% множитель Слабой Точки"
+"+40 Melee Starting Combo" = "+40 к начальному значению комбо в ближнем бою"
 "+50% Affinity Boost" = "+50% к получаемому синтезу"
 "+50% Credits Boost" = "+50% к получаемым кредитам"
 "+50% Resource Boost" = "+50% к получаемым ресурсам"
@@ -4429,6 +4403,7 @@ Alternox = "Альтернокс"
 "Altra Sentinel Wings" = "Крылья стража: Альтра"
 "Altra Syandana" = "Сандана: Альтра"
 "Altruistic Echoes" = "Альтруистические отголоски"
+"Alumeti Prime Sugatra" = "Сугатра: Алюмети Прайм"
 "Alumeti Sugatra" = "Сугатра: Алюмети"
 "Always Hiding" = "Постоянно прячется"
 "Always Hungry" = "Вечно голодный"
@@ -5613,6 +5588,7 @@ Azima = "Азима"
 Azoth = "Азот"
 Azothane = "Азотан"
 "Azrael112 Glyph" = "Глиф: Azrael112"
+"Aztecross Glyph" = "Глиф: Aztecross"
 "Azure Archon Shard" = "Лазурный осколок архонта"
 Azurite = "Азурит"
 B = "Б"
@@ -5899,6 +5875,7 @@ Banshee = "Банши"
 "Banshee Prime Systems" = "Банши Прайм: Система"
 "Banshee Reverb Helmet" = "Шлем Банши: Реверб"
 "Banshee Skin" = "Скин Банши"
+"Banshee Sonatus Glyph" = "Глиф: Банши «Соната»"
 "Banshee Sonority Armor" = "Броня Банши: Звонкость"
 "Banshee Sonority Helmet" = "Шлем Банши: Звонкость"
 "Banshee Sonority Skin" = "Скин Банши: Звонкость"
@@ -5911,7 +5888,9 @@ Banshee = "Банши"
 "Banshee Specter" = "Спектр Банши"
 "Banshee Systems" = "Банши: Система"
 "Banshee Threnodia Collection" = "Коллекция Банши: Тренодия"
-"Banshee Threnodia Helmet" = "Ритуальная шаль Баруука: Шаоши"
+"Banshee Threnodia Helmet" = "Шлем Банши: Тренодия"
+"Banshee Threnodia Shoulder Armor" = "Наплечная броня Банши: Тренодия"
+"Banshee Threnodia Skin" = "Скин Банши: Тренодия"
 "Banshee Voidshell Armor" = "Броня Банши: Оболочка Бездны"
 "Banshee Voidshell Collection" = "Коллекция Банши «Оболочка Бездны»"
 "Banshee Voidshell Helmet" = "Шлем Банши: Оболочка Бездны"
@@ -6068,6 +6047,7 @@ Behaviour = "Поведение"
 "Behold the Possibilities" = "Узри возможности"
 'Behold, my "art!"' = "Смотри, моё «искусство»!"
 "Bekran Zaft's Equipment" = "Снаряжение Бекрана Зафта"
+"Belfri Ephemera" = "Эфемера: Колокольня"
 "Bell Ringer" = "Звонарь"
 "Bellow Voca" = "Вока: Стон"
 Bellows = "Беллоуз"
@@ -7663,6 +7643,7 @@ Chamfron = "Шамфрон"
 "Change Selected Trait" = "Изменить выбранную характеристику"
 "Change of Engagement" = "Изменение обязательств"
 Channel = "Канал"
+"Channeled Greed" = "Направленная жадность"
 Channels = "Департамента Каналов"
 Chaos = "Хаос"
 "Chaos Analyst" = "Аналитик хаоса"
@@ -7694,7 +7675,7 @@ Charger = "Инфестоид"
 "Charger Blue" = "Инфестоид-синий"
 "Charger Liset Skin" = "Скин Лисета: Инфестоид"
 "Charger Specter" = "Спектр: Инфестоид"
-"Charger Sumdali" = "Сумдали: Инвестоид"
+"Charger Sumdali" = "Сумдали: Инфестоид"
 Charlie = "Чарли"
 Charm = "Талисман"
 "Charming Snake Floof" = "Пушистик: Очаровательная змея"
@@ -7781,7 +7762,7 @@ Choose = "Выбрать"
 "Choose Region" = "Выбор региона"
 "Choose Secondary Weapon" = "Выберите вторичное оружие"
 "Choose Specter Army" = "Выберите армию спектров"
-"Choose Trait to Splice" = "Выберите характеристику для сращивания"
+"Choose Trait to Splice" = "Выберите характеристику для комбинирования"
 "Choose Vistagraph" = "Выберите вистаграф"
 "Choose Wisely" = "Мудрый выбор"
 "Choose a Companion" = "Выберите компаньона"
@@ -7911,6 +7892,7 @@ Citrine = "Цитрина"
 "Citrine Prex" = "Прекс: Цитрина"
 "Citrine Prime" = "Цитрина Прайм"
 "Citrine Prime Accessories Pack" = "Warframe: Набор Аксессуаров Цитрины Прайм"
+"Citrine Prime Adornments" = "Украшения Цитрины Прайм"
 "Citrine Prime Chassis" = "Цитрина Прайм: Каркас"
 "Citrine Prime Helmet" = "Шлем Цитрины Прайм"
 "Citrine Prime Neuroptics" = "Цитрина Прайм: Нейрооптика"
@@ -8232,6 +8214,7 @@ Communities = "Общественных Связей"
 "Community Art Pack III" = "Арт-набор сообщества III"
 "Community Art Pack IV" = "Арт-набор сообщества IV"
 "Community Art Pack V" = "Арт-набор сообщества V"
+"Community Art Pack VI" = "Арт-набор сообщества VI"
 "Community Baruuk Glyph" = "Глиф сообщества: Баруук"
 "Community Caliban Glyph" = "Глиф сообщества: Калибан"
 "Community Cavalero Graffiti Glyph" = "Глиф сообщества: Граффити - Кавальеро"
@@ -8473,7 +8456,9 @@ Conquera = "Победа"
 "Conquera 2023 Community Display" = "Дисплей сообщества «Победа-2023»"
 "Conquera 2024 Community Display" = "Дисплей сообщества: Победа-2024"
 "Conquera 2025 Community Display" = "Дисплей сообщества: Победа-2025"
+"Conquera 2026 Community Display" = "Дисплей сообщества: Победа-2026"
 "Conquera Background" = "Фон: Победа"
+"Conquera Cateura Frame Display" = "Дисплей: Победа - Катеура"
 "Conquera Cherry Tree Ink" = "Татуаж «Победа — Сакура»"
 "Conquera Decoration" = "Украшение: Победа"
 "Conquera Emblem" = "Эмблема: Победа"
@@ -8489,6 +8474,7 @@ Conquera = "Победа"
 "Conquera Glyph VII" = "Глиф: Победа VII"
 "Conquera Glyph VIII" = "Глиф: Победа VIII"
 "Conquera II Ephemera" = "Эфемера: Победа II"
+"Conquera III Ephemera" = "Эфемера «Победа III»"
 "Conquera Kuaka Floof" = "Пушистик: Победная Куака"
 "Conquera Leg Ribbon" = "Наголенники: Лента победы"
 "Conquera Magnolia Ink" = "Татуаж «Победа — Магнолия»"
@@ -8502,7 +8488,9 @@ Conquera = "Победа"
 "Conquera United Glyph" = "Глиф: Единая победа"
 "Conquera United Sigil" = "Сигил: Единая победа"
 "Conquera Uplift Syandana" = "Сандана: Победа — Восхождение"
+"Conquera Valkyr Community Display" = "Дисплей сообщества: Победа Валькирии "
 "Conquera Virmink Floof" = "Пушистик: Винорка - Победа"
+"Conquera Voruna Community Display" = "Дисплей сообщества: Победа Воруны"
 Conquered = "Завоёвано"
 Conquest = "Завоевание"
 "Conscience Painter Honoria" = "Почесть: Художник совести"
@@ -9066,6 +9054,7 @@ Crush = "Сокрушение"
 "Cryo-Tower Pillar" = "Крио-Башня: Столб"
 Cryobell = "Криоколокол"
 "Cryobell Acquired" = "Криоколокол получен"
+"Cryobell Sumdali" = "Сумдали «Криоколокол»"
 "Cryogenic Exodamper" = "Криогенный Экзоподавитель"
 "Cryogenic Leakage" = "Утечка криогена"
 "Cryomancer Honoria" = "Почесть: Криомант"
@@ -10016,6 +10005,7 @@ Defense = "Оборона"
 "Defense Target" = "Цель Обороны"
 "Defensive Fire" = "Оборонительный Огонь"
 "Defiance Sigil" = "Сигил: Вызов"
+"Defiance Succesful" = "Сопротивление успешно завершено"
 "Defiled Reckoning" = "Порочное Искупление"
 "Defiled Snapdragon" = "Оскверненный Львиный Зев"
 'Define "dead."' = 'Дай определение слову "мертвый".'
@@ -12153,7 +12143,7 @@ Entropic = "Энтропийный"
 "Entropic Color Palette" = "Цветовая палитра: Энтропия"
 "Entropic Kuva" = "Энтропийная Кува"
 "Entropic Overload" = "Энтропийная перегрузка"
-"Entropic Wisp" = "Энтропийная Висп"
+"Entropic Wisp" = "Энтропийный огонёк"
 Entropy = "Энтропия"
 "Entropy Burst" = "Энтропийный Взрыв"
 "Entropy Designer" = "Конструктор энтропий"
@@ -12285,6 +12275,7 @@ Escape = "Побег"
 "Eskhatos Grimoire Skin" = "Скин Гримуара: Эсхатос"
 "Eskhatos Ki'Teer Chest Guard" = "Нагрудник: Ки'Тиир Эсхатос"
 "Eskhatos Ki'Teer Ephemera" = "Эфемера: Ки'Тиир Эсхатос"
+"Eskhatos Ki'Teer Floof" = " Пушистик «Ки'Тиир Эсхатос»"
 "Eskhatos Ki'Teer Glyph" = "Глиф: Ки'Тиир Эскатос"
 "Eskhatos Ki'Teer Knee Guards" = "Наголенники: Ки'Тиир Эсхатос"
 "Eskhatos Ki'Teer Shoulder Guards" = "Наплечники: Ки'Тиир Эсхатос"
@@ -14160,6 +14151,7 @@ Gardener = "Садовник"
 "Gargoyle's Cry Gold Trophy" = "Золотой трофей: Плач Горгульи"
 "Gargoyle's Cry Silver Trophy" = "Серебряный трофей: Плач Горгульи"
 "Gargoyle's Cry Terracotta Trophy" = "Терракотовый трофей: Плач Горгульи"
+"Garkulek Syandana" = "Сандана: Гаркулёк"
 "Garmr Core" = "Ядро: Гармр"
 "Garnet Renewal Bundle" = "Набор обновления: Гранат"
 Garrison = "Гарнизон"
@@ -14216,11 +14208,11 @@ Gas = "Газ"
 "Gas Infested Hive" = "Газовый Улей Заражённых"
 "Gaseous Quake" = "Резонирующий Взрыв"
 Gash = "Разрез"
-"Gast Sentinel Mask" = "Скин Воруны: Медина"
-"Gast Sentinel Skin" = "Скин Воруны: Медина"
+"Gast Sentinel Mask" = "Маска стража: Гаст"
+"Gast Sentinel Skin" = "Скин стража: Гаст"
 "Gast Sentinel Skin Bundle" = "Набор Скинов Стража: Гаст"
-"Gast Sentinel Tail" = "Скин Воруны: Медина"
-"Gast Sentinel Wings" = "Скин Воруны: Медина"
+"Gast Sentinel Tail" = "Хвост стража: Гаст"
+"Gast Sentinel Wings" = "Крылья стража: Гаст"
 "Gastel Glyph" = "Глиф: Gastel"
 Gastro = "Гастро"
 "Gate Crash" = "Зеркало"
@@ -16262,6 +16254,7 @@ ITEMS = "ПРЕДМЕТЫ"
 "Ice Glacier Pillar (Large)" = "Колонна из ледника: Большая"
 "Ice Glacier Wedge" = "Расколотый ледник"
 "Ice Quill" = "Ледяная Игла"
+"Ice Speaker" = "Говорящая со льдом"
 "Ice Spring" = "Ледяной источник"
 "Ice Stalactite" = "Сталактит из льда"
 "Ice Stalactite (Large)" = "Сталактит из льда: Большой"
@@ -16273,6 +16266,7 @@ ITEMS = "ПРЕДМЕТЫ"
 "Ice Wave" = "Ледяная Волна"
 "Ice Wave Impedance" = "Ледяная Волна Сопротивления"
 "Iceblade of Narin" = "Ледяной клинок Нарин"
+"Icebound Neote Decoration" = "Украшение «Скованный льдом Неот»"
 "Iced Vallis" = "Ледяная Долина"
 "Icefields of Riddah" = "Ледяные поля Ридды"
 "Icemire Hyena" = "Гиена-ледотопь"
@@ -16493,6 +16487,7 @@ Inf = "Зрж"
 Infected = "Заражено"
 "Infected Clip" = "Токсичный магазин"
 "Infected Palpators" = "Заражённые осязатели"
+"Infected Wounds" = "Заражённые раны"
 "Infectious Bite" = "Инфицирующий Укус"
 "Infectious Injection" = "Инъекция инфекции"
 "Infernal Maelstrom" = "Инфернальный Водоворот"
@@ -16796,6 +16791,7 @@ Invasion = "Вторжение"
 "Invasive Extermination" = "Инвазивная Зачистка"
 "Invati Sekhara" = "Секара: Инвати"
 Inventor = "Изобретатель"
+"Invert Markings" = "Инверсия отметок"
 "Invert X Axis" = "Инверсия оси X"
 "Invert Y Axis" = "Инверсия оси Y"
 Inverted = "Инверсия"
@@ -16874,6 +16870,7 @@ Ironbride = "Железная Леди"
 "Ironclad Flight" = "Нерушимый Полет"
 "Ironclad Honoria" = "Почесть: Непробиваемый"
 "Ironclad Matrix" = "Матрица Нерушимости"
+"Ironmouse Glyph" = "Глиф: Ironmouse"
 Ironwood = "Железодревесник"
 "Irradiated Laboratory" = "Облученная лаборатория"
 "Irradiating Disarm" = "Обезоруживающее Облучение"
@@ -17456,6 +17453,7 @@ Key = "Тон"
 "Keyboard & Mouse" = "Клавиатура и мышка"
 "Keys to Unlock" = "Ключи для открытия"
 "Keys, Starting Equipment" = "Ключи, Стартовая экипировка"
+"Khadati Sumdali" = "Кхадати Сумдали"
 "Kheyur Chamfron" = "Шамфрон: Хеюр"
 "Khinn Syandana" = "Сандана: Кхинн"
 Khora = "Кора"
@@ -18922,6 +18920,7 @@ Lovetap = "Лавтап"
 "Low Guardian Chest Plate" = "Нагрудник: Младший Хранитель"
 "Low IQ" = "Низкий интеллект"
 "Low Straight" = "Младший стрит"
+"Low Yield" = "Низкая отдача"
 "Lower Vehrvod" = "Нижний Верхвод"
 "Loyal Blades" = "Верные клинки"
 "Loyal Companion" = "Лояльный спутник"
@@ -19151,7 +19150,6 @@ MEDIA = "МЕДИА"
 "MELEE UPGRADE SEGMENT" = "СЕГМЕНТ УЛУЧШЕНИЯ БЛИЖНЕГО БОЯ"
 "MELEE WEAPON" = "ОРУЖИЕ БЛИЖНЕГО БОЯ"
 "MELEE WEAPONS" = "ОРУЖИЕ БЛИЖНЕГО БОЯ"
-MELTDOWN = "РАСПЛАВЛЕНИЕ"
 MEMBERS = "ТОВАРИЩИ"
 MERCHANDISE = "ТОВАРЫ"
 "MERCURY JUNCTION" = "УЗЕЛ МЕРКУРИЯ"
@@ -19531,6 +19529,7 @@ Mandachord = "Мендаккорд"
 "Mandible Sentinel Mask" = "Маска стража: Жвалы"
 Mandonel = "Мандонель"
 "Mandonel Barrel" = "Мандонель: Ствол"
+"Mandonel Chythedra Skin" = "Скин Мандонеля: Читедра"
 "Mandonel Receiver" = "Мандонель: Приёмник"
 "Mandonel Stock" = "Мандонель: Приклад"
 "Manduka Hood" = "Капюшон: Мандука"
@@ -19622,6 +19621,7 @@ Marketing = "Отдела Маркетинга"
 "Marketing Clerk" = "Клерк по маркетингу"
 "Marketing Drone" = "Маркетинговый дрон"
 "Marketing Manager" = "Менеджер по маркетингу"
+"Markings Coverage" = "Покрытие отметок"
 "Marks of Valiance" = "Знаки Доблести"
 Marksman = "Снайпер"
 "Marksman's Focus" = "Фокус стрелка"
@@ -21113,10 +21113,12 @@ Neo = "Нео"
 "Neo Relic" = "Реликвия: Нео"
 "NeoNess007 Glyph" = "Глиф: NeoNess007"
 Neolyst = "Неолист"
+"Neolyst Natah Floof" = "Пушистик «Ната Неолист»"
 Neon = "Неон"
 "Neon Nights Livery" = "Ливрея: Неоновые ночи"
 "Neon Pride Wings" = "Неоновые Крылья Прайда"
 Neote = "Неоте"
+"Neote's Dance" = "Танец Неоте"
 Nepheri = "Нефери"
 "Nephil Vasca Kavat" = "Васка кават: Нефил"
 "Nephil Vasca Kavat Floof" = "Пушистик: Нефил васка кават"
@@ -21165,7 +21167,6 @@ Neutralize = "Нейтрализация"
 "Neutralize Narmer Outpost" = "Нейтрализуйте форпост Нармера"
 Neutralizer = "Нейтрализатор"
 "Neutralizing Justice" = "Нейтрализующая Справедливость"
-"Neutralizing Reactor Core: " = "Нейтрализация ядра реактора: "
 "Neutron Star" = "Нейтронная Звезда"
 "Never do" = "Не надо"
 "Neviti Ephemera" = "Эфемера: Нэвити"
@@ -21416,6 +21417,7 @@ No = "Нет"
 "No Longer a Rookie" = "Уже не новичок"
 "No Mercy" = "Пощады не будет"
 "No Missions Available" = "Нет Доступных Миссий"
+"No Pets Allowed" = "Питомцы не допускаются"
 "No Preset" = "Без настройки"
 "No Return" = "Нет спасения"
 "No Shield Mode" = 'Режим "Без щита"'
@@ -22414,6 +22416,7 @@ Optio = "Оптио"
 "Optional: Sister Beacons" = "Дополнительно: Маячки Сестёр"
 "Optional: Switch Loadout" = "Смена Снаряжения (не обязательно)"
 Options = "Настройки"
+"Opula Armor Bundle" = "Набор брони: Опула"
 "Opula Chest Armor" = "Нагрудник «Опула»"
 "Opula Ephemera" = "Эфемера: Опула"
 "Opula Leg Armor" = "Наголенники «Опула»"
@@ -24616,6 +24619,8 @@ QUIT = "ВЫХОД"
 QUITTANCES = "АКЦИИ"
 Qorvex = "Корвекс"
 "Qorvex Agile Animation Set" = "Набор анимаций Корвекса: Проворный"
+"Qorvex Basilica Helmet" = "Шлем Корвекса: Базилика"
+"Qorvex Basilica Skin" = "Скин Корвекса: Базилика"
 "Qorvex Chassis" = "Корвекс: Каркас"
 "Qorvex Collection" = "Коллекция: Корвекс"
 "Qorvex Glyph - Bright" = "Глиф: Корвекс - светлый"
@@ -25322,9 +25327,6 @@ Reach = "Размах"
 Reactor = "Реактор"
 "Reactor Containment Cage" = "Защитный кожух реактора"
 "Reactor Core" = "Ядро реактора"
-"Reactor Core Neutralization Failed" = "Нейтрализация ядра реактора не удалась"
-"Reactor Core Neutralized" = "Ядро реактора нейтрализовано"
-"Reactor Detonation" = "Детонация реактора"
 "Reactor Level" = "Уровень реактора"
 "Read Archimedean Record" = "Прочитать запись Архимедиан"
 "Read Page" = "Прочитать страницу"
@@ -26115,8 +26117,8 @@ Ris = "Риз"
 "Riven Mod" = "Мод Разлома"
 "Riven Only" = "Только Разломы"
 "Riven Sliver" = "Осколок разлома"
-"Riven Splicer" = "Комбинаторы Разлома"
-"Riven Splicing" = "Сращивание модов разлома"
+"Riven Splicer" = "Комбинатор Разлома"
+"Riven Splicing" = "Комбинирование Разлома"
 "Riven Transmuter" = "Трансмутатор Разлома"
 "Riven Unveiling" = "Открытие Модов Разлома"
 "River Blue" = "Река-синий"
@@ -27909,6 +27911,7 @@ Shootist = "Стрелок"
 "Short Right Flip" = "Короткий вправо"
 "Short Sidecut" = "Короткий бок"
 "Short Spiked" = "Короткие торчащие пряди"
+"Shortened Reach" = "Сокращённый размах"
 Shotgun = "Дробовик"
 "Shotgun Ammo Box" = "Коробка с зарядами дроби"
 "Shotgun Ammo Mutation" = "Мутатор: Дробовик"
@@ -27931,6 +27934,7 @@ Shots = "Выстрелов"
 "Show Advanced Controls" = "Показать расширенные настройки"
 "Show Affinity Numbers" = "Показывать значения полученного синтеза"
 "Show All" = "Показать все"
+"Show All Possible Splices" = "Показать все возможные комбинации"
 "Show Base Stats" = "Показать базовые характеристики"
 "Show Chat Message Timestamps" = "Отображать время сообщений чата"
 "Show Companions" = "Показать компаньонов"
@@ -32403,6 +32407,7 @@ VULPAPHYLA = "ВУЛЬПАФИЛА"
 "VULPAPHYLA TRAIL START POINT" = "СЛЕД ВУЛЬПАФИЛЫ: СТАРТОВАЯ ТОЧКА"
 "VVhite Angel Glyph" = "Глиф: VVhite Angel"
 "Vaaditum Prime Ephemera" = "Эфемера «Ваадитум Прайм»"
+"Vacis Amp Skin" = "Скин Усилителя: Вацис"
 Vacuum = "Вакуум"
 "Vadarya Prime" = "Вадария Прайм"
 "Vadarya Prime Barrel" = "Вадария Прайм: Ствол"
@@ -32451,6 +32456,7 @@ Valkyr = "Валькирия"
 "Valkyr Cheetah Helmet" = "Шлем Валькирии: Гепард"
 "Valkyr Delusion Helmet" = "Шлем Валькирии: Делюзия"
 "Valkyr Delusion Skin" = "Скин Валькирии: Делюзия"
+"Valkyr Floof" = "Пушистик «Валькирия»"
 "Valkyr Gersemi Glyph" = "Глиф: Валькирия «Герсеми»"
 "Valkyr Gersemi Helmet" = "Шлем Валькирии: Герсеми"
 "Valkyr Gersemi Skin" = "Скин Валькирии: Герсеми"
@@ -33474,6 +33480,7 @@ Voruna = "Воруна"
 "Voruna Demionna Armor" = "Броня Воруны: Демионна"
 "Voruna Demionna Helmet" = "Шлем Воруны: Демионна"
 "Voruna Demionna Skin" = "Скин Воруны: Демионна"
+"Voruna Floof" = "Пушистик «Воруна»"
 "Voruna Glyph - Bright" = "Глиф: Воруна - светлый"
 "Voruna Glyph - Dark" = "Глиф: Воруна - тёмный"
 "Voruna Helmet" = "Шлем Воруны"

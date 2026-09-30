@@ -2,7 +2,7 @@ use std::path::{Path, PathBuf};
 use std::process::ExitCode;
 use std::time::{SystemTime, UNIX_EPOCH};
 
-use anyhow::{Context, Result};
+use anyhow::Result;
 use vault::Vault;
 
 mod areas;
@@ -39,6 +39,7 @@ mod rules;
 mod sets;
 mod show;
 mod spec;
+mod sync;
 mod taxonomy;
 mod unmatched;
 mod vaulting;
@@ -58,6 +59,7 @@ const AREAS: &str = "config/areas.toml";
 const ANCHORS: &str = "config/anchors.toml";
 const CURATION: &str = "config/curation.toml";
 const GAME: &str = "game";
+const CACHE: &str = r"S:\Warframe\Downloaded\Public\Cache.Windows";
 const PACK: &str = "pack";
 const STATE: &str = "catalog.state.json";
 const STUDIO_ADDR: &str = "127.0.0.1:8787";
@@ -99,10 +101,16 @@ fn run() -> Result<ExitCode> {
             })
         }
         Some("extract") => {
-            let cache = args
-                .next()
-                .context("usage: median-data extract CACHE_DIR")?;
+            let cache = args.next().unwrap_or_else(|| CACHE.to_string());
             done(game::run(Path::new(&cache), Path::new(GAME)))
+        }
+        Some("sync") => {
+            let cache = args.next().unwrap_or_else(|| CACHE.to_string());
+            done(sync::run(
+                &Vault::open(VAULT_DIR)?,
+                Path::new(&cache),
+                now_ms(),
+            ))
         }
         Some("build") => done(build::run(&Vault::open(VAULT_DIR)?, Path::new(OUT))),
         Some("icons") => done(icons::run(
@@ -138,8 +146,8 @@ fn run() -> Result<ExitCode> {
         }
         cmd => {
             eprintln!(
-                "usage: median-data <check [MANIFEST]|fetch [SOURCE]|extract CACHE_DIR|icons|\
-                 build|release [PREV]|studio [ADDR [CACHE_DIR]]|show QUERY>"
+                "usage: median-data <check [MANIFEST]|fetch [SOURCE]|extract [CACHE_DIR]|\
+                 sync [CACHE_DIR]|icons|build|release [PREV]|studio [ADDR [CACHE_DIR]]|show QUERY>"
             );
             anyhow::bail!("unknown command: {}", cmd.unwrap_or("(none)"));
         }
