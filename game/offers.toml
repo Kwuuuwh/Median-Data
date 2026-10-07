@@ -13139,7 +13139,7 @@ bin = "BIN_1"
 
 [[vendor.offer]]
 item = "/Lotus/StoreItems/Types/Items/MiscItems/Kuva"
-count = 5000
+count = 10000
 limit = 1
 hours = [
     168,
@@ -15744,8 +15744,8 @@ count = 25
 
 [[vendor.offer]]
 item = "/Lotus/StoreItems/Types/Items/MiscItems/Kuva"
-count = 6000
-limit = 7
+count = 14000
+limit = 3
 hours = [
     168,
     168,
@@ -15754,7 +15754,7 @@ bin = "BIN_0"
 
 [[vendor.offer.price]]
 item = "/Lotus/Types/Gameplay/DuviriMITW/Resources/DuviriMurmurItemB"
-count = 100
+count = 25
 
 [[vendor]]
 manifest = "/Lotus/Types/Game/VendorManifests/Events/EntratiEventVendorManifest"
@@ -38052,6 +38052,19 @@ bin = "BIN_3"
 item = "/Lotus/Types/Items/MiscItems/NoraIntermissionSixteenCreds"
 count = 30
 
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Halloween/DOTD2025SheduSkin"
+hours = [
+    128,
+    128,
+]
+bin = "BIN_3"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Items/MiscItems/NoraIntermissionSixteenCreds"
+count = 50
+
 [[vendor]]
 manifest = "/Lotus/Types/Game/VendorManifests/Events/RadioLegionIntermission3VendorManifest"
 floating = true
@@ -56138,8 +56151,8 @@ count = 10
 
 [[vendor.offer]]
 item = "/Lotus/StoreItems/Types/Items/MiscItems/Kuva"
-count = 7000
-limit = 7
+count = 17000
+limit = 3
 hours = [
     168,
     168,
@@ -58161,6 +58174,19 @@ item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
 count = 500
 
 [[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Items/PhotoBooth/Zariman/PhotoboothTileZarMelicaLabTreasureRoom"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 500
+
+[[vendor.offer]]
 item = "/Lotus/StoreItems/Types/Items/SongItems/NeotesDanceSongItem"
 hours = [
     24,
@@ -58341,6 +58367,110 @@ always = true
 [[vendor.offer.price]]
 item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
 count = 150
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Items/ShipDecos/NarinPoem/NarinPoemA"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 10
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Items/ShipDecos/NarinPoem/NarinPoemB"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 10
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Items/ShipDecos/NarinPoem/NarinPoemC"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 10
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Items/ShipDecos/NarinPoem/NarinPoemD"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 10
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Items/ShipDecos/NarinPoem/NarinPoemE"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 10
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Items/ShipDecos/NarinPoem/NarinPoemF"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 10
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Items/ShipDecos/NarinPoem/NarinPoemG"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 10
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Items/ShipDecos/NarinPoem/NarinPoemH"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+count = 10
 
 [[vendor.offer]]
 item = "/Lotus/StoreItems/Types/Items/MiscItems/Kuva"
@@ -62815,9 +62945,9 @@ count = 50
 
 [[vendor.offer]]
 item = "/Lotus/StoreItems/Types/Items/MiscItems/Kuva"
-count = 7000
+count = 14000
 rank = 3
-limit = 6
+limit = 3
 hours = [
     168,
     168,
@@ -67385,8 +67515,8 @@ count = 100
 
 [[vendor.offer]]
 item = "/Lotus/StoreItems/Types/Items/MiscItems/Kuva"
-count = 6000
-limit = 7
+count = 14000
+limit = 3
 hours = [
     168,
     168,
@@ -67395,7 +67525,7 @@ bin = "BIN_0"
 
 [[vendor.offer.price]]
 item = "/Lotus/Types/Gameplay/1999Wf/Resources/1999ResourceDefense"
-count = 110
+count = 100
 
 [[vendor]]
 manifest = "/Lotus/Types/Game/VendorManifests/Zariman/ArchimedeanVendorManifest"

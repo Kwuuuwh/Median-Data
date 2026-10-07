@@ -376,14 +376,12 @@ verbatim = [
     "CAPS LOCK",
     "CD",
     "CHROMA PRIME ACCESS PACK",
-    "CITRINE PRIME",
     "CLIP EXTENDER",
     "COMMEMORATIVE BUNDLE",
     "COUNTRY",
     "CPU",
     "CRC32C Adler",
     "CREDITS BOOSTER CY",
-    "CRYOTHERMIA",
     "Cables",
     "Caduceus",
     "Caelus",
@@ -543,10 +541,6 @@ verbatim = [
     "Cruster",
     "Crusty",
     "Cryin",
-    "Cryo Core",
-    "Cryo Core Detonation",
-    "Cryo Core Neutralization Failed",
-    "Cryo Core Neutralized",
     "Crypt",
     "Ctrl",
     "Cuddly",
@@ -910,7 +904,6 @@ verbatim = [
     "Gilligan",
     "Gimme",
     "GimmeA",
-    "Glacium Sigil",
     "Glad",
     "Glam",
     "Glamorous",
@@ -1483,7 +1476,6 @@ verbatim = [
     "Nertz",
     "Neruda",
     "Neso",
-    "Neutralizing Cryo Core: ",
     "Neutron",
     "New",
     "NewYears",
@@ -6936,6 +6928,7 @@ CICERO = "ЦИЦЕРОН"
 "CICERO CRISIS GOLD TROPHY" = "ЗОЛОТОЙ ТРОФЕЙ: КРИЗИС ЦИЦЕРОНА"
 "CICERO CRISIS SILVER TROPHY" = "СЕРЕБРЯНЫЙ ТРОФЕЙ: КРИЗИС ЦИЦЕРОНА"
 CIPHER = "ШИФР"
+"CITRINE PRIME" = "ЦИТРИНА ПРАЙМ"
 CLAIM = "ЗАБРАТЬ"
 "CLAIM & USE" = "ЗАБРАТЬ И ИСПОЛЬЗОВАТЬ"
 "CLAIM ALL" = "ЗАБРАТЬ ВСЕ"
@@ -7164,6 +7157,7 @@ CRITICAL = "КРИТИЧЕСКИЙ"
 CROSSFIRE = "ПЕРЕСТРЕЛКА"
 "CRUSH THE CULT (NARMER)" = "СОКРУШЕНИЕ КУЛЬТА (НАРМЕР)"
 "CRYOBELLS REGROW" = "РЕГЕНЕРАЦИЯ КРИОКОЛОКОВ"
+CRYOTHERMIA = "КРИОТЕРМИЯ"
 "CRYOTIC FRONT" = "КРИОТИЧЕСКИЙ ФРОНТ"
 "CRYOTIC REMAINING" = "ОСТАЛОСЬ КРИОТИКА:"
 "CRYPTILEX PHEROMONE GLAND" = "ФЕРОМОННАЯ ЖЕЛЕЗА КРИПТИЛЕКСА"
@@ -8331,7 +8325,7 @@ Complexion = "Тон кожи"
 "Complexion S-33" = "Тон кожи S-33"
 "Complexion T-68" = "Тон кожи T-68"
 "Complexion Tint" = "Оттенок кожи"
-"Complexion V-18" = "Тон кожи V-18"
+"Complexion V-18" = "Тон кожи B-17 [Наследие]"
 "Complexion V-19" = "Тон кожи V-19"
 Compliance = "Центра Соответствия"
 Components = "Компоненты"
@@ -9044,6 +9038,10 @@ Crush = "Сокрушение"
 "Crushing Verdict" = "Сокрушительный вердикт"
 "Cruzar Narta" = "Нарта: Крузар"
 "Cryo Coating" = "Ледяное покрытие"
+"Cryo Core" = "Ядро: Крио"
+"Cryo Core Detonation" = "Детонация крио ядра"
+"Cryo Core Neutralization Failed" = "Нейтрализация крио ядра не удалась"
+"Cryo Core Neutralized" = "Крио ядро нейтрализовано"
 "Cryo Grenades" = "Крио Гранаты"
 "Cryo Osprey" = "Дрон-Леденитель"
 "Cryo Platform" = "Крио Платформа"
@@ -10004,7 +10002,7 @@ Defense = "Оборона"
 "Defense Target" = "Цель Обороны"
 "Defensive Fire" = "Оборонительный Огонь"
 "Defiance Sigil" = "Сигил: Вызов"
-"Defiance Succesful" = "Сопротивление успешно завершено"
+"Defiance Succesful" = "Церемония Криоколокола Завершена"
 "Defiled Reckoning" = "Порочное Искупление"
 "Defiled Snapdragon" = "Оскверненный Львиный Зев"
 'Define "dead."' = 'Дай определение слову "мертвый".'
@@ -13689,7 +13687,7 @@ Fragor = "Фрагор"
 Fraud = "Обманщик"
 "FreddyCaps Glyph" = "Глиф: FreddyCaps"
 "Free Allied Brachiolysts" = "Освободите союзных брахиолистов"
-"Free Banshee and More" = "Бесплатный варфрейм Банши и многое другое"
+"Free Banshee and More" = "Коллекция Банши: Тренодия"
 "Free Brothers" = "Освободите братьев"
 "Free Flight" = "Свободный Полёт"
 "Free Placement" = "Свободное размещение"
@@ -13965,7 +13963,7 @@ GILDED = "УЛУЧШЕНО"
 "GIVE ME A MINUTE" = "ДАЙТЕ МНЕ МИНУТУ"
 "GIVE SAMPLES" = "ОТДАЙТЕ ОБРАЗЦЫ"
 "GIVE UP" = "СДАТЬСЯ"
-"GLACIAL DEFIANCE" = "THE ICEBIND"
+"GLACIAL DEFIANCE" = "ЛЕДЯНАЯ СВЯЗКА"
 GLINTY = "БЛЕСТЯШКА"
 GLYPH = "ГЛИФ"
 "GLYPH BUNDLES" = "НАБОРЫ ГЛИФОВ"
@@ -14390,6 +14388,7 @@ Giottica = "Джоттика"
 "Glacial Edge" = "Ледяная грань"
 "Glacial Laboratory Scene" = "Сцена: Реликварный привод Заримана"
 "Glacik Commander" = "Капитан Глацик"
+"Glacium Sigil" = "Сигил: Глациум"
 Gladiator = "Гладиатор"
 "Gladiator Aegis" = "Щит Гладиатора"
 "Gladiator Finesse" = "Ловкость Гладиатора"
@@ -21164,6 +21163,7 @@ Neutralize = "Нейтрализация"
 "Neutralize Narmer Guards" = "Нейтрализуйте стражников Нармера"
 "Neutralize Narmer Outpost" = "Нейтрализуйте форпост Нармера"
 Neutralizer = "Нейтрализатор"
+"Neutralizing Cryo Core: " = "Нейтрализация крио ядра: "
 "Neutralizing Justice" = "Нейтрализующая Справедливость"
 "Neutron Star" = "Нейтронная Звезда"
 "Never do" = "Не надо"
@@ -23034,7 +23034,7 @@ PERMANENT = "ПОСТОЯННО"
 "PERRIN SEQUENCE ARENA" = "АРЕНА ПОСЛЕДОВАТЕЛЬНОСТИ ПЕРРИНА"
 "PERRIN SEQUENCE PHILOSOPHY" = "ФИЛОСОФИЯ ПОСЛЕДОВАТЕЛЬНОСТИ ПЕРРИНА"
 PERSONAL = "ЛИЧНЫЕ"
-"PERSONAL BURDEN" = "PERSONAL BIND"
+"PERSONAL BURDEN" = "ПЕРСОНАЛЬНАЯ СВЯЗКА"
 "PERSONAL DECORATIONS" = "ПЕРСОНАЛЬНЫЕ УКРАШЕНИЯ"
 "PERSONAL PROGRESS" = "ЛИЧНЫЙ ПРОГРЕСС"
 "PERSONAL RESERVE" = "ЛИЧНОЕ ХРАНИЛИЩЕ"
@@ -24603,7 +24603,6 @@ Pyrotechnics = "Пиротехника"
 "PyrrhicSerenity Glyph" = "Глиф: PyrrhicSerenity"
 "Pyrus Essence" = "Эссенция Пайраса"
 "QUADRA TABULATOR" = "КВАДРА ТАБУЛЯТОР"
-"QUALITY OF LIFE CHANGES" = "ИЗМЕНЕНИЯ ДЛЯ УДОБСТВА ИГРЫ"
 QUEST = "КВЕСТ"
 "QUEST AVAILABLE: VOX SOLARIS" = "ДОСТУПЕН КВЕСТ: ГЛАС СОЛЯРИС"
 "QUEST COMPLETE" = "КВЕСТ ЗАВЕРШЁН"
@@ -25028,7 +25027,7 @@ RISES = "ВОЗВЫШАЕТСЯ"
 "RISING ACTION" = "НА ПУТИ К ВЕРШИНАМ"
 RIVEN = "РАЗЛОМЫ"
 "RIVEN DISPOSITION" = "СИНЕРГИЯ С РАЗЛОМОМ"
-"RIVEN MOD SLOTS" = "СЛОТЫ МОДОВ РАЗЛОМА"
+"RIVEN MOD SLOTS" = "RIVEN MOD SLOT"
 "RIVEN TRAIT LOCKING" = "БЛОКИРОВКА ХАРАКТЕРИСТИК МОДОВ РАЗЛОМА"
 "RIVEN TRANSMUTE" = "ТРАНСМУТАЦИЯ МОДОВ РАЗЛОМА"
 "RIVEN UNVEILED" = "МОД РАЗЛОМА ОТКРЫТ"
@@ -34852,7 +34851,7 @@ Zymos = "Зимос"
 "[PH] Drifter Fists Description" = "ГУЛЕПИЛА: ДВИГАТЕЛЬ"
 "[PH] Lamp Hazard" = "Рунический компакт"
 "[PH] Mounted Dax Arcus" = "Дакс Аркус"
-"[PH] Requires: " = "Requires: "
+"[PH] Requires: " = "Требуется: "
 "[PH] Whisper Shot" = "Гулепила: Двигатель"
 "[PH][WIP] Energy Regen" = "Страдания Люсинии"
 "[PH][WIP] Staggering Brutality" = "Жестокий призыв"
@@ -36945,6 +36944,10 @@ Pull = [
 Pushy = [
     "Напористая",
     "Напористый",
+]
+"QUALITY OF LIFE CHANGES" = [
+    "ИЗМЕНЕНИЯ ДЛЯ УДОБСТВА ИГРЫ",
+    "НОВЫЙ ИГРОВОЙ РЕЖИМ: ЛЕДЯНАЯ СВЯЗКА",
 ]
 "Qorvex Basilica Collection" = [
     "Коллекция Корвекса «Базилика»",
