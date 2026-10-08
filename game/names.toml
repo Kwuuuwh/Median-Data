@@ -1895,7 +1895,6 @@ verbatim = [
     "STOPPING POWER",
     "STRIKER",
     "STUN GRENADE",
-    "SWIPE LEFT",
     "Sad",
     "Safe",
     "Saint_Tan",
@@ -8941,8 +8940,8 @@ Credits = "Кредиты"
 "Crest Spiked" = "Шипастый гребень"
 "Crestbear Glyph" = "Глиф: Crestbear"
 "Crested Chest Key" = "Ключ от гербового сундука"
-"Crested Frozen Chest" = "Гербовый замороженный сундук"
-"Crested Frozen Chests Opened: " = "Открыто гербовых замороженных сундуков: "
+"Crested Frozen Chest" = "Гербовый сундук"
+"Crested Frozen Chests Opened: " = "Открыто гербовых сундуков: "
 "Cresting Peak" = "Вздымающийся Гребень"
 "Cresting Surf" = "Надвигающийся Прибой"
 Crew = "Экипаж"
@@ -26809,6 +26808,7 @@ SWAP = "ПОМЕНЯТЬ"
 "SWAP POLARITY" = "ОБМЕН ПОЛЯРНОСТЯМИ"
 "SWAP POLARIZATION SLOTS" = "ЗАМЕНА ЯЧЕЕК ПОЛЯРИЗАЦИИ"
 SWEEEEEET = "СУУУУУУУУПЕР"
+"SWIPE LEFT" = "ПРОВЕСТИ ВЛЕВО"
 "SWITCH PROFILE" = "Смена профиля"
 "SWITCH TEAM" = "СМЕНИТЬ КОМАНДУ"
 SYANDANA = "САНДАНА"
