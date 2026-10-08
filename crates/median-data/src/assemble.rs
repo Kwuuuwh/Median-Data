@@ -70,6 +70,8 @@ pub struct Built {
     pub hatched: usize,
     /// Yields of the open worlds' veins.
     pub mined: usize,
+    /// Star-chart nodes linked to the enemies they send.
+    pub haunted: crate::haunts::Haunted,
     /// Relic refinement steps linked.
     pub refined: usize,
     /// Classification rules that decided nothing, as the audit describes them.
@@ -116,6 +118,14 @@ pub struct Input {
     pub incubator: crate::incubator::Incubator,
     /// What the open worlds' veins yield, distilled out of its cache.
     pub mining: crate::mining::Mining,
+    /// Which enemies each tileset sends, distilled out of its cache.
+    pub spawns: crate::spawns::Spawns,
+}
+
+/// Where things stand, as written by hand.
+pub struct Ground<'a> {
+    pub areas: &'a crate::areas::Areas,
+    pub tilesets: &'a crate::haunts::Tilesets,
 }
 
 /// Merge every source into the knowledge graph, honouring curated decisions.
@@ -125,7 +135,7 @@ pub fn assemble(
     mastery: &crate::mastery::Policy,
     labels: &Labels,
     settlements: &crate::bounties::Settlements,
-    areas: &crate::areas::Areas,
+    ground: Ground<'_>,
     curated: &Curation,
 ) -> Built {
     let links = curated.market_links();
@@ -201,7 +211,7 @@ pub fn assemble(
     let fitted = drifters::link(&mut graph);
     let granted = crate::grants::link(&mut graph, &input.grants);
     let hatched = crate::incubator::link(&mut graph, &input.incubator);
-    let mined = crate::mining::link(&mut graph, &input.mining, areas);
+    let mined = crate::mining::link(&mut graph, &input.mining, ground.areas);
 
     let dropped = drops::link(&mut graph, &input.drops, settlements, &index, &terms);
     let looted = drops::curated(&mut graph, &curated.drop, &index, &terms);
@@ -232,7 +242,8 @@ pub fn assemble(
         market: &input.market,
     };
     let vendors = crate::vendors::link(&mut graph, &stock, &index, curated, &terms);
-    crate::areas::link(&mut graph, areas);
+    let haunted = crate::haunts::link(&mut graph, &input.spawns, ground.tilesets);
+    crate::areas::link(&mut graph, ground.areas);
     let dojo = crate::labs::link(&mut graph, &input.dojo, &index, &terms);
     let relic_witness = witness(&index, &input.relic_rows);
     let relics_from_tables = relic::from_tables(&mut graph, &input.relic_rows, &index);
@@ -293,6 +304,7 @@ pub fn assemble(
         granted,
         hatched,
         mined,
+        haunted,
         refined,
         dead_rules: Vec::new(),
         unread_headings: Vec::new(),

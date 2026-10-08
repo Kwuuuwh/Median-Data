@@ -114,6 +114,15 @@ impl Grant {
     }
 }
 
+/// How often an enemy turns up on a star-chart node.
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub struct Spawn {
+    /// Its share of the node's spawns, from the rosters the mission picks from.
+    pub share: f64,
+    /// How far into the mission it starts to turn up, from 0.
+    pub tier: i64,
+}
+
 /// A typed relation between two nodes.
 #[derive(Debug, Clone, PartialEq)]
 pub enum Rel {
@@ -157,6 +166,8 @@ pub enum Rel {
     Within,
     /// An item -> what the game hands over along with it.
     Grants(Grant),
+    /// A star-chart node -> an enemy it sends at the player.
+    Spawns(Spawn),
 }
 
 impl Rel {
@@ -177,6 +188,7 @@ impl Rel {
             Rel::Researched(_) => "researched",
             Rel::Within => "within",
             Rel::Grants(_) => "grants",
+            Rel::Spawns(_) => "spawns",
         }
     }
 }

@@ -161,6 +161,10 @@ pub fn run(vault: &Vault, out: &Path) -> Result<()> {
         "game     {} items linked to what comes with them, {} breeds hatched, {} vein yields",
         built.granted, built.hatched, built.mined
     );
+    eprintln!(
+        "spawns   {} nodes linked to {} enemy spawns, {} rostered enemies no drop table knows",
+        built.haunted.nodes, built.haunted.edges, built.haunted.unknown
+    );
     std::fs::write(REPORT, serde_json::to_vec_pretty(&report)?)?;
 
     let blocking = funnel::blocking(&report.findings);
@@ -655,6 +659,7 @@ pub fn graph_with(vault: &Vault, curated: &Curation) -> Result<Built> {
             grants: crate::game::granted(Path::new(crate::GAME))?,
             incubator: crate::game::hatched(Path::new(crate::GAME))?,
             mining: crate::game::mined(Path::new(crate::GAME))?,
+            spawns: crate::game::spawned(Path::new(crate::GAME))?,
             keepers: wiki::vendors(&blob(vault, &wiki_snap, spec::WIKI_VENDORS)?)?,
             market,
             wfm,
@@ -667,7 +672,10 @@ pub fn graph_with(vault: &Vault, curated: &Curation) -> Result<Built> {
         &mastery,
         &labels,
         &bounties::load(Path::new(crate::BOUNTIES))?,
-        &crate::areas::load(Path::new(crate::AREAS))?,
+        assemble::Ground {
+            areas: &crate::areas::load(Path::new(crate::AREAS))?,
+            tilesets: &crate::haunts::load(Path::new(crate::TILESETS))?,
+        },
         curated,
     );
     built.dead_rules = dead_rules;

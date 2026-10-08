@@ -15,7 +15,7 @@ pub struct Catalog;
 /// application reads it to decide whether it can open the file at all — so it lives here,
 /// beside the schema it describes, and is written both as `PRAGMA user_version` and as a row
 /// of `meta`.
-pub const SCHEMA: u32 = 17;
+pub const SCHEMA: u32 = 18;
 
 pub const SETUP: &str = "\
 CREATE TABLE meta (
@@ -106,6 +106,14 @@ CREATE TABLE item_grants (
   PRIMARY KEY (owner, item)
 ) WITHOUT ROWID;
 CREATE INDEX idx_item_grants_item ON item_grants(item);
+CREATE TABLE region_enemies (
+  node  TEXT NOT NULL,
+  enemy TEXT NOT NULL,
+  share REAL NOT NULL,
+  tier  INTEGER NOT NULL,
+  PRIMARY KEY (node, enemy)
+) WITHOUT ROWID;
+CREATE INDEX idx_region_enemies_enemy ON region_enemies(enemy);
 CREATE TABLE item_primes (
   plain TEXT NOT NULL,
   prime TEXT NOT NULL,
@@ -619,6 +627,9 @@ fn edges(tx: &Transaction<'_>, graph: &Graph) -> Result<()> {
         tx.prepare("INSERT OR IGNORE INTO item_drifters (operator, drifter) VALUES (?1, ?2)")?;
     let mut grants =
         tx.prepare("INSERT OR IGNORE INTO item_grants (owner, item, how) VALUES (?1, ?2, ?3)")?;
+    let mut haunts = tx.prepare(
+        "INSERT OR IGNORE INTO region_enemies (node, enemy, share, tier) VALUES (?1, ?2, ?3, ?4)",
+    )?;
     let mut drops = tx.prepare(
         "INSERT INTO item_drops (place, item, rotation, stage, rarity, chance, count) \
          VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7)",
@@ -668,6 +679,14 @@ fn edges(tx: &Transaction<'_>, graph: &Graph) -> Result<()> {
             }
             Rel::Grants(how) => {
                 grants.execute((&edge.from, &edge.to, how.as_str()))?;
+            }
+            Rel::Spawns(spawn) => {
+                haunts.execute((
+                    strip(&edge.from, "region:"),
+                    strip(&edge.to, "enemy:"),
+                    spawn.share,
+                    spawn.tier,
+                ))?;
             }
             Rel::Drops(d) => match edge.from.strip_prefix("enemy:") {
                 Some(enemy) => {

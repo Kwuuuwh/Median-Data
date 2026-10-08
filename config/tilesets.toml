@@ -1,0 +1,108 @@
+# Which of the game's own tilesets a star-chart node is played on, by the tileset the node
+# names and the faction it fields. A node whose pair is not listed gets no enemy roster:
+# invasions, open worlds and the special modes field enemies the tilesets do not describe.
+
+[[tileset]]
+name = "Corpus Ship"
+faction = "Corpus"
+game = "/Lotus/Types/Game/RegionTilesets/CorpusShipTileset"
+
+[[tileset]]
+name = "Corpus Outpost"
+faction = "Corpus"
+game = "/Lotus/Types/Game/RegionTilesets/CorpusOutpostTileset"
+
+[[tileset]]
+name = "Corpus Ice Planet"
+faction = "Corpus"
+game = "/Lotus/Types/Game/RegionTilesets/CorpusIcePlanetTileset"
+
+[[tileset]]
+name = "Corpus Gas City"
+faction = "Corpus"
+game = "/Lotus/Types/Game/RegionTilesets/CorpusGasCityTileset"
+
+[[tileset]]
+name = "Corpus Ship (Archwing)"
+faction = "Corpus"
+game = "/Lotus/Types/Game/RegionTilesets/ArchwingCorpusTrenchrunTileset"
+
+[[tileset]]
+name = "Grineer Galleon"
+faction = "Grineer"
+game = "/Lotus/Types/Game/RegionTilesets/GrineerGalleonTileset"
+
+[[tileset]]
+name = "Grineer Sealab"
+faction = "Grineer"
+game = "/Lotus/Types/Game/RegionTilesets/GrineerOceanTileset"
+
+[[tileset]]
+name = "Grineer Shipyard"
+faction = "Grineer"
+game = "/Lotus/Types/Game/RegionTilesets/GrineerShipyardsTileset"
+
+[[tileset]]
+name = "Grineer Asteroid"
+faction = "Grineer"
+game = "/Lotus/Types/Game/RegionTilesets/GrineerAsteroidTileset"
+
+[[tileset]]
+name = "Grineer Asteroid Fortress"
+faction = "Grineer"
+game = "/Lotus/Types/Game/RegionTilesets/GrineerFortressTileset"
+
+[[tileset]]
+name = "Grineer Settlement"
+faction = "Grineer"
+game = "/Lotus/Types/Game/RegionTilesets/GrineerSettlementTileset"
+
+[[tileset]]
+name = "Grineer Forest"
+faction = "Grineer"
+game = "/Lotus/Types/Game/RegionTilesets/GrineerForestTileset"
+
+[[tileset]]
+name = "Free Space"
+faction = "Grineer"
+game = "/Lotus/Types/Game/RegionTilesets/ArchwingGrineerSpaceTileset"
+
+[[tileset]]
+name = "Infested Ship"
+faction = "Infested"
+game = "/Lotus/Types/Game/RegionTilesets/InfestedCorpusShipTileset"
+
+[[tileset]]
+name = "Orokin Derelict"
+faction = "Infested"
+game = "/Lotus/Types/Game/RegionTilesets/OrokinDerelictTileset"
+
+[[tileset]]
+name = "Orokin Tower"
+faction = "Corrupted"
+game = "/Lotus/Types/Game/RegionTilesets/OrokinVoidTileset"
+
+[[tileset]]
+name = "Orokin Moon"
+faction = "Corpus"
+game = "/Lotus/Types/Game/RegionTilesets/OrokinMoonTilesetCorpus"
+
+[[tileset]]
+name = "Orokin Moon"
+faction = "Grineer"
+game = "/Lotus/Types/Game/RegionTilesets/OrokinMoonTilesetGrineer"
+
+[[tileset]]
+name = "Orokin Moon"
+faction = "Corrupted"
+game = "/Lotus/Types/Game/RegionTilesets/OrokinMoonTilesetCorrupted"
+
+[[tileset]]
+name = "Zariman"
+faction = "Grineer"
+game = "/Lotus/Types/Game/RegionTilesets/ZarimanTileset"
+
+[[tileset]]
+name = "Albrecht's Laboratories"
+faction = "The Murmur"
+game = "/Lotus/Types/Game/RegionTilesets/EntratiTileset"

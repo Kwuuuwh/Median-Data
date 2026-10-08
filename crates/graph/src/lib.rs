@@ -9,7 +9,7 @@ pub use algo::{
     cycles, handed_over, ingredients, obtainable, produced, producer, refinement_of, rollup,
     rollup_all,
 };
-pub use edge::{Cost, DropInfo, Edge, Grant, Levels, Offer, Rel, Research};
+pub use edge::{Cost, DropInfo, Edge, Grant, Levels, Offer, Rel, Research, Spawn};
 pub use graph::Graph;
 pub use kind::{Class, Kind, Leaf, Taxonomy};
 pub use node::{

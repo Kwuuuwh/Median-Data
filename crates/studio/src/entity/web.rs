@@ -57,6 +57,7 @@ pub fn render(graph: &Graph, id: &str) -> Markup {
             Rel::Researched(_) => push(&mut left, graph, id, &e.from, "исследование"),
             Rel::Within => push(&mut right, graph, id, &e.from, "в области"),
             Rel::Grants(_) => push(&mut left, graph, id, &e.from, "вместе с"),
+            Rel::Spawns(_) => push(&mut right, graph, id, &e.from, "водится на"),
         }
     }
     for e in graph.from(id) {

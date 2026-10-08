@@ -8,7 +8,7 @@ use sources::{language, notation, packages};
 
 use crate::lineage::Lineage;
 use crate::offers::{self, Stall};
-use crate::{grants, incubator, mining};
+use crate::{grants, incubator, mining, spawns};
 
 /// Languages median reads, and the package each one's string table sits in.
 const STRING_TABLES: [(&str, &str); 2] = [("en", "H.Misc_en"), ("ru", "H.Misc_ru")];
@@ -40,6 +40,7 @@ const CLIENT: &str = "client.toml";
 const GRANTS: &str = "grants.toml";
 const INCUBATOR: &str = "incubator.toml";
 const MINING: &str = "mining.toml";
+const SPAWNS: &str = "spawns.toml";
 
 /// Which client the distillate was taken from.
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
@@ -109,7 +110,7 @@ pub fn installed(cache: &Path) -> Result<String> {
 /// What this extract is, so a catalog can say which cache it was built from.
 pub fn stamp(dir: &Path) -> Result<String> {
     let mut hasher = blake3::Hasher::new();
-    for name in [CLIENT, NAMES, OFFERS, GRANTS, INCUBATOR, MINING] {
+    for name in [CLIENT, NAMES, OFFERS, GRANTS, INCUBATOR, MINING, SPAWNS] {
         let path = dir.join(name);
         let bytes = std::fs::read(&path).with_context(|| format!("read {}", path.display()))?;
         hasher.update(name.as_bytes());
@@ -137,6 +138,11 @@ pub fn granted(dir: &Path) -> Result<grants::Grants> {
 /// What the incubator takes and hatches, as the last extract left it.
 pub fn hatched(dir: &Path) -> Result<incubator::Incubator> {
     distilled(dir, INCUBATOR)
+}
+
+/// Which enemies each tileset sends, as the last extract left it.
+pub fn spawned(dir: &Path) -> Result<spawns::Spawns> {
+    distilled(dir, SPAWNS)
 }
 
 /// What the open worlds' veins yield, as the last extract left it.
@@ -264,6 +270,19 @@ pub fn run(cache: &Path, out_dir: &Path) -> Result<()> {
         "# Written by `median-data extract` from the game cache: what the open worlds'\n\
          # veins yield and the tools that work them, in the game's own paths.\n\n",
         &mining,
+    )?;
+
+    let spawns = spawns::read(&lineage, &tables["en"], &tables["ru"]);
+    eprintln!(
+        "cache    {} tilesets, {} enemy rosters",
+        spawns.tileset.len(),
+        spawns.spec.len()
+    );
+    write(
+        &out_dir.join(SPAWNS),
+        "# Written by `median-data extract` from the game cache: which enemies each tileset\n\
+         # sends at each mission type, in the game's own paths.\n\n",
+        &spawns,
     )
 }
 

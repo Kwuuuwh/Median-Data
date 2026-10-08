@@ -19,6 +19,7 @@ pub fn rel(rel: &Rel) -> &'static str {
         Rel::Researched(_) => "исследуется",
         Rel::Within => "стоит в области",
         Rel::Grants(_) => "выдаёт вместе с собой",
+        Rel::Spawns(_) => "встречается",
     }
 }
 
@@ -40,6 +41,7 @@ pub fn rel_back(rel: &Rel) -> &'static str {
         Rel::Researched(_) => "исследуется в",
         Rel::Within => "включает",
         Rel::Grants(_) => "выдаётся вместе с",
+        Rel::Spawns(_) => "водится на",
     }
 }
 
