@@ -48,7 +48,8 @@ pub fn handed_over(graph: &Graph, item: &str) -> bool {
 }
 
 /// Whether anything in the graph leads to an item at all: a recipe, a relic, a drop, a set,
-/// a vendor, refining the step below it, or owning the piece the other body wears.
+/// a vendor, refining the step below it, owning the piece the other body wears, or owning
+/// what it comes along with.
 pub fn obtainable(graph: &Graph, item: &str) -> bool {
     graph.into(item).iter().any(|e| {
         matches!(
@@ -61,6 +62,7 @@ pub fn obtainable(graph: &Graph, item: &str) -> bool {
                 | Rel::Refines
                 | Rel::Researched(_)
                 | Rel::Fits
+                | Rel::Grants(_)
         )
     })
 }

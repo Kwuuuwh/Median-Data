@@ -68,7 +68,8 @@ pub fn parse(raw: &[u8]) -> Result<Block> {
     read(text)
 }
 
-fn read(text: &str) -> Result<Block> {
+/// Read text written in the game's notation.
+pub fn read(text: &str) -> Result<Block> {
     let mut open: Vec<(Option<String>, Block)> = vec![(None, Block::default())];
     for (no, line) in text.lines().enumerate() {
         let line = line.trim();

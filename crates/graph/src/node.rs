@@ -113,6 +113,10 @@ pub enum PlaceKind {
     Sortie,
     Bounty,
     Transient,
+    /// The veins of an open world.
+    Mining,
+    /// An incubation left to chance.
+    Incubator,
 }
 
 impl PlaceKind {
@@ -123,6 +127,8 @@ impl PlaceKind {
             PlaceKind::Sortie => "sortie",
             PlaceKind::Bounty => "bounty",
             PlaceKind::Transient => "transient",
+            PlaceKind::Mining => "mining",
+            PlaceKind::Incubator => "incubator",
         }
     }
 }

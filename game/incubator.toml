@@ -1,0 +1,142 @@
+# Written by `median-data extract` from the game cache: what the incubator takes
+# and what it can hatch, in the game's own paths.
+
+[[egg]]
+item = "/Lotus/Types/Game/CatbrowPet/Eggs/CatbrowEgg"
+name = "Kavat Gene-Matter"
+name_ru = "Геносущность кавата"
+
+[[egg.pool]]
+weight = 1
+breeds = [
+    "/Lotus/Types/Game/CatbrowPet/MirrorCatbrowPetPowerSuit",
+    "/Lotus/Types/Game/CatbrowPet/CheshireCatbrowPetPowerSuit",
+]
+
+[[egg]]
+item = "/Lotus/Types/Game/CatbrowPet/Eggs/CatbrowPetEggItem"
+name = "Kavat Gene-Matter"
+name_ru = "Геносущность кавата"
+
+[[egg.pool]]
+weight = 1
+breeds = [
+    "/Lotus/Types/Game/CatbrowPet/MirrorCatbrowPetPowerSuit",
+    "/Lotus/Types/Game/CatbrowPet/CheshireCatbrowPetPowerSuit",
+]
+
+[[egg]]
+item = "/Lotus/Types/Game/KubrowPet/Eggs/KubrowEgg"
+name = "Kubrow Egg"
+name_ru = "Яйцо кубрау"
+
+[[egg.pool]]
+weight = 1
+breeds = [
+    "/Lotus/Types/Game/KubrowPet/AdventurerKubrowPetPowerSuit",
+    "/Lotus/Types/Game/KubrowPet/FurtiveKubrowPetPowerSuit",
+    "/Lotus/Types/Game/KubrowPet/GuardKubrowPetPowerSuit",
+    "/Lotus/Types/Game/KubrowPet/HunterKubrowPetPowerSuit",
+    "/Lotus/Types/Game/KubrowPet/RetrieverKubrowPetPowerSuit",
+]
+
+[[egg]]
+item = "/Lotus/Types/Game/KubrowPet/Eggs/KubrowPetEggItem"
+
+[[egg.pool]]
+weight = 1
+breeds = [
+    "/Lotus/Types/Game/KubrowPet/AdventurerKubrowPetPowerSuit",
+    "/Lotus/Types/Game/KubrowPet/FurtiveKubrowPetPowerSuit",
+    "/Lotus/Types/Game/KubrowPet/GuardKubrowPetPowerSuit",
+    "/Lotus/Types/Game/KubrowPet/HunterKubrowPetPowerSuit",
+    "/Lotus/Types/Game/KubrowPet/RetrieverKubrowPetPowerSuit",
+]
+
+[[recipe]]
+recipe = "/Lotus/Types/Game/CatbrowPet/CatbrowPetRecipe"
+seconds = 172800
+templates = [
+    "/Lotus/Types/Game/CatbrowPet/MirrorCatbrowPetPowerSuit",
+    "/Lotus/Types/Game/CatbrowPet/CheshireCatbrowPetPowerSuit",
+    "/Lotus/Types/Game/CatbrowPet/VampireCatbrowPetPowerSuit",
+]
+
+[[recipe.ingredient]]
+item = "/Lotus/Types/Game/KubrowPet/EggHatcher"
+count = 1
+
+[[recipe.ingredient]]
+item = "/Lotus/Types/Game/CatbrowPet/CatbrowGeneticSignature"
+count = 10
+
+[[recipe]]
+recipe = "/Lotus/Types/Game/CatbrowPet/CatbrowPetUpgradedRecipe"
+seconds = 86400
+templates = [
+    "/Lotus/Types/Game/CatbrowPet/MirrorCatbrowPetPowerSuit",
+    "/Lotus/Types/Game/CatbrowPet/CheshireCatbrowPetPowerSuit",
+    "/Lotus/Types/Game/CatbrowPet/VampireCatbrowPetPowerSuit",
+]
+
+[[recipe.ingredient]]
+item = "/Lotus/Types/Game/KubrowPet/EggHatcher"
+count = 1
+
+[[recipe.ingredient]]
+item = "/Lotus/Types/Game/CatbrowPet/CatbrowGeneticSignature"
+count = 10
+
+[[recipe]]
+recipe = "/Lotus/Types/Game/KubrowPet/KubrowPetRecipe"
+seconds = 172800
+templates = [
+    "/Lotus/Types/Game/KubrowPet/AdventurerKubrowPetPowerSuit",
+    "/Lotus/Types/Game/KubrowPet/FurtiveKubrowPetPowerSuit",
+    "/Lotus/Types/Game/KubrowPet/GuardKubrowPetPowerSuit",
+    "/Lotus/Types/Game/KubrowPet/HunterKubrowPetPowerSuit",
+]
+
+[[recipe.ingredient]]
+item = "/Lotus/Types/Game/KubrowPet/Eggs/KubrowEgg"
+count = 1
+
+[[recipe.ingredient]]
+item = "/Lotus/Types/Game/KubrowPet/EggHatcher"
+count = 1
+
+[[recipe]]
+recipe = "/Lotus/Types/Game/KubrowPet/KubrowPetUpgradedRecipe"
+seconds = 86400
+templates = [
+    "/Lotus/Types/Game/KubrowPet/AdventurerKubrowPetPowerSuit",
+    "/Lotus/Types/Game/KubrowPet/FurtiveKubrowPetPowerSuit",
+    "/Lotus/Types/Game/KubrowPet/GuardKubrowPetPowerSuit",
+    "/Lotus/Types/Game/KubrowPet/HunterKubrowPetPowerSuit",
+]
+
+[[recipe.ingredient]]
+item = "/Lotus/Types/Game/KubrowPet/Eggs/KubrowEgg"
+count = 1
+
+[[recipe.ingredient]]
+item = "/Lotus/Types/Game/KubrowPet/EggHatcher"
+count = 1
+
+[[recipe]]
+recipe = "/Lotus/Types/Game/KubrowPet/KubrowQuestPetRecipe"
+seconds = 60
+templates = [
+    "/Lotus/Types/Game/KubrowPet/AdventurerKubrowPetPowerSuit",
+    "/Lotus/Types/Game/KubrowPet/FurtiveKubrowPetPowerSuit",
+    "/Lotus/Types/Game/KubrowPet/GuardKubrowPetPowerSuit",
+    "/Lotus/Types/Game/KubrowPet/HunterKubrowPetPowerSuit",
+]
+
+[[recipe.ingredient]]
+item = "/Lotus/Types/Game/KubrowPet/Eggs/KubrowEgg"
+count = 1
+
+[[recipe.ingredient]]
+item = "/Lotus/Types/Game/KubrowPet/EggHatcher"
+count = 1

@@ -1,0 +1,4712 @@
+# Written by `median-data extract` from the game cache: what the game hands over
+# along with an item, in the game's own paths.
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Alchemist/Alchemist"
+item = "/Lotus/StoreItems/Upgrades/Skins/Alchemist/AlchemistHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Alchemist/Alchemist"
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/WarframeDefaults/LavosArmArmor"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Alchemist/LavosPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Alchemist/LavosPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Alchemist/LavosPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/WarframeDefaults/LavosPrimeArmArmor"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/AntiMatter/Anti"
+item = "/Lotus/StoreItems/Upgrades/Skins/AntiMatter/AntiHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/AntiMatter/NovaPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/AntiMatter/NovaPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Banshee/Banshee"
+item = "/Lotus/StoreItems/Upgrades/Skins/Decree/DecreeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Banshee/BansheePrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Decree/BansheePrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Bard/Bard"
+item = "/Lotus/StoreItems/Upgrades/Skins/Bard/BardHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Bard/OctaviaPrime"
+item = "/Lotus/StoreItems/Types/Game/NotePacks/BardHipHopPackA"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Bard/OctaviaPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Bard/OctaviaPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Berserker/Berserker"
+item = "/Lotus/StoreItems/Powersuits/Berserker/BerserkerMelee"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Berserker/Berserker"
+item = "/Lotus/StoreItems/Upgrades/Skins/Berserker/BerserkerHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Berserker/ValkyrPrime"
+item = "/Lotus/StoreItems/Powersuits/Berserker/BerserkerMeleePrime"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Berserker/ValkyrPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Berserker/ValkyrPrimeDangles"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Berserker/ValkyrPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Berserker/ValkyrPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Brawler/AtlasPrime"
+item = "/Lotus/StoreItems/Powersuits/Brawler/AtlasPunchWeaponPrime"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Brawler/AtlasPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Brawler/AtlasPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Brawler/Brawler"
+item = "/Lotus/StoreItems/Powersuits/Brawler/AtlasPunchWeapon"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Brawler/Brawler"
+item = "/Lotus/StoreItems/Upgrades/Skins/Brawler/BrawlerHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/BrokenFrame/BrokenFrame"
+item = "/Lotus/StoreItems/Upgrades/Skins/BrokenFrame/BrokenFrameHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/BrokenFrame/XakuPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/BrokenFrame/XakuPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Choir/Choir"
+item = "/Lotus/StoreItems/Powersuits/Choir/ChoirEruptWeapon"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Choir/Choir"
+item = "/Lotus/StoreItems/Upgrades/Skins/Choir/ChoirHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/ConcreteFrame/ConcreteFrame"
+item = "/Lotus/StoreItems/Upgrades/Skins/ConcreteFrame/ConcreteFrameHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Cowgirl/Cowgirl"
+item = "/Lotus/StoreItems/Powersuits/Cowgirl/SlingerPistols"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Cowgirl/Cowgirl"
+item = "/Lotus/StoreItems/Upgrades/Skins/Cowgirl/CowgirlHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Cowgirl/MesaPrime"
+item = "/Lotus/StoreItems/Powersuits/Cowgirl/PrimeSlingerPistols"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Cowgirl/MesaPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Cowgirl/MesaPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Dagath/Dagath"
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/WarframeDefaults/DagathArmArmor"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Dagath/Dagath"
+item = "/Lotus/StoreItems/Upgrades/Skins/Dagath/DagathHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/DemonFrame/DemonFrame"
+item = "/Lotus/StoreItems/Upgrades/Skins/DemonFrame/DemonFrameHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Devourer/Devourer"
+item = "/Lotus/StoreItems/Upgrades/Skins/Devourer/DevourerHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Dragon/ChromaPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Dragon/ChromaPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Dragon/Dragon"
+item = "/Lotus/StoreItems/Upgrades/Skins/Dragon/DragonHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Ember/Ember"
+item = "/Lotus/StoreItems/Upgrades/Skins/Ember/EmberHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Ember/EmberPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Ember/EmberPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/EntratiMech/NechroTech"
+item = "/Lotus/StoreItems/Types/Enemies/Orokin/Entrati/EntratiTech/NechroTech/ExaltedArtilleryWeapon"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/EntratiMech/NechroTech"
+item = "/Lotus/StoreItems/Types/Restoratives/LoadoutTechSummon"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/EntratiMech/NechroTech"
+item = "/Lotus/StoreItems/Upgrades/Skins/Necramech/NecramechVoidRigDefaultHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/EntratiMech/NechroTech"
+item = "/Lotus/StoreItems/Weapons/Tenno/Archwing/Primary/ThanoTechArchLongGun/ThanoTechLongGun"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/EntratiMech/ThanoTech"
+item = "/Lotus/StoreItems/Types/Enemies/Orokin/Entrati/EntratiTech/NechroTech/AbilitySword/NechroTechSwordWeapon"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/EntratiMech/ThanoTech"
+item = "/Lotus/StoreItems/Types/Restoratives/LoadoutTechSummon"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/EntratiMech/ThanoTech"
+item = "/Lotus/StoreItems/Upgrades/Skins/Necramech/ThanomechVoidRigDefaultHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/EntratiMech/ThanoTech"
+item = "/Lotus/StoreItems/Weapons/Tenno/Archwing/Primary/ThanoTechArchLongGun/ThanoTechLongGun"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Excalibur/DarkExcalibur"
+item = "/Lotus/StoreItems/Powersuits/Excalibur/DoomSwordCYUmbra"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Excalibur/DarkExcalibur"
+item = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/ExcaliburUmbraHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Excalibur/Excalibur"
+item = "/Lotus/StoreItems/Powersuits/Excalibur/DoomSword"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Excalibur/Excalibur"
+item = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/ExcaliburHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Excalibur/ExcaliburPrime"
+item = "/Lotus/StoreItems/Powersuits/Excalibur/DoomSwordPrime"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Excalibur/ExcaliburPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/ExcaliburPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Excalibur/ExcaliburUmbra"
+item = "/Lotus/StoreItems/Powersuits/Excalibur/DoomSwordUmbra"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Excalibur/ExcaliburUmbra"
+item = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/ExcaliburUmbraHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Fairy/Fairy"
+item = "/Lotus/StoreItems/Powersuits/Fairy/FlightPistols"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Fairy/Fairy"
+item = "/Lotus/StoreItems/Powersuits/Fairy/FlightSword"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Fairy/Fairy"
+item = "/Lotus/StoreItems/Upgrades/Skins/Fairy/FairyHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Fairy/TitaniaPrime"
+item = "/Lotus/StoreItems/Powersuits/Fairy/PrimeFlightPistols"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Fairy/TitaniaPrime"
+item = "/Lotus/StoreItems/Powersuits/Fairy/PrimeFlightSword"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Fairy/TitaniaPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Fairy/TitaniaPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Frost/Frost"
+item = "/Lotus/StoreItems/Upgrades/Skins/Frost/FrostHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Frost/FrostPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Frost/FrostPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Frumentarius/Frumentarius"
+item = "/Lotus/StoreItems/Powersuits/Frumentarius/ExaltedSniper"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Frumentarius/Frumentarius"
+item = "/Lotus/StoreItems/Upgrades/Skins/Frumentarius/FrumentariusHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Garuda/Garuda"
+item = "/Lotus/StoreItems/Powersuits/Garuda/GarudaClaws"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Garuda/Garuda"
+item = "/Lotus/StoreItems/Upgrades/Skins/Garuda/GarudaHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Garuda/GarudaPrime"
+item = "/Lotus/StoreItems/Powersuits/Garuda/GarudaPrimeClaws"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Garuda/GarudaPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Garuda/GarudaPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Geode/Geode"
+item = "/Lotus/StoreItems/Upgrades/Skins/Geode/GeodeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Glass/GaraPrime"
+item = "/Lotus/StoreItems/Powersuits/Glass/GaraShankWeaponPrime"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Glass/GaraPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Glass/GaraPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Glass/Glass"
+item = "/Lotus/StoreItems/Powersuits/Glass/GaraShankWeapon"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Glass/Glass"
+item = "/Lotus/StoreItems/Upgrades/Skins/Glass/GlassHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Gyre/Gyre"
+item = "/Lotus/StoreItems/Upgrades/Skins/Gyre/GyreHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Harlequin/Harlequin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Harlequin/HarlequinHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Harlequin/MiragePrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Harlequin/MiragePrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Hoplite/Hoplite"
+item = "/Lotus/StoreItems/Upgrades/Skins/Hoplite/HopliteHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Hoplite/StyanaxPrime"
+item = "/Lotus/StoreItems/Types/Items/Titles/TitleStyanaxPrime"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Infestation/Infestation"
+item = "/Lotus/StoreItems/Types/Items/ShipFeatureItems/AlchemyRoomFeatureItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Infestation/Infestation"
+item = "/Lotus/StoreItems/Upgrades/Skins/Infestation/InfestationHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Infestation/InfestationPrime"
+item = "/Lotus/StoreItems/Types/Items/ShipFeatureItems/AlchemyRoomFeatureItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Infestation/InfestationPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Infestation/NidusPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/IronFrame/IronFrame"
+item = "/Lotus/StoreItems/Powersuits/IronFrame/BlastWeapon"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/IronFrame/IronFrame"
+item = "/Lotus/StoreItems/Upgrades/Skins/IronFrame/IronFrameHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/IronFrame/IronFramePrime"
+item = "/Lotus/StoreItems/Powersuits/IronFrame/BlastWeaponPrime"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/IronFrame/IronFramePrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/WarframeDefaults/HildrynPrimeChestArmor"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/IronFrame/IronFramePrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/IronFrame/HildrynPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Jade/Jade"
+item = "/Lotus/StoreItems/Upgrades/Skins/Jade/JadeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Jade/NyxPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Jade/NyxPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Khora/Kavat/KhoraKavatPowerSuit"
+item = "/Lotus/StoreItems/Types/Friendly/Pets/BeastWeapons/VenariPetWeapon"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Khora/Kavat/KhoraPrimeKavatPowerSuit"
+item = "/Lotus/StoreItems/Types/Friendly/Pets/BeastWeapons/VenariPrimePetWeapon"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Khora/Khora"
+item = "/Lotus/StoreItems/Powersuits/Khora/Kavat/KhoraKavatPowerSuit"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Khora/Khora"
+item = "/Lotus/StoreItems/Powersuits/Khora/KhoraWhipclawWeapon"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Khora/Khora"
+item = "/Lotus/StoreItems/Upgrades/Skins/Khora/KhoraHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Khora/KhoraPrime"
+item = "/Lotus/StoreItems/Powersuits/Khora/Kavat/KhoraPrimeKavatPowerSuit"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Khora/KhoraPrime"
+item = "/Lotus/StoreItems/Powersuits/Khora/KhoraWhipclawWeaponPrime"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Khora/KhoraPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Khora/KhoraPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Koumei/Koumei"
+item = "/Lotus/StoreItems/Upgrades/Skins/Koumei/KoumeiHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Loki/Loki"
+item = "/Lotus/StoreItems/Upgrades/Skins/Loki/LokiHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Loki/LokiPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Loki/LokiPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Mag/Mag"
+item = "/Lotus/StoreItems/Upgrades/Skins/Mag/MagHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Mag/MagPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Mag/MagPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Magician/LimboPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Magician/LimboPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Magician/Magician"
+item = "/Lotus/StoreItems/Upgrades/Skins/Magician/MagicianHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/MonkeyKing/MonkeyKing"
+item = "/Lotus/StoreItems/Powersuits/MonkeyKing/MonkeyKingStaff"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/MonkeyKing/MonkeyKing"
+item = "/Lotus/StoreItems/Upgrades/Skins/MonkeyKing/MonkeyKingHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/MonkeyKing/WukongPrime"
+item = "/Lotus/StoreItems/Powersuits/MonkeyKing/WukongPrimeStaff"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/MonkeyKing/WukongPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/MonkeyKing/WukongPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Necro/Necro"
+item = "/Lotus/StoreItems/Upgrades/Skins/Necro/NecroHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Necro/NekrosPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Necro/NekrosPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Nezha/Nezha"
+item = "/Lotus/StoreItems/Upgrades/Skins/Nezha/NezhaHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Nezha/NezhaPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Nezha/NezhaPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Ninja/AshPrime"
+item = "/Lotus/StoreItems/Powersuits/Ninja/NinjaStormWeaponPrime"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Ninja/AshPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Ninja/AshPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Ninja/Ninja"
+item = "/Lotus/StoreItems/Powersuits/Ninja/NinjaStormWeapon"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Ninja/Ninja"
+item = "/Lotus/StoreItems/Upgrades/Skins/Ninja/NinjaHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Nokko/Nokko"
+item = "/Lotus/StoreItems/Upgrades/Skins/Nokko/NokkoHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Odalisk/Odalisk"
+item = "/Lotus/StoreItems/Upgrades/Skins/Odalisk/OdaliskHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Odalisk/ProteaPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Odalisk/ProteaPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Pacifist/BaruukPrime"
+item = "/Lotus/StoreItems/Powersuits/Pacifist/PacifistFistPrime"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Pacifist/BaruukPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Pacifist/BaruukPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Pacifist/Pacifist"
+item = "/Lotus/StoreItems/Powersuits/Pacifist/PacifistFist"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Pacifist/Pacifist"
+item = "/Lotus/StoreItems/Upgrades/Skins/Priest/PriestHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Pagemaster/Pagemaster"
+item = "/Lotus/StoreItems/Powersuits/Pagemaster/ExaltedBook"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Pagemaster/Pagemaster"
+item = "/Lotus/StoreItems/Upgrades/Skins/Pagemaster/PagemasterHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Paladin/Paladin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Paladin/PaladinHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Paladin/PaladinPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Paladin/PaladinPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/PaxDuviricus/PaxDuviricus"
+item = "/Lotus/StoreItems/Upgrades/Skins/PaxDuviricus/PaxDuviricusBodyBlades"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/PaxDuviricus/PaxDuviricus"
+item = "/Lotus/StoreItems/Upgrades/Skins/PaxDuviricus/PaxDuviricusHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Pirate/HydroidPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Pirate/HydroidPrimeDefaultHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Pirate/Pirate"
+item = "/Lotus/StoreItems/Upgrades/Skins/Pirate/PirateDefaultHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Priest/HarrowPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Priest/HarrowPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Priest/Priest"
+item = "/Lotus/StoreItems/Upgrades/Skins/Priest/PriestHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Ranger/IvaraPrime"
+item = "/Lotus/StoreItems/Powersuits/Ranger/PrimeExaltedBow"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Ranger/IvaraPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Archer/IvaraPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Ranger/Ranger"
+item = "/Lotus/StoreItems/Powersuits/Ranger/ExaltedBow"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Ranger/Ranger"
+item = "/Lotus/StoreItems/Upgrades/Skins/Ranger/RangerHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Revenant/Revenant"
+item = "/Lotus/StoreItems/Upgrades/Skins/Revenant/RevenantHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Revenant/RevenantPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Revenant/RevenantPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Rhino/Rhino"
+item = "/Lotus/StoreItems/Upgrades/Skins/Rhino/RhinoHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Rhino/RhinoPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Rhino/RhinoIronSkinPrime"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Rhino/RhinoPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Rhino/RhinoPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Runner/GaussPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Runner/GaussPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Runner/Runner"
+item = "/Lotus/StoreItems/Upgrades/Skins/Runner/RunnerHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Sandman/InarosPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Sandman/InarosPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Sandman/Sandman"
+item = "/Lotus/StoreItems/Upgrades/Skins/Sandman/SandmanHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Saryn/Saryn"
+item = "/Lotus/StoreItems/Upgrades/Skins/Asp/AspHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Saryn/SarynPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Saryn/SarynPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Sentient/Sentient"
+item = "/Lotus/StoreItems/Upgrades/Skins/Sentient/SentientHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/SiriusOrion/OrionSuit"
+item = "/Lotus/StoreItems/Upgrades/Skins/SiriusOrion/OrionHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/SiriusOrion/SiriusSuit"
+item = "/Lotus/StoreItems/Powersuits/SiriusOrion/OrionSuit"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/SiriusOrion/SiriusSuit"
+item = "/Lotus/StoreItems/Upgrades/Skins/SiriusOrion/SiriusHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Temple/Temple"
+item = "/Lotus/StoreItems/Powersuits/Temple/ExaltedGuitar"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Temple/Temple"
+item = "/Lotus/StoreItems/Upgrades/Skins/Temple/TempleHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Tengu/Tengu"
+item = "/Lotus/StoreItems/Upgrades/Skins/Tengu/TenguHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Tengu/ZephyrPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Tengu/ZephyrPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Trapper/Trapper"
+item = "/Lotus/StoreItems/Upgrades/Skins/Trapper/TrapperDefaultHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Trapper/TrapperPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Trapper/VaubanPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Trinity/Trinity"
+item = "/Lotus/StoreItems/Upgrades/Skins/Trinity/TrinityHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Trinity/TrinityPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Trinity/TrinityPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Volt/Volt"
+item = "/Lotus/StoreItems/Upgrades/Skins/Volt/VoltHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Volt/VoltPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Volt/VoltPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Werewolf/VorunaPrime"
+item = "/Lotus/StoreItems/Types/Items/Titles/TitleVorunaPrime"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Werewolf/Werewolf"
+item = "/Lotus/StoreItems/Upgrades/Skins/Werewolf/WerewolfHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Wisp/Wisp"
+item = "/Lotus/StoreItems/Upgrades/Skins/Wisp/WispHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Wisp/WispPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Wisp/WispPrimeDefaultCape"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Wisp/WispPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Wisp/WispPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Wraith/Reaper"
+item = "/Lotus/StoreItems/Upgrades/Skins/Wraith/ReaperHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Wraith/SevagothPrime"
+item = "/Lotus/StoreItems/Powersuits/Wraith/SevagothShadowPrime"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Wraith/SevagothPrime"
+item = "/Lotus/StoreItems/Powersuits/Wraith/SevagothShadowPrimeClawsWeapon"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Wraith/SevagothPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Wraith/SevagothPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Wraith/SevagothShadowPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Wraith/SevagothPrimeShadowHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Wraith/Wraith"
+item = "/Lotus/StoreItems/Powersuits/Wraith/Reaper"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Wraith/Wraith"
+item = "/Lotus/StoreItems/Powersuits/Wraith/ReaperMeleeWeapon"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Wraith/Wraith"
+item = "/Lotus/StoreItems/Upgrades/Skins/Wraith/WraithHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Yareli/Yareli"
+item = "/Lotus/StoreItems/Powersuits/Yareli/BoardSuit"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Yareli/Yareli"
+item = "/Lotus/StoreItems/Upgrades/Skins/Yareli/YareliHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Yareli/YareliPrime"
+item = "/Lotus/StoreItems/Powersuits/Yareli/BoardPrimeSuit"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Yareli/YareliPrime"
+item = "/Lotus/StoreItems/Types/Items/PhotoBooth/CinematicTiles/YareliPrimeEndPose"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/Yareli/YareliPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/Yareli/YareliPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/YinYang/EquinoxPrime"
+item = "/Lotus/StoreItems/Upgrades/Skins/YinYang/EquinoxPrimeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Powersuits/YinYang/YinYang"
+item = "/Lotus/StoreItems/Upgrades/Skins/Anima/AnimaHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Friendly/Pets/CreaturePets/ArmoredInfestedCatbrowPetPowerSuit"
+item = "/Lotus/StoreItems/Types/Friendly/Pets/BeastWeapons/PanzerVulpaphylaPetWeapon"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Friendly/Pets/CreaturePets/HornedInfestedCatbrowPetPowerSuit"
+item = "/Lotus/StoreItems/Types/Friendly/Pets/BeastWeapons/CrescentVulpaphylaPetWeapon"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Friendly/Pets/CreaturePets/MedjayPredatorKubrowPetPowerSuit"
+item = "/Lotus/StoreItems/Types/Friendly/Pets/BeastWeapons/MedjayPredasitePetWeapon"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Friendly/Pets/CreaturePets/PharaohPredatorKubrowPetPowerSuit"
+item = "/Lotus/StoreItems/Types/Friendly/Pets/BeastWeapons/PharaohPredasitePetWeapon"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Friendly/Pets/CreaturePets/VizierPredatorKubrowPetPowerSuit"
+item = "/Lotus/StoreItems/Types/Friendly/Pets/BeastWeapons/VizierPredasitePetWeapon"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Friendly/Pets/CreaturePets/VulpineInfestedCatbrowPetPowerSuit"
+item = "/Lotus/StoreItems/Types/Friendly/Pets/BeastWeapons/SlyVulpaphylaPetWeapon"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Game/ActionFigureDioramas/CephalonDiorama"
+item = "/Lotus/StoreItems/Types/Items/ShipDecos/Vignettes/Warframes/WarframeAFItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Game/ActionFigureDioramas/CorpusIcePlanetDiorama"
+item = "/Lotus/StoreItems/Types/Items/ShipDecos/Vignettes/Warframes/WarframeAFItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Game/ActionFigureDioramas/EarthADiorama"
+item = "/Lotus/StoreItems/Types/Items/ShipDecos/Vignettes/Warframes/WarframeAFItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Game/ActionFigureDioramas/EidolonADiorama"
+item = "/Lotus/StoreItems/Types/Items/ShipDecos/Vignettes/Warframes/WarframeAFItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Game/ActionFigureDioramas/EmpyreanRegionADiorama"
+item = "/Lotus/StoreItems/Types/Items/ShipDecos/Vignettes/Warframes/WarframeAFItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Game/ActionFigureDioramas/FortressDiorama"
+item = "/Lotus/StoreItems/Types/Items/ShipDecos/Vignettes/Warframes/WarframeAFItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Game/ActionFigureDioramas/OceanADiorama"
+item = "/Lotus/StoreItems/Types/Items/Fish/Eidolon/BothCommonFishAItemLarge"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Game/ActionFigureDioramas/OceanADiorama"
+item = "/Lotus/StoreItems/Types/Items/Fish/Eidolon/BothCommonFishBItemMedium"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Game/ActionFigureDioramas/OceanADiorama"
+item = "/Lotus/StoreItems/Types/Items/Fish/Eidolon/DayCommonFishAItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Game/ActionFigureDioramas/OceanADiorama"
+item = "/Lotus/StoreItems/Types/Items/Fish/Eidolon/DayCommonFishBItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Game/ActionFigureDioramas/OrokinMoonDiorama"
+item = "/Lotus/StoreItems/Types/Items/ShipDecos/Vignettes/Warframes/WarframeAFItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Game/ActionFigureDioramas/SettlementDiorama"
+item = "/Lotus/StoreItems/Types/Items/ShipDecos/Vignettes/Warframes/WarframeAFItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Game/ActionFigureDioramas/VenusADiorama"
+item = "/Lotus/StoreItems/Types/Items/ShipDecos/Vignettes/Warframes/WarframeAFItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Game/CatbrowPet/CheshireCatbrowPetPowerSuit"
+item = "/Lotus/StoreItems/Types/Friendly/Pets/BeastWeapons/SmeetaPetWeapon"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Game/CatbrowPet/MirrorCatbrowPetPowerSuit"
+item = "/Lotus/StoreItems/Types/Friendly/Pets/BeastWeapons/AdarzaPetWeapon"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Game/CatbrowPet/VampireCatbrowPetPowerSuit"
+item = "/Lotus/StoreItems/Types/Friendly/Pets/BeastWeapons/VascaPetWeapon"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Game/CrewShip/Ships/RailJack"
+item = "/Lotus/StoreItems/Types/Keys/WraithQuest/WraithQuestKeyChain"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Game/KubrowPet/AdventurerKubrowPetPowerSuit"
+item = "/Lotus/StoreItems/Types/Friendly/Pets/BeastWeapons/SahasaPetWeapon"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Game/KubrowPet/ChargerKubrowPetPowerSuit"
+item = "/Lotus/StoreItems/Types/Friendly/Pets/BeastWeapons/HelminthPetWeapon"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Game/KubrowPet/FurtiveKubrowPetPowerSuit"
+item = "/Lotus/StoreItems/Types/Friendly/Pets/BeastWeapons/HurasPetWeapon"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Game/KubrowPet/GuardKubrowPetPowerSuit"
+item = "/Lotus/StoreItems/Types/Friendly/Pets/BeastWeapons/RaksaPetWeapon"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Game/KubrowPet/HunterKubrowPetPowerSuit"
+item = "/Lotus/StoreItems/Types/Friendly/Pets/BeastWeapons/SunikaPetWeapon"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Game/KubrowPet/KubrowPetCollarItem"
+item = "/Lotus/StoreItems/Types/Friendly/Pets/BeastWeapons/Stances/BeastNeutralStance"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Game/KubrowPet/RetrieverKubrowPetPowerSuit"
+item = "/Lotus/StoreItems/Types/Friendly/Pets/BeastWeapons/ChesaPetWeapon"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Melee/AckAndBruntIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Melee/AnkuIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Melee/BoIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Melee/CeramicDaggerIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Melee/DestrezaIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Melee/DualIchorIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Melee/FuraxIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Melee/HateIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Melee/MagistarIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Melee/NamiSoloIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Melee/ObexIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Melee/OkinaIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Melee/SibearIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Melee/SkanaIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Primary/BoarIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Primary/BoltorIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Primary/BratonIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Primary/BurstonIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Primary/DeraIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Primary/DreadIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Primary/GorgonIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Primary/LatronIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Primary/MiterIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Primary/ParisIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Primary/SomaIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Primary/StrunIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Primary/SybarisIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Primary/ToridIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Primary/VectisIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Secondary/AngstrumIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Secondary/AtomosIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Secondary/BallisticaIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Secondary/BroncoIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Secondary/CestraIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Secondary/DespairIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Secondary/DualToxocystIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Secondary/FurisIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Secondary/GammacorIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Secondary/KunaiIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Secondary/LatoIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Secondary/LexIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Secondary/SicarusIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Secondary/StugIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Secondary/VastoIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/MiscItems/IncarnonAdapters/Secondary/ZylokIncarnonUnlocker"
+item = "/Lotus/StoreItems/Types/Items/EmailItems/IncarnonUnlockerEmailItem"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/ShipDecos/LisetPropDotDMandolin"
+item = "/Lotus/StoreItems/Types/Items/Emotes/ShawzinEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/ShipDecos/LisetPropGradientMandolin"
+item = "/Lotus/StoreItems/Types/Items/Emotes/ShawzinEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/ShipDecos/LisetPropLotusMandolin"
+item = "/Lotus/StoreItems/Types/Items/Emotes/ShawzinEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/ShipDecos/LisetPropMandolin"
+item = "/Lotus/StoreItems/Types/Items/Emotes/ShawzinEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/ShipDecos/LisetPropMandolinGrineer"
+item = "/Lotus/StoreItems/Types/Items/Emotes/ShawzinEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/ShipDecos/LisetPropMandolinSentient"
+item = "/Lotus/StoreItems/Types/Items/Emotes/ShawzinEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/ShipDecos/LisetPropNarmerMandolin"
+item = "/Lotus/StoreItems/Types/Items/Emotes/ShawzinEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/ShipDecos/LisetPropShawzinDuviri"
+item = "/Lotus/StoreItems/Types/Items/Emotes/ShawzinEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/ShipDecos/LisetPropShawzinDuviriErsatz"
+item = "/Lotus/StoreItems/Types/Items/Emotes/ShawzinEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/ShipDecos/LisetPropShawzinPrime"
+item = "/Lotus/StoreItems/Types/Items/Emotes/ShawzinEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/ShipDecos/LisetPropShawzinTempleGuitar"
+item = "/Lotus/StoreItems/Types/Items/Emotes/ShawzinEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/ShipDecos/LisetPropShawzinTwitch"
+item = "/Lotus/StoreItems/Types/Items/Emotes/ShawzinEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/ShipDecos/LisetPropShawzinZariman"
+item = "/Lotus/StoreItems/Types/Items/Emotes/ShawzinEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/ShipDecos/LisetPropShawzinZarimanVoid"
+item = "/Lotus/StoreItems/Types/Items/Emotes/ShawzinEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/ShipDecos/ShawzinPlayableBase"
+item = "/Lotus/StoreItems/Types/Items/Emotes/ShawzinEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/Ships/BlueSkyShip"
+item = "/Lotus/StoreItems/Types/Restoratives/LisetBarrage"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/Ships/DefaultShip"
+item = "/Lotus/StoreItems/Types/Restoratives/LisetAutoHack"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/Ships/GrineerShip"
+item = "/Lotus/StoreItems/Types/Restoratives/LisetKahl"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/Ships/GyroscopeShip"
+item = "/Lotus/StoreItems/Types/Restoratives/LisetTurret"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/Ships/InsectShip"
+item = "/Lotus/StoreItems/Types/Restoratives/LisetMedStation"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/Ships/NoraShip"
+item = "/Lotus/StoreItems/Types/Restoratives/LisetStun"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Items/Ships/ZarimanShip"
+item = "/Lotus/StoreItems/Types/Restoratives/LisetGoldenInstinct"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Recipes/AbilityOverrides/SiriusBuffBlueprint"
+item = "/Lotus/StoreItems/Types/Recipes/AbilityOverrides/OrionBuffBlueprint"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Types/Vehicles/Hoverboard/HoverboardSuit"
+item = "/Lotus/StoreItems/Types/Restoratives/HoverboardSummon"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Alchemist/AlchemistDeluxeSuit"
+item = "/Lotus/StoreItems/Upgrades/Skins/Alchemist/AlchemistDeluxeAuxShoulder"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Alchemist/AlchemistDeluxeSuit"
+item = "/Lotus/StoreItems/Upgrades/Skins/Alchemist/AlchemistDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Alchemist/SWLavosKuvaelSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Alchemist/SWLavosKuvaelHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Alchemist/SWLavosKuvaelSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/WarframeDefaults/SWLavosKuvaelArmArmor"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Alchemist/SWYersinSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Alchemist/SWYersinHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Alchemist/SWYersinSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/WarframeDefaults/SWLavosYersinArmArmor"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Anima/SWDivisaSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Anima/SWDivisaHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Anima/SWInsomniaSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Anima/SWInsomniaHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Anima/SWMegaeraSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Anima/SWMegaeraHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/AntiMatter/NovaDeluxeAoandonSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/AntiMatter/NovaDeluxeAoandonHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/AntiMatter/NovaDeluxeIISuit"
+item = "/Lotus/StoreItems/Upgrades/Skins/AntiMatter/NovaDeluxeIIHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/AntiMatter/NovaDeluxeSuit"
+item = "/Lotus/StoreItems/Upgrades/Skins/AntiMatter/NovaDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/AntiMatter/NovaVoidShellSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/AntiMatter/NovaVoidShellHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/AntiMatter/SWCorpraSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/AntiMatter/SWCorpraHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/AntiMatter/SWGraxxNovaSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/AntiMatter/SWGraxxNovaHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/AntiMatter/SWNetraselleNovaSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/AntiMatter/SWNetraselleNovaHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/AntiMatter/SWNovaMithraSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/AntiMatter/SWNovaMithraHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/AntiMatter/SWRThreeCygniSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/AntiMatter/SWRThreeCygniHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/AntiMatter/SWRThreeDeviceSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/AntiMatter/SWRThreeDeviceHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/AntiMatter/SWRThreeGnovaSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/AntiMatter/SWRThreeGnovaHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/AntiMatter/SWRThreeStingerSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/AntiMatter/SWRThreeStingerHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/AntiMatter/SWRThreeVisageSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/AntiMatter/SWRThreeVisageHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/AntiMatter/WF1999NovaSkin"
+item = "/Lotus/StoreItems/Types/Items/Emotes/GeminiEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/AntiMatter/WF1999NovaSkin"
+item = "/Lotus/StoreItems/Types/Items/Emotes/LegendaryKayaEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Archer/IvaraDeluxeSuit"
+item = "/Lotus/StoreItems/Upgrades/Skins/Archer/IvaraDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Archer/IvaraDeluxeSuit"
+item = "/Lotus/StoreItems/Upgrades/Skins/Deluxe/IvaraDeluxeBowSkin"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Archer/ObsidianIvaraSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Archer/ObsidianIvaraExaltedBowSkin"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Archer/SWArcuataSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Archer/SWArcuataHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Archer/SWAstreaSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Archer/SWAstreaHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Archer/SWIvaraGraxxSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Archer/SWIvaraGraxxHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Archer/SWIvaraZamariuSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Archer/SWIvaraZamariuHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Archer/SWKuvaelSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Archer/SWKuvaelHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Archer/SWYoukaiSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Archer/SWYoukaiHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Bard/BardTwitchSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Bard/BardTwitchAltHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Bard/BardTwitchSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Bard/BardTwitchHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Bard/OctaviaDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Bard/OctaviaDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Bard/SWDivaSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Bard/SWDivaHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Bard/SWMandachoralystSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Bard/SWMandachoralystHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Bard/SWNetrahymnSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Bard/SWNetrahymnHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Bard/SWOctaviaYoukaiSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Bard/SWOctaviaYoukaiHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Berserker/BerserkerDeluxeSuit"
+item = "/Lotus/StoreItems/Upgrades/Skins/Berserker/BerserkerDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Berserker/JadeValkyrSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Berserker/JadeValkyrHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Berserker/SWDelusionSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Berserker/SWDelusionHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Berserker/SWLeonessaSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Berserker/SWLeonessaHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Berserker/SWMithraValkyrSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Berserker/SWMithraValkyrHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Berserker/SWRFourValkyrGraxxSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Berserker/SWRFourValkyrGraxxHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Berserker/ValkyrDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Berserker/UnlockBerserkerDeluxeAgile"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Berserker/ValkyrDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Berserker/UnlockBerserkerDeluxeNoble"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Berserker/ValkyrDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Berserker/ValkyrDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Berserker/ValkyrHeirloomSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Berserker/ValkyrHeirloomHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Brawler/AtlasDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Brawler/AtlasDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Brawler/SWAtlasBotLSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Brawler/SWAtlasBotLHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Brawler/SWAtlasGraxxSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Brawler/SWAtlasGraxxHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Brawler/SWMonolithSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Brawler/SWMonolithHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/BrokenFrame/SWXakuDeatheaSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/BrokenFrame/SWXakuDeatheaHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/BrokenFrame/XakuCosmosSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/BrokenFrame/XakuCosmosAltHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/BrokenFrame/XakuCosmosSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/BrokenFrame/XakuCosmosHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/BrokenFrame/XakuDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/BrokenFrame/XakuDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Choir/JadeImmortalSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Choir/JadeImmortalHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Choir/SWCovenJadeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Choir/SWCovenJadeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/ConcreteFrame/QorvexDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/ConcreteFrame/QorvexDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Cowgirl/MesaDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Cowgirl/MesaDeluxeArmGunSkin"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Cowgirl/MesaDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Cowgirl/MesaDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Cowgirl/MesaDeluxeV2Skin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Cowgirl/MesaDeluxeV2ArmGunSkin"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Cowgirl/MesaDeluxeV2Skin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Cowgirl/MesaDeluxeV2Helmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Cowgirl/MesaHeirloomSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Cowgirl/MesaHeirloomArmGunSkin"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Cowgirl/MesaHeirloomSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Cowgirl/MesaHeirloomHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Cowgirl/MesaHeirloomSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Cowgirl/MesaHeirloomPoncho"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Cowgirl/MesaVoidShellSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Cowgirl/MesaVoidShellHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Cowgirl/SWCowgirlInsomniaSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Cowgirl/SWCowgirlInsomniaHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Cowgirl/SWDevilRangerSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Cowgirl/SWDevilRangerHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Cowgirl/SWGraxxMesaSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Cowgirl/SWGraxxMesaHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Cowgirl/SWKudegraSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Cowgirl/SWKudegraHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Cowgirl/SWMarletSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Cowgirl/SWMarletHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Cowgirl/SWMesnificentSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Cowgirl/SWMesnificentHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Dagath/DagathDeluxeLNYSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Dagath/DagathDeluxeLNYHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Dagath/DagathImmortalSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/WarframeDefaults/DagathImmortalArmArmor"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Dagath/DagathImmortalSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Dagath/DagathImmortalHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Dagath/SWYhavanDagathSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/WarframeDefaults/SWYhavanDagathAArmor"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Dagath/SWYhavanDagathSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Dagath/SWYhavanDagathSkinHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Decree/BansheeDeluxeBSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Decree/BansheeDeluxeBArmLeftArmor"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Decree/BansheeDeluxeBSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Decree/BansheeDeluxeBHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Decree/BansheeDeluxeSuit"
+item = "/Lotus/StoreItems/Upgrades/Skins/Decree/BansheeDeluxeArmLeftArmor"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Decree/BansheeDeluxeSuit"
+item = "/Lotus/StoreItems/Upgrades/Skins/Decree/BansheeDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Decree/BansheeVoidShellSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Decree/BansheeVoidShellArmLeftArmor"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Decree/BansheeVoidShellSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Decree/BansheeVoidShellHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Decree/SWBansheeBotLSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/WarframeDefaults/SWBansheeBotLArmLeftArmor"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Decree/SWBansheeBotLSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Decree/SWBansheeBotLHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Decree/SWSonoritySkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/WarframeDefaults/SWSonorityArmLeftArmor"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Decree/SWSonoritySkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Decree/SWSonorityHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Deluxe/WukongDeluxeBDualKatanaSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Deluxe/WukongDeluxeBKatanaSkin"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/DemonFrame/GeminiDemonFrameSkin"
+item = "/Lotus/StoreItems/Types/Items/Emotes/GeminiEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/DemonFrame/GeminiDemonFrameSkin"
+item = "/Lotus/StoreItems/Types/Items/Emotes/LegendaryRoatheEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Devourer/GrendelDeluxeIISkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Devourer/GrendelDeluxeIIHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Devourer/GrendelDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Devourer/GrendelDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Devourer/GrendelVoidshellSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Devourer/GrendelVoidshellHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Devourer/SWMolochSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Devourer/SWMolochHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Dragon/ChromaDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Dragon/ChromaDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Dragon/ChromaDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Dragon/ChromaDeluxeWings"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Dragon/ChromaLNYSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Dragon/ChromaLNYHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Dragon/ChromaLNYSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Dragon/ChromaLNYWings"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Dragon/SWGraxxChromaSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Dragon/SWGraxxChromaHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Dragon/SWMorkaiSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Dragon/SWMorkaiHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Dragon/SWThyrusSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Dragon/SWThyrusHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Ember/EmberDeluxeIISkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/WarframeDefaults/EmberDeluxeIIArmArmor"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Ember/EmberDeluxeIISkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/WarframeDefaults/EmberDeluxeIIChestArmor"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Ember/EmberDeluxeIISkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Ember/EmberDeluxeIIHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Ember/EmberDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Ember/EmberDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Ember/EmberHeirloomSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Ember/EmberHeirloomHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Ember/EmberVoidshellSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Ember/EmberVoidshellHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Ember/SWIgnitionSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Ember/SWIgnitionHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Ember/SWMagestySkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Ember/SWMagestyHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Ember/SWRSixEmberGraxxSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Ember/SWRSixEmberGraxxHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Ember/SWTechnopyreSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Ember/SWTechnopyreHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/DiscordExcalibur"
+item = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/DiscordExcaliburHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/ExcaliburDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/WarframeDefaults/ExcaliburDeluxeArmArmor"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/ExcaliburDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/ExcaliburDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/ExcaliburDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/UnlockExcaliburDeluxeAgile"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/ExcaliburDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/UnlockExcaliburDeluxeNoble"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/ExcaliburDexSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/ExcaliburDexHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/ExcaliburLasriaSkin"
+item = "/Lotus/StoreItems/Types/Items/Emotes/GeminiEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/ExcaliburLasriaSkin"
+item = "/Lotus/StoreItems/Types/Items/Emotes/LegendaryArthurEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/ExcaliburProtoSuit"
+item = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/ExcaliburProtoHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/ExcaliburVeilBreakerSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/ExcaliburVeilBreakerHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/NintendoExcalibur"
+item = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/NintendoExcaliburHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/SWCorpraSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/SWCorpraHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/SWExaltationSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/SWExaltationHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/SWExcaliburBotLSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/SWExcaliburBotLHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/SWIonExcaliburSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/SWIonExcaliburHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/SWRFourExcaliburApexSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/SWRFourExcaliburApexHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/SWRFourExcaliburCadutoSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/SWRFourExcaliburCadutoHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/SWRFourExcaliburGraxxSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/SWRFourExcaliburGraxxHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/SWRFourExcaliburGraxxSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/SWRFourGraxxAltHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/SWROneExcaliburSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/ExcaliburHelmetSWROne"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/SWRThreeSentientSlayerSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/SWRThreeSentientSlayerHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/SWRoninSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Excalibur/SWRoninHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Fairy/SWLympharisSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Fairy/SWLympharisHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Fairy/SWPixialystSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Fairy/SWPixialystHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Fairy/SWUnseelieSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Fairy/SWUnseelieHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Fairy/TitaniaDeluxeIISkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Fairy/TitaniaDeluxeIIArchwingPistolsSkin"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Fairy/TitaniaDeluxeIISkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Fairy/TitaniaDeluxeIIArchwingSwordSkin"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Fairy/TitaniaDeluxeIISkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Fairy/TitaniaDeluxeIIAuxWings"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Fairy/TitaniaDeluxeIISkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Fairy/TitaniaDeluxeIIHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Fairy/TitaniaDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Fairy/TitaniaDeluxeArchwingPistolsSkin"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Fairy/TitaniaDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Fairy/TitaniaDeluxeArchwingSwordSkin"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Fairy/TitaniaDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Fairy/TitaniaDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Frost/FrostDeluxeSuit"
+item = "/Lotus/StoreItems/Upgrades/Skins/Frost/FrostDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Frost/FrostHeirloomSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/WarframeDefaults/FrostHeirloomArmArmor"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Frost/FrostHeirloomSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Frost/FrostHeirloomHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Frost/FrostVoidShellSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/WarframeDefaults/FrostVoidshellArmArmor"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Frost/FrostVoidShellSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Frost/FrostVoidShellHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Frost/NintendoFrost"
+item = "/Lotus/StoreItems/Upgrades/Skins/Frost/NintendoFrostHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Frost/SWFrostStrigidSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/WarframeDefaults/SWFrostStrigidArmArmor"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Frost/SWFrostStrigidSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Frost/SWStrigidHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Frost/SWHisameSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/WarframeDefaults/SWHisameArmArmor"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Frost/SWHisameSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Frost/SWHisameHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Frost/SWIonFrostSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/WarframeDefaults/SWIonFrostArmArmor"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Frost/SWIonFrostSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Frost/SWIonFrostHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Frost/SWRSixFrostEmperorSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/WarframeDefaults/FrostEmperorArmArmor"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Frost/SWRSixFrostEmperorSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Frost/SWRSixFrostEmperorHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Frost/SWRThreeFrostGrostSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/WarframeDefaults/FrostGrostArmArmor"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Frost/SWRThreeFrostGrostSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Frost/SWRThreeFrostGrostHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Frost/SWRThreeFrostHailstormSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Frost/SWRThreeFrostHailstormHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Frost/SWRThreeFrostVojnikSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Frost/SWRThreeFrostVojnikHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Frost/WF1999FrostSkin"
+item = "/Lotus/StoreItems/Types/Items/Emotes/GeminiEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Frost/WF1999FrostSkin"
+item = "/Lotus/StoreItems/Types/Items/Emotes/LegendaryVelimirEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Frumentarius/WF1999FrumentariusSkin"
+item = "/Lotus/StoreItems/Types/Items/Emotes/GeminiEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Frumentarius/WF1999FrumentariusSkin"
+item = "/Lotus/StoreItems/Types/Items/Emotes/LegendaryQuincyEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Garuda/GarudaDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Garuda/GarudaDeluxeClawsSkin"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Garuda/GarudaDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Garuda/GarudaDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Garuda/GarudaGeminiSkin"
+item = "/Lotus/StoreItems/Types/Items/Emotes/GeminiEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Garuda/GarudaGeminiSkin"
+item = "/Lotus/StoreItems/Types/Items/Emotes/LegendaryWytchEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Garuda/GarudaGeminiSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Garuda/GarudaGeminiClawsSkin"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Garuda/SWGarudaTengushinSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Garuda/SWGarudaTengushinClawsSkin"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Garuda/SWGarudaTengushinSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Garuda/SWGarudaTengushinHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Garuda/SWSuccessorSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Garuda/SWSuccessorClawsSkin"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Garuda/SWSuccessorSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Garuda/SWSuccessorHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Garuda/SWTiamatSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Garuda/SWTiamatClawsSkin"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Garuda/SWTiamatSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Garuda/SWTiamatHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Geode/CitrineDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Geode/CitrineDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Geode/SWCitrineCelestisSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Geode/SWCitrineCelestisHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Glass/GlassDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Glass/GlassDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Glass/GlassDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Glass/GlassDeluxeWings"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Glass/SWZamariuSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Glass/SWZamariuHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Gyre/GyreDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Gyre/GyreDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Gyre/SWGyreKuvealMonarchSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Gyre/SWGyreKuvealMonarchHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Halloween/HalloweenLato"
+item = "/Lotus/StoreItems/Upgrades/Skins/Halloween/HalloweenAklato"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Halloween/HalloweenVasto"
+item = "/Lotus/StoreItems/Upgrades/Skins/Halloween/HalloweenAkvasto"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Harlequin/MirageDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Harlequin/MirageDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Harlequin/MirageDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Harlequin/UnlockMirageDeluxeAgile"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Harlequin/MirageDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Harlequin/UnlockMirageDeluxeNoble"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Harlequin/MirageLunarNewYearSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Harlequin/MirageLunarNewYearHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Harlequin/MirageVoidShellSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Harlequin/MirageVoidShellHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Harlequin/SWKitsuneSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Harlequin/SWKitsuneHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Harlequin/SWMirageKuvaelSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Harlequin/SWMirageKuvaelHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Harlequin/SWMithraSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Harlequin/SWMithraHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Harlequin/SWMorgaineSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Harlequin/SWMorgaineHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Harlequin/SWRFourMirageGraxxSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Harlequin/SWRFourMirageGraxxHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Harlequin/SWRFourMirageSigynSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Harlequin/SWRFourMirageSigynHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Hoplite/SWRaevuzStyanaxSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Hoplite/SWRaevuzStyanaxHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Hoplite/SWStyanaxAresSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Hoplite/SWStyanaxAresHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Hoplite/SWStyanaxHuzarrSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Hoplite/SWStyanaxHuzarrHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Hoplite/StyanaxDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Hoplite/StyanaxDeluxeAuxChest"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Hoplite/StyanaxDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Hoplite/StyanaxDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Hoplite/StyanaxVoidshellSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Hoplite/StyanaxVoidshellHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Horse/DagathDeluxeLNYHorseBodySkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Horse/DagathDeluxeLNYHorseTail"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Horse/ErsatzBodySkinA"
+item = "/Lotus/StoreItems/Upgrades/Skins/Horse/ErsatzHorseTailDefaultA"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Horse/ErsatzBodySkinC"
+item = "/Lotus/StoreItems/Upgrades/Skins/Horse/ErsatzHorseTailDefaultC"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Horse/ErsatzBodySkinDefault"
+item = "/Lotus/StoreItems/Upgrades/Skins/Horse/ErsatzHorseTailDefault"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Hydroid/HydroidDeluxeSuit"
+item = "/Lotus/StoreItems/Upgrades/Skins/Hydroid/HydroidDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Hydroid/HydroidDeluxeSuit"
+item = "/Lotus/StoreItems/Upgrades/Skins/Scarves/HydroidDeluxeBlazers"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Hydroid/SWPoseidonSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Hydroid/SWPoseidonHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Infestation/NidusDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Infestation/NidusDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Infestation/NidusDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Infestation/NidusDeluxeHipCloth"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Infestation/NidusVoidShellSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Infestation/NidusVoidShellHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Infestation/SWNidusKuvaelSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Infestation/SWKuvealScoungerHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Infestation/SWNightHunterSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Infestation/SWNightHunterHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Infestation/SWTechnocystSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Infestation/SWTechnocystHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/IronFrame/SWHildrynSarcostemaSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/IronFrame/SWHildrynSarcostemaHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/IronFrame/SWHildrynSigrunSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/IronFrame/SWHildrynSigrunHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/IronFrame/ShieldDeluxeBodySkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/IronFrame/ShieldDeluxeBlastSkin"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/IronFrame/ShieldDeluxeBodySkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/IronFrame/ShieldDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Jade/NyxDeluxeSuit"
+item = "/Lotus/StoreItems/Upgrades/Skins/Jade/NyxDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Jade/NyxNemesisSuit"
+item = "/Lotus/StoreItems/Upgrades/Skins/Jade/NyxNemesisHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Jade/SWAscophiliaSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Jade/SWAscophiliaHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Jade/SWAureliaSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Jade/SWAureliaHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Jade/SWAuresSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Jade/SWAuresHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Jade/SWCarnifexSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Jade/SWCarnifexHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Jade/SWRFourNyxAthenaSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Jade/SWRFourNyxAthenaHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Jade/SWRSixNyxGraxxSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Jade/SWRSixNyxGraxxHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Jade/SWSaikouSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Jade/SWSaikouHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Jade/SWTechnopsycheSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Jade/SWTechnopsycheHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Jade/WF1999NyxSkin"
+item = "/Lotus/StoreItems/Types/Items/Emotes/GeminiEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Jade/WF1999NyxSkin"
+item = "/Lotus/StoreItems/Types/Items/Emotes/LegendaryEleanorEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Khora/KhoraDeluxeSuit"
+item = "/Lotus/StoreItems/Upgrades/Skins/Khora/KhoraDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Khora/KhoraDeluxeSuit"
+item = "/Lotus/StoreItems/Upgrades/Skins/Khora/KhoraDeluxeVenariSkin"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Khora/KhoraDeluxeSuit"
+item = "/Lotus/StoreItems/Upgrades/Skins/Khora/UnlockKhoraDeluxeAgile"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Khora/KhoraDeluxeSuit"
+item = "/Lotus/StoreItems/Upgrades/Skins/Khora/UnlockKhoraDeluxeNoble"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Khora/SWKhoraGraxxSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Khora/SWKhoraGraxxHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Khora/SWKhoraMithraSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Khora/SWKhoraMithraHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Khora/SWKhoraOiranSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Khora/SWKhoraOiranHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Loki/LokiDeluxeSuit"
+item = "/Lotus/StoreItems/Upgrades/Skins/Loki/LokiDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Loki/LokiTwitchSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Loki/LokiTwitchHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Loki/LokiVoidShellSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Loki/LokiVoidShellHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Loki/NintendoLoki"
+item = "/Lotus/StoreItems/Upgrades/Skins/Loki/NintendoLokitHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Loki/SWErebusSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Loki/SWErebusHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Loki/SWIncubusSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Loki/SWIncubusHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Loki/SWJotunheimSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Loki/SWJotunheimHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Loki/SWKodamaSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Loki/SWKodamaHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Mag/DiscordMag"
+item = "/Lotus/StoreItems/Upgrades/Skins/Mag/DiscordMagHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Mag/MagDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Mag/MagDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Mag/MagHeirloomSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Mag/MagHeirloomHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Mag/MagVoidShellSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Mag/MagVoidShellHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Mag/NintendoMag"
+item = "/Lotus/StoreItems/Upgrades/Skins/Mag/NintendoMagHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Mag/SWCorpraMagSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Mag/SWCorpraMagHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Mag/SWFerroSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Mag/SWFerroHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Mag/SWGraxxMagSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Mag/SWGraxxMagHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Mag/SWMagCelestisSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Mag/SWMagCelestisHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Mag/SWROneMagSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Mag/SWROneMagHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Mag/SWRThreeAlataSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Mag/SWRThreeAlataHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Mag/SWRThreeDipoleSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Mag/SWRThreeOrbitHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Mag/WF1999MagSkin"
+item = "/Lotus/StoreItems/Types/Items/Emotes/GeminiEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Mag/WF1999MagSkin"
+item = "/Lotus/StoreItems/Types/Items/Emotes/LegendaryAoiEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Magician/LimboDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Magician/LimboDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Magician/LimboVoidshellSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Magician/LimboVoidshellHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Magician/SWLimboGraxxSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Magician/SWLimboGraxxHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Magician/SWVasionaSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Magician/SWVasionaHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Magician/SWVistyxioSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Magician/SWVistyxioHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/MonkeyKing/MonkeyKingChamelionSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/MonkeyKing/MonkeyKingChamelionHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/MonkeyKing/SWAumanSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/MonkeyKing/SWAumanHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/MonkeyKing/SWPiercingEyeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/MonkeyKing/SWPiercingEyeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/MonkeyKing/SWWukongMithraSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/MonkeyKing/SWWukongMithraHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/MonkeyKing/WukongDeluxeBSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/MonkeyKing/WukongDeluxeBHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/MonkeyKing/WukongDeluxeBSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/MonkeyKing/WukongDeluxeBStaffSkin"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/MonkeyKing/WukongDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/WarframeDefaults/WukongDeluxeArmArmor"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/MonkeyKing/WukongDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/MonkeyKing/WukongDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/MonkeyKing/WukongDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/MonkeyKing/WukongDeluxeStaffSkin"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Necramech/EvilBaroNecramechSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Necramech/EvilBaroNecramechHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Necramech/InfestedNecraMechSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Necramech/InfestedNecraMechHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Necramech/NecraMechCSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Necramech/NecraMechCHelmetA"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Necramech/NecramechSnakeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Necramech/NecramechSnakeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Necramech/TefilahIridosSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Necramech/TefilahIridosHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Necramech/VoidrigDOTDSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Necramech/VoidrigDOTDHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Necramech/VoidrigDSChromaSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Necramech/VoidrigDSChromaHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Necro/NekrosDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Necro/NekrosDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Necro/NekrosVoidShellSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Necro/NekrosVoidShellHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Necro/SWNekrosAusirylystSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Necro/SWNekrosAusirylystHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Necro/SWNekrosGraxxSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Necro/SWNekrosGraxxHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Nezha/NezhaDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Nezha/NezhaDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Nezha/SWDevineSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Nezha/SWDevineHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Nezha/SWDracunSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Nezha/SWDracunHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Nezha/SWYakshaSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Nezha/SWYakshaHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Ninja/AshDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Ninja/AshDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Ninja/AshGeminiSkin"
+item = "/Lotus/StoreItems/Types/Items/Emotes/GeminiEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Ninja/AshGeminiSkin"
+item = "/Lotus/StoreItems/Types/Items/Emotes/LegendaryRyokuEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Ninja/NinjaDeluxeSuit"
+item = "/Lotus/StoreItems/Upgrades/Skins/Ninja/NinjaDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Ninja/SWBaihuSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Ninja/SWBaihuHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Ninja/SWIchneumonSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Ninja/SWIchneumonHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Ninja/SWRyugaSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Ninja/SWRyugaHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Ninja/SWTsukuyomiSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Ninja/SWTsukuyomiHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Odalisk/ProteaDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Odalisk/ProteaDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Odalisk/ProteaImmortalSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Odalisk/ProteaImmortalHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Odalisk/ProteaVoidShellSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Odalisk/ProteaVoidShellHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Odalisk/SWKollapsarSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Odalisk/SWKollapsarHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Odalisk/SWTechnochronSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Odalisk/SWTechnochronHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Accessories/SWFrameFriendEarAcc"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Accessories/SWFrameFriendEarLAcc"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Accessories/SWFrameFriendEarAcc"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Accessories/SWFrameFriendEarRAcc"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/Apparatist/ApparatistArmourArms"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesAdultJ"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/Apparatist/ApparatistArmourBody"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitAdultJ"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/Apparatist/ApparatistArmourHead"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodAdultJ"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/Apparatist/ApparatistArmourLegs"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsAdultJ"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/GreaseWitch/GreaseArmourArms"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesAdultK"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/GreaseWitch/GreaseArmourBody"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitAdultK"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/GreaseWitch/GreaseArmourHead"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodAdultK"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/GreaseWitch/GreaseArmourLegs"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsAdultK"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/Mage/MageArmourArms"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesAdultG"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/Mage/MageArmourBody"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitAdultG"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/Mage/MageArmourHead"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodAdultG"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/Mage/MageArmourLegs"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsAdultG"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/Monk/MonkArmourArms"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesAdultE"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/Monk/MonkArmourBody"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitAdultE"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/Monk/MonkArmourHead"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodAdultE"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/Monk/MonkArmourLegs"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsAdultE"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/OperatorPrimeArmour/OperatorPrimeArmourArms"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesAdultPrimeB"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/OperatorPrimeArmour/OperatorPrimeArmourBody"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitAdultPrimeB"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/OperatorPrimeArmour/OperatorPrimeArmourHead"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodAdultPrimeB"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/OperatorPrimeArmour/OperatorPrimeArmourLegs"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsAdultPrimeB"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/Seer/SeerArmourArms"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesAdultF"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/Seer/SeerArmourBody"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitAdultF"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/Seer/SeerArmourHead"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodAdultF"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/Seer/SeerArmourLegs"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsAdultF"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/Smelter/SmelterArmourArms"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesAdultI"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/Smelter/SmelterArmourBody"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitAdultI"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/Smelter/SmelterArmourHead"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodAdultI"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/Smelter/SmelterArmourLegs"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsAdultI"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/Technomancer/TechnomancerArmourArms"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesAdultL"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/Technomancer/TechnomancerArmourBody"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitAdultL"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/Technomancer/TechnomancerArmourHead"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodAdultL"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/Technomancer/TechnomancerArmourLegs"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsAdultL"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/Teshin/TeshinArmourArms"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesAdultDaxA"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/Teshin/TeshinArmourArms"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesAdultDaxB"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/Teshin/TeshinArmourArms"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesDaxB"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/Teshin/TeshinArmourBody"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitAdultDaxA"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/Teshin/TeshinArmourBody"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitAdultDaxB"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/Teshin/TeshinArmourBody"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitDaxB"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/Teshin/TeshinArmourBody"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Skirts/SkirtAdultDaxB"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/Teshin/TeshinArmourBody"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Skirts/SkirtDaxB"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/Teshin/TeshinArmourHead"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodAdultDaxA"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/Teshin/TeshinArmourHead"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodAdultDaxB"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/Teshin/TeshinArmourHead"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodDaxB"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/Teshin/TeshinArmourLegs"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsAdultDaxA"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/Teshin/TeshinArmourLegs"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsAdultDaxB"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Armour/Teshin/TeshinArmourLegs"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsDaxB"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitAdultArabic"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitArabic"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitAdultAthletic"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitAthletic"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitAdultDrifterB"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitOutfit2A"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitAdultGrunge"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitGrunge"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitAdultOperatorDrifterGoth"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitOperatorDrifterGoth"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitAdultOperatorLasrianA"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitOperatorLasrianA"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitAdultOperatorLasrianB"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitOperatorLasrianB"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitAdultOutfit1A"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitOutfit1A"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitAdultOutfit3A"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitOutfit3A"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitB"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitAdultB"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitC"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitAdultNewC"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitD"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitAdultD"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitInfestedA"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitAdultInfested"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitN"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitAdultN"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitNightSuit"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitAdultNightSuit"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitNovaEngineer"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitAdultNovaEngineer"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitO"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitAdultO"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitOperatorCalDeluxe"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitAdultCalDeluxe"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitOperatorDemonframe"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitAdultOperatorDemonframe"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitPrimeA"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitAdultPrimeA"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitPrimeC"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitAdultPrimeC"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitZephyrDeluxe"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/BodySuitAdultDeluxeA"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/OperatorNightwave1999Torso"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/BodySuits/DrifterNightwave1999Torso"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hair/Hair1999Saryn"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hair/Hair1999SarynNoGlasses"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hair/HairZ"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hair/HairZB"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodAdultArabic"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodArabic"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodAdultDrifterB"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodOutfit2A"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodAdultGrunge"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodGrunge"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodAdultOperatorDrifterGoth"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodOperatorDrifterGoth"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodAdultOperatorLasrianA"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodOperatorLasrianA"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodAdultOperatorLasrianB"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodOperatorLasrianB"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodAdultOutfit1A"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodOutfit1A"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodAdultOutfit3A"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodOutfit3A"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodB"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodAdultB"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodC"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodAdultNewC"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodD"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodAdultD"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodDuviriOperator"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodDuviriAdultOperator"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodInfestedA"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodAdultInfested"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodM2022TennoCon"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodAdultM2022TennoCon"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodN"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodAdultN"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodNovaEngineer"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodAdultNovaEngineer"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodO"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodAdultO"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodOperatorCalDeluxe"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodAdultCalDeluxe"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodOperatorDemonframe"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodAdultOperatorDemonframe"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodPrimeA"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodAdultPrimeA"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodPrimeC"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodAdultPrimeC"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodZephyrDeluxe"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/HoodAdultDeluxeA"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/OperatorNightwave1999Helmet"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/DrifterNightwave1999Helmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/UmbraScarfHood"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/AdultUmbraScarfHood"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/WolfHood"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Hoods/WolfHoodAdult"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsAdultArabic"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsArabic"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsAdultAthletic"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsAthletic"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsAdultDrifterB"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsOutfit2A"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsAdultGrunge"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsGrunge"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsAdultOperatorDrifterGoth"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsOperatorDrifterGoth"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsAdultOperatorLasrianA"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsOperatorLasrianA"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsAdultOperatorLasrianB"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsOperatorLasrianB"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsAdultOutfit1A"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsOutfit1A"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsAdultOutfit3A"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsOutfit3A"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsB"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsAdultB"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsC"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsAdultNewC"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsD"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsAdultD"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsInfestedA"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsAdultInfested"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsN"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsAdultN"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsNightSuit"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsAdultNightSuit"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsNovaEngineer"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsAdultNovaEngineer"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsO"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsAdultO"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsOperatorCalDeluxe"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsAdultCalDeluxe"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsOperatorDemonframe"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsAdultOperatorDemonframe"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsPrimeA"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsAdultPrimeA"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsPrimeC"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsAdultPrimeC"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsZephyrDeluxe"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/LeggingsAdultDeluxeA"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/OperatorNightwave1999Leggings"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Leggings/DrifterNightwave1999Leggings"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Skirts/SkirtAdultArabic"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Skirts/SkirtArabic"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Skirts/SkirtAdultAthletic"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Skirts/SkirtAthletic"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Skirts/SkirtAdultGrunge"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Skirts/SkirtGrunge"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Skirts/SkirtAdultLasrianB"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Skirts/SkirtLasrianB"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Skirts/SkirtB"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Skirts/SkirtAdultB"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Skirts/SkirtE"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Skirts/SkirtAdultE"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Skirts/SkirtF"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Skirts/SkirtAdultF"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Skirts/SkirtG"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Skirts/SkirtAdultG"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Skirts/SkirtJ"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Skirts/SkirtAdultJ"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Skirts/SkirtK"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Skirts/SkirtAdultK"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Skirts/SkirtN"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Skirts/SkirtAdultN"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Skirts/SkirtO"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Skirts/SkirtAdultO"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Skirts/SkirtOperatorCalDeluxe"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Skirts/SkirtAdultCalDeluxe"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Skirts/SkirtOperatorDemonframe"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Skirts/SkirtAdultOperatorDemonframe"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Skirts/SkirtPrimeB"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Skirts/SkirtAdultPrimeB"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Skirts/SkirtPrimeC"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Skirts/SkirtAdultPrimeC"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/OperatorNightwave1999Sleeves"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/DrifterNightwave1999Sleeves"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesAdultArabic"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesArabic"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesAdultAthletic"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesAthletic"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesAdultDrifterB"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesOutfit2A"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesAdultGrunge"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesGrunge"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesAdultOperatorDrifterGoth"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesOperatorDrifterGoth"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesAdultOperatorLasrianA"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesOperatorLasrianA"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesAdultOperatorLasrianB"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesOperatorLasrianB"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesAdultOutfit1A"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesOutfit1A"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesAdultOutfit3A"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesOutfit3A"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesB"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesAdultB"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesC"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesAdultNewC"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesD"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesAdultD"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesInfestedA"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesAdultInfested"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesN"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesAdultN"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesNightSuit"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesAdultNightSuit"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesNovaEngineer"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesAdultNovaEngineer"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesO"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesAdultO"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesOperatorCalDeluxe"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesAdultCalDeluxe"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesOperatorDemonframe"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesAdultOperatorDemonframe"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesPrimeA"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesAdultPrimeA"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesPrimeC"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesAdultPrimeC"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesZephyrDeluxe"
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Sleeves/SleevesAdultDeluxeA"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Ornate/TekeluAkmagnusSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Ornate/TekeluMagnusSkin"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Ornate/TekeluAkvastoSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Ornate/TekeluVastoSkin"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Ostron/RevenantMask"
+item = "/Lotus/StoreItems/Types/Keys/RevenantQuest/RevenantQuestKeyChain"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Pacifist/BaruukDeluxeIISkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Pacifist/BaruukDeluxeIIAux"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Pacifist/BaruukDeluxeIISkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Pacifist/BaruukDeluxeIIHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Pacifist/BaruukDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Pacifist/BaruukDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Pacifist/SWBaruukBotLSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Pacifist/SWBaruukBotlHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Pacifist/SWBaruukGraxxSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Pacifist/SWBaruukGraxxHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Pacifist/SWBaruukPeacemakerSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Pacifist/SWBaruukPeacemakerHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Pacifist/SWBaruukZamariuSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Pacifist/SWBaruukZamariuHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Pacifist/SWBedouinSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Pacifist/SWBedouinHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Pacifist/SWShiraanSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Pacifist/SWShiraanHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Pagemaster/PagemasterDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/WarframeDefaults/DanteDeluxeArmArmor"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Pagemaster/PagemasterDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Pagemaster/PagemasterDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Paladin/OberonPS4Skin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Paladin/OberonPS4Alt2Helmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Paladin/OberonPS4Skin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Paladin/OberonPS4Helmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Paladin/PaladinDeluxeSuit"
+item = "/Lotus/StoreItems/Upgrades/Skins/Paladin/PaladinDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Paladin/SWOberonBotLSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/WarframeDefaults/SWOberonBotLArmArmor"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Paladin/SWOberonBotLSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Paladin/SWOberonBotLHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Paladin/SWOberonYoukaiSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/WarframeDefaults/SWOberonYoukaiArmArmor"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Paladin/SWOberonYoukaiSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Paladin/SWOberonYoukaiHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Paladin/SWWendigoSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/WarframeDefaults/SWOberonWendigoArmArmor"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Paladin/SWWendigoSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Paladin/SWWendigoHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/PaxDuviricus/KulervoDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/WarframeDefaults/KullervoDeluxeArmArmor"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/PaxDuviricus/KulervoDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/PaxDuviricus/KulervoDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/PaxDuviricus/KulervoDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/PaxDuviricus/KullervoDeluxeBodyBlades"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/PaxDuviricus/SWPaxAscophiliaSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/PaxDuviricus/SWPaxAscophiliaBodyBlades"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/PaxDuviricus/SWPaxAscophiliaSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/PaxDuviricus/SWPaxAscophiliaHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Pirate/SWGraxxHydroidSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Pirate/SWGraxxHydroidHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Priest/HarrowDeluxeSuit"
+item = "/Lotus/StoreItems/Upgrades/Skins/Priest/HarrowDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Priest/HarrowGeminiSkin"
+item = "/Lotus/StoreItems/Types/Items/Emotes/GeminiEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Priest/HarrowGeminiSkin"
+item = "/Lotus/StoreItems/Types/Items/Emotes/LegendaryLyonEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Priest/SWAlgalystSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Priest/SWAlgalystHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Priest/SWGraxxHarrowSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Priest/SWGraxxHarrowHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Priest/SWProfitasHarrowSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Priest/SWProfitasHarrowHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Priest/SWVelesSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Priest/SWVelesHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Promo/Microsoft/JadeRhinoSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Promo/Microsoft/JadeRhinoHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Promo/Microsoft/JadeTwinGrakatas"
+item = "/Lotus/StoreItems/Upgrades/Skins/Promo/Microsoft/JadeGrakata"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Promo/Nintendo/NintendoAklatoSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Promo/Nintendo/NintendoSemiAutoSkin"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Promo/Twitch/ExcaliburTwitchSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Promo/Twitch/ExcaliburTwitchSkinHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Revenant/RevenantDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/WarframeDefaults/RevenantDeluxeCape"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Revenant/RevenantDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Revenant/RevenantDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Revenant/SWAhrimanSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Revenant/SWAhrimanHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Revenant/SWDraugenSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Revenant/SWDraugenHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Revenant/SWRevenantWightSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Revenant/SWRevenantWightHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Rhino/RhinoChameleonASkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Rhino/RhinoChameleonAHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Rhino/RhinoDeluxeSuit"
+item = "/Lotus/StoreItems/Upgrades/Skins/Rhino/RhinoDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Rhino/RhinoDeluxeSuit"
+item = "/Lotus/StoreItems/Upgrades/Skins/Rhino/RhinoIronSkinDeluxe"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Rhino/RhinoDeluxeV2Skin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Rhino/RhinoDeluxeV2Helmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Rhino/RhinoDeluxeV2Skin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Rhino/RhinoDeluxeV2Wings"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Rhino/RhinoDeluxeV2Skin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Rhino/RhinoIronSkinDeluxeTwo"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Rhino/RhinoDeluxeV2Skin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Rhino/UnlockRhinoDeluxeV2Agile"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Rhino/RhinoDeluxeV2Skin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Rhino/UnlockRhinoDeluxeV2Noble"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Rhino/RhinoDexSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Rhino/RhinoDexHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Rhino/RhinoHeirloomSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Rhino/RhinoHeirloomHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Rhino/RhinoHeirloomSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Rhino/RhinoIronSkinHeirloom"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Rhino/SWIonRhinoSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Rhino/SWIonRhinoHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Rhino/SWMastodonSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Rhino/SWMastodonHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Rhino/SWRFourRhinoGraxxSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Rhino/SWRFourRhinoGraxxHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Rhino/SWRhinoBotLSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Rhino/SWRhinoBotLHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Rhino/SWScarabSectSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Rhino/SWScarabSectHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Runner/GaussDeluxeIISkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Runner/GaussDeluxeIIHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Runner/GaussDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Runner/GaussDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Runner/SWGaussAgitoSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Runner/SWGaussAgitoHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Runner/SWGaussGraxxSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Runner/SWGaussGraxxHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Runner/SWGaussNitrolystSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Runner/SWGaussNitrolystHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Runner/SWProfitasSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Runner/SWProfitasHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Sandman/InarosDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Sandman/InarosDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Sandman/SWHorusSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Sandman/SWHorusHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Sandman/SWOzymandiasSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Sandman/SWOzymandiasHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Saryn/SWAmalgamaSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Saryn/SWAmalgamaHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Saryn/SWBotLSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Saryn/SWBotLSarynHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Saryn/SWIntegraSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Saryn/SWIntegraHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Saryn/SWNapellusSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Saryn/SWNapellusHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Saryn/SWNitasModaSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Saryn/SWNitasModaHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Saryn/SWRSixSarynGraxxSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Saryn/SWRSixSarynGraxxHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Saryn/SWSarynIonSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Saryn/SWSarynIonHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Saryn/SWSarynNighthunterSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Saryn/SWSarynNighthunterHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Saryn/SWVelenosaSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Saryn/SWVelenosaHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Saryn/SarynChameleonBSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Saryn/SarynChameleonBHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Saryn/SarynDeluxeSuit"
+item = "/Lotus/StoreItems/Upgrades/Skins/Saryn/SarynDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Saryn/SarynLunarNewYearSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Saryn/SarynLunarNewYearHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Saryn/WF1999SarynSkin"
+item = "/Lotus/StoreItems/Types/Items/Emotes/GeminiEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Saryn/WF1999SarynSkin"
+item = "/Lotus/StoreItems/Types/Items/Emotes/LegendaryMinervaEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Scarves/SiriusOrionBothSyandana"
+item = "/Lotus/StoreItems/Upgrades/Skins/Scarves/SiriusOrionLeftSyandana"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Scarves/SiriusOrionBothSyandana"
+item = "/Lotus/StoreItems/Upgrades/Skins/Scarves/SiriusOrionRightSyandana"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Scarves/TC2025OrokinScarf"
+item = "/Lotus/StoreItems/Upgrades/Skins/Scarves/TC2025EvolvedOrokinScarf"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Scarves/TC2025Scarf"
+item = "/Lotus/StoreItems/Upgrades/Skins/Scarves/TC2025EvolvedScarf"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Scarves/TitaniaPrimeSyandana"
+item = "/Lotus/StoreItems/Upgrades/Skins/Scarves/TitaniaPrimeShortSyandana"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Sentient/CalibanDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Sentient/CalibanDeluxeAuxFloater"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Sentient/CalibanDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Sentient/CalibanDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Sentinels/Wings/GardenerWings"
+item = "/Lotus/StoreItems/Upgrades/Skins/Sentinels/Wings/GardenerWingsStatic"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Sigils/NecramechSigilSnake"
+item = "/Lotus/StoreItems/Upgrades/Skins/Sigils/SigilSnake"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/SteamEsteem/EsteemExcalibur"
+item = "/Lotus/StoreItems/Upgrades/Skins/SteamEsteem/EsteemExcaliburHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/SummerSolstice/SummerSolsticeTwinGrakatas"
+item = "/Lotus/StoreItems/Upgrades/Skins/SummerSolstice/SummerSolsticeGrakata"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Temple/WF1999TempleSkin"
+item = "/Lotus/StoreItems/Types/Items/Emotes/GeminiEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Temple/WF1999TempleSkin"
+item = "/Lotus/StoreItems/Types/Items/Emotes/LegendaryFlareEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Tengu/SWRThreeHagoromoSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Tengu/SWRThreeHagoromoHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Tengu/SWRThreeSkeironSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Tengu/SWRThreeSkeironHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Tengu/SWStrafeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Tengu/SWStrafeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Tengu/SWZephyrBotLSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Tengu/SWZephyrBotLHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Tengu/SWZephyrGraxxSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Tengu/SWZephyrGraxxHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Tengu/ZephyrDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Tengu/UnlockTenguDeluxeAgile"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Tengu/ZephyrDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Tengu/UnlockTenguDeluxeNoble"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Tengu/ZephyrDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Tengu/ZephyrDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Tengu/ZephyrQTCCBodySkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Tengu/ZephyrQTCCHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Trapper/SWBonaparteSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Trapper/SWBonaparteHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Trapper/SWGraxxVaubanSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Trapper/SWGraxxVaubanHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Trapper/SWSuppressorSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Trapper/SWSuppressorHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Trapper/VaubanDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Trapper/VaubanDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Trapper/VaubanHeirloomAux"
+item = "/Lotus/StoreItems/Upgrades/Skins/Trapper/VaubanHeirloomAuxSleeveless"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Trapper/VaubanHeirloomSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Trapper/VaubanHeirloomAux"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Trapper/VaubanHeirloomSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Trapper/VaubanHeirloomHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Trinity/SWKnightessSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Trinity/SWKnightessHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Trinity/SWNightingaleSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Trinity/SWNightingaleHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Trinity/SWTrinityBotLSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Trinity/SWTrinityBotLHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Trinity/TrinityDeluxeSuit"
+item = "/Lotus/StoreItems/Upgrades/Skins/Trinity/TrinityDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Trinity/WF1999TrinitySkin"
+item = "/Lotus/StoreItems/Types/Items/Emotes/GeminiEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Trinity/WF1999TrinitySkin"
+item = "/Lotus/StoreItems/Types/Items/Emotes/LegendaryLettieEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/VoidTrader/VTExcaliburSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/VoidTrader/VTExcaliburHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Volt/DiscordVolt"
+item = "/Lotus/StoreItems/Upgrades/Skins/Volt/DiscordVoltHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Volt/NintendoVolt"
+item = "/Lotus/StoreItems/Upgrades/Skins/Volt/NintendoVoltHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Volt/SWCapacitorSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Volt/SWCapacitorHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Volt/SWFulgursorSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Volt/SWFulgursorHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Volt/SWRFourVoltGraxxSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Volt/SWRFourVoltGraxxHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Volt/SWROneVoltSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Volt/SWROneVoltHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Volt/SWTechnoshockSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Volt/SWTechnoshockHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Volt/SWZenerSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Volt/SWZenerHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Volt/VoltChameleonASkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/WarframeDefaults/VoltChameleonArmArmor"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Volt/VoltChameleonASkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Volt/VoltChameleonAHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Volt/VoltDeluxeBSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Volt/VoltDeluxeBHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Volt/VoltDeluxeRaijinSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Volt/VoltDeluxeRaijinAuxChest"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Volt/VoltDeluxeRaijinSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Volt/VoltDeluxeRaijinHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Volt/VoltDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Volt/VoltDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Volt/VoltTwitchSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Volt/VoltTwitchHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Volt/WF1999VoltSkin"
+item = "/Lotus/StoreItems/Types/Items/Emotes/GeminiEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Volt/WF1999VoltSkin"
+item = "/Lotus/StoreItems/Types/Items/Emotes/LegendaryAmirEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Werewolf/SWVorunaKuvaelDrahkaanislSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/WarframeDefaults/SWKuvaelArmArmor"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Werewolf/SWVorunaKuvaelDrahkaanislSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Werewolf/SWVorunaKuvaelDrahkaanisHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Werewolf/VorunaDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/WarframeDefaults/VorunaDeluxeArmArmor"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Werewolf/VorunaDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Werewolf/VorunaDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Werewolf/VorunaDemionnaSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/WarframeDefaults/SWWerewolfDemionnaArmArmor"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Werewolf/VorunaDemionnaSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Werewolf/VorunaDemionnaHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Werewolf/VorunaVoidShellSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/WarframeDefaults/WerewolfVoidshellArmArmor"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Werewolf/VorunaVoidShellSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Werewolf/VorunaVoidShellHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Wisp/DexWispSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Wisp/DexWispHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Wisp/SWCelestisWispSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Wisp/SWCelestisWispHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Wisp/SWCovenWispSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Wisp/SWCovenWispHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Wisp/SWDelusionSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Wisp/SWDelusionHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Wisp/SWRaevuzSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Wisp/SWRaevuzHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Wisp/SWSycoraxWispSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Wisp/SWSycoraxWispHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Wisp/SWWispGraxxSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Wisp/SWWispGraxxHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Wisp/SWZamariuWispSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Wisp/SWZamariuWispHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Wisp/WF1999WispSkin"
+item = "/Lotus/StoreItems/Types/Items/Emotes/GeminiEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Wisp/WF1999WispSkin"
+item = "/Lotus/StoreItems/Types/Items/Emotes/LegendaryMarieEmote"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Wisp/WispDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Wisp/WispDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Wraith/SWSevagothEzrielSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Wraith/SWSevagothEzrielHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Wraith/SWSevagothEzrielSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Wraith/SWSevagothEzrielReaperHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Wraith/SWSevagothEzrielSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Wraith/SWSevagothEzrielReaperSkin"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Wraith/SevagothDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Wraith/SevagothDeluxeArmRightArmor"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Wraith/SevagothDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Wraith/SevagothDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Wraith/SevagothDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Wraith/SevagothDeluxeRopeAnchor"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Wraith/SevagothDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Wraith/SevagothDeluxeShadowClawsSkin"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Wraith/SevagothDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Wraith/SevagothDeluxeShadowHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Wraith/SevagothDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Wraith/SevagothDeluxeShadowSkin"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Yareli/YareliDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Yareli/MerulinaDeluxe"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/Yareli/YareliDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/Yareli/YareliDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Upgrades/Skins/YinYang/EquinoxDeluxeSkin"
+item = "/Lotus/StoreItems/Upgrades/Skins/YinYang/EquinoxDeluxeHelmet"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Weapons/Tenno/Melee/Hammer/DaxDuviriHammer/DaxDuviriHammerWeapon"
+item = "/Lotus/StoreItems/Weapons/Tenno/Melee/Hammer/DaxDuviriHammer/DaxDuviriHammerPlayerWeapon"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Weapons/Tenno/Melee/Polearms/DaxDuviriPolearm/DaxDuviriPolearmWeapon"
+item = "/Lotus/StoreItems/Weapons/Tenno/Melee/Polearms/DaxDuviriPolearm/DaxDuviriPolearmSpearPlayerWeapon"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Weapons/Tenno/Melee/Swords/DaxDuviriKatana/DaxDuviriKatanaWeapon"
+item = "/Lotus/StoreItems/Weapons/Tenno/Melee/Swords/DaxDuviriKatana/DaxDuviriKatanaPlayerWeapon"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Weapons/Tenno/Melee/Swords/DaxDuviriTwoHandedKatana/DaxDuviriTwoHandedKatanaWeapon"
+item = "/Lotus/StoreItems/Weapons/Tenno/Melee/Swords/DaxDuviriTwoHandedKatana/DaxDuviriTwoHandedKatanaPlayerWeapon"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/StoreItems/Weapons/Tenno/Melee/SwordsAndBoards/DaxDuviriMaceShieldWeapon"
+item = "/Lotus/StoreItems/Weapons/Tenno/Melee/SwordsAndBoards/DaxDuviriMaceShieldPlayerWeapon"
+how = "bundled"
+
+[[grant]]
+owner = "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetAPowerSuit"
+item = "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetMeleeWeaponIP"
+how = "weapon"
+
+[[grant]]
+owner = "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetBPowerSuit"
+item = "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetMeleeWeaponIS"
+how = "weapon"
+
+[[grant]]
+owner = "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetCPowerSuit"
+item = "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetMeleeWeaponPS"
+how = "weapon"
+
+[[grant]]
+owner = "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetParts/ZanukaPetPartHeadA"
+item = "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetMeleeWeaponIP"
+how = "weapon"
+
+[[grant]]
+owner = "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetParts/ZanukaPetPartHeadB"
+item = "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetMeleeWeaponIS"
+how = "weapon"
+
+[[grant]]
+owner = "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetParts/ZanukaPetPartHeadC"
+item = "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetMeleeWeaponPS"
+how = "weapon"
+
+[[grant]]
+owner = "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetPowerSuit"
+item = "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetMeleeWeapon"
+how = "weapon"
+
+[[grant]]
+owner = "/Lotus/Types/Sentinels/SentinelPowersuits/ArcDronePowerSuit"
+item = "/Lotus/Types/Sentinels/SentinelWeapons/SentElecRailgun"
+how = "weapon"
+
+[[grant]]
+owner = "/Lotus/Types/Sentinels/SentinelPowersuits/CarrierPowerSuit"
+item = "/Lotus/Types/Sentinels/SentinelWeapons/SentShotgun"
+how = "weapon"
+
+[[grant]]
+owner = "/Lotus/Types/Sentinels/SentinelPowersuits/DethCubePowerSuit"
+item = "/Lotus/Types/Sentinels/SentinelWeapons/DethMachineRifle"
+how = "weapon"
+
+[[grant]]
+owner = "/Lotus/Types/Sentinels/SentinelPowersuits/EmpyreanSentinelPowerSuit"
+item = "/Lotus/Types/Sentinels/SentinelWeapons/SentinelFreezeRayRifle"
+how = "weapon"
+
+[[grant]]
+owner = "/Lotus/Types/Sentinels/SentinelPowersuits/GubberPowerSuit"
+item = "/Lotus/Types/Sentinels/SentinelWeapons/SentBioWeapon"
+how = "weapon"
+
+[[grant]]
+owner = "/Lotus/Types/Sentinels/SentinelPowersuits/MeleePetPowerSuit"
+item = "/Lotus/Types/Sentinels/SentinelWeapons/SentGlaiveWeapon"
+how = "weapon"
+
+[[grant]]
+owner = "/Lotus/Types/Sentinels/SentinelPowersuits/NautilusPrimeSentinelPowerSuit"
+item = "/Lotus/Types/Sentinels/SentinelWeapons/SentinelFreezeRayPrimeRifle"
+how = "weapon"
+
+[[grant]]
+owner = "/Lotus/Types/Sentinels/SentinelPowersuits/PrimeCarrierPowerSuit"
+item = "/Lotus/Types/Sentinels/SentinelWeapons/PrimeSentShotgun"
+how = "weapon"
+
+[[grant]]
+owner = "/Lotus/Types/Sentinels/SentinelPowersuits/PrimeDethCubePowerSuit"
+item = "/Lotus/Types/Sentinels/SentinelWeapons/PrimeDethMachineRifle"
+how = "weapon"
+
+[[grant]]
+owner = "/Lotus/Types/Sentinels/SentinelPowersuits/PrimeHeliosPowerSuit"
+item = "/Lotus/Types/Sentinels/SentinelWeapons/DeconstructorPrime/PrimeHeliosGlaiveWeapon"
+how = "weapon"
+
+[[grant]]
+owner = "/Lotus/Types/Sentinels/SentinelPowersuits/PrimeShadePowerSuit"
+item = "/Lotus/Types/Sentinels/SentinelWeapons/PrimeBurstLaserPistol"
+how = "weapon"
+
+[[grant]]
+owner = "/Lotus/Types/Sentinels/SentinelPowersuits/PrimeWyrmPowerSuit"
+item = "/Lotus/Types/Sentinels/SentinelWeapons/PrimeLaserRifle"
+how = "weapon"
+
+[[grant]]
+owner = "/Lotus/Types/Sentinels/SentinelPowersuits/PrismaShadePowerSuit"
+item = "/Lotus/Types/Sentinels/SentinelWeapons/PrismaBurstLaserPistol"
+how = "weapon"
+
+[[grant]]
+owner = "/Lotus/Types/Sentinels/SentinelPowersuits/RadarPowerSuit"
+item = "/Lotus/Types/Friendly/Pets/MoaPets/MoaPetComponents/HextraWeapon"
+how = "weapon"
+
+[[grant]]
+owner = "/Lotus/Types/Sentinels/SentinelPowersuits/ShadePowerSuit"
+item = "/Lotus/Types/Sentinels/SentinelWeapons/BurstLaserPistol"
+how = "weapon"
+
+[[grant]]
+owner = "/Lotus/Types/Sentinels/SentinelPowersuits/TnSentinelCrossPowerSuit"
+item = "/Lotus/Types/Sentinels/SentinelWeapons/Gremlin"
+how = "weapon"
+
+[[grant]]
+owner = "/Lotus/Types/Sentinels/SentinelPowersuits/WyrmPowerSuit"
+item = "/Lotus/Types/Sentinels/SentinelWeapons/LaserRifle"
+how = "weapon"

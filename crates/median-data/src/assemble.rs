@@ -64,6 +64,12 @@ pub struct Built {
     pub fitted: usize,
     /// Market imprints modelled as their own node.
     pub imprinted: usize,
+    /// Items linked to what comes along with them.
+    pub granted: usize,
+    /// Breeds an incubation can turn out.
+    pub hatched: usize,
+    /// Yields of the open worlds' veins.
+    pub mined: usize,
     /// Relic refinement steps linked.
     pub refined: usize,
     /// Classification rules that decided nothing, as the audit describes them.
@@ -104,6 +110,12 @@ pub struct Input {
     pub composition: Vec<crate::wiki::Slot>,
     /// What the game client calls things, distilled out of its cache.
     pub spoken: crate::game::Names,
+    /// What the game hands over along with an item, distilled out of its cache.
+    pub grants: crate::grants::Grants,
+    /// What the incubator hatches, distilled out of its cache.
+    pub incubator: crate::incubator::Incubator,
+    /// What the open worlds' veins yield, distilled out of its cache.
+    pub mining: crate::mining::Mining,
 }
 
 /// Merge every source into the knowledge graph, honouring curated decisions.
@@ -187,6 +199,9 @@ pub fn assemble(
     let imprinted = imprints::link(&mut graph, &input.wfm);
     let primed = primes::link(&mut graph);
     let fitted = drifters::link(&mut graph);
+    let granted = crate::grants::link(&mut graph, &input.grants);
+    let hatched = crate::incubator::link(&mut graph, &input.incubator);
+    let mined = crate::mining::link(&mut graph, &input.mining, areas);
 
     let dropped = drops::link(&mut graph, &input.drops, settlements, &index, &terms);
     let looted = drops::curated(&mut graph, &curated.drop, &index, &terms);
@@ -275,6 +290,9 @@ pub fn assemble(
         primed,
         fitted,
         imprinted,
+        granted,
+        hatched,
+        mined,
         refined,
         dead_rules: Vec::new(),
         unread_headings: Vec::new(),

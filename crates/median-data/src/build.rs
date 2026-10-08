@@ -157,6 +157,10 @@ pub fn run(vault: &Vault, out: &Path) -> Result<()> {
         "operator {} cosmetics linked to the Drifter's copy of them",
         built.fitted
     );
+    eprintln!(
+        "game     {} items linked to what comes with them, {} breeds hatched, {} vein yields",
+        built.granted, built.hatched, built.mined
+    );
     std::fs::write(REPORT, serde_json::to_vec_pretty(&report)?)?;
 
     let blocking = funnel::blocking(&report.findings);
@@ -648,6 +652,9 @@ pub fn graph_with(vault: &Vault, curated: &Curation) -> Result<Built> {
             baro,
             dojo,
             stalls: crate::game::sold(Path::new(crate::GAME))?,
+            grants: crate::game::granted(Path::new(crate::GAME))?,
+            incubator: crate::game::hatched(Path::new(crate::GAME))?,
+            mining: crate::game::mined(Path::new(crate::GAME))?,
             keepers: wiki::vendors(&blob(vault, &wiki_snap, spec::WIKI_VENDORS)?)?,
             market,
             wfm,

@@ -3,13 +3,14 @@ use std::collections::BTreeMap;
 use anyhow::{Context, Result, bail};
 use zstd::bulk::Decompressor;
 
+use crate::frame;
+
 const HASH_LEN: usize = 16;
 const VERSION: u32 = 20;
 /// Two header numbers the format does not explain.
 const UNREAD_HEADER: usize = 8;
 /// A phrase flagged this way is a ULEB128 length and a magicless zstd frame.
 const PACKED: u32 = 0x0200_0000;
-const ZSTD_MAGIC: [u8; 4] = [0x28, 0xB5, 0x2F, 0xFD];
 
 /// Every phrase `Languages.bin` holds, keyed by section path plus record key.
 pub fn strings(raw: &[u8]) -> Result<BTreeMap<String, String>> {
@@ -54,29 +55,7 @@ pub fn strings(raw: &[u8]) -> Result<BTreeMap<String, String>> {
 }
 
 fn unpack(stored: &[u8], zstd: &mut Decompressor) -> Result<String> {
-    let (len, header) = uleb128(stored)?;
-    let mut frame = Vec::with_capacity(ZSTD_MAGIC.len() + stored.len() - header);
-    frame.extend_from_slice(&ZSTD_MAGIC);
-    frame.extend_from_slice(&stored[header..]);
-    let plain = zstd.decompress(&frame, len)?;
-    Ok(String::from_utf8(plain)?)
-}
-
-/// The value and how many bytes it spans.
-fn uleb128(raw: &[u8]) -> Result<(usize, usize)> {
-    let mut value = 0usize;
-    let mut shift = 0u32;
-    for (i, &byte) in raw.iter().enumerate() {
-        value |= ((byte & 0x7F) as usize) << shift;
-        if byte & 0x80 == 0 {
-            return Ok((value, i + 1));
-        }
-        shift += 7;
-        if shift >= usize::BITS {
-            break;
-        }
-    }
-    bail!("a phrase length runs past its bytes");
+    Ok(String::from_utf8(frame::unpack(stored, zstd)?)?)
 }
 
 struct Reader<'a> {
@@ -133,12 +112,12 @@ mod tests {
     }
 
     fn packed(phrase: &str) -> Vec<u8> {
-        let frame = Compressor::with_dictionary(3, DICTIONARY)
+        let whole = Compressor::with_dictionary(3, DICTIONARY)
             .unwrap()
             .compress(phrase.as_bytes())
             .unwrap();
         let mut stored = vec![phrase.len() as u8];
-        stored.extend_from_slice(&frame[ZSTD_MAGIC.len()..]);
+        stored.extend_from_slice(&whole[frame::MAGIC.len()..]);
         stored
     }
 
@@ -189,11 +168,5 @@ mod tests {
         let mut raw = table(&[("Action_WALK_BACK", "Шаг назад".into(), false)]);
         raw[HASH_LEN] = 19;
         assert!(strings(&raw).unwrap_err().to_string().contains("version"));
-    }
-
-    #[test]
-    fn uleb128_reads_a_length_over_one_byte() {
-        assert_eq!(uleb128(&[0x13]).unwrap(), (19, 1));
-        assert_eq!(uleb128(&[0xE5, 0x8E, 0x26]).unwrap(), (624485, 3));
     }
 }

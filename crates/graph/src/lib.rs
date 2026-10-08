@@ -9,7 +9,7 @@ pub use algo::{
     cycles, handed_over, ingredients, obtainable, produced, producer, refinement_of, rollup,
     rollup_all,
 };
-pub use edge::{Cost, DropInfo, Edge, Levels, Offer, Rel, Research};
+pub use edge::{Cost, DropInfo, Edge, Grant, Levels, Offer, Rel, Research};
 pub use graph::Graph;
 pub use kind::{Class, Kind, Leaf, Taxonomy};
 pub use node::{
@@ -17,4 +17,4 @@ pub use node::{
     PlaceKind, Recipe, Region, RelicInfo, Set, Table, Vendor, area_id, enemy_id, imprint_id,
     lab_id, location_id, place_id, recipe_id, region_id, set_id, vendor_id,
 };
-pub use reference::{LANGS, SHARES, chance, share, tiered};
+pub use reference::{LANGS, SHARES, chance, printed, share, tiered};

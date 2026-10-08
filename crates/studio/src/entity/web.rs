@@ -56,6 +56,7 @@ pub fn render(graph: &Graph, id: &str) -> Markup {
             Rel::Refines => push(&mut left, graph, id, &e.from, "улучшение"),
             Rel::Researched(_) => push(&mut left, graph, id, &e.from, "исследование"),
             Rel::Within => push(&mut right, graph, id, &e.from, "в области"),
+            Rel::Grants(_) => push(&mut left, graph, id, &e.from, "вместе с"),
         }
     }
     for e in graph.from(id) {
@@ -65,6 +66,7 @@ pub fn render(graph: &Graph, id: &str) -> Markup {
             Rel::At => push(&mut right, graph, id, &e.to, "узел"),
             Rel::Refines => push(&mut right, graph, id, &e.to, "улучшается в"),
             Rel::Within => push(&mut right, graph, id, &e.to, "область"),
+            Rel::Grants(_) => push(&mut right, graph, id, &e.to, "в комплекте"),
             _ => {}
         }
     }

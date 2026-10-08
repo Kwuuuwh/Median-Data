@@ -1,0 +1,251 @@
+# Written by `median-data extract` from the game cache: what the open worlds'
+# veins yield and the tools that work them, in the game's own paths.
+
+[[site]]
+manifest = "/Lotus/Types/Game/Mining/EidolonMiningManifest"
+
+[[site.yield]]
+kind = "ore"
+item = "/Lotus/StoreItems/Types/Items/Gems/Eidolon/CommonOreAItem"
+chance = 0.36
+tier = 0.72
+
+[[site.yield]]
+kind = "ore"
+item = "/Lotus/StoreItems/Types/Items/Gems/Eidolon/CommonOreBItem"
+chance = 0.36
+tier = 0.72
+
+[[site.yield]]
+kind = "ore"
+item = "/Lotus/StoreItems/Types/Items/Gems/Eidolon/UncommonOreAItem"
+chance = 0.22
+tier = 0.22
+
+[[site.yield]]
+kind = "ore"
+item = "/Lotus/StoreItems/Types/Items/Gems/Eidolon/RareOreAItem"
+chance = 0.06
+tier = 0.06
+
+[[site.yield]]
+kind = "gem"
+item = "/Lotus/StoreItems/Types/Items/Gems/Eidolon/CommonGemAItem"
+chance = 0.36
+tier = 0.72
+
+[[site.yield]]
+kind = "gem"
+item = "/Lotus/StoreItems/Types/Items/Gems/Eidolon/CommonGemBItem"
+chance = 0.36
+tier = 0.72
+
+[[site.yield]]
+kind = "gem"
+item = "/Lotus/StoreItems/Types/Items/Gems/Eidolon/UncommonGemAItem"
+chance = 0.22
+tier = 0.22
+
+[[site.yield]]
+kind = "gem"
+item = "/Lotus/StoreItems/Types/Items/Gems/Eidolon/RareGemAItem"
+chance = 0.06
+tier = 0.06
+
+[[site.yield]]
+kind = "special"
+item = "/Lotus/StoreItems/Types/Items/Gems/Eidolon/EidolonGemAItem"
+chance = 0.5
+tier = 0.5
+
+[[site.yield]]
+kind = "special"
+item = "/Lotus/StoreItems/Types/Items/Gems/Eidolon/EidolonGemBItem"
+chance = 0.5
+tier = 0.5
+
+[[site.tool]]
+weapon = "/Lotus/Weapons/Tenno/Gear/MiningLaserWeapon"
+gem = 0.03
+special = 0.0
+
+[[site.tool]]
+weapon = "/Lotus/Weapons/Tenno/Gear/MiningLaserBWeapon"
+gem = 0.04
+special = 0.0
+
+[[site.tool]]
+weapon = "/Lotus/Weapons/Tenno/Gear/MiningLaserCWeapon"
+gem = 0.1
+special = 0.15
+
+[[site.tool]]
+weapon = "/Lotus/Weapons/Tenno/Gear/MiningLaserSolarisWeaponA"
+gem = 0.15
+special = 0.2
+
+[[site]]
+manifest = "/Lotus/Types/Game/Mining/InfestedMicroplanetMiningManifest"
+
+[[site.yield]]
+kind = "ore"
+item = "/Lotus/StoreItems/Types/Items/Gems/Deimos/DeimosCommonOreAItem"
+chance = 0.18
+tier = 0.72
+
+[[site.yield]]
+kind = "ore"
+item = "/Lotus/StoreItems/Types/Items/Gems/Deimos/DeimosCommonOreBItem"
+chance = 0.54
+tier = 0.72
+
+[[site.yield]]
+kind = "ore"
+item = "/Lotus/StoreItems/Types/Items/Gems/Deimos/DeimosUncommonOreAItem"
+chance = 0.16
+tier = 0.16
+
+[[site.yield]]
+kind = "ore"
+item = "/Lotus/StoreItems/Types/Items/Gems/Deimos/DeimosRareOreAItem"
+chance = 0.12
+tier = 0.12
+
+[[site.yield]]
+kind = "gem"
+item = "/Lotus/StoreItems/Types/Items/Gems/Deimos/DeimosCommonGemAItem"
+chance = 0.36
+tier = 0.72
+
+[[site.yield]]
+kind = "gem"
+item = "/Lotus/StoreItems/Types/Items/Gems/Deimos/DeimosCommonGemBItem"
+chance = 0.36
+tier = 0.72
+
+[[site.yield]]
+kind = "gem"
+item = "/Lotus/StoreItems/Types/Items/Gems/Deimos/DeimosUncommonGemAItem"
+chance = 0.16
+tier = 0.16
+
+[[site.yield]]
+kind = "gem"
+item = "/Lotus/StoreItems/Types/Items/Gems/Deimos/DeimosRareGemAItem"
+chance = 0.12
+tier = 0.12
+
+[[site.yield]]
+kind = "special"
+item = "/Lotus/StoreItems/Types/Items/Gems/Deimos/DeimosEidolonGemAItem"
+chance = 0.5
+tier = 0.5
+
+[[site.yield]]
+kind = "special"
+item = "/Lotus/StoreItems/Types/Items/Gems/Deimos/DeimosEidolonGemBItem"
+chance = 0.5
+tier = 0.5
+
+[[site.tool]]
+weapon = "/Lotus/Weapons/Tenno/Gear/MiningLaserWeapon"
+gem = 0.03
+special = 0.0
+
+[[site.tool]]
+weapon = "/Lotus/Weapons/Tenno/Gear/MiningLaserBWeapon"
+gem = 0.04
+special = 0.0
+
+[[site.tool]]
+weapon = "/Lotus/Weapons/Tenno/Gear/MiningLaserCWeapon"
+gem = 0.1
+special = 0.15
+
+[[site.tool]]
+weapon = "/Lotus/Weapons/Tenno/Gear/MiningLaserSolarisWeaponA"
+gem = 0.15
+special = 0.2
+
+[[site]]
+manifest = "/Lotus/Types/Game/Mining/VenusMiningManifest"
+
+[[site.yield]]
+kind = "ore"
+item = "/Lotus/StoreItems/Types/Items/Gems/Solaris/SolarisCommonOreAItem"
+chance = 0.36
+tier = 0.72
+
+[[site.yield]]
+kind = "ore"
+item = "/Lotus/StoreItems/Types/Items/Gems/Solaris/SolarisCommonOreBItem"
+chance = 0.36
+tier = 0.72
+
+[[site.yield]]
+kind = "ore"
+item = "/Lotus/StoreItems/Types/Items/Gems/Solaris/SolarisUncommonOreItem"
+chance = 0.22
+tier = 0.22
+
+[[site.yield]]
+kind = "ore"
+item = "/Lotus/StoreItems/Types/Items/Gems/Solaris/SolarisRareOreAItem"
+chance = 0.06
+tier = 0.06
+
+[[site.yield]]
+kind = "gem"
+item = "/Lotus/StoreItems/Types/Items/Gems/Solaris/SolarisCommonGemAItem"
+chance = 0.36
+tier = 0.72
+
+[[site.yield]]
+kind = "gem"
+item = "/Lotus/StoreItems/Types/Items/Gems/Solaris/SolarisCommonGemBItem"
+chance = 0.36
+tier = 0.72
+
+[[site.yield]]
+kind = "gem"
+item = "/Lotus/StoreItems/Types/Items/Gems/Solaris/SolarisUncommonGemAItem"
+chance = 0.22
+tier = 0.22
+
+[[site.yield]]
+kind = "gem"
+item = "/Lotus/StoreItems/Types/Items/Gems/Solaris/SolarisRareGemAItem"
+chance = 0.06
+tier = 0.06
+
+[[site.yield]]
+kind = "special"
+item = "/Lotus/StoreItems/Types/Items/Gems/Solaris/SolarisEidolonGemAItem"
+chance = 0.5
+tier = 0.5
+
+[[site.yield]]
+kind = "special"
+item = "/Lotus/StoreItems/Types/Items/Gems/Solaris/SolarisEidolonGemBItem"
+chance = 0.5
+tier = 0.5
+
+[[site.tool]]
+weapon = "/Lotus/Weapons/Tenno/Gear/MiningLaserWeapon"
+gem = 0.03
+special = 0.0
+
+[[site.tool]]
+weapon = "/Lotus/Weapons/Tenno/Gear/MiningLaserBWeapon"
+gem = 0.04
+special = 0.0
+
+[[site.tool]]
+weapon = "/Lotus/Weapons/Tenno/Gear/MiningLaserCWeapon"
+gem = 0.1
+special = 0.15
+
+[[site.tool]]
+weapon = "/Lotus/Weapons/Tenno/Gear/MiningLaserSolarisWeaponA"
+gem = 0.15
+special = 0.2

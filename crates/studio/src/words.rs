@@ -18,6 +18,7 @@ pub fn rel(rel: &Rel) -> &'static str {
         Rel::Refines => "улучшается в",
         Rel::Researched(_) => "исследуется",
         Rel::Within => "стоит в области",
+        Rel::Grants(_) => "выдаёт вместе с собой",
     }
 }
 
@@ -38,6 +39,7 @@ pub fn rel_back(rel: &Rel) -> &'static str {
         Rel::Refines => "улучшается из",
         Rel::Researched(_) => "исследуется в",
         Rel::Within => "включает",
+        Rel::Grants(_) => "выдаётся вместе с",
     }
 }
 
@@ -110,6 +112,8 @@ pub fn place(kind: PlaceKind) -> &'static str {
         PlaceKind::Sortie => "вылазка",
         PlaceKind::Bounty => "задание",
         PlaceKind::Transient => "временное",
+        PlaceKind::Mining => "добыча",
+        PlaceKind::Incubator => "инкубатор",
     }
 }
 

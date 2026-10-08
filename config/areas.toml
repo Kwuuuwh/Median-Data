@@ -1,7 +1,8 @@
 # Areas a player stays in and gathers across: a hub with its open world, or the missions played
 # out of it. A star-chart node belongs by its tileset, and a place by the node it names, its
 # bounty settlement, the location the drop tables print, or by name. Vendors are listed by key,
-# area by area, once someone has checked where each one stands.
+# area by area, once someone has checked where each one stands. A mine names the manifest
+# that rolls an open world's veins and the place the catalog shows them as.
 
 [[area]]
 key = "duviri"
@@ -30,6 +31,11 @@ ru = "Цетус"
 tilesets = ["Cetus", "Plains of Eidolon"]
 settlements = ["Cetus"]
 
+[[area.mine]]
+manifest = "/Lotus/Types/Game/Mining/EidolonMiningManifest"
+name = "Plains of Eidolon Mining"
+ru = "Добыча: Равнины Эйдолона"
+
 [[area]]
 key = "fortuna"
 name = "Fortuna"
@@ -37,12 +43,22 @@ ru = "Фортуна"
 tilesets = ["Fortuna", "Orb Vallis"]
 settlements = ["Orb Vallis"]
 
+[[area.mine]]
+manifest = "/Lotus/Types/Game/Mining/VenusMiningManifest"
+name = "Orb Vallis Mining"
+ru = "Добыча: Долина Сфер"
+
 [[area]]
 key = "necralisk"
 name = "Necralisk"
 ru = "Некралиск"
 tilesets = ["Necralisk", "Cambion Drift"]
 settlements = ["Cambion Drift"]
+
+[[area.mine]]
+manifest = "/Lotus/Types/Game/Mining/InfestedMicroplanetMiningManifest"
+name = "Cambion Drift Mining"
+ru = "Добыча: Камбионский Дрейф"
 
 [[area]]
 key = "zariman"

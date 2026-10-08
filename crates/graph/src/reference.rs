@@ -47,9 +47,34 @@ pub fn chance(rarity: &str, refinement: &str, in_rarity: usize) -> Option<f64> {
     }
 }
 
+/// Lowest chance each rarity the drop tables print stands for, rarest last.
+const PRINTED: &[(f64, &str)] = &[
+    (0.32, "Common"),
+    (0.1, "Uncommon"),
+    (0.02, "Rare"),
+    (0.01, "Ultra Rare"),
+];
+
+/// The rarity the drop tables print beside a chance.
+pub fn printed(chance: f64) -> &'static str {
+    PRINTED
+        .iter()
+        .find(|(least, _)| chance >= *least)
+        .map_or("Legendary", |(_, rarity)| rarity)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn a_chance_reads_as_the_rarity_the_tables_print() {
+        assert_eq!(printed(0.36), "Common");
+        assert_eq!(printed(0.3125), "Uncommon");
+        assert_eq!(printed(0.06), "Rare");
+        assert_eq!(printed(0.0198), "Ultra Rare");
+        assert_eq!(printed(0.0025), "Legendary");
+    }
 
     #[test]
     fn every_rarity_has_four_refinements() {

@@ -96,6 +96,24 @@ pub struct Research {
     pub resources: Vec<(String, i64)>,
 }
 
+/// How an item comes along with another.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum Grant {
+    /// The weapon a companion fights with from the start.
+    Weapon,
+    /// Listed on the store item as coming with it.
+    Bundled,
+}
+
+impl Grant {
+    pub fn as_str(self) -> &'static str {
+        match self {
+            Grant::Weapon => "weapon",
+            Grant::Bundled => "bundled",
+        }
+    }
+}
+
 /// A typed relation between two nodes.
 #[derive(Debug, Clone, PartialEq)]
 pub enum Rel {
@@ -137,6 +155,8 @@ pub enum Rel {
     Researched(Research),
     /// A place, a vendor or a star-chart node -> the area it stands in.
     Within,
+    /// An item -> what the game hands over along with it.
+    Grants(Grant),
 }
 
 impl Rel {
@@ -156,6 +176,7 @@ impl Rel {
             Rel::Refines => "refines",
             Rel::Researched(_) => "researched",
             Rel::Within => "within",
+            Rel::Grants(_) => "grants",
         }
     }
 }

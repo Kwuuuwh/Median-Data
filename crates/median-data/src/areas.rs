@@ -33,6 +33,17 @@ pub struct Written {
     /// Vendor keys.
     #[serde(default)]
     pub vendors: Vec<String>,
+    /// The open world's veins, by the mining manifest that rolls them.
+    #[serde(default, rename = "mine")]
+    pub mines: Vec<Mine>,
+}
+
+/// The veins of an open world, under the name the catalog shows for them.
+#[derive(Debug, Clone, Deserialize)]
+pub struct Mine {
+    pub manifest: String,
+    pub name: String,
+    pub ru: String,
 }
 
 /// Read the areas. A missing file leaves every place without one.
@@ -70,6 +81,7 @@ pub fn link(graph: &mut Graph, areas: &Areas) -> usize {
                 Node::Region(_) => regions.contains(&node.id()),
                 Node::Place(place) => {
                     area.places.contains(&place.name)
+                        || area.mines.iter().any(|mine| mine.name == place.name)
                         || place
                             .bounty
                             .as_ref()
@@ -144,6 +156,7 @@ mod tests {
             locations: Vec::new(),
             places: Vec::new(),
             vendors: Vec::new(),
+            mines: Vec::new(),
         }
     }
 

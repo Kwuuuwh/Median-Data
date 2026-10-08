@@ -4,7 +4,7 @@ use graph::{Graph, Rel};
 /// empty list is the honest answer "no source we hold explains this item", which is a to-do
 /// for the sources, not a defect of the item.
 pub fn of(graph: &Graph, item: &str) -> Vec<(&'static str, usize)> {
-    let mut counts = [0usize; 8];
+    let mut counts = [0usize; 9];
     for edge in graph.into(item) {
         let at = match edge.rel {
             Rel::Drops(_) if edge.from.starts_with("enemy:") => 0,
@@ -15,11 +15,12 @@ pub fn of(graph: &Graph, item: &str) -> Vec<(&'static str, usize)> {
             Rel::Produces => 5,
             Rel::Member => 6,
             Rel::Refines => 7,
+            Rel::Grants(_) => 8,
             _ => continue,
         };
         counts[at] += 1;
     }
-    const LABELS: [&str; 8] = [
+    const LABELS: [&str; 9] = [
         "враг",
         "дроп",
         "реликвия",
@@ -28,6 +29,7 @@ pub fn of(graph: &Graph, item: &str) -> Vec<(&'static str, usize)> {
         "рецепт",
         "набор",
         "улучшение",
+        "в комплекте",
     ];
     LABELS
         .iter()

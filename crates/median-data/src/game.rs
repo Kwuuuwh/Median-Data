@@ -4,9 +4,11 @@ use std::path::Path;
 use anyhow::{Context, Result, bail};
 use serde::{Deserialize, Serialize};
 use sources::cache::Archive;
-use sources::{language, notation};
+use sources::{language, notation, packages};
 
+use crate::lineage::Lineage;
 use crate::offers::{self, Stall};
+use crate::{grants, incubator, mining};
 
 /// Languages median reads, and the package each one's string table sits in.
 const STRING_TABLES: [(&str, &str); 2] = [("en", "H.Misc_en"), ("ru", "H.Misc_ru")];
@@ -26,12 +28,18 @@ const JOINER_LEN: usize = 3;
 /// Package the vendor manifests sit in.
 const PACKAGE: &str = "H.Misc";
 
+/// Every type of the game, with its parent and own properties.
+const TYPES: &str = "/Packages.bin";
+
 /// Directories of the cache that hold what vendors sell.
 const STALLS: [&str; 2] = ["/Lotus/Types/Game/VendorManifests/", "/Lotus/Syndicates/"];
 
 const NAMES: &str = "names.toml";
 const OFFERS: &str = "offers.toml";
 const CLIENT: &str = "client.toml";
+const GRANTS: &str = "grants.toml";
+const INCUBATOR: &str = "incubator.toml";
+const MINING: &str = "mining.toml";
 
 /// Which client the distillate was taken from.
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
@@ -101,7 +109,7 @@ pub fn installed(cache: &Path) -> Result<String> {
 /// What this extract is, so a catalog can say which cache it was built from.
 pub fn stamp(dir: &Path) -> Result<String> {
     let mut hasher = blake3::Hasher::new();
-    for name in [CLIENT, NAMES, OFFERS] {
+    for name in [CLIENT, NAMES, OFFERS, GRANTS, INCUBATOR, MINING] {
         let path = dir.join(name);
         let bytes = std::fs::read(&path).with_context(|| format!("read {}", path.display()))?;
         hasher.update(name.as_bytes());
@@ -119,6 +127,28 @@ pub fn sold(dir: &Path) -> Result<Vec<Stall>> {
     let stalls: Stalls =
         toml::from_str(&text).with_context(|| format!("parse {}", path.display()))?;
     Ok(stalls.vendor)
+}
+
+/// What the game hands over along with an item, as the last extract left it.
+pub fn granted(dir: &Path) -> Result<grants::Grants> {
+    distilled(dir, GRANTS)
+}
+
+/// What the incubator takes and hatches, as the last extract left it.
+pub fn hatched(dir: &Path) -> Result<incubator::Incubator> {
+    distilled(dir, INCUBATOR)
+}
+
+/// What the open worlds' veins yield, as the last extract left it.
+pub fn mined(dir: &Path) -> Result<mining::Mining> {
+    distilled(dir, MINING)
+}
+
+fn distilled<T: serde::de::DeserializeOwned>(dir: &Path, name: &str) -> Result<T> {
+    let path = dir.join(name);
+    let text = std::fs::read_to_string(&path)
+        .with_context(|| format!("read {} — run `extract` to write it", path.display()))?;
+    toml::from_str(&text).with_context(|| format!("parse {}", path.display()))
 }
 
 /// What the client calls things, as the last extract left it.
@@ -190,6 +220,50 @@ pub fn run(cache: &Path, out_dir: &Path) -> Result<()> {
         "# Written by `median-data extract` from the game cache: what each vendor and\n\
          # syndicate manifest sells, in the game's own paths.\n\n",
         &stalls,
+    )?;
+
+    let entry = archive
+        .entries()
+        .iter()
+        .find(|entry| entry.path == TYPES)
+        .with_context(|| format!("{PACKAGE} holds no {TYPES}"))?;
+    let types = packages::types(&archive.read(entry)?).context("read the game's types")?;
+    eprintln!(
+        "cache    {} types, {} with properties of their own",
+        types.len(),
+        types.iter().filter(|kind| kind.text.is_some()).count()
+    );
+    let lineage = Lineage::new(types);
+
+    let grants = grants::read(&lineage);
+    eprintln!("cache    {} grants", grants.grant.len());
+    write(
+        &out_dir.join(GRANTS),
+        "# Written by `median-data extract` from the game cache: what the game hands over\n\
+         # along with an item, in the game's own paths.\n\n",
+        &grants,
+    )?;
+
+    let incubator = incubator::read(&lineage, &tables["en"], &tables["ru"]);
+    eprintln!(
+        "cache    {} eggs, {} incubator recipes",
+        incubator.egg.len(),
+        incubator.recipe.len()
+    );
+    write(
+        &out_dir.join(INCUBATOR),
+        "# Written by `median-data extract` from the game cache: what the incubator takes\n\
+         # and what it can hatch, in the game's own paths.\n\n",
+        &incubator,
+    )?;
+
+    let mining = mining::read(&lineage);
+    eprintln!("cache    {} mining sites", mining.site.len());
+    write(
+        &out_dir.join(MINING),
+        "# Written by `median-data extract` from the game cache: what the open worlds'\n\
+         # veins yield and the tools that work them, in the game's own paths.\n\n",
+        &mining,
     )
 }
 
