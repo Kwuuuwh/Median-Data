@@ -305,8 +305,8 @@ path_contains = ["/Weapons/Ostron/Melee/"]
 
 [[rule]]
 kind = "kitgun-part"
-reason = "Solaris United secondary parts are Kitgun components"
-path_contains = ["/Weapons/SolarisUnited/Secondary/"]
+reason = "Solaris United and Infested secondary parts are Kitgun components"
+path_contains = ["/Weapons/SolarisUnited/Secondary/", "/Weapons/Infested/Pistols/InfKitGun/"]
 
 [[rule]]
 kind = "amp-part"

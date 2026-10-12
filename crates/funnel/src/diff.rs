@@ -1,6 +1,6 @@
 use std::collections::{BTreeMap, BTreeSet};
 
-use graph::{Graph, Node, Rel};
+use graph::{Extra, Graph, Node, Rel};
 use serde::{Deserialize, Serialize};
 
 use crate::finding::Finding;
@@ -22,6 +22,10 @@ pub struct State {
     /// worth, and nothing else in the build would notice.
     #[serde(default)]
     pub drops: BTreeMap<String, String>,
+    /// The riven disposition of each weapon a riven fits: a patch that moves one changes what
+    /// every riven of the weapon is worth.
+    #[serde(default)]
+    pub dispositions: BTreeMap<String, f64>,
     /// When each name no item answers to was first seen, per source. A patch day fills the
     /// sources with things DE has not exported yet, and those resolve themselves within days;
     /// a name that has been waiting for weeks is the one that needs a person.
@@ -59,6 +63,17 @@ pub struct Diff {
     pub findings_delta: BTreeMap<String, i64>,
     /// Items whose sources changed, with what dropped them before and what does now.
     pub drops_changed: Vec<Moved>,
+    /// Weapons whose riven disposition changed.
+    #[serde(default)]
+    pub dispositions_changed: Vec<Redisposed>,
+}
+
+/// A weapon's riven disposition before and after.
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Redisposed {
+    pub weapon: String,
+    pub was: f64,
+    pub now: f64,
 }
 
 /// How an item's sources moved: only what differs, since most of a long list stays put.
@@ -81,6 +96,7 @@ impl Diff {
             && self.sets_removed.is_empty()
             && self.findings_delta.is_empty()
             && self.drops_changed.is_empty()
+            && self.dispositions_changed.is_empty()
     }
 }
 
@@ -105,7 +121,21 @@ pub fn snapshot(graph: &Graph, findings: &[Finding]) -> State {
             .collect(),
         findings: counts,
         drops: drops(graph),
+        dispositions: dispositions(graph),
     }
+}
+
+/// The riven disposition of every weapon a riven fits.
+fn dispositions(graph: &Graph) -> BTreeMap<String, f64> {
+    graph
+        .items()
+        .filter_map(|item| match &item.extra {
+            Extra::Weapon(weapon) if weapon.riven.is_some() => {
+                Some((item.unique_name.clone(), weapon.disposition))
+            }
+            _ => None,
+        })
+        .collect()
 }
 
 /// What drops each item, read as one line per item: every source with the chance of the whole
@@ -171,6 +201,20 @@ pub fn compare(previous: &State, current: &State) -> Diff {
         })
         .collect();
 
+    // A weapon that arrived or left is already reported as such.
+    let dispositions_changed = current
+        .dispositions
+        .iter()
+        .filter_map(|(weapon, &now)| {
+            let &was = previous.dispositions.get(weapon)?;
+            (was != now).then(|| Redisposed {
+                weapon: weapon.clone(),
+                was,
+                now,
+            })
+        })
+        .collect();
+
     Diff {
         items_added,
         items_removed,
@@ -178,6 +222,7 @@ pub fn compare(previous: &State, current: &State) -> Diff {
         sets_removed,
         findings_delta,
         drops_changed,
+        dispositions_changed,
     }
 }
 
@@ -283,8 +328,27 @@ mod tests {
                 .map(|(r, c)| ((*r).to_string(), *c))
                 .collect(),
             drops: BTreeMap::new(),
+            dispositions: BTreeMap::new(),
             waiting: BTreeMap::new(),
         }
+    }
+
+    #[test]
+    fn reports_a_moved_disposition() {
+        let at = |d: f64| State {
+            dispositions: [("/w".to_string(), d)].into_iter().collect(),
+            ..state(&["/w"], &[])
+        };
+        let diff = compare(&at(1.3), &at(1.25));
+        assert_eq!(diff.dispositions_changed.len(), 1);
+        assert_eq!(
+            (
+                diff.dispositions_changed[0].was,
+                diff.dispositions_changed[0].now
+            ),
+            (1.3, 1.25)
+        );
+        assert!(compare(&at(1.3), &at(1.3)).is_empty());
     }
 
     #[test]

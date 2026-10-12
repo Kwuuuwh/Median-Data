@@ -6,6 +6,8 @@ use serde_json::Value;
 use crate::net::{get, get_with};
 
 const ITEMS_URL: &str = "https://api.warframe.market/v2/items";
+const RIVEN_WEAPONS_URL: &str = "https://api.warframe.market/v2/riven/weapons";
+const RIVEN_ATTRIBUTES_URL: &str = "https://api.warframe.market/v2/riven/attributes";
 const ASSETS_URL: &str = "https://warframe.market/static/assets";
 
 /// What the market serves where it has no picture: a question mark on a black square.
@@ -42,6 +44,89 @@ impl WfmItem {
 /// Fetch the full `/v2/items` list as raw bytes, localized to carry Russian too.
 pub fn fetch_items(agent: &ureq::Agent) -> Result<Vec<u8>> {
     get_with(agent, ITEMS_URL, &[("Language", "ru")])
+}
+
+/// One weapon line the market trades rivens for.
+#[derive(Debug, Clone)]
+pub struct RivenWeapon {
+    pub slug: String,
+    /// DE `uniqueName` of the one weapon of the line the market names.
+    pub game_ref: String,
+    /// e.g. `primary`, `archgun`, `sentinel`, `kitgun`.
+    pub group: String,
+    /// e.g. `rifle`, `shotgun`, `zaw`.
+    pub riven_type: String,
+    pub disposition: f64,
+}
+
+/// Fetch the `/v2/riven/weapons` list as raw bytes, localized to carry Russian too.
+pub fn fetch_riven_weapons(agent: &ureq::Agent) -> Result<Vec<u8>> {
+    get_with(agent, RIVEN_WEAPONS_URL, &[("Language", "ru")])
+}
+
+/// Parse a `/v2/riven/weapons` response body.
+pub fn parse_riven_weapons(raw: &[u8]) -> Result<Vec<RivenWeapon>> {
+    let doc: Value = serde_json::from_slice(raw)?;
+    let listed = doc.get("data").and_then(Value::as_array);
+    let text = |el: &Value, key: &str| el.get(key).and_then(Value::as_str).map(str::to_string);
+    Ok(listed
+        .into_iter()
+        .flatten()
+        .filter_map(|el| {
+            Some(RivenWeapon {
+                slug: text(el, "slug")?,
+                game_ref: text(el, "gameRef")?,
+                group: text(el, "group")?,
+                riven_type: text(el, "rivenType")?,
+                disposition: el.get("disposition").and_then(Value::as_f64)?,
+            })
+        })
+        .collect())
+}
+
+/// One stat the market lets a riven auction name.
+#[derive(Debug, Clone)]
+pub struct RivenAttribute {
+    pub slug: String,
+    /// DE's key for the stat, the `tag` of a riven's `upgradeEntries`.
+    pub game_ref: String,
+    pub positive_only: bool,
+    pub negative_only: bool,
+    pub positive_is_negative: bool,
+    /// Riven types the stat rolls on; empty for all.
+    pub exclusive_to: Vec<String>,
+}
+
+/// Fetch the `/v2/riven/attributes` list as raw bytes, localized to carry Russian too.
+pub fn fetch_riven_attributes(agent: &ureq::Agent) -> Result<Vec<u8>> {
+    get_with(agent, RIVEN_ATTRIBUTES_URL, &[("Language", "ru")])
+}
+
+/// Parse a `/v2/riven/attributes` response body.
+pub fn parse_riven_attributes(raw: &[u8]) -> Result<Vec<RivenAttribute>> {
+    let doc: Value = serde_json::from_slice(raw)?;
+    let listed = doc.get("data").and_then(Value::as_array);
+    let flag = |el: &Value, key: &str| el.get(key).and_then(Value::as_bool) == Some(true);
+    Ok(listed
+        .into_iter()
+        .flatten()
+        .filter_map(|el| {
+            Some(RivenAttribute {
+                slug: el.get("slug").and_then(Value::as_str)?.to_string(),
+                game_ref: el.get("gameRef").and_then(Value::as_str)?.to_string(),
+                positive_only: flag(el, "positiveOnly"),
+                negative_only: flag(el, "negativeOnly"),
+                positive_is_negative: flag(el, "positiveIsNegative"),
+                exclusive_to: el
+                    .get("exclusiveTo")
+                    .and_then(Value::as_array)
+                    .into_iter()
+                    .flatten()
+                    .filter_map(|t| t.as_str().map(str::to_string))
+                    .collect(),
+            })
+        })
+        .collect())
 }
 
 /// Fetch one static asset by the path an item's `i18n` carries.
@@ -200,5 +285,38 @@ mod tests {
             escape("items/images/en/summoner’s_wrath.png"),
             "items/images/en/summoner%E2%80%99s_wrath.png"
         );
+    }
+
+    #[test]
+    fn parses_riven_weapons() {
+        let raw = br#"{"apiVersion":"0.25.0","data":[
+            {"id":"x","slug":"torid","gameRef":"/Lotus/Weapons/ClanTech/Bio/BioWeapon",
+             "group":"primary","rivenType":"rifle","disposition":1.3,"reqMasteryRank":4,
+             "i18n":{"en":{"name":"Torid"}}},
+            {"id":"y","slug":"broken"}
+        ]}"#;
+        let weapons = parse_riven_weapons(raw).unwrap();
+        assert_eq!(weapons.len(), 1);
+        assert_eq!(
+            (
+                weapons[0].slug.as_str(),
+                weapons[0].riven_type.as_str(),
+                weapons[0].disposition
+            ),
+            ("torid", "rifle", 1.3)
+        );
+    }
+
+    #[test]
+    fn parses_riven_attributes() {
+        let raw = br#"{"data":[
+            {"id":"a","slug":"recoil","gameRef":"WeaponRecoilReductionMod","group":"default",
+             "prefix":"Zeti","suffix":"Mag","positiveIsNegative":true,"unit":"percent"},
+            {"id":"b","slug":"punch_through","gameRef":"WeaponPunctureDepthMod",
+             "exclusiveTo":["archgun","rifle"],"positiveOnly":true}
+        ]}"#;
+        let attributes = parse_riven_attributes(raw).unwrap();
+        assert!(attributes[0].positive_is_negative && !attributes[0].positive_only);
+        assert_eq!(attributes[1].exclusive_to, vec!["archgun", "rifle"]);
     }
 }

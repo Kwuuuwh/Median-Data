@@ -2,6 +2,8 @@ use consensus::{Resolved, Source};
 use serde::Deserialize;
 
 use crate::kind::Kind;
+use crate::upgrade::{ArcaneInfo, ModInfo};
+use crate::weapon::{RivenPool, Weapon};
 
 /// Display names per language.
 #[derive(Debug, Clone, PartialEq)]
@@ -25,6 +27,10 @@ pub struct RelicInfo {
 pub enum Extra {
     None,
     Relic(RelicInfo),
+    Weapon(Box<Weapon>),
+    RivenPool(RivenPool),
+    Mod(Box<ModInfo>),
+    Arcane(ArcaneInfo),
 }
 
 /// Which of the game's two mastery tables an item's ranks count on.
@@ -290,6 +296,21 @@ pub enum Node {
     Vendor(Vendor),
     Lab(Lab),
     Area(Area),
+    Phrase(Phrase),
+}
+
+/// A line of the game client's interface, in both languages.
+#[derive(Debug, Clone, PartialEq)]
+pub struct Phrase {
+    /// The client's key for the line, e.g. `/Lotus/Language/Menu/REROLL_Confirm`.
+    pub key: String,
+    pub en: String,
+    pub ru: Option<String>,
+}
+
+/// Node id of a phrase, by the client's key for it.
+pub fn phrase_id(key: &str) -> String {
+    format!("phrase:{key}")
 }
 
 /// A part of the game a player stays in and gathers across: a hub with its open world, or the
@@ -366,6 +387,7 @@ impl Node {
             Node::Vendor(v) => vendor_id(&v.key),
             Node::Lab(l) => lab_id(&l.key),
             Node::Area(a) => area_id(&a.key),
+            Node::Phrase(p) => phrase_id(&p.key),
         }
     }
 
@@ -383,6 +405,7 @@ impl Node {
             Node::Vendor(v) => &v.name,
             Node::Lab(l) => &l.name,
             Node::Area(a) => &a.name,
+            Node::Phrase(p) => &p.en,
         }
     }
 
@@ -400,6 +423,7 @@ impl Node {
             Node::Vendor(v) => v.name_ru.as_deref(),
             Node::Lab(l) => l.name_ru.as_deref(),
             Node::Area(a) => a.name_ru.as_deref(),
+            Node::Phrase(p) => p.ru.as_deref(),
         }
     }
 }

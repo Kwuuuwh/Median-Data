@@ -236,6 +236,7 @@ fn disp<'a>(graph: &'a Graph, id: &'a str) -> &'a str {
         Some(Node::Vendor(v)) => v.name_ru.as_deref().unwrap_or(&v.name),
         Some(Node::Lab(l)) => &l.name,
         Some(Node::Area(a)) => a.name_ru.as_deref().unwrap_or(&a.name),
+        Some(Node::Phrase(p)) => p.ru.as_deref().unwrap_or(&p.en),
         Some(Node::Recipe(r)) => &r.blueprint,
         None => id.rsplit('/').next().unwrap_or(id),
     }

@@ -1,6 +1,7 @@
 use std::collections::BTreeMap;
 
 use anyhow::{Context, Result};
+use graph::{Attack, Damage, Falloff, Mount, Shot};
 use sources::lua::{self, Table};
 
 /// The root the missions module assigns its data to.
@@ -295,6 +296,140 @@ pub fn dojo(raw: &[u8]) -> Result<Dojo> {
     }
 
     Ok(Dojo { labs, research })
+}
+
+/// One entry of a `Module:Weapons/data` page.
+pub struct WeaponEntry {
+    /// `InternalName`: the DE path of the weapon the entry describes.
+    pub path: Option<String>,
+    pub mount: Mount,
+    /// What the entry holds that could not be read, one note per thing.
+    pub unread: Vec<String>,
+}
+
+/// Read every weapon entry of one `Module:Weapons/data` page. The page returns its table
+/// directly, keyed by entry name.
+pub fn weapons(raw: &[u8]) -> Result<Vec<WeaponEntry>> {
+    let src = String::from_utf8_lossy(raw);
+    let root = lua::returned(&src).context("read Module:Weapons/data")?;
+    let mut out = Vec::new();
+    for (key, entry) in &root.fields {
+        let Some(t) = entry.table() else { continue };
+        let mut unread = Vec::new();
+        let listed = t
+            .table("Attacks")
+            .map(|a| a.items.as_slice())
+            .unwrap_or_default();
+        let mut attacks: Vec<Attack> = Vec::new();
+        for (at, a) in listed.iter().enumerate() {
+            let Some(a) = a
+                .table()
+                .and_then(|a| attack(a, at as i64 + 1, &mut unread))
+            else {
+                continue;
+            };
+            if attacks.iter().any(|held| held.index == a.index) {
+                unread.push(format!(
+                    "attack '{}' repeats AttackIndex {}",
+                    a.name, a.index
+                ));
+                continue;
+            }
+            attacks.push(a);
+        }
+        out.push(WeaponEntry {
+            path: text(t, "InternalName"),
+            mount: Mount {
+                name: t.str("Name").unwrap_or(key).to_string(),
+                slot: t.str("Slot").unwrap_or_default().to_string(),
+                class: t.str("Class").unwrap_or_default().to_string(),
+                family: text(t, "Family"),
+                traits: t
+                    .table("Traits")
+                    .map(|list| {
+                        list.items
+                            .iter()
+                            .filter_map(|v| v.str().map(str::to_string))
+                            .collect()
+                    })
+                    .unwrap_or_default(),
+                disposition: t.num("Disposition"),
+                ammo_max: t.num("AmmoMax").filter(|n| n.is_finite()).map(|n| n as i64),
+                tooltip_attack: t.int("_TooltipAttackDisplay"),
+                attacks,
+            },
+            unread,
+        });
+    }
+    Ok(out)
+}
+
+/// One attack of a weapon entry, or a note on why it cannot be read. `position` stands in
+/// for an `AttackIndex` the entry leaves out.
+fn attack(t: &Table, position: i64, unread: &mut Vec<String>) -> Option<Attack> {
+    let name = t.str("AttackName").unwrap_or_default().to_string();
+    let required = ["CritChance", "CritMultiplier", "StatusChance", "FireRate"];
+    if let Some(missing) = required.iter().find(|key| t.num(key).is_none()) {
+        unread.push(format!("attack '{name}' has no {missing}"));
+        return None;
+    }
+    let shot = t.str("ShotType").and_then(|printed| {
+        let shot = Shot::from_wiki(printed);
+        if shot.is_none() {
+            unread.push(format!("attack '{name}' shot type '{printed}'"));
+        }
+        shot
+    });
+    let mut damage = Vec::new();
+    for (key, amount) in t.table("Damage").map(|d| &d.fields).into_iter().flatten() {
+        match (Damage::from_wiki(key), amount.num()) {
+            (Some(kind), Some(amount)) if amount != 0.0 => damage.push((kind, amount)),
+            (Some(_), Some(_)) => {}
+            _ => unread.push(format!("attack '{name}' damage '{key}'")),
+        }
+    }
+    damage.sort_by_key(|(kind, _)| *kind);
+    Some(Attack {
+        index: t.int("AttackIndex").unwrap_or(position),
+        parent: t.int("AttackParentIndex"),
+        shot,
+        trigger: text(t, "Trigger"),
+        crit_chance: t.num("CritChance")?,
+        crit_multiplier: t.num("CritMultiplier")?,
+        status_chance: t.num("StatusChance")?,
+        fire_rate: t.num("FireRate")?,
+        multishot: t.num("Multishot"),
+        charge_secs: t.num("ChargeTime"),
+        ammo_cost: t.num("AmmoCost"),
+        punch_through: t.num("PunchThrough"),
+        range: t.num("Range"),
+        falloff: t.table("Falloff").and_then(|f| {
+            Some(Falloff {
+                start_m: f.num("StartRange")?,
+                end_m: f.num("EndRange")?,
+                reduction: f.num("Reduction")?,
+            })
+        }),
+        incarnon_charges: t.int("IncarnonCharges"),
+        damage,
+        name,
+    })
+}
+
+/// Rows of the splicing table that opens the `Spliceable_Stats` section of the riven article.
+pub fn splice_rows(raw: &[u8]) -> Result<usize> {
+    let text = String::from_utf8_lossy(raw);
+    let start = text
+        .find(r#"<section begin="Spliceable_Stats""#)
+        .context("the riven article has no Spliceable_Stats section")?;
+    let rest = &text[start..];
+    let end = rest
+        .find("\n|}")
+        .context("the splicing table never closes")?;
+    Ok(rest[..end]
+        .split("\n|-")
+        .filter(|row| row.trim_start().starts_with("| "))
+        .count())
 }
 
 /// One thing a vendor has offered, as the wiki records it.
@@ -612,5 +747,84 @@ mod tests {
         assert_eq!(priced.len(), 1);
         assert_eq!(priced[0].name, "Astilla Blueprint");
         assert_eq!(priced[0].credits, 20000);
+    }
+
+    #[test]
+    fn reads_a_weapon_entry_with_its_attacks() {
+        let src = "return {\n\
+            \t[\"Torid\"] = {\n\
+            \t\tAmmoMax = 60,\n\
+            \t\tAttacks = {\n\
+            \t\t\t{ AttackIndex = 1, AttackName = \"Grenade Impact\", AmmoCost = 1, \
+                 CritChance = 0.15, CritMultiplier = 2, Damage = { Toxin = 100 }, \
+                 FireRate = 1.5, Multishot = 1, ShotType = \"Projectile\", StatusChance = 0.23 },\n\
+            \t\t\t{ AttackIndex = 2, AttackName = \"Poison Cloud\", AttackParentIndex = 1, \
+                 CritChance = 0.15, CritMultiplier = 2, Damage = { Toxin = 40, True = 1 }, \
+                 Falloff = { EndRange = 3, Reduction = 1, StartRange = 0 }, FireRate = 1.5, \
+                 Range = 3, ShotType = \"AoE\", StatusChance = 0.23 },\n\
+            \t\t\t{ AttackName = \"Incarnon Form\", CritChance = 0.29, CritMultiplier = 3.1, \
+                 Damage = { Toxin = 51 }, FireRate = 8, IncarnonCharges = 170, \
+                 ShotType = \"Beam\", StatusChance = 0.39, Trigger = \"Held\" },\n\
+            \t\t\t{ AttackName = \"Broken\", Damage = { Toxin = 1 } },\n\
+            \t\t\t{ AttackIndex = 2, AttackName = \"Again\", CritChance = 0, \
+                 CritMultiplier = 1, FireRate = 1, StatusChance = 0 },\n\
+            \t\t},\n\
+            \t\tClass = \"Launcher\",\n\
+            \t\tDisposition = 1.3,\n\
+            \t\tFamily = \"Torid\",\n\
+            \t\tInternalName = \"/Lotus/Weapons/ClanTech/Bio/BioWeapon\",\n\
+            \t\tName = \"Torid\",\n\
+            \t\tSlot = \"Primary\",\n\
+            \t\t_TooltipAttackDisplay = 1,\n\
+            \t},\n\
+            }\n";
+        let entries = weapons(src.as_bytes()).unwrap();
+        let [torid] = entries.as_slice() else {
+            panic!("one entry expected")
+        };
+        assert_eq!(
+            torid.path.as_deref(),
+            Some("/Lotus/Weapons/ClanTech/Bio/BioWeapon")
+        );
+        let mount = &torid.mount;
+        assert_eq!(
+            (
+                mount.class.as_str(),
+                mount.family.as_deref(),
+                mount.disposition
+            ),
+            ("Launcher", Some("Torid"), Some(1.3))
+        );
+        assert_eq!(mount.attacks.len(), 3);
+
+        let cloud = &mount.attacks[1];
+        assert_eq!((cloud.parent, cloud.shot), (Some(1), Some(Shot::Area)));
+        assert_eq!(cloud.damage, vec![(Damage::Toxin, 40.0)]);
+        assert_eq!(cloud.falloff.map(|f| f.end_m), Some(3.0));
+
+        let incarnon = &mount.attacks[2];
+        assert_eq!(
+            (incarnon.index, incarnon.incarnon_charges, incarnon.shot),
+            (3, Some(170), None)
+        );
+        assert_eq!(
+            torid.unread,
+            vec![
+                "attack 'Poison Cloud' damage 'True'",
+                "attack 'Incarnon Form' shot type 'Beam'",
+                "attack 'Broken' has no CritChance",
+                "attack 'Again' repeats AttackIndex 2",
+            ]
+        );
+    }
+
+    #[test]
+    fn counts_the_rows_of_the_splicing_table() {
+        let page = "intro\n<section begin=\"Spliceable_Stats\" />{{clr}}\n\
+            {| class=\"wikitable\"\n|+ Recipes\n|-\n! Trait 1 !! Trait 2\n! Spliced\n|-\n\
+            | [[Magazine Capacity]] || [[Reload Speed]]\n| [[Ammo Efficiency]]\n|-\n\
+            | {{D|Heat}} Damage || {{D|Cold}} Damage\n| {{D|Blast}} Damage\n|}\n\
+            {| class=\"wikitable\"\n|-\n| a || b || c\n|}\n";
+        assert_eq!(splice_rows(page.as_bytes()).unwrap(), 2);
     }
 }

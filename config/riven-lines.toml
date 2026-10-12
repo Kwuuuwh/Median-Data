@@ -1,0 +1,5 @@
+# Which client line a riven stat is shown with, where several lines of the client print the
+# stat's English and differ in Russian. Keyed by the stat's tag; the value is the client's key
+# for the line, as the riven screen shows it. A `riven-pool-unread` finding lists the choices.
+
+[line]

@@ -7,7 +7,7 @@ use crate::coverage::Gaps;
 use crate::cross::{DropClaim, RelicClaim};
 use crate::diff::{self, State};
 use crate::report::{Report, Totals};
-use crate::{anchor, coverage, cross, invariant, outlier, silence};
+use crate::{anchor, coverage, cross, invariant, outlier, riven, silence};
 
 /// Everything the funnel needs beyond the graph itself.
 pub struct Input<'a> {
@@ -46,6 +46,7 @@ pub fn run(graph: &Graph, input: Input<'_>) -> (Report, State) {
     all.extend(cross::vault_against_drops(graph));
     all.extend(outlier::check(graph, input.taxonomy));
     all.extend(coverage::check(graph, &input.gaps));
+    all.extend(riven::check(graph));
     all.extend(anchor::check(graph, input.anchors));
     all.extend(silence::check(
         graph,

@@ -154,6 +154,15 @@ pub fn run(vault: &Vault, out: &Path) -> Result<()> {
         built.refined
     );
     eprintln!(
+        "weapons  {} items carry DE weapon facts, {} wiki entries hung on them, {} take a riven",
+        built.armed, built.mounts, built.rivened
+    );
+    eprintln!("rivens   {} classes carry their stat pool", built.pools);
+    eprintln!(
+        "upgrades {} gun mods and {} arcanes carry their top rank",
+        built.upgrades.0, built.upgrades.1
+    );
+    eprintln!(
         "operator {} cosmetics linked to the Drifter's copy of them",
         built.fitted
     );
@@ -350,6 +359,14 @@ pub fn judge(vault: &Vault, built: &Built, curated: &Curation) -> Result<(Report
                 provisional: built.gaps.provisional.clone(),
                 ambiguous: built.gaps.ambiguous.clone(),
                 in_the_game: built.gaps.in_the_game.clone(),
+                unmatched_weapons: built.gaps.unmatched_weapons.clone(),
+                unread_weapons: built.gaps.unread_weapons.clone(),
+                unknown_rivens: built.gaps.unknown_rivens.clone(),
+                unread_rivens: built.gaps.unread_rivens.clone(),
+                unspoken: built.gaps.unspoken.clone(),
+                unread_pools: built.gaps.unread_pools.clone(),
+                unspliced: built.gaps.unspliced.clone(),
+                unread_effects: built.gaps.unread_effects.clone(),
                 verbatim: curated
                     .verbatim()
                     .into_iter()
@@ -619,7 +636,22 @@ pub fn graph_with(vault: &Vault, curated: &Curation) -> Result<Built> {
         .into_iter()
         .map(|r| (r.node.clone(), r))
         .collect();
+    let weapons = extract::de_weapons(&blob(vault, &de_snap, spec::WEAPONS)?)?;
     let wfm = sources::wfm::parse(&blob(vault, &wfm_snap, spec::WFM_ITEMS)?)?;
+    let riven_weapons =
+        sources::wfm::parse_riven_weapons(&blob(vault, &wfm_snap, spec::WFM_RIVEN_WEAPONS)?)?;
+    let riven_attributes =
+        sources::wfm::parse_riven_attributes(&blob(vault, &wfm_snap, spec::WFM_RIVEN_ATTRIBUTES)?)?;
+    let upgrades = blob(vault, &de_snap, spec::UPGRADES)?;
+    let riven_pools = extract::de_riven_pools(&upgrades)?;
+    let mods = extract::de_mods(
+        &upgrades,
+        &blob(vault, &de_snap, &spec::ru(spec::UPGRADES))?,
+    )?;
+    let arcanes = extract::de_arcanes(
+        &blob(vault, &de_snap, spec::RELICS)?,
+        &blob(vault, &de_snap, &spec::ru(spec::RELICS))?,
+    )?;
 
     let wiki_snap = vault.latest(spec::WIKI)?;
     let chart = wiki::chart(&blob(vault, &wiki_snap, spec::WIKI_MISSIONS)?)?;
@@ -627,6 +659,10 @@ pub fn graph_with(vault: &Vault, curated: &Curation) -> Result<Built> {
     let baro = wiki::baro(&blob(vault, &wiki_snap, spec::WIKI_BARO)?)?;
     let dojo = wiki::dojo(&blob(vault, &wiki_snap, spec::WIKI_RESEARCH)?)?;
     let market = wiki::market_blueprints(&blob(vault, &wiki_snap, spec::WIKI_BLUEPRINTS)?)?;
+    let mut wiki_weapons = Vec::new();
+    for logical in spec::WIKI_WEAPONS {
+        wiki_weapons.extend(wiki::weapons(&blob(vault, &wiki_snap, logical)?)?);
+    }
 
     let drop_snap = vault.latest(spec::DROPS)?;
     let tables = sources::drops::parse(&blob(vault, &drop_snap, spec::DROP_TABLES)?)?;
@@ -651,6 +687,17 @@ pub fn graph_with(vault: &Vault, curated: &Curation) -> Result<Built> {
             rewards,
             regions: star_chart,
             regions_ru: star_chart_ru,
+            weapons,
+            wiki_weapons,
+            riven_weapons,
+            phrases: crate::game::phrased(Path::new(crate::GAME))?,
+            riven_pools,
+            riven_attributes,
+            riven_lines: crate::pools::load(Path::new(crate::RIVEN_LINES))?,
+            splicing: crate::splicing::load(Path::new(crate::SPLICING))?,
+            wiki_splice_rows: wiki::splice_rows(&blob(vault, &wiki_snap, spec::WIKI_RIVEN_MODS)?)?,
+            mods,
+            arcanes,
             chart,
             wiki_tables,
             baro,

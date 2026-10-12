@@ -91,6 +91,7 @@ pub fn node(node: &graph::Node) -> &'static str {
         Node::Vendor(_) => "торговец",
         Node::Lab(_) => "лаборатория",
         Node::Area(_) => "область",
+        Node::Phrase(_) => "строка клиента",
     }
 }
 

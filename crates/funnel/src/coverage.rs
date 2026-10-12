@@ -27,6 +27,22 @@ pub struct Gaps {
     /// Set slugs the game itself knows the name of. The export lists a Prime Vault set days
     /// after the market does, and a set the game knows is waiting on the export, not on us.
     pub in_the_game: BTreeSet<String>,
+    /// Wiki weapon entries naming no DE weapon, by entry name, with the path they name.
+    pub unmatched_weapons: Vec<(String, Option<String>)>,
+    /// What a wiki weapon entry holds that could not be read, by the weapon it describes.
+    pub unread_weapons: Vec<(String, String)>,
+    /// Market riven lines whose weapon is not in the catalog, by slug, with that weapon.
+    pub unknown_rivens: Vec<(String, String)>,
+    /// What decides a weapon's riven that could not be read, by weapon.
+    pub unread_rivens: Vec<(String, String)>,
+    /// Interface lines median reads that the client lacks in a language, by key.
+    pub unspoken: Vec<String>,
+    /// What a riven pool holds that could not be read or named, by pool.
+    pub unread_pools: Vec<(String, String)>,
+    /// What the hand-written splicing table says that does not fit the pools or the wiki.
+    pub unspliced: Vec<String>,
+    /// Lines of a gun mod or arcane no rule reads, by item.
+    pub unread_effects: Vec<(String, String)>,
 }
 
 /// Find what the catalog is missing, both from the build's own gaps and from the graph.
@@ -55,6 +71,77 @@ pub fn check(graph: &Graph, gaps: &Gaps) -> Vec<Finding> {
             DROP_NOT_IN_CATALOG,
             name,
             "dropped somewhere but matches no item".to_string(),
+        ));
+    }
+
+    for (name, path) in &gaps.unmatched_weapons {
+        out.push(Finding::new(
+            Layer::Coverage,
+            "wiki-weapon-not-in-catalog",
+            path.as_deref().unwrap_or(name),
+            format!("the wiki describes '{name}', and no DE weapon answers to it"),
+        ));
+    }
+    for (weapon, note) in &gaps.unread_weapons {
+        out.push(Finding::new(
+            Layer::Coverage,
+            "wiki-attack-unread",
+            weapon,
+            note.clone(),
+        ));
+    }
+
+    for (slug, path) in &gaps.unknown_rivens {
+        out.push(Finding::new(
+            Layer::Coverage,
+            "market-riven-not-in-catalog",
+            path,
+            format!("the market trades '{slug}' rivens for it, and no DE weapon answers to it"),
+        ));
+    }
+    for (weapon, note) in &gaps.unread_rivens {
+        out.push(Finding::new(
+            Layer::Coverage,
+            "riven-class-unread",
+            weapon,
+            note.clone(),
+        ));
+    }
+
+    for key in &gaps.unspoken {
+        out.push(Finding::new(
+            Layer::Coverage,
+            "phrase-unspoken",
+            key,
+            "median reads this line of the client, and the cache lacks it in a language"
+                .to_string(),
+        ));
+    }
+
+    for (pool, note) in &gaps.unread_pools {
+        out.push(Finding::new(
+            Layer::Coverage,
+            "riven-pool-unread",
+            pool,
+            note.clone(),
+        ));
+    }
+
+    for note in &gaps.unspliced {
+        out.push(Finding::new(
+            Layer::Coverage,
+            "riven-splice-unfit",
+            "config/splicing.toml",
+            note.clone(),
+        ));
+    }
+
+    for (item, line) in &gaps.unread_effects {
+        out.push(Finding::new(
+            Layer::Coverage,
+            "effect-unread",
+            item,
+            format!("'{line}' reads as no effect"),
         ));
     }
 

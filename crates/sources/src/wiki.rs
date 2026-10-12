@@ -3,6 +3,7 @@ use anyhow::{Context, Result};
 use crate::net::{agent_as, get};
 
 const RAW: &str = "https://wiki.warframe.com/index.php?action=raw&title=Module:";
+const RAW_PAGE: &str = "https://wiki.warframe.com/index.php?action=raw&title=";
 const API: &str = "https://wiki.warframe.com/api.php";
 
 /// How many titles one API call may ask about.
@@ -25,6 +26,23 @@ pub const RESEARCH: &str = "Research/data";
 pub const VENDORS: &str = "Vendors/data";
 pub const VOID: &str = "Void/data";
 pub const BLUEPRINTS: &str = "Blueprints/data";
+/// Weapon data, one module per slot.
+pub const WEAPONS: [&str; 6] = [
+    "Weapons/data/primary",
+    "Weapons/data/secondary",
+    "Weapons/data/melee",
+    "Weapons/data/archwing",
+    "Weapons/data/companion",
+    "Weapons/data/modular",
+];
+
+/// Article pages we read, for the tables no data module holds.
+pub const RIVEN_MODS: &str = "Riven_Mods";
+
+/// Fetch one article's wikitext.
+pub fn fetch_page(agent: &ureq::Agent, title: &str) -> Result<Vec<u8>> {
+    get(agent, &format!("{RAW_PAGE}{}", encode(title)))
+}
 
 /// Fetch one data module's Lua source.
 pub fn fetch_module(agent: &ureq::Agent, module: &str) -> Result<Vec<u8>> {

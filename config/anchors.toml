@@ -48,3 +48,94 @@ path = "/Lotus/Types/Recipes/Components/FormaBlueprint"
 name_en = "Forma Blueprint"
 prime = false
 note = "relics award Forma, so relic rewards alone cannot mean prime"
+
+# --- riven weapons: their value is worked out from these, so none may go without ---
+
+[[item]]
+path = "/Lotus/Weapons/ClanTech/Bio/BioWeapon"
+name_en = "Torid"
+disposition = 1.3
+attacks = true
+note = "disposition matched a riven read in the game on 12.10.2026"
+
+[[item]]
+path = "/Lotus/Weapons/Tenno/Melee/Maces/PaladinMace/PaladinMaceWeapon"
+name_en = "Magistar"
+attacks = true
+
+[[item]]
+path = "/Lotus/Weapons/Tenno/Melee/Staff/Staff"
+name_en = "Bo"
+attacks = true
+
+[[item]]
+path = "/Lotus/Weapons/Tenno/Rifle/TennoSniperRifle"
+name_en = "Vectis"
+attacks = true
+
+[[item]]
+path = "/Lotus/Weapons/Tenno/Rifle/SemiAutoRifle"
+name_en = "Latron"
+attacks = true
+
+[[item]]
+path = "/Lotus/Weapons/Tenno/Rifle/BurstRifle"
+name_en = "Burston"
+attacks = true
+
+[[item]]
+path = "/Lotus/Weapons/Infested/Pistols/InfVomitGun/InfVomitGunWep"
+name_en = "Dual Toxocyst"
+disposition = 1.35
+attacks = true
+note = "disposition matched a riven read in the game on 12.10.2026"
+
+[[item]]
+path = "/Lotus/Weapons/Corpus/Pistols/CrpSentExperimentPistol/CrpSentExperimentPistol"
+name_en = "Ocucor"
+attacks = true
+
+[[item]]
+path = "/Lotus/Types/Sentinels/SentinelWeapons/SentinelFreezeRayRifle"
+name_en = "Verglas"
+attacks = true
+
+[[item]]
+path = "/Lotus/Weapons/Tenno/Shotgun/DoubleBarrelShotgun"
+name_en = "Sobek"
+attacks = true
+
+[[item]]
+path = "/Lotus/Weapons/Tenno/Shotgun/FullAutoShotgun"
+name_en = "Boar"
+attacks = true
+
+[[item]]
+path = "/Lotus/Weapons/Tenno/Melee/Swords/TennoSai/TennoSais"
+name_en = "Okina"
+attacks = true
+
+[[item]]
+path = "/Lotus/Weapons/Tenno/Melee/Axe/DualInfestedAxesWeapon"
+name_en = "Dual Ichor"
+attacks = true
+
+[[item]]
+path = "/Lotus/Weapons/Tenno/Pistol/AutoPistol"
+name_en = "Furis"
+attacks = true
+
+[[item]]
+path = "/Lotus/Weapons/Tenno/Pistols/SapientPistol/SapientPistol"
+name_en = "Akarius"
+attacks = true
+
+[[item]]
+path = "/Lotus/Weapons/Infested/LongGuns/InfArmCannon/InfArmCannon"
+name_en = "Bubonico"
+attacks = true
+
+[[item]]
+path = "/Lotus/Weapons/Grineer/KuvaLich/LongGuns/Zarr/KuvaZarr"
+name_en = "Kuva Zarr"
+attacks = true

@@ -113,7 +113,7 @@ fn refinement_of<'a>(graph: &'a Graph, relic: &str) -> &'a str {
     match graph.get(relic) {
         Some(Node::Item(item)) => match &item.extra {
             Extra::Relic(r) => r.refinement.as_str(),
-            Extra::None => "intact",
+            _ => "intact",
         },
         _ => "intact",
     }

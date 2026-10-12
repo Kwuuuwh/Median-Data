@@ -74,6 +74,16 @@ pub struct Built {
     pub haunted: crate::haunts::Haunted,
     /// Relic refinement steps linked.
     pub refined: usize,
+    /// Items that took DE weapon facts.
+    pub armed: usize,
+    /// Wiki weapon entries hung on a DE weapon.
+    pub mounts: usize,
+    /// Weapons a riven fits.
+    pub rivened: usize,
+    /// Riven classes with their stat pool in the graph.
+    pub pools: usize,
+    /// Gun mods and arcanes that took their effects.
+    pub upgrades: (usize, usize),
     /// Classification rules that decided nothing, as the audit describes them.
     pub dead_rules: Vec<String>,
     /// Headings the drop-table parser knew the layout of and still could not place.
@@ -89,6 +99,28 @@ pub struct Input {
     pub regions: Vec<DeRegion>,
     /// The same nodes from the Russian manifest, keyed by DE's node key.
     pub regions_ru: BTreeMap<String, DeRegion>,
+    /// DE weapon facts, keyed by item.
+    pub weapons: BTreeMap<String, graph::Weapon>,
+    /// The wiki's weapon entries, every slot page together.
+    pub wiki_weapons: Vec<crate::wiki::WeaponEntry>,
+    /// The weapon lines the market trades rivens for.
+    pub riven_weapons: Vec<sources::wfm::RivenWeapon>,
+    /// The lines of the client the catalog reads, distilled out of its cache.
+    pub phrases: crate::phrases::Phrases,
+    /// The stats each class of riven rolls from.
+    pub riven_pools: Vec<crate::extract::DeRivenPool>,
+    /// The riven stats the market lets an auction name.
+    pub riven_attributes: Vec<sources::wfm::RivenAttribute>,
+    /// Which client line a riven stat is shown with, where that was chosen by hand.
+    pub riven_lines: crate::pools::Lines,
+    /// The splicing table, written by hand.
+    pub splicing: crate::splicing::Splicing,
+    /// Rows the wiki's splicing table has.
+    pub wiki_splice_rows: usize,
+    /// Mods for guns, with their top rank.
+    pub mods: Vec<crate::extract::DeMod>,
+    /// Arcanes, with their top rank.
+    pub arcanes: Vec<crate::extract::DeArcane>,
     /// The star chart as the wiki describes it, for what DE leaves out and to check the rest.
     pub chart: crate::wiki::Chart,
     /// The wiki's own mission reward tables, keyed by the alias the star chart names them by.
@@ -205,6 +237,21 @@ pub fn assemble(
     let dangling_craft = craft::link(&mut graph, &input.recipes);
     let unresolved_rewards = relic::link(&mut graph, &input.rewards);
     let refined = relic::refine(&mut graph);
+    let armed = crate::weapons::attach(&mut graph, &input.weapons);
+    let mounted = crate::weapons::mount(&mut graph, input.wiki_weapons);
+    let rivened = crate::rivens::judge(&mut graph, &input.riven_weapons, &mut conflicts);
+    let unspoken = crate::phrases::link(&mut graph, &input.phrases);
+    let pooled = crate::pools::link(
+        &mut graph,
+        input.riven_pools,
+        &crate::pools::Witnesses {
+            phrases: &input.phrases,
+            lines: &input.riven_lines,
+            market: &input.riven_attributes,
+        },
+    );
+    let unspliced = crate::splicing::link(&mut graph, &input.splicing, input.wiki_splice_rows);
+    let upgraded = crate::upgrades::link(&mut graph, input.mods, input.arcanes);
     sets::link(&mut graph, &bridge);
     let imprinted = imprints::link(&mut graph, &input.wfm);
     let primed = primes::link(&mut graph);
@@ -272,6 +319,14 @@ pub fn assemble(
             provisional: taxonomy.provisional(),
             ambiguous: input.spoken.ambiguous.keys().cloned().collect(),
             in_the_game: known_sets(&graph, &input.spoken),
+            unmatched_weapons: mounted.unmatched,
+            unread_weapons: mounted.unread,
+            unknown_rivens: rivened.unknown,
+            unread_rivens: rivened.unread,
+            unspoken,
+            unread_pools: pooled.unread,
+            unspliced,
+            unread_effects: upgraded.unread,
             verbatim: curated
                 .verbatim()
                 .into_iter()
@@ -306,6 +361,11 @@ pub fn assemble(
         mined,
         haunted,
         refined,
+        armed,
+        mounts: mounted.mounts,
+        rivened: rivened.weapons,
+        pools: pooled.pools,
+        upgrades: (upgraded.mods, upgraded.arcanes),
         dead_rules: Vec::new(),
         unread_headings: Vec::new(),
         graph,

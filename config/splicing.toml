@@ -1,0 +1,143 @@
+# Riven splicing (Update 44.1): two traits of a riven are consumed and give the spliced trait.
+# Written by hand from the wiki's "Riven Mods" page, section Spliceable_Stats, in DE's stat tags.
+# A splice applies to a riven class whose pool rolls all three stats; melee keys its damage and
+# faction stats apart, so those splices are written twice.
+
+# Rows of the wiki's splicing table when this file was last checked against it.
+checked_rows = 22
+
+# --- elements, every riven ---
+
+[[splice]]
+first = "WeaponFireDamageMod"
+second = "WeaponFreezeDamageMod"
+result = "WeaponBlastDamageMod"
+
+[[splice]]
+first = "WeaponToxinDamageMod"
+second = "WeaponElectricityDamageMod"
+result = "WeaponCorrosiveDamageMod"
+
+[[splice]]
+first = "WeaponToxinDamageMod"
+second = "WeaponFireDamageMod"
+result = "WeaponGasDamageMod"
+
+[[splice]]
+first = "WeaponElectricityDamageMod"
+second = "WeaponFreezeDamageMod"
+result = "WeaponMagneticDamageMod"
+
+[[splice]]
+first = "WeaponFireDamageMod"
+second = "WeaponElectricityDamageMod"
+result = "WeaponRadiationDamageMod"
+
+[[splice]]
+first = "WeaponToxinDamageMod"
+second = "WeaponFreezeDamageMod"
+result = "WeaponViralDamageMod"
+
+# --- ranged ---
+
+[[splice]]
+first = "WeaponClipMaxMod"
+second = "WeaponReloadSpeedMod"
+result = "WeaponAmmoEfficiency"
+
+[[splice]]
+first = "WeaponRecoilReductionMod"
+second = "WeaponAmmoMaxMod"
+result = "WeaponAmmoEfficiency"
+
+[[splice]]
+first = "WeaponAmmoMaxMod"
+second = "WeaponReloadSpeedMod"
+result = "WeaponMagazineReloadHolstered"
+
+[[splice]]
+first = "WeaponAmmoMaxMod"
+second = "WeaponClipMaxMod"
+result = "WeaponMagazineReloadHolstered"
+
+[[splice]]
+first = "WeaponDamageAmountMod"
+second = "WeaponZoomFovMod"
+result = "WeaponWeakpointDamage"
+
+[[splice]]
+first = "WeaponDamageAmountMod"
+second = "WeaponFireIterationsMod"
+result = "WeaponWeakpointDamage"
+
+[[splice]]
+first = "WeaponCritChanceMod"
+second = "WeaponZoomFovMod"
+result = "WeaponWeakpointCriticalChance"
+
+[[splice]]
+first = "WeaponCritChanceMod"
+second = "WeaponFireIterationsMod"
+result = "WeaponWeakpointCriticalChance"
+
+[[splice]]
+first = "WeaponDamageAmountMod"
+second = "WeaponStunChanceMod"
+result = "WeaponStatusDamage"
+
+[[splice]]
+first = "WeaponFactionDamageGrineer"
+second = "WeaponFactionDamageCorpus"
+result = "WeaponFactionDamageOrokin"
+
+[[splice]]
+first = "WeaponFactionDamageInfested"
+second = "WeaponFactionDamageGrineer"
+result = "WeaponFactionDamageScaldra"
+
+[[splice]]
+first = "WeaponFactionDamageCorpus"
+second = "WeaponFactionDamageInfested"
+result = "WeaponFactionDamageTechrot"
+
+# --- melee ---
+
+[[splice]]
+first = "WeaponMeleeDamageMod"
+second = "WeaponStunChanceMod"
+result = "WeaponStatusDamage"
+
+[[splice]]
+first = "WeaponMeleeFactionDamageGrineer"
+second = "WeaponMeleeFactionDamageCorpus"
+result = "WeaponFactionDamageOrokin"
+
+[[splice]]
+first = "WeaponMeleeFactionDamageInfested"
+second = "WeaponMeleeFactionDamageGrineer"
+result = "WeaponFactionDamageScaldra"
+
+[[splice]]
+first = "WeaponMeleeFactionDamageCorpus"
+second = "WeaponMeleeFactionDamageInfested"
+result = "WeaponFactionDamageTechrot"
+
+[[splice]]
+first = "WeaponMeleeComboEfficiencyMod"
+second = "WeaponMeleeComboBonusOnHitMod"
+result = "WeaponMeleeHeavyAttackDamageMod"
+
+[[splice]]
+first = "WeaponMeleeComboEfficiencyMod"
+second = "ComboDurationMod"
+result = "WeaponMeleeHeavyAttackChargeMod"
+
+[[splice]]
+first = "WeaponFireRateMod"
+second = "WeaponMeleeRangeIncMod"
+result = "WeaponMeleeParryAngleMod"
+
+[[splice]]
+first = "WeaponMeleeDamageMod"
+second = "WeaponFireRateMod"
+result = "WeaponMeleeSlamDamageMod"

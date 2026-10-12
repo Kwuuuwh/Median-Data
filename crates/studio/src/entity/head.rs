@@ -105,6 +105,11 @@ pub fn render(snap: &Snapshot, node: &Node, ru: Option<&Icon>, en: Option<&Icon>
                         @if let Some(name) = &a.name_ru { p.ru { (name) } }
                         .tags { span.tag.kind { "область" } }
                     }
+                    Node::Phrase(phrase) => {
+                        h1 { (phrase.en) }
+                        @if let Some(ru) = &phrase.ru { p.ru { (ru) } }
+                        .tags { span.tag.kind { "строка клиента" } }
+                    }
                     Node::Location(l) => {
                         h1 { (l.name) }
                         @match &l.name_ru {

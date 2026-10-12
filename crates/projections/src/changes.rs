@@ -34,6 +34,26 @@ fn moved(page: &mut String, ctx: &Context<'_>, items: &[funnel::Moved]) -> Resul
     Ok(())
 }
 
+/// Weapons whose riven disposition moved: every riven of the weapon is worth more or less now.
+fn redisposed(page: &mut String, ctx: &Context<'_>, weapons: &[funnel::Redisposed]) -> Result<()> {
+    if weapons.is_empty() {
+        return Ok(());
+    }
+    writeln!(page, "## Riven disposition changed\n")?;
+    for w in weapons {
+        writeln!(
+            page,
+            "- `{}`{}: {} -> {}",
+            w.weapon,
+            named(ctx, &w.weapon),
+            w.was,
+            w.now
+        )?;
+    }
+    writeln!(page)?;
+    Ok(())
+}
+
 /// The item's printed name, where the graph holds it.
 fn named(ctx: &Context<'_>, path: &str) -> String {
     match ctx.graph.get(path) {
@@ -89,6 +109,7 @@ impl Projection for Changes {
                 list(&mut page, "Sets removed", &diff.sets_removed)?;
 
                 moved(&mut page, ctx, &diff.drops_changed)?;
+                redisposed(&mut page, ctx, &diff.dispositions_changed)?;
 
                 if !diff.findings_delta.is_empty() {
                     writeln!(page, "## Findings\n")?;

@@ -15,7 +15,7 @@ pub struct Catalog;
 /// application reads it to decide whether it can open the file at all — so it lives here,
 /// beside the schema it describes, and is written both as `PRAGMA user_version` and as a row
 /// of `meta`.
-pub const SCHEMA: u32 = 18;
+pub const SCHEMA: u32 = 19;
 
 pub const SETUP: &str = "\
 CREATE TABLE meta (
@@ -85,6 +85,166 @@ CREATE TABLE relics (
   base        TEXT NOT NULL,
   refinement  TEXT NOT NULL,
   vaulted_in  TEXT
+) WITHOUT ROWID;
+CREATE TABLE weapons (
+  unique_name         TEXT PRIMARY KEY,
+  disposition         REAL NOT NULL,
+  disposition_primary REAL,
+  trigger             TEXT,
+  crit_chance         REAL,
+  crit_multiplier     REAL,
+  status_chance       REAL,
+  fire_rate           REAL,
+  multishot           INTEGER,
+  magazine            INTEGER,
+  reload_secs         REAL,
+  total_damage        REAL
+) WITHOUT ROWID;
+CREATE TABLE weapon_damage (
+  unique_name TEXT NOT NULL,
+  damage      TEXT NOT NULL,
+  amount      REAL NOT NULL,
+  PRIMARY KEY (unique_name, damage)
+) WITHOUT ROWID;
+CREATE TABLE phrases (
+  key TEXT PRIMARY KEY,
+  en  TEXT NOT NULL,
+  ru  TEXT
+) WITHOUT ROWID;
+CREATE TABLE riven_weapons (
+  unique_name        TEXT PRIMARY KEY,
+  class              TEXT NOT NULL,
+  family             TEXT,
+  slug               TEXT,
+  market_disposition REAL
+) WITHOUT ROWID;
+CREATE TABLE riven_pools (
+  unique_name TEXT PRIMARY KEY,
+  class       TEXT NOT NULL
+) WITHOUT ROWID;
+CREATE TABLE riven_stats (
+  pool                 TEXT NOT NULL,
+  tag                  TEXT NOT NULL,
+  prefix_en            TEXT NOT NULL,
+  prefix_ru            TEXT,
+  suffix_en            TEXT NOT NULL,
+  suffix_ru            TEXT,
+  base                 REAL,
+  base_second          REAL,
+  reverse_symbol       INTEGER NOT NULL,
+  form                 TEXT NOT NULL,
+  shown_en             TEXT NOT NULL,
+  shown_ru             TEXT,
+  market_slug          TEXT,
+  positive_only        INTEGER,
+  negative_only        INTEGER,
+  positive_is_negative INTEGER,
+  exclusive_to         TEXT,
+  PRIMARY KEY (pool, tag)
+) WITHOUT ROWID;
+CREATE TABLE riven_challenges (
+  pool      TEXT NOT NULL,
+  challenge TEXT NOT NULL,
+  en        TEXT NOT NULL,
+  ru        TEXT,
+  single_en TEXT,
+  single_ru TEXT,
+  PRIMARY KEY (pool, challenge)
+) WITHOUT ROWID;
+CREATE TABLE riven_complications (
+  pool         TEXT NOT NULL,
+  challenge    TEXT NOT NULL,
+  complication TEXT NOT NULL,
+  en           TEXT NOT NULL,
+  ru           TEXT,
+  PRIMARY KEY (pool, challenge, complication)
+) WITHOUT ROWID;
+CREATE TABLE riven_splices (
+  pool   TEXT NOT NULL,
+  first  TEXT NOT NULL,
+  second TEXT NOT NULL,
+  result TEXT NOT NULL,
+  PRIMARY KEY (pool, first, second)
+) WITHOUT ROWID;
+CREATE TABLE mods (
+  unique_name TEXT PRIMARY KEY,
+  compat      TEXT NOT NULL,
+  rarity      TEXT NOT NULL,
+  polarity    TEXT NOT NULL,
+  base_drain  INTEGER NOT NULL,
+  max_rank    INTEGER NOT NULL,
+  augment     INTEGER NOT NULL,
+  pvp         INTEGER NOT NULL,
+  exilus      INTEGER NOT NULL,
+  primed      INTEGER NOT NULL,
+  umbral      INTEGER NOT NULL,
+  mod_set     TEXT
+) WITHOUT ROWID;
+CREATE TABLE arcanes (
+  unique_name TEXT PRIMARY KEY,
+  rarity      TEXT,
+  max_rank    INTEGER NOT NULL
+) WITHOUT ROWID;
+CREATE TABLE upgrade_lines (
+  unique_name TEXT NOT NULL,
+  line        INTEGER NOT NULL,
+  en          TEXT NOT NULL,
+  ru          TEXT,
+  PRIMARY KEY (unique_name, line)
+) WITHOUT ROWID;
+CREATE TABLE upgrade_effects (
+  unique_name   TEXT NOT NULL,
+  effect        INTEGER NOT NULL,
+  stat          TEXT NOT NULL,
+  amount        REAL NOT NULL,
+  unit          TEXT NOT NULL,
+  condition     TEXT,
+  chance        REAL,
+  duration_secs REAL,
+  max_stacks    INTEGER,
+  PRIMARY KEY (unique_name, effect)
+) WITHOUT ROWID;
+CREATE TABLE weapon_mounts (
+  unique_name    TEXT NOT NULL,
+  mount          TEXT NOT NULL,
+  slot           TEXT NOT NULL,
+  class          TEXT NOT NULL,
+  family         TEXT,
+  disposition    REAL,
+  ammo_max       INTEGER,
+  tooltip_attack INTEGER,
+  PRIMARY KEY (unique_name, mount)
+) WITHOUT ROWID;
+CREATE TABLE weapon_attacks (
+  unique_name       TEXT NOT NULL,
+  mount             TEXT NOT NULL,
+  attack            INTEGER NOT NULL,
+  name              TEXT NOT NULL,
+  parent            INTEGER,
+  shot              TEXT,
+  trigger           TEXT,
+  crit_chance       REAL NOT NULL,
+  crit_multiplier   REAL NOT NULL,
+  status_chance     REAL NOT NULL,
+  fire_rate         REAL NOT NULL,
+  multishot         REAL,
+  charge_secs       REAL,
+  ammo_cost         REAL,
+  punch_through     REAL,
+  range_m           REAL,
+  falloff_start_m   REAL,
+  falloff_end_m     REAL,
+  falloff_reduction REAL,
+  incarnon_charges  INTEGER,
+  PRIMARY KEY (unique_name, mount, attack)
+) WITHOUT ROWID;
+CREATE TABLE attack_damage (
+  unique_name TEXT NOT NULL,
+  mount       TEXT NOT NULL,
+  attack      INTEGER NOT NULL,
+  damage      TEXT NOT NULL,
+  amount      REAL NOT NULL,
+  PRIMARY KEY (unique_name, mount, attack, damage)
 ) WITHOUT ROWID;
 CREATE TABLE sets (
   slug    TEXT PRIMARY KEY,
@@ -405,6 +565,65 @@ fn nodes(tx: &Transaction<'_>, ctx: &Context<'_>) -> Result<usize> {
         "INSERT INTO relics (unique_name, base, refinement, vaulted_in) \
                     VALUES (?1, ?2, ?3, ?4)",
     )?;
+    let mut weapons = tx.prepare(
+        "INSERT INTO weapons (unique_name, disposition, disposition_primary, trigger, \
+         crit_chance, crit_multiplier, status_chance, fire_rate, multishot, magazine, \
+         reload_secs, total_damage) \
+         VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12)",
+    )?;
+    let mut weapon_damage =
+        tx.prepare("INSERT INTO weapon_damage (unique_name, damage, amount) VALUES (?1, ?2, ?3)")?;
+    let mut rivens = tx.prepare(
+        "INSERT INTO riven_weapons (unique_name, class, family, slug, market_disposition) \
+         VALUES (?1, ?2, ?3, ?4, ?5)",
+    )?;
+    let mut pools = tx.prepare("INSERT INTO riven_pools (unique_name, class) VALUES (?1, ?2)")?;
+    let mut pool_stats = tx.prepare(
+        "INSERT INTO riven_stats (pool, tag, prefix_en, prefix_ru, suffix_en, suffix_ru, base, \
+         base_second, reverse_symbol, form, shown_en, shown_ru, market_slug, positive_only, \
+         negative_only, positive_is_negative, exclusive_to) \
+         VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15, ?16, ?17)",
+    )?;
+    let mut challenges = tx.prepare(
+        "INSERT INTO riven_challenges (pool, challenge, en, ru, single_en, single_ru) \
+         VALUES (?1, ?2, ?3, ?4, ?5, ?6)",
+    )?;
+    let mut complications = tx.prepare(
+        "INSERT INTO riven_complications (pool, challenge, complication, en, ru) \
+         VALUES (?1, ?2, ?3, ?4, ?5)",
+    )?;
+    let mut splices = tx.prepare(
+        "INSERT INTO riven_splices (pool, first, second, result) VALUES (?1, ?2, ?3, ?4)",
+    )?;
+    let mut mods = tx.prepare(
+        "INSERT INTO mods (unique_name, compat, rarity, polarity, base_drain, max_rank, augment, \
+         pvp, exilus, primed, umbral, mod_set) \
+         VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12)",
+    )?;
+    let mut arcanes =
+        tx.prepare("INSERT INTO arcanes (unique_name, rarity, max_rank) VALUES (?1, ?2, ?3)")?;
+    let mut rank_lines = tx
+        .prepare("INSERT INTO upgrade_lines (unique_name, line, en, ru) VALUES (?1, ?2, ?3, ?4)")?;
+    let mut rank_effects = tx.prepare(
+        "INSERT INTO upgrade_effects (unique_name, effect, stat, amount, unit, condition, \
+         chance, duration_secs, max_stacks) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9)",
+    )?;
+    let mut mounts = tx.prepare(
+        "INSERT INTO weapon_mounts (unique_name, mount, slot, class, family, disposition, \
+         ammo_max, tooltip_attack) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8)",
+    )?;
+    let mut attacks = tx.prepare(
+        "INSERT INTO weapon_attacks (unique_name, mount, attack, name, parent, shot, trigger, \
+         crit_chance, crit_multiplier, status_chance, fire_rate, multishot, charge_secs, \
+         ammo_cost, punch_through, range_m, falloff_start_m, falloff_end_m, \
+         falloff_reduction, incarnon_charges) \
+         VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15, ?16, ?17, \
+         ?18, ?19, ?20)",
+    )?;
+    let mut attack_damage = tx.prepare(
+        "INSERT INTO attack_damage (unique_name, mount, attack, damage, amount) \
+         VALUES (?1, ?2, ?3, ?4, ?5)",
+    )?;
     let mut imprints = tx
         .prepare("INSERT INTO imprints (slug, name_en, name_ru, animal) VALUES (?1, ?2, ?3, ?4)")?;
     let mut places = tx.prepare(
@@ -418,6 +637,7 @@ fn nodes(tx: &Transaction<'_>, ctx: &Context<'_>) -> Result<usize> {
         "INSERT INTO vendors (key, name, name_ru, currency, kind, rotates, area) \
          VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7)",
     )?;
+    let mut phrases = tx.prepare("INSERT INTO phrases (key, en, ru) VALUES (?1, ?2, ?3)")?;
     let mut areas = tx.prepare("INSERT INTO areas (key, name, name_ru) VALUES (?1, ?2, ?3)")?;
     let mut labs =
         tx.prepare("INSERT INTO labs (key, name, name_ru, faction) VALUES (?1, ?2, ?3, ?4)")?;
@@ -490,6 +710,175 @@ fn nodes(tx: &Transaction<'_>, ctx: &Context<'_>) -> Result<usize> {
                         r.vaulted_in.as_deref(),
                     ))?;
                 }
+                let top_rank = match &it.extra {
+                    Extra::Mod(m) => {
+                        mods.execute(params![
+                            &it.unique_name,
+                            &m.compat,
+                            &m.rarity,
+                            &m.polarity,
+                            m.base_drain,
+                            m.max_rank,
+                            m.augment as i64,
+                            m.pvp as i64,
+                            m.exilus as i64,
+                            m.primed as i64,
+                            m.umbral as i64,
+                            m.mod_set.as_deref(),
+                        ])?;
+                        Some(&m.top_rank)
+                    }
+                    Extra::Arcane(a) => {
+                        arcanes.execute((&it.unique_name, a.rarity.as_deref(), a.max_rank))?;
+                        Some(&a.top_rank)
+                    }
+                    _ => None,
+                };
+                for (at, line) in top_rank.iter().flat_map(|r| r.lines.iter().enumerate()) {
+                    rank_lines.execute((
+                        &it.unique_name,
+                        at as i64,
+                        &line.en,
+                        line.ru.as_deref(),
+                    ))?;
+                }
+                for (at, e) in top_rank.iter().flat_map(|r| r.effects.iter().enumerate()) {
+                    rank_effects.execute(params![
+                        &it.unique_name,
+                        at as i64,
+                        &e.stat,
+                        e.amount,
+                        e.unit.as_str(),
+                        e.condition.as_deref(),
+                        e.chance,
+                        e.duration_secs,
+                        e.max_stacks,
+                    ])?;
+                }
+                if let Extra::RivenPool(pool) = &it.extra {
+                    pools.execute((&it.unique_name, pool.class.as_str()))?;
+                    for s in &pool.stats {
+                        let market = s.market.as_ref();
+                        pool_stats.execute(params![
+                            &it.unique_name,
+                            &s.tag,
+                            &s.prefix.en,
+                            s.prefix.ru.as_deref(),
+                            &s.suffix.en,
+                            s.suffix.ru.as_deref(),
+                            s.bases.first(),
+                            s.bases.get(1),
+                            s.reverse_symbol as i64,
+                            s.form.as_str(),
+                            &s.shown_en,
+                            s.shown_ru.as_deref(),
+                            market.map(|m| m.slug.as_str()),
+                            market.map(|m| m.positive_only as i64),
+                            market.map(|m| m.negative_only as i64),
+                            market.map(|m| m.positive_is_negative as i64),
+                            market
+                                .filter(|m| !m.exclusive_to.is_empty())
+                                .map(|m| m.exclusive_to.join(",")),
+                        ])?;
+                    }
+                    for s in &pool.splices {
+                        splices.execute((&it.unique_name, &s.first, &s.second, &s.result))?;
+                    }
+                    for c in &pool.challenges {
+                        challenges.execute((
+                            &it.unique_name,
+                            &c.path,
+                            &c.shown.en,
+                            c.shown.ru.as_deref(),
+                            c.shown_single.as_ref().map(|s| s.en.as_str()),
+                            c.shown_single.as_ref().and_then(|s| s.ru.as_deref()),
+                        ))?;
+                        for m in &c.complications {
+                            complications.execute((
+                                &it.unique_name,
+                                &c.path,
+                                &m.path,
+                                &m.shown.en,
+                                m.shown.ru.as_deref(),
+                            ))?;
+                        }
+                    }
+                }
+                if let Extra::Weapon(w) = &it.extra {
+                    let stats = w.stats.as_ref();
+                    weapons.execute((
+                        &it.unique_name,
+                        w.disposition,
+                        w.disposition_primary,
+                        stats.and_then(|s| s.trigger.as_deref()),
+                        stats.map(|s| s.crit_chance),
+                        stats.map(|s| s.crit_multiplier),
+                        stats.map(|s| s.status_chance),
+                        stats.map(|s| s.fire_rate),
+                        stats.and_then(|s| s.multishot),
+                        stats.and_then(|s| s.magazine),
+                        stats.and_then(|s| s.reload_secs),
+                        stats.map(|s| s.total_damage),
+                    ))?;
+                    for (damage, amount) in stats.iter().flat_map(|s| &s.damage) {
+                        weapon_damage.execute((&it.unique_name, damage.as_str(), amount))?;
+                    }
+                    if let Some(r) = &w.riven {
+                        rivens.execute((
+                            &it.unique_name,
+                            r.class.value.as_str(),
+                            r.family.as_deref(),
+                            r.slug.as_deref(),
+                            r.market_disposition,
+                        ))?;
+                        put(&mut prov, &it.unique_name, "riven_class", &r.class)?;
+                    }
+                    for m in &w.mounts {
+                        mounts.execute((
+                            &it.unique_name,
+                            &m.name,
+                            &m.slot,
+                            &m.class,
+                            m.family.as_deref(),
+                            m.disposition,
+                            m.ammo_max,
+                            m.tooltip_attack,
+                        ))?;
+                        for a in &m.attacks {
+                            attacks.execute(params![
+                                &it.unique_name,
+                                &m.name,
+                                a.index,
+                                &a.name,
+                                a.parent,
+                                a.shot.map(|s| s.as_str()),
+                                a.trigger.as_deref(),
+                                a.crit_chance,
+                                a.crit_multiplier,
+                                a.status_chance,
+                                a.fire_rate,
+                                a.multishot,
+                                a.charge_secs,
+                                a.ammo_cost,
+                                a.punch_through,
+                                a.range,
+                                a.falloff.map(|f| f.start_m),
+                                a.falloff.map(|f| f.end_m),
+                                a.falloff.map(|f| f.reduction),
+                                a.incarnon_charges,
+                            ])?;
+                            for (damage, amount) in &a.damage {
+                                attack_damage.execute((
+                                    &it.unique_name,
+                                    &m.name,
+                                    a.index,
+                                    damage.as_str(),
+                                    amount,
+                                ))?;
+                            }
+                        }
+                    }
+                }
                 count += 1;
             }
             Node::Set(s) => {
@@ -558,6 +947,9 @@ fn nodes(tx: &Transaction<'_>, ctx: &Context<'_>) -> Result<usize> {
             }
             Node::Area(a) => {
                 areas.execute((&a.key, &a.name, a.name_ru.as_deref()))?;
+            }
+            Node::Phrase(p) => {
+                phrases.execute((&p.key, &p.en, p.ru.as_deref()))?;
             }
             Node::Lab(l) => {
                 labs.execute((&l.key, &l.name, l.name_ru.as_deref(), &l.faction))?;

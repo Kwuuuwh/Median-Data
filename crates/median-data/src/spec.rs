@@ -15,6 +15,10 @@ pub use graph::LANGS;
 
 /// Logical name of the WFM items blob in its snapshot.
 pub const WFM_ITEMS: &str = "items";
+/// Logical name of the WFM riven weapon list in its snapshot.
+pub const WFM_RIVEN_WEAPONS: &str = "riven-weapons";
+/// Logical name of the WFM riven attribute list in its snapshot.
+pub const WFM_RIVEN_ATTRIBUTES: &str = "riven-attributes";
 
 /// DE manifests that carry catalog items.
 pub const ITEM_MANIFESTS: &[&str] = &[
@@ -45,6 +49,23 @@ pub const WIKI_RESEARCH: &str = "research";
 pub const WIKI_VENDORS: &str = "vendors";
 pub const WIKI_VOID: &str = "void";
 pub const WIKI_BLUEPRINTS: &str = "blueprints";
+/// Logical name of the wiki's riven article in its snapshot.
+pub const WIKI_RIVEN_MODS: &str = "riven-mods";
+/// Logical names of the wiki weapon modules, in the order `sources::wiki::WEAPONS` lists them.
+pub const WIKI_WEAPONS: [&str; 6] = [
+    "weapons-primary",
+    "weapons-secondary",
+    "weapons-melee",
+    "weapons-archwing",
+    "weapons-companion",
+    "weapons-modular",
+];
+
+/// DE manifest carrying weapon stats and riven dispositions.
+pub const WEAPONS: &str = "ExportWeapons";
+
+/// DE manifest carrying mods, riven stat pools among them.
+pub const UPGRADES: &str = "ExportUpgrades";
 
 /// DE manifest carrying relics and their rewards.
 pub const RELICS: &str = "ExportRelicArcane";

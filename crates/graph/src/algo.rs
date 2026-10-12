@@ -172,7 +172,7 @@ pub fn refinement_of<'a>(graph: &'a Graph, relic: &str) -> Option<&'a str> {
     match graph.get(relic)? {
         Node::Item(item) => match &item.extra {
             Extra::Relic(r) => Some(&r.refinement),
-            Extra::None => None,
+            _ => None,
         },
         _ => None,
     }

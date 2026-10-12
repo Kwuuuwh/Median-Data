@@ -4,6 +4,8 @@ mod graph;
 mod kind;
 mod node;
 mod reference;
+mod upgrade;
+mod weapon;
 
 pub use algo::{
     cycles, handed_over, ingredients, obtainable, produced, producer, refinement_of, rollup,
@@ -13,8 +15,13 @@ pub use edge::{Cost, DropInfo, Edge, Grant, Levels, Offer, Rel, Research, Spawn}
 pub use graph::Graph;
 pub use kind::{Class, Kind, Leaf, Taxonomy};
 pub use node::{
-    Area, Bounty, Enemy, Extra, Imprint, Item, Lab, Label, Location, Mastery, Names, Node, Place,
-    PlaceKind, Recipe, Region, RelicInfo, Set, Table, Vendor, area_id, enemy_id, imprint_id,
-    lab_id, location_id, place_id, recipe_id, region_id, set_id, vendor_id,
+    Area, Bounty, Enemy, Extra, Imprint, Item, Lab, Label, Location, Mastery, Names, Node, Phrase,
+    Place, PlaceKind, Recipe, Region, RelicInfo, Set, Table, Vendor, area_id, enemy_id, imprint_id,
+    lab_id, location_id, phrase_id, place_id, recipe_id, region_id, set_id, vendor_id,
 };
 pub use reference::{LANGS, SHARES, chance, printed, share, tiered};
+pub use upgrade::{ArcaneInfo, Effect, Line, ModInfo, RankText, Unit};
+pub use weapon::{
+    Attack, Complication, Damage, Falloff, MarketStat, Mount, NamePart, Riven, RivenChallenge,
+    RivenClass, RivenPool, RivenStat, Shot, Shown, Splice, StatForm, Weapon, WeaponStats,
+};

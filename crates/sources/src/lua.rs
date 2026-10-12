@@ -227,9 +227,16 @@ impl<'a> Parser<'a> {
         }
     }
 
-    /// `true`, `false`, `nil` — anything else in a data module is not data.
+    /// `true`, `false`, `nil`, `math.huge` — anything else in a data module is not data.
     fn word(&mut self) -> Result<Value> {
         let from = self.at;
+        if self.starts("math.huge") {
+            self.at += "math.huge".len();
+            if !self.peek().is_some_and(is_word) {
+                return Ok(Value::Num(f64::INFINITY));
+            }
+            self.at = from;
+        }
         while self.peek().is_some_and(is_word) {
             self.at += 1;
         }
@@ -489,6 +496,12 @@ return Data
     #[test]
     fn a_missing_assignment_is_an_error_not_an_empty_table() {
         assert!(table_of("local D = { A = 1 }", "Missing").is_err());
+    }
+
+    #[test]
+    fn reads_an_unbounded_number() {
+        let t = table_of("local D = { AmmoMax = math.huge }", "D").unwrap();
+        assert_eq!(t.num("AmmoMax"), Some(f64::INFINITY));
     }
 
     #[test]

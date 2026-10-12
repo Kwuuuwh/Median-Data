@@ -105,17 +105,19 @@ pub fn check(vault: &Vault) -> Result<Vec<Change>> {
     }
     out.push(change(vault, spec::DE, snapshot_id(&wanted)));
 
-    let items = wfm::fetch_items(&agent)?;
-    out.push(change(vault, spec::WFM, wfm_id(&vault_hash(&items))));
+    let blobs: Vec<String> = wfm_lists(&agent)?
+        .iter()
+        .map(|(_, bytes)| vault_hash(bytes))
+        .collect();
+    out.push(change(vault, spec::WFM, wfm_id(&blobs)));
 
     let tables = drops::fetch(&agent)?;
     out.push(change(vault, spec::DROPS, drops_id(&vault_hash(&tables))));
 
-    let agent = wiki::agent();
-    let mut blobs = Vec::new();
-    for (_, module) in wiki_modules() {
-        blobs.push(vault_hash(&wiki::fetch_module(&agent, module)?));
-    }
+    let blobs: Vec<String> = wiki_sources()?
+        .iter()
+        .map(|(_, bytes)| vault_hash(bytes))
+        .collect();
     out.push(change(vault, spec::WIKI, wiki_id(&blobs)));
 
     Ok(out)
@@ -134,8 +136,8 @@ fn vault_hash(bytes: &[u8]) -> String {
 }
 
 /// The wiki modules pinned as one snapshot, with the logical name each is stored under.
-fn wiki_modules() -> [(&'static str, &'static str); 7] {
-    [
+fn wiki_modules() -> Vec<(&'static str, &'static str)> {
+    let mut modules = vec![
         (spec::WIKI_MISSIONS, wiki::MISSIONS),
         (spec::WIKI_DROPS, wiki::DROP_TABLES),
         (spec::WIKI_BARO, wiki::BARO),
@@ -143,7 +145,23 @@ fn wiki_modules() -> [(&'static str, &'static str); 7] {
         (spec::WIKI_VENDORS, wiki::VENDORS),
         (spec::WIKI_VOID, wiki::VOID),
         (spec::WIKI_BLUEPRINTS, wiki::BLUEPRINTS),
-    ]
+    ];
+    modules.extend(spec::WIKI_WEAPONS.into_iter().zip(wiki::WEAPONS));
+    modules
+}
+
+/// Every wiki module and article pinned, with the logical name each is stored under.
+fn wiki_sources() -> Result<Vec<(&'static str, Vec<u8>)>> {
+    let agent = wiki::agent();
+    let mut out = Vec::new();
+    for (logical, module) in wiki_modules() {
+        out.push((logical, wiki::fetch_module(&agent, module)?));
+    }
+    out.push((
+        spec::WIKI_RIVEN_MODS,
+        wiki::fetch_page(&agent, wiki::RIVEN_MODS)?,
+    ));
+    Ok(out)
 }
 
 fn wiki_id(blobs: &[String]) -> String {
@@ -153,8 +171,23 @@ fn wiki_id(blobs: &[String]) -> String {
     )
 }
 
-fn wfm_id(blob: &str) -> String {
-    format!("wfm-{}", &blob[..16])
+fn wfm_id(blobs: &[String]) -> String {
+    format!(
+        "wfm-{}",
+        &blake3::hash(blobs.join(".").as_bytes()).to_hex()[..16]
+    )
+}
+
+/// The market lists pinned as one snapshot, with the logical name each is stored under.
+fn wfm_lists(agent: &ureq::Agent) -> Result<Vec<(&'static str, Vec<u8>)>> {
+    Ok(vec![
+        (spec::WFM_ITEMS, wfm::fetch_items(agent)?),
+        (spec::WFM_RIVEN_WEAPONS, wfm::fetch_riven_weapons(agent)?),
+        (
+            spec::WFM_RIVEN_ATTRIBUTES,
+            wfm::fetch_riven_attributes(agent)?,
+        ),
+    ])
 }
 
 fn drops_id(blob: &str) -> String {
@@ -187,10 +220,8 @@ pub fn one(vault: &Vault, source: &str, now_ms: i64) -> Result<()> {
 /// Pin the wiki data modules we read. They are Lua source, pinned verbatim like any other
 /// input, so a build never depends on what the wiki says today.
 fn fetch_wiki(vault: &Vault, now_ms: i64) -> Result<()> {
-    let agent = wiki::agent();
     let mut fetched = Vec::new();
-    for (logical, module) in wiki_modules() {
-        let bytes = wiki::fetch_module(&agent, module)?;
+    for (logical, bytes) in wiki_sources()? {
         let blob = vault.put(&bytes)?;
         fetched.push((logical, blob, bytes.len() as u64));
     }
@@ -259,16 +290,20 @@ fn manifests(lang: &str) -> Vec<&'static str> {
 }
 
 fn fetch_wfm(vault: &Vault, agent: &ureq::Agent, now_ms: i64) -> Result<()> {
-    let bytes = wfm::fetch_items(agent)?;
-    let blob = vault.put(&bytes)?;
-    let mut snap = Snapshot::new(wfm_id(&blob.to_string()), spec::WFM, now_ms);
-    snap.entries.push(Entry {
-        logical: spec::WFM_ITEMS.to_string(),
-        blob: blob.to_string(),
-        len: bytes.len() as u64,
-    });
+    let mut entries = Vec::new();
+    for (logical, bytes) in wfm_lists(agent)? {
+        let blob = vault.put(&bytes)?;
+        entries.push(Entry {
+            logical: logical.to_string(),
+            blob: blob.to_string(),
+            len: bytes.len() as u64,
+        });
+    }
+    let blobs: Vec<String> = entries.iter().map(|e| e.blob.clone()).collect();
+    let mut snap = Snapshot::new(wfm_id(&blobs), spec::WFM, now_ms);
+    snap.entries = entries;
     vault.save(&snap)?;
-    eprintln!("WFM snapshot {} ({} bytes)", snap.id, bytes.len());
+    eprintln!("WFM snapshot {} — {} lists", snap.id, snap.entries.len());
     Ok(())
 }
 

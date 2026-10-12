@@ -35,7 +35,7 @@ impl Index {
             }
             let relic = match &item.extra {
                 Extra::Relic(r) => Some(r),
-                Extra::None => None,
+                _ => None,
             };
             if let Some(r) = relic {
                 // DE ships a relic twice where it was re-released, same name and same

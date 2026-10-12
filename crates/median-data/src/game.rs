@@ -8,7 +8,7 @@ use sources::{language, notation, packages};
 
 use crate::lineage::Lineage;
 use crate::offers::{self, Stall};
-use crate::{grants, incubator, mining, spawns};
+use crate::{grants, incubator, mining, phrases, spawns};
 
 /// Languages median reads, and the package each one's string table sits in.
 const STRING_TABLES: [(&str, &str); 2] = [("en", "H.Misc_en"), ("ru", "H.Misc_ru")];
@@ -41,6 +41,7 @@ const GRANTS: &str = "grants.toml";
 const INCUBATOR: &str = "incubator.toml";
 const MINING: &str = "mining.toml";
 const SPAWNS: &str = "spawns.toml";
+const PHRASES: &str = "phrases.toml";
 
 /// Which client the distillate was taken from.
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
@@ -110,7 +111,9 @@ pub fn installed(cache: &Path) -> Result<String> {
 /// What this extract is, so a catalog can say which cache it was built from.
 pub fn stamp(dir: &Path) -> Result<String> {
     let mut hasher = blake3::Hasher::new();
-    for name in [CLIENT, NAMES, OFFERS, GRANTS, INCUBATOR, MINING, SPAWNS] {
+    for name in [
+        CLIENT, NAMES, OFFERS, GRANTS, INCUBATOR, MINING, SPAWNS, PHRASES,
+    ] {
         let path = dir.join(name);
         let bytes = std::fs::read(&path).with_context(|| format!("read {}", path.display()))?;
         hasher.update(name.as_bytes());
@@ -157,6 +160,11 @@ fn distilled<T: serde::de::DeserializeOwned>(dir: &Path, name: &str) -> Result<T
     toml::from_str(&text).with_context(|| format!("parse {}", path.display()))
 }
 
+/// The lines of the client the catalog reads, as the last extract left it.
+pub fn phrased(dir: &Path) -> Result<phrases::Phrases> {
+    distilled(dir, PHRASES)
+}
+
 /// What the client calls things, as the last extract left it.
 pub fn spoken(dir: &Path) -> Result<Names> {
     let path = dir.join(NAMES);
@@ -198,6 +206,15 @@ pub fn run(cache: &Path, out_dir: &Path) -> Result<()> {
         "# Written by `median-data extract` from the game cache: the Russian the client\n\
          # shows for a name it prints in English.\n\n",
         &names,
+    )?;
+
+    let phrases = phrases::read(&tables["en"], &tables["ru"]);
+    eprintln!("cache    {} phrases", phrases.phrase.len());
+    write(
+        &out_dir.join(PHRASES),
+        "# Written by `median-data extract` from the game cache: the lines of the client the\n\
+         # catalog reads — stat lines, riven names and challenges, the riven cycling dialog.\n\n",
+        &phrases,
     )?;
 
     let archive = Archive::open(&cache.join(format!("{PACKAGE}.toc")))?;

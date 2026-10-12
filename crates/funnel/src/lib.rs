@@ -6,13 +6,14 @@ mod finding;
 mod invariant;
 mod outlier;
 mod report;
+mod riven;
 mod run;
 mod silence;
 
 pub use anchor::{Anchors, load as load_anchors};
 pub use coverage::{DROP_NOT_IN_CATALOG, Gaps};
 pub use cross::{DropClaim, RelicClaim};
-pub use diff::{Diff, Moved, State, compare, snapshot, waiting};
+pub use diff::{Diff, Moved, Redisposed, State, compare, snapshot, waiting};
 pub use finding::{Finding, Layer, blocking};
 pub use report::{Report, Totals};
 pub use run::{Input, run};

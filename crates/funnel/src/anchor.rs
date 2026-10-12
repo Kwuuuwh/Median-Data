@@ -1,7 +1,7 @@
 use std::path::Path;
 
 use anyhow::{Context, Result};
-use graph::{Graph, Node, Rel};
+use graph::{Extra, Graph, Node, Rel};
 use serde::Deserialize;
 
 use crate::finding::{Finding, Layer};
@@ -22,6 +22,10 @@ pub struct Item {
     pub prime: Option<bool>,
     pub tradable: Option<bool>,
     pub ducats: Option<i64>,
+    /// DE's riven disposition.
+    pub disposition: Option<f64>,
+    /// Whether the wiki's attacks are hung on the weapon.
+    pub attacks: Option<bool>,
     /// Why this fact is worth pinning, for whoever reads a failure.
     pub note: Option<String>,
 }
@@ -96,6 +100,26 @@ fn check_item(graph: &Graph, want: &Item, out: &mut Vec<Finding>) {
             ducats.to_string(),
             got.ducats.map_or("none".to_string(), |d| d.to_string()),
         );
+    }
+    let weapon = match &got.extra {
+        Extra::Weapon(w) => Some(w),
+        _ => None,
+    };
+    if let Some(disposition) = want.disposition {
+        let actual = weapon.map(|w| w.disposition);
+        if actual != Some(disposition) {
+            differs(
+                "disposition",
+                disposition.to_string(),
+                actual.map_or("none".to_string(), |d| d.to_string()),
+            );
+        }
+    }
+    if let Some(attacks) = want.attacks {
+        let actual = weapon.is_some_and(|w| w.mounts.iter().any(|m| !m.attacks.is_empty()));
+        if attacks != actual {
+            differs("attacks", attacks.to_string(), actual.to_string());
+        }
     }
 }
 
