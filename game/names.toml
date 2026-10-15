@@ -176,6 +176,7 @@ verbatim = [
     "Apollodorus",
     "AppliedThanatology",
     "Ara",
+    "Arbiters of Hexis Sigil",
     "Arcade",
     "Arcadia",
     "Archwing",
@@ -331,7 +332,6 @@ verbatim = [
     "Broke",
     "Broken",
     "Bronze",
-    "Brood's Oversurge",
     "Brother",
     "Brugia",
     "Brute",
@@ -471,7 +471,6 @@ verbatim = [
     "Coffee",
     "Coffin",
     "Cold",
-    "Cold Front",
     "Cold Tundra",
     "Coldwave",
     "Colonel",
@@ -619,6 +618,7 @@ verbatim = [
     "Despina",
     "Dev",
     "Dev (CY)",
+    "Devourer",
     "Dhampyre Syandana",
     "DialUp",
     "Dice",
@@ -886,7 +886,6 @@ verbatim = [
     "Gas Damage",
     "Gasket",
     "Gasser",
-    "Gastroparesis",
     "Gate",
     "Gear",
     "Gears",
@@ -1090,7 +1089,6 @@ verbatim = [
     "Infected",
     "Infection",
     "Infector",
-    "Infernum",
     "Infested",
     "Inject",
     "Input",
@@ -1353,7 +1351,6 @@ verbatim = [
     "Matchbox",
     "Matrix",
     "Max",
-    "Max Health Damage",
     "Maximum",
     "Mayhem",
     "Me",
@@ -1752,12 +1749,10 @@ verbatim = [
     "Puck",
     "Pues, a ver",
     "Puller",
-    "Pulse Damage",
     "Punch",
     "Puncher",
     "Punk",
     "Purple",
-    "Push Force",
     "Pyro",
     "Python",
     "Q",
@@ -1822,6 +1817,7 @@ verbatim = [
     "Reldresal",
     "Remington",
     "Remix",
+    "Replay Cinematic",
     "Res",
     "Resident",
     "Resolution",
@@ -2376,7 +2372,6 @@ verbatim = [
     "Vodyanoi",
     "Voice Volume",
     "Void",
-    "Volley Duration",
     "Vor's Prize",
     "Vorbis",
     "Voruna Prime Massacre Glyph",
@@ -2410,10 +2405,8 @@ verbatim = [
     "We All Lift Together",
     "WeAre",
     "WeShould",
-    "Weak Point",
     "Weak Point Critical Chance",
     "Weak Point Damage",
-    "Weak Point Multiplier",
     "Weapon Research",
     "Web",
     "Weed",
@@ -2733,7 +2726,6 @@ verbatim = [
     "[PH] HeadChargingAttack Desc",
     "[PH] Health Regeneration Potion",
     "[PH] Heavy Archgun Unit",
-    "[PH] Heavy Attack Damage",
     "[PH] Hellion RPG",
     "[PH] Hellion RPG Ult",
     "[PH] High Rollers",
@@ -2860,7 +2852,6 @@ verbatim = [
     "[PH] Ottoman",
     "[PH] PS ALLY",
     "[PH] PS ALLY LEADER",
-    "[PH] Parry Angle",
     "[PH] Perita",
     "[PH] Pig Pen",
     "[PH] Pilot",
@@ -2934,7 +2925,6 @@ verbatim = [
     "[PH] SharedFate Desc",
     "[PH] Shockwave Rounds",
     "[PH] Sicarus Proto Skin",
-    "[PH] Slam Damage",
     "[PH] Slamwave",
     "[PH] Sleep Peculiar",
     "[PH] Sleeping",
@@ -2988,7 +2978,6 @@ verbatim = [
     "[PH] Technorot Desc",
     "[PH] Television Ephemera",
     "[PH] Teshin Nikana",
-    "[PH] Test Key",
     "[PH] The Twins Desc",
     "[PH] Thief",
     "[PH] Thumper Bronze Trophy",
@@ -4741,7 +4730,6 @@ Aquapulmo = "Аквапульма"
 Arbiter = "Арбитр"
 "Arbiter Princeps" = "Арбитр Принцепс"
 "Arbiter Rex" = "Арбитр Рекс"
-"Arbiter of Hexis Sigil" = "Arbiters of Hexis Sigil"
 "Arbiter's Tribunal Scene" = "Сцена: Трибунал арбитров"
 "Arbiters Combat Emote" = "Жест: Арбитры - Бой"
 "Arbiters Endurance Emote" = "Жест: Арбитры - Выносливость"
@@ -5877,7 +5865,6 @@ Banshee = "Банши"
 "Banshee Soprana Skin" = "Скин Банши: Сопрана"
 "Banshee Specter" = "Спектр Банши"
 "Banshee Systems" = "Банши: Система"
-"Banshee Threnodia Collection" = "Коллекция Банши: Тренодия"
 "Banshee Threnodia Helmet" = "Шлем Банши: Тренодия"
 "Banshee Threnodia Shoulder Armor" = "Наплечная броня Банши: Тренодия"
 "Banshee Threnodia Skin" = "Скин Банши: Тренодия"
@@ -6611,6 +6598,7 @@ Bronze = "Бронзовый"
 "Brood Mother" = "Мать выводка"
 "Brood Mother Emblem" = "Значок: Мать выводка"
 "Brood Surge" = "Всплеск выводка"
+"Brood's Oversurge" = "Перенапряжение выводка"
 "Brooding Thoughts" = "Тяжёлые Мысли"
 "Brow 53-B" = "Бровь 53-B"
 "Brow 61-T" = "Брови 61-T"
@@ -8074,6 +8062,7 @@ Coildrive = "Циклоход"
 "Col B" = "Цвет B"
 "Col D" = "Цвет D"
 "Cold Arrival" = "Ледяное Прибытие"
+"Cold Front" = "Холодный фронт"
 "Cold Revenge" = "Ледяное Отмщение"
 "Cold Snap" = "Ледяной захват"
 "Cold Steel" = "Холодная Сталь"
@@ -8939,6 +8928,7 @@ Credits = "Кредиты"
 "Crest Full" = "Полный гребень"
 "Crest Spiked" = "Шипастый гребень"
 "Crestbear Glyph" = "Глиф: Crestbear"
+"Crested Chest" = "Гербовый сундук"
 "Crested Chest Key" = "Ключ от гербового сундука"
 "Crested Frozen Chest" = "Гербовый сундук"
 "Crested Frozen Chests Opened: " = "Открыто гербовых сундуков: "
@@ -9050,6 +9040,7 @@ Crush = "Сокрушение"
 "Cryo-Tower Pillar" = "Крио-Башня: Столб"
 Cryobell = "Криоколокол"
 "Cryobell Acquired" = "Криоколокол получен"
+"Cryobell Ceremony Complete" = "Церемония Криоколокола Завершена"
 "Cryobell Sumdali" = "Сумдали «Криоколокол»"
 "Cryogenic Exodamper" = "Криогенный Экзоподавитель"
 "Cryogenic Leakage" = "Утечка криогена"
@@ -10001,7 +9992,6 @@ Defense = "Оборона"
 "Defense Target" = "Цель Обороны"
 "Defensive Fire" = "Оборонительный Огонь"
 "Defiance Sigil" = "Сигил: Вызов"
-"Defiance Succesful" = "Церемония Криоколокола Завершена"
 "Defiled Reckoning" = "Порочное Искупление"
 "Defiled Snapdragon" = "Оскверненный Львиный Зев"
 'Define "dead."' = 'Дай определение слову "мертвый".'
@@ -12727,7 +12717,7 @@ Extraction = "Эвакуация"
 "Extraction Expeditions" = "Экспедиции по добыче"
 Extractor = "Экскаватор"
 "Extractor Array" = "Построение Экстрактора"
-"Extractor Ready for Retrieval" = "Экстрактор готов к извлечению"
+"Extractor Ready for Retrieval" = "Войдите в игру, чтобы получить доступ к своему Экстрактору ресурсов."
 Extrapolator = "Экстраполятор"
 "Extreme Cold" = "Экстремальный холод"
 "Extreme Velocity" = "Экстремальная Скорость"
@@ -13596,7 +13586,7 @@ Fossilized = "Закостенелый"
 "Founders Program" = "Программа Основателей"
 "Founding Father Glyph" = "Глиф: Отец-основатель"
 "Founding Warlord" = "Основатель"
-"Foundry Build Completed" = "Предмет создан"
+"Foundry Build Completed" = "Один или несколько предметов в Кузнице готовы. "
 "Four Riders" = "Четыре всадника"
 "Four of a Kind" = "Четыре одинаковых"
 Fours = "Четвёрки"
@@ -13686,7 +13676,6 @@ Fragor = "Фрагор"
 Fraud = "Обманщик"
 "FreddyCaps Glyph" = "Глиф: FreddyCaps"
 "Free Allied Brachiolysts" = "Освободите союзных брахиолистов"
-"Free Banshee and More" = "Коллекция Банши: Тренодия"
 "Free Brothers" = "Освободите братьев"
 "Free Flight" = "Свободный Полёт"
 "Free Placement" = "Свободное размещение"
@@ -13962,7 +13951,6 @@ GILDED = "УЛУЧШЕНО"
 "GIVE ME A MINUTE" = "ДАЙТЕ МНЕ МИНУТУ"
 "GIVE SAMPLES" = "ОТДАЙТЕ ОБРАЗЦЫ"
 "GIVE UP" = "СДАТЬСЯ"
-"GLACIAL DEFIANCE" = "ЛЕДЯНАЯ СВЯЗКА"
 GLINTY = "БЛЕСТЯШКА"
 GLYPH = "ГЛИФ"
 "GLYPH BUNDLES" = "НАБОРЫ ГЛИФОВ"
@@ -14202,7 +14190,7 @@ Gas = "Газ"
 "Gas City Regulators Scene" = "Сцена: Газовый город - Распределители"
 "Gas City Walkway Scene" = "Сцена: Газовый город - Аллея"
 "Gas Infested Hive" = "Газовый Улей Заражённых"
-"Gaseous Quake" = "Резонирующий Взрыв"
+"Gaseous Quake" = "Газовое землетрясение"
 Gash = "Разрез"
 "Gast Sentinel Mask" = "Маска стража: Гаст"
 "Gast Sentinel Skin" = "Скин стража: Гаст"
@@ -14211,6 +14199,7 @@ Gash = "Разрез"
 "Gast Sentinel Wings" = "Крылья стража: Гаст"
 "Gastel Glyph" = "Глиф: Gastel"
 Gastro = "Гастро"
+Gastroparesis = "Гастропарез"
 "Gate Crash" = "Зеркало"
 "Gate Crash Emblem" = "Значок: Незваные гости"
 "Gate Crash Mod Pack" = "Набор модов: Незваные гости"
@@ -15166,6 +15155,7 @@ HUNGRY = "ГОЛОДНО"
 HUNTER-KILLER = "ОХОТНИК-УБИЙЦА"
 "HUNTERS ALIVE" = "ЖИВЫХ ОХОТНИКОВ"
 "HUNTING GROUNDS" = "ЗОНА ОХОТЫ"
+"HUSH. WHISPERS…" = "ТИХО. ШЁПОТ…"
 "Ha! Liar. " = "Ха! Лжец. "
 "Ha. Hahahaha" = "Ха! Ха-ха-ха."
 Haalvu = "Хаалву"
@@ -15467,6 +15457,7 @@ Haymaker = "Хеймейкер"
 "Head Associate" = "главный юрист,"
 "Head Bop" = "Качание головой"
 "Head Coordinating" = "главный координатор,"
+"Head Cracker Honoria" = "Почесть: Головолом"
 "Head Creative" = "главный креативщик,"
 "Head Deputy" = "заместитель начальника,"
 "Head Executive" = "главный директор,"
@@ -16097,6 +16088,7 @@ I = "Я"
 "I'M PERFECTLY FINE" = "СО МНОЙ ВСЁ В ПОРЯДКЕ"
 "I'm the Captain Now" = "Теперь я капитан"
 "I... " = "Я…"
+"I... RETURN" = "Я... ВОЗВРАЩАЮСЬ"
 "IBEXAN ANTIGEN" = "АНТИГЕН: ИБЕКСАН"
 "ICEBLADE OF NARIN" = "ЛЕДЯНОЙ КЛИНОК НАРИН"
 ICON = "ИКОНКА"
@@ -16461,7 +16453,7 @@ Incomplete = "Не завершено"
 "Increases Ground Slam Damage" = "Увеличивает урон от атаки по земле"
 "Increasing Burn Speed" = "Увеличение скорости записи"
 Incubated = "Инкубирован(а)"
-"Incubation is Complete" = "Инкубация завершена"
+"Incubation is Complete" = "Инкубация завершена. Доступен новый компаньон. "
 "Incubator Power Core" = "Энергоядро инкубатора"
 "Incubator Segment" = "Сегмент Инкубатора"
 "Incubus Ribbon Syandana" = "Сандана: Лента Инкуба"
@@ -16490,6 +16482,7 @@ Infected = "Заражено"
 Infernalis = "Инферналис"
 Inferno = "Инферно"
 "InfernoTheFirelord Glyph" = "Глиф: InfernoTheFirelord"
+Infernum = "Инферно"
 "Infernum " = "Инферно"
 "Infernum Begins in: " = "Инферно открывается через:"
 "Infernum Conquered" = "Инферно повержен"
@@ -16968,6 +16961,7 @@ Ivara = "Ивара"
 "Izvara Syandana" = "Сандана: Извара"
 "I…" = "Я…"
 "I… Cannot go… On…" = "Я... Не могу... Продолжать..."
+"I… HUNGER…" = "Я… ИСПЫТЫВАЮ ГОЛОД…"
 "J-3 Golem" = "J-3 Голем"
 "J3 Jordas Golem" = "J3 Голем Джордас"
 "J3ubbleboy Glyph" = "Глиф: J3ubbleboy"
@@ -19182,6 +19176,7 @@ MISCELLANEOUS = "РАЗНОЕ"
 "MISSILE BATTERY TURRET ROOM" = "РАКЕТНАЯ БАТАРЕЯ: КОМНАТА ТУРЕЛЕЙ"
 "MISSING COLLAR" = "ОТСУТСТВУЕТ ОШЕЙНИК"
 "MISSING REQUIREMENTS" = "НЕВЫПОЛНЕННЫЕ ТРЕБОВАНИЯ"
+"MISSION BIND" = "СВЯЗКА МИССИИ"
 "MISSION IMPROVEMENTS" = "УЛУЧШЕНИЯ МИССИЙ"
 "MISSION INTERRUPTION" = "МИССИЯ ПРИОСТАНОВЛЕНА"
 "MISSION RESULTS" = "РЕЗУЛЬТАТЫ МИССИИ"
@@ -19609,6 +19604,7 @@ Mark = "Отметка"
 "Mark of the Beast" = "Метка зверя"
 Marked = "Метка"
 "Marked Target" = "Отмеченная Цель"
+"Marked Target Bonus" = "Бонус за отмеченную цель"
 "Marked for Death" = "Метка Смерти"
 Markers = "Обозначения"
 Market = "рынков"
@@ -19729,6 +19725,7 @@ Mawfish = "Рыба-пасть"
 "Max Duration" = "Макс. длительность"
 "Max Framerate" = "Максимальная частота кадров"
 "Max Health" = "Макс. Здоровье"
+"Max Health Damage" = "Максимальный урон здоровью"
 "Max Jade Lights" = "Максимум нефритового света"
 "Max Light's Judgment" = "Максимум Правосудия Света"
 "Max Packs" = "Макс. наборов"
@@ -20319,7 +20316,7 @@ Monotonal = "монотонности"
 "Moondance Kubrow Armor" = "Броня кубрау: лунный танец"
 Moonflesh = "Лунная плоть"
 "Moonflesh Collected" = "Собранная лунная плоть"
-"Moonflesh Harvesting Progress" = "Прогресс сбора лунной плоти"
+"Moonflesh Harvesting Progress" = "Глобальный прогресс сбора"
 "Moonflesh Locus Detected" = "Обнаружена лунная плоть"
 "Moonless Kavat Gene-Masking Kit" = "Генно-маскирующий набор каватов: Безлунный"
 "Moonless Kavat Pattern" = "Шаблон меха кавата: Безлунный"
@@ -20769,7 +20766,7 @@ Narin = "Нарин"
 "Narin Prex" = "Прекс: Нарин"
 "Narin Skin" = "Скин Нарин"
 "Narin Systems" = "Нарин: Система"
-"Narin Warframe" = "Варфрейм «Нарин»"
+"Narin Warframe" = "Коллекция Банши: Тренодия"
 Narmer = "Нармер"
 "Narmer All Seeing Eye" = "Всевидящее око Нармера"
 "Narmer Arid Bombard" = "Пустынный Бомбардировщик Нармера"
@@ -23033,7 +23030,7 @@ PERMANENT = "ПОСТОЯННО"
 "PERRIN SEQUENCE ARENA" = "АРЕНА ПОСЛЕДОВАТЕЛЬНОСТИ ПЕРРИНА"
 "PERRIN SEQUENCE PHILOSOPHY" = "ФИЛОСОФИЯ ПОСЛЕДОВАТЕЛЬНОСТИ ПЕРРИНА"
 PERSONAL = "ЛИЧНЫЕ"
-"PERSONAL BURDEN" = "ПЕРСОНАЛЬНАЯ СВЯЗКА"
+"PERSONAL BIND" = "ПЕРСОНАЛЬНАЯ СВЯЗКА"
 "PERSONAL DECORATIONS" = "ПЕРСОНАЛЬНЫЕ УКРАШЕНИЯ"
 "PERSONAL PROGRESS" = "ЛИЧНЫЙ ПРОГРЕСС"
 "PERSONAL RESERVE" = "ЛИЧНОЕ ХРАНИЛИЩЕ"
@@ -23196,7 +23193,7 @@ PROGRESS = "ПРОГРЕСС"
 PROJECTILE = "СНАРЯД"
 "PROJECTILE EXPLOSION CHANCE" = "ШАНС ВЗРЫВА СНАРЯДА"
 "PROJECTILE FLIGHT SPEED" = "СКОРОСТЬ ПОЛЕТА"
-"PROLOGUE TO TAU" = "ПРОЛОГ К ТАУ"
+"PROLOGUE TO TAU" = "ТАУ: ПРОЛОГ"
 PROMISE = "ДАЮ СЛОВО"
 "PROMOTE TO LEADER" = "НАЗНАЧИТЬ ЛИДЕРА"
 "PROOF OF LIFE" = "ДОКАЗАТЕЛЬСТВО ЖИЗНИ"
@@ -24512,6 +24509,7 @@ Pulsar = "Пульсар"
 "Pulsar MK II" = "Пульсар MK II"
 "Pulsar MK III" = "Пульсар MK III"
 "Pulsating Tubercles" = "Пульсирующие туберкулы"
+"Pulse Damage" = "Урон импульса"
 "Pulse Helmet Conversion" = "Конверсия шлема: Импульс"
 "Pulse Interval" = "Интервал импульса"
 "Pulse Rate" = "Частота пульса"
@@ -24568,6 +24566,7 @@ Purrs = "Мурчит"
 "Pursue Umbra" = "Преследуйте Умбру"
 Push = "Отталкивание"
 "Push & Pull" = "Натиск и Рывок"
+"Push Force" = "Сила отталкивания"
 "Push to Talk" = "Голосовой чат"
 "Puspa Luxxum Ornament" = "Орнамент: Пуспа Люксум"
 Pustrels = "Пастрелы"
@@ -25689,6 +25688,7 @@ Requires = "Требует"
 "Requires Emergency Transponder" = "Требуется Аварийный Передатчик"
 "Requires Max Rank" = "Требуется максимальный ранг"
 "Requires Prerequisite" = "Требуется выполнение предварительных условий"
+"Requires: " = "Требуется: "
 Reroll = "Переброс"
 Reroot = "Закоренение"
 "Reroot Rampage" = "Неистовое Закоренение"
@@ -26775,6 +26775,7 @@ SUBMERSIBLE = "ПОДВОДНЫЙ"
 SUBSUMED = "ПОГЛОЩЕН"
 "SUBSUMING WARFRAME" = "ПОГЛОЩЕНИЕ ВАРФРЕЙМА"
 "SUCCESS CHANCE" = "ШАНС УСПЕХА"
+"SUCH TINY CHILDREN…" = "ТАКИЕ КРОШЕЧНЫЕ ДЕТИ…"
 SUGATRA = "CУГАТРА"
 "SUIT ENERGY" = "ЭНЕРГИЯ КОМБИНЕЗОНА"
 SUMMARY = "СВОДКА"
@@ -28566,7 +28567,7 @@ Songs = "Песни"
 "Sonic Boom" = "Звуковой Удар"
 "Sonic Boost" = "Звуковое Ускорение"
 "Sonic Dash" = "Звуковой Рывок"
-"Sonic Siphon" = "Акустический Разрыв"
+"Sonic Siphon" = "Акустический сифон"
 Sonicor = "Соникор"
 "Sonicor Cliona Skin" = "Скин Соникора: Клиона"
 "Sonicor Elixis Skin" = "Скин Соникора: Эликсис"
@@ -29605,6 +29606,7 @@ Systemization = "Специалист по систематизации"
 "TAA 8X (High)" = "TAA 8Х (Выс.)"
 "TAA Sharpen" = "ТАА-резкость"
 "TACTICAL ALERT" = "ТАКТИЧЕСКАЯ ТРЕВОГА"
+"TACTICAL BIND" = "ТАКТИЧЕСКАЯ СВЗЯКА"
 TAGFER = "ТАГФЕР"
 TAIL = "ХВОСТ"
 "TAIL SECTION" = "ХВОСТОВАЯ ЧАСТЬ"
@@ -29720,6 +29722,7 @@ THANKYOOOU = "СПАСИБООООО"
 "THE GIFTING SYSTEM" = "СИСТЕМА ПОДАРКОВ"
 "THE GLASSMAKER" = "СТЕКЛОДУВ"
 "THE HUNRA'S NEST" = "ГНЕЗДО ХУНРЫ"
+"THE ICEBIND" = "ЛЕДЯНАЯ СВЯЗКА"
 "THE INDEX" = "ИНДЕКС"
 "THE INDEX: Bonus" = "ИНДЕКС: Бонус"
 "THE INDEX: ENDURANCE" = "ИНДЕКС: ВЫНОСЛИВОСТЬ"
@@ -29752,6 +29755,7 @@ THANKYOOOU = "СПАСИБООООО"
 "THEY'RE SUPER COMPLICATED" = "ОНИ СУПЕР СЛОЖНЫЕ"
 "THIRD ACT" = "ТРЕТИЙ АКТ"
 "THIRD PLACE" = "ТРЕТЬЕ МЕСТО"
+"THIS… IS NOT… ENOUGH…" = "ЭТОГО… НЕДОСТАТОЧНО…"
 "THREAT: CRITICAL CASCADE" = "УГРОЗА: КРИТИЧЕСКАЯ"
 "THREAT: MENACING" = "УГРОЗА: УМЕРЕННАЯ"
 "THREAT: MINIMAL" = "УГРОЗА: МИНИМАЛЬНАЯ"
@@ -29815,6 +29819,7 @@ TO = "В"
 "TOKEN OF THE LOTUS" = "СИМВОЛ ЛОТОС"
 "TONDO FLOOR PANEL" = "НАПОЛЬНАЯ ПАНЕЛЬ ТОНДО"
 "TOO LITTLE TOO LATE" = "СЛИШКОМ МАЛО, СЛИШКОМ ПОЗДНО"
+"TOO MUCH… LOSS…" = "СЛИШКОМ МНОГО… ПОТЕРЯНО…"
 TOP = "ТОП"
 "TOPIARY BUSH (LARGE)" = "КУСТ ТОПИАРА: БОЛЬШОЙ"
 "TOPIARY BUSH (SMALL)" = "КУСТ ТОПИАРА: МАЛЫЙ"
@@ -33340,6 +33345,7 @@ Volatile = "Взрывоопасный"
 "Voli Glyph" = "Глиф: Voli"
 "Volition Sigil" = "Сигил: Воля"
 "Volkeris Glyph" = "Глиф: Volkeris"
+"Volley Duration" = "Длительность залпа"
 Volnus = "Вольнус"
 "Volnus Prime" = "Вольнус Прайм"
 "Volnus Prime Handle" = "Вольнус Прайм: Рукоять"
@@ -33825,8 +33831,10 @@ Waypoint = "Точка"
 "We Shape Our Tools" = "Мы сами создаем своё оружие"
 "WeGame 2nd Anniversary Glyph" = "Глиф: Вторая годовщина WeGame"
 "WeGame TennoCon 2022 Glyph" = "- Глиф «WeGame: TennoCon-2022»"
+"Weak Point" = "Слабая точка"
 "Weak Point Damage" = "Урон по слабым местам"
 "Weak Point Horde" = "Слабое место Орды"
+"Weak Point Multiplier" = "Множитель Слабой Точки"
 "Weak Signal" = "Слабый сигнал"
 "Weaken Shielding" = "Ослабление щитов"
 "Weakened Crescent Vulpaphyla" = "Ослабленная серповидная вульпафила"
@@ -33868,7 +33876,7 @@ Weaponsmith = "Оружейник"
 Wed = "Ср"
 "Weekend Event Dethcube Deal" = "Купите куб Смерти в эти выходные!"
 "Weekly Ayatan Treasure Hunt" = "Охота за сокровищами Аятан (еженед.)"
-"Weekly Nightwave Acts Refreshed" = "Недельные деяния Ночной Волны обновлены"
+"Weekly Nightwave Acts Refreshed" = "Задачи Ночной волны были обновлены, Тэнно."
 "Weekly Purchase" = "Еженедельные Покупки"
 "Weeping Wounds" = "Стенающие Раны"
 "Weight Of Justice" = "Тяжесть Правосудия"
@@ -34849,9 +34857,16 @@ Zymos = "Зимос"
 "[PH] CONTINUE" = "[PH] ПРОДОЛЖИТЬ"
 "[PH] Drifter Fists" = "Гулепила: Двигатель"
 "[PH] Drifter Fists Description" = "ГУЛЕПИЛА: ДВИГАТЕЛЬ"
+"[PH] Heavy Attack Damage" = "Heavy Attack Damage"
 "[PH] Lamp Hazard" = "Рунический компакт"
 "[PH] Mounted Dax Arcus" = "Дакс Аркус"
-"[PH] Requires: " = "Требуется: "
+"[PH] Parry Angle" = "Parry Angle"
+"[PH] Setup Hint 0" = "Ваша персональная связка Криоколокола применяется в миссии независимо от того, какой Криоколокол был выбран отрядом."
+"[PH] Setup Hint 1" = "Связки миссий изменяют тематику Ледяной связки и добавляют элементы игрового процесса, с которыми можно взаимодействовать."
+"[PH] Setup Hint 2" = "Голосование по миссии начнётся только после того, как все игроки выберут Криоколокол. Перед началом голосования уделите время изучению доступных вариантов и спланируйте своё снаряжение соответствующим образом."
+"[PH] Setup Hint 3" = "Соберитесь у точки побочной цели, чтобы начать выполнение задания. В тексте цели будет указано, чего не хватает игрокам для начала задания."
+"[PH] Slam Damage" = "Slam Damage"
+"[PH] Test Key" = "[DEV_ONLY] Test Key"
 "[PH] Whisper Shot" = "Гулепила: Двигатель"
 "[PH][WIP] Energy Regen" = "Страдания Люсинии"
 "[PH][WIP] Staggering Brutality" = "Жестокий призыв"
@@ -35071,6 +35086,10 @@ BOUNTY = [
     "Сейчас вернусь [Завершить]",
     "Скоро вернусь. [Завершить]",
     "Ща вернусь. [Завершить]",
+]
+"Banshee Threnodia Collection" = [
+    "Коллекция Банши: Тренодия",
+    "Приготовьтесь к Тау",
 ]
 "Battered Thread" = [
     "Пробивная Нить",
@@ -36950,7 +36969,7 @@ Pushy = [
     "НОВЫЙ ИГРОВОЙ РЕЖИМ: ЛЕДЯНАЯ СВЯЗКА",
 ]
 "Qorvex Basilica Collection" = [
-    "Коллекция Корвекса «Базилика»",
+    "Варфрейм «Нарин»",
     "Коллекция Корвекса: Базилика",
 ]
 "Quaking Touch" = [

@@ -52122,6 +52122,680 @@ item = "/Lotus/Types/Items/MiscItems/NoraIntermissionNineCreds"
 count = 30
 
 [[vendor]]
+manifest = "/Lotus/Types/Game/VendorManifests/Events/RoadToTauEventVendorManifest"
+floating = true
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/EntNecraArmorTwo/EntNecraArmorTwoL"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 175
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/EntNecraArmorTwo/EntNecraArmorTwoA"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 175
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/EntNecraArmorTwo/EntNecraArmorTwoC"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 175
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Operator/Amp/EntratiAmpSkin"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 375
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/StoreItems/AvatarImages/VesselMaleGlyph"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 100
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/StoreItems/AvatarImages/VesselFemaleGlyph"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 100
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/StoreItems/AvatarImages/BabyNatahGlyph"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 100
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Items/ShipDecos/Plushies/PlushyBabyNatah"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 125
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Items/SongItems/DevourerSongItem"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 125
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Items/Titles/MoonfleshTitle"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 175
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Liset/PraghasaHoodOrnament"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 250
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Scarves/DraculaCapeSyandana"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 500
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Sigils/EpochOperationSigil"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 100
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Clan/EpochOperationEmblemItem"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 100
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/SentNewWarArmor/SentNewWarArmorL"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 75
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/SentNewWarArmor/SentNewWarArmorA"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 75
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Armor/SentNewWarArmor/SentNewWarArmorC"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 75
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Weapons/Sentients/SentOctaMiniGun/SentOctaMiniGun"
+limit = 1
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 150
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Scarves/ValdurBackCape"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 175
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Clan/SlingStoneEmblemItem"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 75
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Clan/CorpusVoidBadgeItem"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 75
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Clan/HiveSabotageEventBadgeItem"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 75
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Sigils/EnergySigilA"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 75
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Weapons/Corpus/Pistols/CorpusModularPistol/Vandal/CrpLaserPistolVandal"
+limit = 1
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 150
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Recipes/Weapons/SentRifleNewWarGunBlueprint"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 125
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Necramech/MechWeapon/MechEventCortegeSkin"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 125
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Necramech/MechWeapon/MechEventMorghaSkin"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 125
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Crowns/LaurelHaloCrown"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 100
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Items/DangerRoom/DangerRoomTileArena"
+limit = 1
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 125
+
+[[vendor.offer]]
+item = "/Lotus/Types/StoreItems/Packages/Calendar/CalendarKuvaBundleSmall"
+limit = 25
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 20
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/PickUps/Credits/10000Credits"
+limit = 100
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 3
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Mods/FusionBundles/AlertFusionBundleMedium"
+limit = 300
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 1
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Gameplay/NarmerSorties/ArchonCrystalAmarMythic"
+limit = 1
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 375
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Gameplay/NarmerSorties/ArchonCrystalBorealMythic"
+limit = 1
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 375
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Types/Gameplay/NarmerSorties/ArchonCrystalNiraMythic"
+limit = 1
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 375
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Mods/Fusers/LegendaryModFuser"
+limit = 1
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 500
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Sigils/ClanSigilBasicAdd"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 50
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Sigils/ClanSigilTwoTone"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 50
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/Skins/Sigils/ClanSigilMaskedEffect"
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 50
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/CosmeticEnhancers/Offensive/ArmorOnMeleeKill"
+limit = 42
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 5
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/CosmeticEnhancers/Offensive/MeleeDamageForActiveShields"
+limit = 42
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 5
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/CosmeticEnhancers/Offensive/MaxEnergyForArmor"
+limit = 42
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 8
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/CosmeticEnhancers/Offensive/AbilityPowerOnFreeze"
+limit = 42
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 8
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/CosmeticEnhancers/Offensive/DuplicateStatusOnKnock"
+limit = 42
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 8
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/CosmeticEnhancers/Offensive/HeavyCritOnRegularMelee"
+limit = 42
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 8
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/CosmeticEnhancers/Offensive/CorrosiveMeleePerAbilityCast"
+limit = 42
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 8
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/CosmeticEnhancers/Offensive/MeleeProcsSpread"
+limit = 42
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 8
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/CosmeticEnhancers/Offensive/PullEnemiesOnMeleeKill"
+limit = 42
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 8
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/CosmeticEnhancers/Offensive/OverguardSteal"
+limit = 42
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 8
+
+[[vendor.offer]]
+item = "/Lotus/StoreItems/Upgrades/CosmeticEnhancers/Offensive/BonusDamageNextShotForCurEnergy"
+limit = 42
+hours = [
+    24,
+    24,
+]
+bin = "BIN_0"
+always = true
+
+[[vendor.offer.price]]
+item = "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+count = 8
+
+[[vendor]]
 manifest = "/Lotus/Types/Game/VendorManifests/Events/ScarletSpearManifest"
 
 [[vendor.offer]]

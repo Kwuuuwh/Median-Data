@@ -4903,19 +4903,19 @@ ru = "Magnetic Damage"
 
 [phrase."/Lotus/Language/Omega/VerboseTrait_WeaponMeleeHeavyAttackChargeMod"]
 en = "[PH] Heavy Attack Windup Speed"
-ru = "[PH] Heavy Attack Windup Speed"
+ru = "Heavy Attack Windup Speed"
 
 [phrase."/Lotus/Language/Omega/VerboseTrait_WeaponMeleeHeavyAttackDamageMod"]
 en = "[PH] Heavy Attack Damage"
-ru = "[PH] Heavy Attack Damage"
+ru = "Heavy Attack Damage"
 
 [phrase."/Lotus/Language/Omega/VerboseTrait_WeaponMeleeParryAngleMod"]
 en = "[PH] Parry Angle"
-ru = "[PH] Parry Angle"
+ru = "Parry Angle"
 
 [phrase."/Lotus/Language/Omega/VerboseTrait_WeaponMeleeSlamDamageMod"]
 en = "[PH] Slam Damage"
-ru = "[PH] Slam Damage"
+ru = "Slam Damage"
 
 [phrase."/Lotus/Language/Omega/VerboseTrait_WeaponRadiationDamageMod"]
 en = "Radiation Damage"
