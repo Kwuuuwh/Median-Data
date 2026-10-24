@@ -6450,10 +6450,9 @@ en = """
 <LINE_SEPARATOR>\r
 Melee kills <DT_EXPLOSION_COLOR>Blast and stagger enemies in |STAT4|m"""
 ru = """
-+|STAT1| с к длительности комбо\r
-+|STAT2|% к скорострельности вторичного оружия\r
-<LINE_SEPARATOR>\r
-Убийства в ближнем бою наносят <DT_EXPLOSION_COLOR>взрывной урон и ошеломляют врагов в радиусе |STAT4| м."""
++|STAT1|s Combo Duration\r
++|STAT2|% Fire Rate for Secondary Weapons\r
+<LINE_SEPARATOR>"""
 
 [phrase."/Lotus/Language/Upgrades/FuraxLauncherPartCDesc"]
 en = """
