@@ -103,6 +103,8 @@ pub enum Grant {
     Weapon,
     /// Listed on the store item as coming with it.
     Bundled,
+    /// One of the arcanes a collection rolls from.
+    Pooled,
 }
 
 impl Grant {
@@ -110,6 +112,7 @@ impl Grant {
         match self {
             Grant::Weapon => "weapon",
             Grant::Bundled => "bundled",
+            Grant::Pooled => "pooled",
         }
     }
 }

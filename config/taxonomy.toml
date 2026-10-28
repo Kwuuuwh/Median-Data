@@ -264,6 +264,7 @@ kind = [
   { slug = "simulacrum", en = "Simulacrum", ru = "Симулякрум" },
   { slug = "quest-item", en = "Quest item", ru = "Квестовый предмет" },
   { slug = "bundle", en = "Bundle", ru = "Набор" },
+  { slug = "arcane-collection", en = "Arcane collection", ru = "Коллекция мистификаторов" },
   { slug = "misc", en = "Miscellaneous", ru = "Прочее" },
 ]
 
@@ -1009,6 +1010,11 @@ path_contains = ["/Types/Items/MiscItems/Forma"]
 kind = "gear"
 reason = "path: used from the gear wheel"
 path_contains = ["/Types/Items/MiscItems/InstantSalvageRepairItem"]
+
+[[rule]]
+kind = "arcane-collection"
+reason = "category: a stall's pack that rolls arcanes"
+category = ["BoosterPacks"]
 
 [[rule]]
 kind = "bundle"

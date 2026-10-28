@@ -80,3 +80,4 @@ name = "Sanctum Anatomica"
 ru = "Санктум Анатомика"
 tilesets = ["Albrecht's Laboratories"]
 settlements = ["Sanctum Anatomica"]
+vendors = ["roathe"]

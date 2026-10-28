@@ -34,3 +34,15 @@ name_equals = [
   "Axi Relic",
   "Requiem Relic",
 ]
+
+[[exclude]]
+reason = "DE record of an arcane nothing hands out: no drop, stall or collection rolls it"
+path_contains = [
+  "/Lotus/Upgrades/CosmeticEnhancers/Defensive/CorrosiveProcResist",
+  "/Lotus/Upgrades/CosmeticEnhancers/Defensive/GasProcResist",
+  "/Lotus/Upgrades/CosmeticEnhancers/Defensive/ImpactProcResist",
+  "/Lotus/Upgrades/CosmeticEnhancers/Defensive/PoisonProcResist",
+  "/Lotus/Upgrades/CosmeticEnhancers/Defensive/PunctureProcResist",
+  "/Lotus/Upgrades/CosmeticEnhancers/Utility/DamageReductionDuringRevive",
+  "/Lotus/Upgrades/CosmeticEnhancers/Utility/SlowerBleedOutOnPredeath",
+]

@@ -167,8 +167,8 @@ pub fn run(vault: &Vault, out: &Path) -> Result<()> {
         built.fitted
     );
     eprintln!(
-        "game     {} items linked to what comes with them, {} breeds hatched, {} vein yields",
-        built.granted, built.hatched, built.mined
+        "game     {} items linked to what comes with them, {} arcanes to their collections, {} breeds hatched, {} vein yields",
+        built.granted, built.packed, built.hatched, built.mined
     );
     eprintln!(
         "spawns   {} nodes linked to {} enemy spawns, {} rostered enemies no drop table knows",
@@ -628,6 +628,14 @@ pub fn graph_with(vault: &Vault, curated: &Curation) -> Result<Built> {
     });
     ru.insert(PLEXUS.to_string(), "Плексус".to_string());
 
+    let packs = crate::game::packed(Path::new(crate::GAME))?;
+    for (item, name_ru) in crate::packs::items(&packs) {
+        if let Some(name_ru) = name_ru {
+            ru.insert(item.unique_name.clone(), name_ru);
+        }
+        de.push(item);
+    }
+
     let recipes = extract::de_recipes(&blob(vault, &de_snap, spec::RECIPES)?)?;
     let rewards = extract::de_rewards(&blob(vault, &de_snap, spec::RELICS)?)?;
 
@@ -704,6 +712,7 @@ pub fn graph_with(vault: &Vault, curated: &Curation) -> Result<Built> {
             dojo,
             stalls: crate::game::sold(Path::new(crate::GAME))?,
             grants: crate::game::granted(Path::new(crate::GAME))?,
+            packs,
             incubator: crate::game::hatched(Path::new(crate::GAME))?,
             mining: crate::game::mined(Path::new(crate::GAME))?,
             spawns: crate::game::spawned(Path::new(crate::GAME))?,

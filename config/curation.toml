@@ -754,6 +754,46 @@ ru = "Дувирийский путь"
 
 [[term]]
 kind = "place"
+key = "The Descendia: Infernum 20 Triple Arcane Rewards"
+ru = "Спуск: Инферно, этаж 20 — три мистификатора"
+
+[[term]]
+kind = "place"
+key = "The Descendia: Infernum 6 and 13 Arcane Rewards"
+ru = "Спуск: Инферно, этажи 6 и 13 — мистификатор"
+
+[[term]]
+kind = "place"
+key = "Duviri Murmur Invasion"
+ru = "Вторжение Шёпота в Дувири"
+
+[[term]]
+kind = "place"
+key = "Duviri Static Undercroft Portal"
+ru = "Дувири: постоянный портал в Подземелье"
+
+[[term]]
+kind = "place"
+key = "The Icebind"
+ru = "Ледяная связка"
+
+[[term]]
+kind = "place"
+key = "Crested Frozen Chests"
+ru = "гербовые замороженные сундуки"
+
+[[term]]
+kind = "place"
+key = "Frozen Chests"
+ru = "замороженные сундуки"
+
+[[term]]
+kind = "place"
+key = "Help Clem Retrieve The Relic"
+ru = "Помогите Клему заполучить Реликвию"
+
+[[term]]
+kind = "place"
 key = "Duviri Full Experience (Steel Path)"
 ru = "Дувирийский путь (Стальной путь)"
 

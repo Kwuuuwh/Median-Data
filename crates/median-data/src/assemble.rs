@@ -66,6 +66,8 @@ pub struct Built {
     pub imprinted: usize,
     /// Items linked to what comes along with them.
     pub granted: usize,
+    /// Arcanes linked to the collections that roll them.
+    pub packed: usize,
     /// Breeds an incubation can turn out.
     pub hatched: usize,
     /// Yields of the open worlds' veins.
@@ -146,6 +148,8 @@ pub struct Input {
     pub spoken: crate::game::Names,
     /// What the game hands over along with an item, distilled out of its cache.
     pub grants: crate::grants::Grants,
+    /// The arcane collections the stalls sell, distilled out of its cache.
+    pub packs: crate::packs::Packs,
     /// What the incubator hatches, distilled out of its cache.
     pub incubator: crate::incubator::Incubator,
     /// What the open worlds' veins yield, distilled out of its cache.
@@ -257,6 +261,7 @@ pub fn assemble(
     let primed = primes::link(&mut graph);
     let fitted = drifters::link(&mut graph);
     let granted = crate::grants::link(&mut graph, &input.grants);
+    let packed = crate::packs::link(&mut graph, &input.packs);
     let hatched = crate::incubator::link(&mut graph, &input.incubator);
     let mined = crate::mining::link(&mut graph, &input.mining, ground.areas);
 
@@ -357,6 +362,7 @@ pub fn assemble(
         fitted,
         imprinted,
         granted,
+        packed,
         hatched,
         mined,
         haunted,

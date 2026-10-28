@@ -34,6 +34,7 @@ mod names;
 mod normalize;
 mod offers;
 mod orphans;
+mod packs;
 mod paths;
 mod phrases;
 mod pools;

@@ -156,7 +156,6 @@ verbatim = [
     "Am1rb0t",
     "Amalthea",
     "Amarna",
-    "Ammo Efficiency",
     "Amp",
     "Amuga",
     "Ananke",
@@ -283,7 +282,6 @@ verbatim = [
     "Bizkit",
     "Blacklight",
     "Blade",
-    "Blast Damage",
     "Blaster",
     "Blaze",
     "Blind",
@@ -512,7 +510,6 @@ verbatim = [
     "Corey",
     "Corporal",
     "Corpus Greed",
-    "Corrosive Damage",
     "Corrupt",
     "Corrupted",
     "Cosis",
@@ -582,9 +579,6 @@ verbatim = [
     "DaCharts",
     "DaSystem",
     "Dakata",
-    "Damage vs Orokin",
-    "Damage vs Scaldra",
-    "Damage vs Techrot",
     "Damp",
     "Dance",
     "Dancin'",
@@ -882,7 +876,6 @@ verbatim = [
     "Garus",
     "Gary",
     "Gas",
-    "Gas Damage",
     "Gasket",
     "Gasser",
     "Gate",
@@ -1318,12 +1311,10 @@ verbatim = [
     "Macro",
     "Macros",
     "Mad",
-    "Magazine Reload While Holstered",
     "Magic",
     "Magical",
     "Magnacidium",
     "Magnet",
-    "Magnetic Damage",
     "Main",
     "Main Menu",
     "MainStage",
@@ -1782,7 +1773,6 @@ verbatim = [
     "Raccoons",
     "Rad",
     "Radial",
-    "Radiation Damage",
     "Radical",
     "Radicals",
     "Radius",
@@ -2069,7 +2059,6 @@ verbatim = [
     "Start Match",
     "Station",
     "Stattix",
-    "Status Damage",
     "Stealth",
     "Steam",
     "Steel",
@@ -2363,7 +2352,6 @@ verbatim = [
     "Ville",
     "Vinyl",
     "Viper",
-    "Viral Damage",
     "Virus",
     "Vitamin",
     "Viver",
@@ -2403,8 +2391,6 @@ verbatim = [
     "We All Lift Together",
     "WeAre",
     "WeShould",
-    "Weak Point Critical Chance",
-    "Weak Point Damage",
     "Weapon Research",
     "Web",
     "Weed",
@@ -4472,6 +4458,7 @@ Amiracle = "Амирчудо"
 "Ammo Chain" = "Цепь боеприпасов"
 "Ammo Deficit" = "Дефицит боеприпасов"
 "Ammo Drum" = "Барабанный магазин"
+"Ammo Efficiency" = "Эффективность Боеприпасов"
 "Ammo Scarcity" = "Нехватка боеприпасов"
 "Ammo Stock" = "Патронташ"
 Amniophysi = "Амниофиз"
@@ -6170,6 +6157,7 @@ Blackout = "Блэкаут"
 "Bladeswarm Vectis Skin" = "Скин Вектиса: Рой клинков"
 "Bladeswarm Weaver" = "Уивер Роя Клинков"
 Blast = "Взрыв"
+"Blast Damage" = "Взрывной урон"
 "Blast Radius" = "Радиус взрыва"
 Blaze = "Пламя"
 "Blaze Artillery" = "Полыхающая Артиллерия"
@@ -8773,6 +8761,7 @@ Corralizer = "Корралайзер"
 "Corralizer Armament" = "Вооружение корралайзера"
 Correction = "Службы Коррекций"
 Corrosive = "Коррозия"
+"Corrosive Damage" = "Коррозийный урон"
 "Corrosive Grit" = "Коррозийная стойкость"
 "Corrosive Projection" = "Коррозийный выброс"
 "Corrosive Wave" = "Коррозийная Волна"
@@ -9610,6 +9599,9 @@ Damage = "Урон"
 "Damage to Orokin" = "Урон Орокин"
 "Damage to Red Veil" = "Урона Красной Вуали"
 "Damage to Sentients" = "Урона Владеющим Разумом"
+"Damage vs Orokin" = "Урон Орокин"
+"Damage vs Scaldra" = "Урон Скальдре"
+"Damage vs Techrot" = "Урон Техроту"
 Damaged = "Повреждена"
 "Damaged Beak" = "Повреждённый клюв"
 "Damaged Bonewidow Casing" = "Костяная Вдова: Повреждённый Каркас"
@@ -12259,7 +12251,7 @@ Escape = "Побег"
 "Eskhatos Grimoire Skin" = "Скин Гримуара: Эсхатос"
 "Eskhatos Ki'Teer Chest Guard" = "Нагрудник: Ки'Тиир Эсхатос"
 "Eskhatos Ki'Teer Ephemera" = "Эфемера: Ки'Тиир Эсхатос"
-"Eskhatos Ki'Teer Floof" = " Пушистик «Ки'Тиир Эсхатос»"
+"Eskhatos Ki'Teer Floof" = "Пушистик: Ки'Тиир Эсхатос"
 "Eskhatos Ki'Teer Glyph" = "Глиф: Ки'Тиир Эскатос"
 "Eskhatos Ki'Teer Knee Guards" = "Наголенники: Ки'Тиир Эсхатос"
 "Eskhatos Ki'Teer Shoulder Guards" = "Наплечники: Ки'Тиир Эсхатос"
@@ -14188,6 +14180,7 @@ Gas = "Газ"
 "Gas City Lobby Scene" = "Сцена: Газовый город - Вестибюль"
 "Gas City Regulators Scene" = "Сцена: Газовый город - Распределители"
 "Gas City Walkway Scene" = "Сцена: Газовый город - Аллея"
+"Gas Damage" = "Газовый урон"
 "Gas Infested Hive" = "Газовый Улей Заражённых"
 "Gaseous Quake" = "Газовое землетрясение"
 Gash = "Разрез"
@@ -19378,6 +19371,7 @@ Mag = "Мэг"
 "Mag in Action Glyph" = "Глиф: Мэг в деле"
 "Magazine Capacity" = "Размер магазина"
 "Magazine Extension" = "Расширение магазина"
+"Magazine Reload While Holstered" = "Перезарядка магазина в кобуре"
 "Magazine Warp" = "Искажение магазина"
 "Maggor Armor Bundle" = "Набор брони: Маггор"
 "Maggor Assault Pack" = "Набор: Нападение Маггора"
@@ -19412,6 +19406,7 @@ Magnetic = "Магнит"
 "Magnetic Capacity" = "Магнитная вместимость"
 "Magnetic Claws" = "Магнитные когти"
 "Magnetic Crunch" = "Магнитное Дробление"
+"Magnetic Damage" = "Магнитный урон"
 "Magnetic Flare" = "Магнитная Вспышка"
 "Magnetic Mastermind" = "Магнитный гений"
 "Magnetic Menace" = "Магнитная Угроза"
@@ -25025,7 +25020,7 @@ RISES = "ВОЗВЫШАЕТСЯ"
 "RISING ACTION" = "НА ПУТИ К ВЕРШИНАМ"
 RIVEN = "РАЗЛОМЫ"
 "RIVEN DISPOSITION" = "СИНЕРГИЯ С РАЗЛОМОМ"
-"RIVEN MOD SLOTS" = "RIVEN MOD SLOT"
+"RIVEN MOD SLOTS" = "СЛОТ МОДА РАЗЛОМА"
 "RIVEN TRAIT LOCKING" = "БЛОКИРОВКА ХАРАКТЕРИСТИК МОДОВ РАЗЛОМА"
 "RIVEN TRANSMUTE" = "ТРАНСМУТАЦИЯ МОДОВ РАЗЛОМА"
 "RIVEN UNVEILED" = "МОД РАЗЛОМА ОТКРЫТ"
@@ -25099,6 +25094,7 @@ Race = "Гонка"
 "Radiated Damage" = "Доп. Урон Под Радиацией"
 "Radiated Reload" = "Радиационная перезарядка"
 Radiation = "Радиация"
+"Radiation Damage" = "Радиационный урон"
 "Radiation Hazard" = "Радиационная угроза"
 Radiator = "Плавильщик"
 "Radio Tower (Base)" = "Радиовышка (основание)"
@@ -33104,6 +33100,7 @@ Viper = "Гадюка"
 "Viper Wraith" = "Гадюка Призрак"
 "Viper's Bite" = "Укус Гадюки"
 Viral = "Вирус"
+"Viral Damage" = "Вирусный урон"
 "Viral Mist" = "Вирусный Туман"
 "Viral Quills" = "Вирусные Иглы"
 "Viral Tempest" = "Вирусный шторм"
@@ -33832,7 +33829,7 @@ Waypoint = "Точка"
 "WeGame 2nd Anniversary Glyph" = "Глиф: Вторая годовщина WeGame"
 "WeGame TennoCon 2022 Glyph" = "- Глиф «WeGame: TennoCon-2022»"
 "Weak Point" = "Слабая точка"
-"Weak Point Damage" = "Урон по слабым местам"
+"Weak Point Critical Chance" = "Шанс Критического Урона по Слабым точкам"
 "Weak Point Horde" = "Слабое место Орды"
 "Weak Point Multiplier" = "Множитель Слабой Точки"
 "Weak Signal" = "Слабый сигнал"
@@ -34857,15 +34854,15 @@ Zymos = "Зимос"
 "[PH] CONTINUE" = "[PH] ПРОДОЛЖИТЬ"
 "[PH] Drifter Fists" = "Гулепила: Двигатель"
 "[PH] Drifter Fists Description" = "ГУЛЕПИЛА: ДВИГАТЕЛЬ"
-"[PH] Heavy Attack Damage" = "Heavy Attack Damage"
+"[PH] Heavy Attack Damage" = "Урон тяжелой атаки"
 "[PH] Lamp Hazard" = "Рунический компакт"
 "[PH] Mounted Dax Arcus" = "Дакс Аркус"
-"[PH] Parry Angle" = "Parry Angle"
+"[PH] Parry Angle" = "Угол блокирования"
 "[PH] Setup Hint 0" = "Ваша персональная связка Криоколокола применяется в миссии независимо от того, какой Криоколокол был выбран отрядом."
 "[PH] Setup Hint 1" = "Связки миссий изменяют тематику Ледяной связки и добавляют элементы игрового процесса, с которыми можно взаимодействовать."
 "[PH] Setup Hint 2" = "Голосование по миссии начнётся только после того, как все игроки выберут Криоколокол. Перед началом голосования уделите время изучению доступных вариантов и спланируйте своё снаряжение соответствующим образом."
 "[PH] Setup Hint 3" = "Соберитесь у точки побочной цели, чтобы начать выполнение задания. В тексте цели будет указано, чего не хватает игрокам для начала задания."
-"[PH] Slam Damage" = "Slam Damage"
+"[PH] Slam Damage" = "Урон удара по земле"
 "[PH] Test Key" = "[DEV_ONLY] Test Key"
 "[PH] Whisper Shot" = "Гулепила: Двигатель"
 "[PH][WIP] Energy Regen" = "Страдания Люсинии"
@@ -37873,6 +37870,10 @@ Wave = [
 Weak = [
     "Слабая",
     "Слабый",
+]
+"Weak Point Damage" = [
+    "Урон по слабым местам",
+    "Урон по слабым точкам",
 ]
 Weak-Willed = [
     "Слабовольная",

@@ -42,6 +42,7 @@ const INCUBATOR: &str = "incubator.toml";
 const MINING: &str = "mining.toml";
 const SPAWNS: &str = "spawns.toml";
 const PHRASES: &str = "phrases.toml";
+const PACKS: &str = "packs.toml";
 
 /// Which client the distillate was taken from.
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
@@ -136,6 +137,11 @@ pub fn sold(dir: &Path) -> Result<Vec<Stall>> {
 /// What the game hands over along with an item, as the last extract left it.
 pub fn granted(dir: &Path) -> Result<grants::Grants> {
     distilled(dir, GRANTS)
+}
+
+/// The arcane collections the stalls sell, as the last extract left it.
+pub fn packed(dir: &Path) -> Result<crate::packs::Packs> {
+    distilled(dir, PACKS)
 }
 
 /// What the incubator takes and hatches, as the last extract left it.
@@ -265,6 +271,20 @@ pub fn run(cache: &Path, out_dir: &Path) -> Result<()> {
         "# Written by `median-data extract` from the game cache: what the game hands over\n\
          # along with an item, in the game's own paths.\n\n",
         &grants,
+    )?;
+
+    let sold: BTreeSet<&str> = stalls
+        .vendor
+        .iter()
+        .flat_map(|stall| stall.offer.iter().map(|offer| offer.item.as_str()))
+        .collect();
+    let packs = crate::packs::read(&lineage, &tables["en"], &tables["ru"], &sold);
+    eprintln!("cache    {} arcane collections", packs.pack.len());
+    write(
+        &out_dir.join(PACKS),
+        "# Written by `median-data extract` from the game cache: the arcane collections the\n\
+         # stalls sell and the arcanes each rolls from, in the game's own paths.\n\n",
+        &packs,
     )?;
 
     let incubator = incubator::read(&lineage, &tables["en"], &tables["ru"]);

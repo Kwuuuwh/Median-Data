@@ -4867,75 +4867,75 @@ ru = "tox"
 
 [phrase."/Lotus/Language/Omega/VerboseTrait_WeaponAmmoEfficiency"]
 en = "Ammo Efficiency"
-ru = "Ammo Efficiency"
+ru = "Эффективность Боеприпасов"
 
 [phrase."/Lotus/Language/Omega/VerboseTrait_WeaponBlastDamageMod"]
 en = "Blast Damage"
-ru = "Blast Damage"
+ru = "Взрывной урон"
 
 [phrase."/Lotus/Language/Omega/VerboseTrait_WeaponCorrosiveDamageMod"]
 en = "Corrosive Damage"
-ru = "Corrosive Damage"
+ru = "Коррозийный урон"
 
 [phrase."/Lotus/Language/Omega/VerboseTrait_WeaponFactionDamageOrokin"]
 en = "Damage vs Orokin"
-ru = "Damage vs Orokin"
+ru = "Урон Орокин"
 
 [phrase."/Lotus/Language/Omega/VerboseTrait_WeaponFactionDamageScaldra"]
 en = "Damage vs Scaldra"
-ru = "Damage vs Scaldra"
+ru = "Урон Скальдре"
 
 [phrase."/Lotus/Language/Omega/VerboseTrait_WeaponFactionDamageTechrot"]
 en = "Damage vs Techrot"
-ru = "Damage vs Techrot"
+ru = "Урон Техроту"
 
 [phrase."/Lotus/Language/Omega/VerboseTrait_WeaponGasDamageMod"]
 en = "Gas Damage"
-ru = "Gas Damage"
+ru = "Газовый урон"
 
 [phrase."/Lotus/Language/Omega/VerboseTrait_WeaponMagazineReloadHolstered"]
 en = "Magazine Reload While Holstered"
-ru = "Magazine Reload While Holstered"
+ru = "Перезарядка магазина в кобуре"
 
 [phrase."/Lotus/Language/Omega/VerboseTrait_WeaponMagneticDamageMod"]
 en = "Magnetic Damage"
-ru = "Magnetic Damage"
+ru = "Магнитный урон"
 
 [phrase."/Lotus/Language/Omega/VerboseTrait_WeaponMeleeHeavyAttackChargeMod"]
 en = "[PH] Heavy Attack Windup Speed"
-ru = "Heavy Attack Windup Speed"
+ru = "Скорость взмахов тяжелых атак"
 
 [phrase."/Lotus/Language/Omega/VerboseTrait_WeaponMeleeHeavyAttackDamageMod"]
 en = "[PH] Heavy Attack Damage"
-ru = "Heavy Attack Damage"
+ru = "Урон тяжелой атаки"
 
 [phrase."/Lotus/Language/Omega/VerboseTrait_WeaponMeleeParryAngleMod"]
 en = "[PH] Parry Angle"
-ru = "Parry Angle"
+ru = "Угол блокирования"
 
 [phrase."/Lotus/Language/Omega/VerboseTrait_WeaponMeleeSlamDamageMod"]
 en = "[PH] Slam Damage"
-ru = "Slam Damage"
+ru = "Урон удара по земле"
 
 [phrase."/Lotus/Language/Omega/VerboseTrait_WeaponRadiationDamageMod"]
 en = "Radiation Damage"
-ru = "Radiation Damage"
+ru = "Радиационный урон"
 
 [phrase."/Lotus/Language/Omega/VerboseTrait_WeaponStatusDamage"]
 en = "Status Damage"
-ru = "Status Damage"
+ru = "Статусный урон"
 
 [phrase."/Lotus/Language/Omega/VerboseTrait_WeaponViralDamageMod"]
 en = "Viral Damage"
-ru = "Viral Damage"
+ru = "Вирусный урон"
 
 [phrase."/Lotus/Language/Omega/VerboseTrait_WeaponWeakpointCriticalChance"]
 en = "Weak Point Critical Chance"
-ru = "Weak Point Critical Chance"
+ru = "Шанс Критического Урона по Слабым точкам"
 
 [phrase."/Lotus/Language/Omega/VerboseTrait_WeaponWeakpointDamage"]
 en = "Weak Point Damage"
-ru = "Weak Point Damage"
+ru = "Урон по слабым точкам"
 
 [phrase."/Lotus/Language/Omega/ViralPrefix"]
 en = "cari"
@@ -6161,7 +6161,7 @@ ru = "|val| шанс критического урона при попадани
 
 [phrase."/Lotus/Language/Upgrades/CritChanceOnHeadshots"]
 en = "|val|% Critical Chance on Weak Point Hits"
-ru = "|val|% к шансу критического урона при попадании в слабые точки"
+ru = "|val|% к шансу критического урона при попадании в Слабые Точки"
 
 [phrase."/Lotus/Language/Upgrades/CritChanceOnOvershield"]
 en = "While Overshields Active: +|AMOUNT|% Critical Chance"
@@ -7902,7 +7902,7 @@ ru = "При наложении статуса <DT_FREEZE_COLOR>холода"
 
 [phrase."/Lotus/Language/Upgrades/OnConsecutiveHeadshotCondition_Description"]
 en = "On Consecutive Weak Point Hits"
-ru = "При последовательных попаданиях в слабые точки."
+ru = "При последовательных попаданиях в Слабые Точки"
 
 [phrase."/Lotus/Language/Upgrades/OnCritCondition_Description"]
 en = "On Critical Hit"
@@ -8098,7 +8098,7 @@ ru = "При попадании в голову из пистолета"
 
 [phrase."/Lotus/Language/Upgrades/OnPistolWeakPointKillCondition_Description"]
 en = "On Pistol Weak Point Kill"
-ru = "Убийство выстрелом в голову из пистолета"
+ru = "Убийство выстрелом в Слабую Точку из пистолета"
 
 [phrase."/Lotus/Language/Upgrades/OnPreDeath_Description"]
 en = "On Predeath"
@@ -9714,7 +9714,7 @@ ru = "Перезарядка переключает оружие между 100%
 
 [phrase."/Lotus/Language/Upgrades/ZarimanWeaponAltFireUnlockDesc"]
 en = "Weak Point hits charge Incarnon Transmutation; Alt Fire transmutes. Switching back will expend any remaining charge."
-ru = "Прямые попадания в слабые точки заряжают инкарнонские трансмутации. Кнопка переключения на альтернативный режим огня включает инкарнонский режим. Переключение назад тратит остаточный заряд."
+ru = "Прямые попадания в Слабые Точки заряжают инкарнонские трансмутации. Кнопка переключения на альтернативный режим огня включает инкарнонский режим. Переключение назад тратит остаточный заряд."
 
 [phrase."/Lotus/Language/Upgrades/ZarimanWeaponDirectHitAltFireUnlockDesc"]
 en = "Direct hits charge Incarnon Transmutation; Alt Fire transmutes. Switching back will expend any remaining charge."
