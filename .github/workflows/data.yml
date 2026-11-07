@@ -116,6 +116,31 @@ jobs:
             --notes-file "$NOTES" \
             ${{ steps.package.outputs.draft }}
 
+      # Every schema keeps a release of its own, `schema-<N>`, holding the newest files built for
+      # it. An application reads the one its build was made for, so a draft above still reaches
+      # the builds that know the new schema, and a stable and a preview build on different
+      # schemas are both served. The names never change, so each run just replaces the files.
+      # It is never marked latest: older builds read `releases/latest` and must not land here.
+      - name: Publish to the schema's release
+        if: steps.package.outputs.publish == 'true'
+        run: |
+          SCHEMA=$(jq -r .schema dist/manifest.json)
+          TAG="schema-$SCHEMA"
+          PARTS=()
+          for f in dist/*; do
+            if [ "$f" != dist/manifest.json ]; then PARTS+=("$f"); fi
+          done
+          if gh release view "$TAG" > /dev/null 2>&1; then
+            gh release upload "$TAG" "${PARTS[@]}" --clobber
+          else
+            gh release create "$TAG" "${PARTS[@]}" \
+              --title "Schema $SCHEMA" \
+              --notes "The newest catalog for applications built on schema $SCHEMA. Every published build replaces these files." \
+              --latest=false
+          fi
+          # The manifest goes last: a client that reads it finds every part it names in place.
+          gh release upload "$TAG" dist/manifest.json --clobber
+
       - name: Keep the vault for the next run
         if: steps.check.outputs.moved == 'true' || inputs.force == true
         uses: actions/cache/save@v4
